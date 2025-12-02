@@ -30,18 +30,18 @@
 
 	&[aria-expanded='true'] {
 		& .activatorText {
-			color: var(--token-color-foreground-primary);
+			color: var(--mds-color-foreground-primary);
 		}
 
 		& .activatorTrailingIcon {
-			color: var(--token-color-foreground-primary);
+			color: var(--mds-color-foreground-primary);
 			transform: rotate(-180deg);
 		}
 	}
 }
 
 .activatorText {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-right: 6px;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .activatorTrailingIcon {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
@@ -59,7 +59,7 @@
 }
 
 .dropdownContainer {
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 	box-shadow: var(--token-elevation-higher-box-shadow);
@@ -74,8 +74,8 @@
 .itemGroupDivider {
 	margin-bottom: 20px;
 	margin-top: 20px;
-	color: var(--token-color-border-primary);
-	background-color: var(--token-color-border-primary);
+	color: var(--mds-color-border-primary);
+	background-color: var(--mds-color-border-primary);
 }
 
 .itemGroup {
@@ -103,7 +103,7 @@
 	/* CSS Properties */
 	align-items: center;
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	padding: 8px;
 	text-decoration: none;
@@ -115,7 +115,7 @@
 
 	/* Only apply hover styles to the text */
 	&:hover .itemText {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 		text-decoration: underline;
 	}
 }
@@ -126,15 +126,15 @@
 		cursor: not-allowed;
 
 		& .itemText {
-			color: var(--token-color-foreground-disabled);
+			color: var(--mds-color-foreground-disabled);
 			text-decoration: none;
 		}
 	}
 
 	/* Make sure everything has the disabled color */
 	& * {
-		color: var(--token-color-foreground-disabled);
-		fill: var(--token-color-foreground-disabled);
+		color: var(--mds-color-foreground-disabled);
+		fill: var(--mds-color-foreground-disabled);
 	}
 }
 

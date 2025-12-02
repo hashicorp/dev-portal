@@ -5,5 +5,5 @@
 
 .body {
 	composes: hds-typography-body-100 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }

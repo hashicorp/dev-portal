@@ -5,28 +5,28 @@
 
 .sidebarLink {
 	composes: g-focus-ring-from-box-shadow from global;
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	border-radius: 5px;
 	border: none;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	padding: 8px;
 	position: relative;
 	text-align: left;
 	width: 100%;
 
 	&:focus {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
 	/* Hover state includes background color change */
 	&:hover {
-		color: var(--token-color-foreground-strong);
-		background-color: var(--token-color-palette-neutral-100);
+		color: var(--mds-color-foreground-strong);
+		background-color: var(--mds-color-palette-neutral-100);
 	}
 
 	/* Highlight state for current page */
 	&[aria-current='page'] {
-		color: var(--token-color-foreground-strong);
-		background-color: var(--token-color-palette-neutral-200);
+		color: var(--mds-color-foreground-strong);
+		background-color: var(--mds-color-palette-neutral-200);
 	}
 }

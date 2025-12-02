@@ -16,7 +16,7 @@
        Using padding to achieve this throws off the alignment 
        of .selectTrailingIcon */
 		&::after {
-			background: var(--token-color-foreground-action);
+			background: var(--mds-color-foreground-action);
 			bottom: -4px;
 			content: '';
 			height: 1px;
@@ -38,13 +38,13 @@
 
 .leadingIcon {
 	composes: icons;
-	color: var(--token-color-foreground-action);
+	color: var(--mds-color-foreground-action);
 	left: 12px;
 }
 
 .selectTrailingIcon {
 	composes: icons;
-	color: var(--token-color-palette-neutral-600);
+	color: var(--mds-color-palette-neutral-600);
 	right: 12px;
 }
 
@@ -55,10 +55,10 @@
 
 	/* properties */
 	appearance: none;
-	background-color: var(--token-color-surface-action);
+	background-color: var(--mds-color-surface-action);
 	border-radius: 5px;
-	border: 1px solid var(--token-color-foreground-action);
-	color: var(--token-color-foreground-action);
+	border: 1px solid var(--mds-color-foreground-action);
+	color: var(--mds-color-foreground-action);
 	cursor: pointer;
 	font-weight: var(--token-typography-font-weight-medium);
 	padding: 7px 40px 7px 12px;
@@ -67,7 +67,7 @@
 	/* In nested tabs, no background, no border */
 	&.isNested {
 		border-color: transparent;
-		background-color: var(--token-color-surface-primary);
+		background-color: var(--mds-color-surface-primary);
 		padding-left: 8px;
 	}
 
@@ -81,6 +81,6 @@
 	composes: hds-typography-body-200 from global;
 
 	/* properties */
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	font-weight: var(--token-typography-font-weight-regular);
 }

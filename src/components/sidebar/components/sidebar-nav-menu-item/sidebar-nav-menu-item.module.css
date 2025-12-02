@@ -6,10 +6,10 @@
 .sidebarNavMenuItem {
 	composes: g-focus-ring-from-box-shadow from global;
 	align-items: center;
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	border-radius: 5px;
 	border: none;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 2px;
@@ -23,12 +23,12 @@
 	&:hover,
 	&[aria-current='page'],
 	&[aria-expanded='true'] {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
 	/* AKA active */
 	&[aria-current='page'] {
-		background-color: var(--token-color-palette-neutral-200);
+		background-color: var(--mds-color-palette-neutral-200);
 	}
 
 	& svg {
@@ -56,7 +56,7 @@
   should be defined after them.
   */
 	&:hover {
-		background-color: var(--token-color-palette-neutral-100);
+		background-color: var(--mds-color-palette-neutral-100);
 	}
 
 	/*
@@ -75,15 +75,15 @@
 		cursor: not-allowed;
 
 		& .navMenuItemLabel {
-			color: var(--token-color-foreground-disabled);
+			color: var(--mds-color-foreground-disabled);
 			text-decoration: none;
 		}
 	}
 
 	/* Make sure everything has the disabled color */
 	& * {
-		color: var(--token-color-foreground-disabled);
-		fill: var(--token-color-foreground-disabled);
+		color: var(--mds-color-foreground-disabled);
+		fill: var(--mds-color-foreground-disabled);
 	}
 }
 

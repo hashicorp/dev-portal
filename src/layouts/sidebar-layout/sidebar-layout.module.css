@@ -12,7 +12,7 @@
 
 .sidebarArea {
 	/* Note that --navigation-header-height is set by BaseLayout styles */
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	box-shadow: var(--token-surface-base-box-shadow);
 	display: none;
 	flex-grow: 0;

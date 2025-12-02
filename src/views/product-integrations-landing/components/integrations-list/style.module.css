@@ -51,7 +51,7 @@
 		}
 
 		& .viewDetails {
-			color: var(--token-color-foreground-strong);
+			color: var(--mds-color-foreground-strong);
 			flex-shrink: 0;
 			font-size: 14px;
 			display: flex;
@@ -71,27 +71,27 @@
 
 .version {
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	font-weight: var(--token-typography-font-weight-medium);
 	margin-left: 8px;
 }
 
 .heading {
 	composes: hds-typography-body-300 from global;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	font-weight: var(--token-typography-font-weight-semibold);
 }
 
 .organization {
 	composes: hds-typography-body-100 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: flex;
 	margin-bottom: 8px;
 }
 
 .body {
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
 
 /* Border via https://kovart.github.io/dashed-border-generator */
@@ -106,7 +106,7 @@
 .noResultsTitle {
 	composes: hds-typography-body-300 from global;
 	font-weight: var(--token-typography-font-weight-semibold);
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-top: 0;
 	margin-bottom: 4px;
 }
@@ -114,7 +114,7 @@
 .noResultsDescription {
 	composes: hds-typography-body-300 from global;
 	font-weight: var(--token-typography-font-weight-regular);
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-top: 0;
 	margin-bottom: 16px;
 }

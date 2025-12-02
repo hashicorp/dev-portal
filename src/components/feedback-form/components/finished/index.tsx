@@ -14,7 +14,7 @@ const Finished: React.FC<{ text: FeedbackFormProps['finishedText'] }> = ({
 	text: FeedbackFormProps['finishedText']
 }) => (
 	<div className={s.finished}>
-		<IconCheckCircle24 color="var(--token-color-foreground-success-on-surface)" />
+		<IconCheckCircle24 color="var(--mds-color-foreground-success-on-surface)" />
 		{text}
 	</div>
 )

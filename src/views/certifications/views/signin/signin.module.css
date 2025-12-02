@@ -41,7 +41,7 @@
 
 .mainCta {
 	padding: 24px;
-	background-color: var(--token-color-surface-action);
+	background-color: var(--mds-color-surface-action);
 	@nest html[data-theme='dark'] & {
 		background-color: #111f37;
 	}
@@ -66,20 +66,20 @@
 .mainCtaTitle {
 	font-size: 18px;
 	font-weight: 700;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .mainCtaDescription {
 	font-size: var(--token-typography-body-200-font-size);
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
 
 .mainCtaLinkText {
 	& span {
-		color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
 
 		@nest html[data-theme='dark'] & {
-			color: var(--token-color-foreground-strong);
+			color: var(--mds-color-foreground-strong);
 		}
 	}
 }
@@ -88,7 +88,7 @@
 
 .footer {
 	padding: 64px 0;
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	margin-top: 48px;
 }
 

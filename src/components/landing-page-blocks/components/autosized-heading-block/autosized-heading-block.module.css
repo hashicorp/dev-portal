@@ -5,7 +5,7 @@
 
 .root {
 	composes: g-offset-scroll-margin-top from global;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	&.h2 {
 		margin-bottom: 24px;

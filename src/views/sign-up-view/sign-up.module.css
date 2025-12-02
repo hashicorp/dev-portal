@@ -14,7 +14,7 @@
 }
 
 .main {
-	background-color: var(--token-color-foreground-high-contrast);
+	background-color: var(--mds-color-foreground-high-contrast);
 	padding-bottom: 76px;
 	padding-left: 24px;
 	padding-right: 24px;
@@ -42,7 +42,7 @@
 }
 
 .heading {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-bottom: 24px;
 }
 
@@ -60,7 +60,7 @@
 	display: flex;
 	align-items: flex-start;
 	gap: 8px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	& > svg {
 		align-self: center;
@@ -73,7 +73,7 @@
 
 .signInContainer {
 	align-items: center;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	gap: 8px;
 	margin-top: 16px;
@@ -84,7 +84,7 @@
 	composes: g-hide-on-mobile from global;
 
 	/* properties */
-	background-color: var(--token-color-foreground-strong);
+	background-color: var(--mds-color-foreground-strong);
 	height: 50vh;
 	overflow: hidden;
 	position: relative;

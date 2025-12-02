@@ -11,7 +11,7 @@
 ***
 */
 .root {
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	box-shadow: var(--token-surface-base-box-shadow);
 	display: none;
 	flex-direction: column;
@@ -56,10 +56,10 @@
 	composes: hds-font-weight-medium from global;
 	display: flex;
 	justify-content: space-between;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	gap: 12px;
 	align-items: center;
 	padding: 12px;
-	border: 1px solid var(--token-color-border-primary);
+	border: 1px solid var(--mds-color-border-primary);
 	border-radius: 6px;
 }

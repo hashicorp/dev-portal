@@ -75,7 +75,7 @@
 				{
 					"heading": "Concept: Consul catalog",
 					"body": "The Consul catalog API tracks registered services and their locations for both service discovery and service mesh use cases.",
-					"url": "/hcp/docs/concept/catalog"
+					"url": "/consul/docs/concept/catalog"
 				},
 				{
 					"heading": "Concept: Cluster consensus",

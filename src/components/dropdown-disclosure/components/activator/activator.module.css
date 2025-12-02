@@ -15,7 +15,7 @@
 
 	/* properties */
 	align-items: center;
-	background-color: var(--token-color-surface-interactive);
+	background-color: var(--mds-color-surface-interactive);
 	border-radius: 5px;
 	border: 1px solid transparent;
 	display: flex;
@@ -24,12 +24,12 @@
 	width: fit-content;
 
 	&:active {
-		background-color: var(--token-color-surface-interactive-active);
-		border-color: var(--token-color-border-strong);
+		background-color: var(--mds-color-surface-interactive-active);
+		border-color: var(--mds-color-border-strong);
 	}
 
 	&:hover {
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 }
 

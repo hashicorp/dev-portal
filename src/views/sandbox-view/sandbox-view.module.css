@@ -23,27 +23,27 @@
 	font-size: 1.5rem;
 	font-weight: 600;
 	margin-bottom: 16px;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .subSectionHeading {
 	font-size: 1.25rem;
 	font-weight: 600;
 	margin-bottom: 12px;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .introText {
 	font-size: 1rem;
 	line-height: 1.6;
 	margin-bottom: 16px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .featureList {
 	margin: 16px 0;
 	padding-left: 24px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	& li {
 		margin-bottom: 8px;
@@ -84,7 +84,7 @@
 }
 
 .productIcon {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
 
 .launchButton {
@@ -96,17 +96,17 @@
 .noSandboxes {
 	margin: 32px 0;
 	padding: 24px;
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	border-radius: 4px;
 	text-align: center;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .helpText {
 	font-size: 1rem;
 	line-height: 1.6;
 	margin-bottom: 16px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .sandboxGrid {
@@ -117,8 +117,8 @@
 	padding: 16px;
 	margin: var(--token-typography-display-m-tablet-margin-top) 0;
 	border-radius: 6px;
-	background-color: var(--token-color-surface-faint);
-	color: var(--token-color-foreground-strong);
+	background-color: var(--mds-color-surface-faint);
+	color: var(--mds-color-foreground-strong);
 
 	& p {
 		margin: 0;

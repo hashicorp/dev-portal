@@ -42,18 +42,18 @@
 						}
 
 						& .title {
-							color: var(--token-color-foreground-strong);
+							color: var(--mds-color-foreground-strong);
 						}
 
 						& .attribution {
-							color: var(--token-color-foreground-faint);
+							color: var(--mds-color-foreground-faint);
 							margin-left: 4px;
 						}
 					}
 
 					& .description {
 						margin-top: 2px;
-						color: var(--token-color-foreground-primary);
+						color: var(--mds-color-foreground-primary);
 					}
 				}
 
@@ -88,7 +88,7 @@
 			}
 
 			& .note {
-				color: var(--token-color-foreground-faint);
+				color: var(--mds-color-foreground-faint);
 				flex-grow: 1;
 				text-align: right;
 				margin-top: 12px;
@@ -101,11 +101,11 @@
 
 	& .cardBottom {
 		padding: 12px 16px;
-		background: var(--token-color-surface-faint);
+		background: var(--mds-color-surface-faint);
 
 		/* This is the color from --token-surface-base-box-shadow,
 		which the color value from it is not in a variable alone */
-		border-top: 1px solid var(--token-color-border-primary);
+		border-top: 1px solid var(--mds-color-border-primary);
 		border-radius: 0 0 6px 6px;
 		display: flex;
 		flex-direction: column;

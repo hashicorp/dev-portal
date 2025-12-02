@@ -12,13 +12,13 @@
 }
 
 .divider {
-	color: var(--token-color-border-primary);
-	background-color: var(--token-color-border-primary);
+	color: var(--mds-color-border-primary);
+	background-color: var(--mds-color-border-primary);
 }
 
 .typeString {
 	composes: hds-typography-code-100 from global;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	background: none;
 	padding: 0;
 	margin-left: 2px;
@@ -31,7 +31,7 @@
 .descriptiveText {
 	/* Base typography */
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	margin: 8px 0 0 0;
 
 	/* Remove the top margin from any first item */

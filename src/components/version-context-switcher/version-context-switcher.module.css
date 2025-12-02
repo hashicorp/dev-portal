@@ -10,7 +10,7 @@
 }
 
 .trailingIcon {
-	color: var(--token-color-palette-neutral-600);
+	color: var(--mds-color-palette-neutral-600);
 	position: absolute;
 	right: 8px;
 	top: 10px;
@@ -23,7 +23,7 @@
 
 	/* properties */
 	appearance: none;
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	border-radius: 5px;
 	border: none;
 	cursor: pointer;
@@ -36,6 +36,6 @@
 	composes: hds-typography-body-200 from global;
 
 	/* properties */
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	font-weight: var(--token-typography-font-weight-regular);
 }

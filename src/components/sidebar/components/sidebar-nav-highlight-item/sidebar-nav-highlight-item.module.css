@@ -5,9 +5,9 @@
 
 .root {
 	/* Generic default theme, eg. for HCP and Sentinel */
-	--gradient-start: var(--token-color-palette-neutral-100);
-	--gradient-stop: var(--token-color-palette-neutral-50);
-	--inset-border-color: var(--token-color-palette-neutral-200);
+	--gradient-start: var(--mds-color-palette-neutral-100);
+	--gradient-stop: var(--mds-color-palette-neutral-50);
+	--inset-border-color: var(--mds-color-palette-neutral-200);
 
 	/* Set up themed property helpers */
 	--inset-border-shadow: inset 0 0 0 1px var(--inset-border-color);
@@ -19,9 +19,9 @@
 
 	composes: g-focus-ring-from-box-shadow from global;
 	align-items: center;
-	background: var(--token-color-surface-primary);
+	background: var(--mds-color-surface-primary);
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	gap: 8px;
 	margin-bottom: 2px;
@@ -32,7 +32,7 @@
 
 	&:hover {
 		background: var(--gradient-background);
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
 	&:focus {

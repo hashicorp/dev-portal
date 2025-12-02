@@ -5,7 +5,7 @@
 
 .root {
 	position: relative;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	width: fit-content;
 }
 
@@ -14,10 +14,10 @@
 	composes: hds-font-weight-medium from global;
 	composes: hds-typography-body-100 from global;
 	appearance: none;
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	border-radius: 5px;
-	border: 1px solid var(--token-color-border-strong);
-	color: var(--token-color-foreground-primary);
+	border: 1px solid var(--mds-color-border-strong);
+	color: var(--mds-color-foreground-primary);
 	cursor: pointer;
 	padding: 4px 30px 4px 28px;
 	width: 100%;

@@ -49,8 +49,8 @@ const PATTERN_IMG_MAP: Record<
  */
 function BrandedCard({ productSlug, children }: BrandedCardProps) {
 	const gradientDefault = {
-		'--gradient-start': `var(--token-color-palette-neutral-100)`,
-		'--gradient-stop': `var(--token-color-palette-neutral-50)`,
+		'--gradient-start': `var(--mds-color-palette-neutral-100)`,
+		'--gradient-stop': `var(--mds-color-palette-neutral-50)`,
 	}
 	// when no product is passed, fall back to generic (hcp) default
 	const gradient = productSlug

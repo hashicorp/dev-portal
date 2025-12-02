@@ -4,7 +4,7 @@
  */
 
 .root {
-	--header-text-color: var(--token-color-foreground-faint);
+	--header-text-color: var(--mds-color-foreground-faint);
 
 	margin: 0;
 	position: relative;
@@ -20,7 +20,7 @@
 }
 
 .title {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .titleBadge {
@@ -50,8 +50,8 @@
 }
 
 .divider {
-	color: var(--token-color-border-primary);
-	background-color: var(--token-color-border-primary);
+	color: var(--mds-color-border-primary);
+	background-color: var(--mds-color-border-primary);
 }
 
 .spacer {
@@ -64,7 +64,7 @@
 	font-weight: var(--token-typography-font-weight-semibold);
 	margin: 0 0 8px 0;
 	padding-bottom: 8px;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	&:nth-child(2) {
 		margin-top: 0;
@@ -74,7 +74,7 @@
 .summary {
 	/* Base typography */
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	/* Remove the top margin from any first item */
 	& > *:first-child {

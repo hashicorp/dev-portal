@@ -8,7 +8,7 @@
 
 	--background-color: transparent;
 	--border-color: transparent;
-	--color: var(--token-color-foreground-faint);
+	--color: var(--mds-color-foreground-faint);
 	--size: 24px;
 
 	appearance: none;
@@ -43,12 +43,12 @@
 		/* Note: use of alpha-100 differs from HDS toast implementation
        (https://github.com/hashicorp/design-system/blob/f1d2475d86acb769833504cfb13b3531b387ae7e/packages/components/app/styles/components/alert.scss#L149).
        Have done this to avoid using a non-token value. May need to adjust. */
-		--background-color: var(--token-color-palette-alpha-100);
+		--background-color: var(--mds-color-palette-alpha-100);
 	}
 
 	&:active {
-		--background-color: var(--token-color-palette-alpha-100);
-		--border-color: var(--token-color-border-strong);
-		--color: var(--token-color-foreground-faint);
+		--background-color: var(--mds-color-palette-alpha-100);
+		--border-color: var(--mds-color-border-strong);
+		--color: var(--mds-color-foreground-faint);
 	}
 }

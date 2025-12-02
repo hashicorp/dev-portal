@@ -41,13 +41,13 @@
 .title {
 	composes: hds-typography-display-500 from global;
 	composes: hds-font-weight-bold from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .description {
 	composes: hds-typography-body-300 from global;
 	composes: hds-font-weight-regular from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-top: 20px;
 
 	@media (--dev-dot-tablet-down) {
@@ -72,8 +72,8 @@
 
 .separator {
 	border: none;
-	background-color: var(--token-color-border-primary);
-	color: var(--token-color-border-primary);
+	background-color: var(--mds-color-border-primary);
+	color: var(--mds-color-border-primary);
 	height: 1px;
 	margin-bottom: 56px;
 	margin-top: 56px;
@@ -87,9 +87,9 @@
 .featuredUseCasesTitle {
 	composes: hds-typography-code-200 from global;
 	composes: hds-font-weight-regular from global;
-	background-color: var(--token-color-surface-strong);
+	background-color: var(--mds-color-surface-strong);
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	padding: 8px;
 	width: fit-content;
 }

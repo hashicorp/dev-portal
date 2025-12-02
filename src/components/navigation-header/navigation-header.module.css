@@ -18,7 +18,7 @@
 	--header-padding-left-right: 24px;
 	--header-menu-item-padding-left-right: 12px;
 
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	display: flex;
 	padding-top: 0;
 	padding-bottom: 0;
@@ -28,6 +28,7 @@
 	padding-right: var(--header-padding-left-right);
 	position: relative;
 	width: 100%;
+	z-index: 150;
 
 	@media (--dev-dot-show-mobile-menu) {
 		padding-bottom: 14px;
@@ -54,13 +55,13 @@
 	background-color: transparent;
 	border-radius: 5px;
 	border: 1px solid transparent;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	display: flex;
 	justify-content: center;
 	padding: 5px;
 
 	&:hover {
-		border: 1px solid var(--token-color-border-strong);
+		border: 1px solid var(--mds-color-border-strong);
 	}
 
 	@media (--dev-dot-hide-mobile-menu) {
@@ -80,10 +81,10 @@
 }
 
 .signUpLink {
-	color: var(--token-color-foreground-high-contrast);
+	color: var(--mds-color-foreground-high-contrast);
 
 	&:hover {
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 	}
 }
 
@@ -93,10 +94,10 @@
 
 	/* properties */
 	background-color: transparent;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	&:hover,
 	&[aria-expanded='true'] {
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 }

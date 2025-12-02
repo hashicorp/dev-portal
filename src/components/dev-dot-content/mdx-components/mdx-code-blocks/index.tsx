@@ -5,7 +5,7 @@
 
 import { Children } from 'react'
 import classNames from 'classnames'
-import CodeBlock from '@hashicorp/react-design-system-components/src/components/code-block'
+import { CodeBlock } from '@hashicorp/mds-react/components'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import { getLanguageName } from './utils'

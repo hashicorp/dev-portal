@@ -59,6 +59,7 @@ function MdxInlineAlertBase({
 				description={children}
 				color={data.color}
 				className={s.typographyOverride}
+				disallowScrolling={true}
 			/>
 		</div>
 	)

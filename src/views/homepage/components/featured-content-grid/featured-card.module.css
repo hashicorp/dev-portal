@@ -4,8 +4,8 @@
  */
 
 .card {
-	background-color: var(--token-color-foreground-strong);
-	color: var(--token-color-foreground-high-contrast);
+	background-color: var(--mds-color-foreground-strong);
+	color: var(--mds-color-foreground-high-contrast);
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -19,7 +19,7 @@
 	}
 
 	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 }
 

@@ -16,7 +16,7 @@
 }
 
 .permalink {
-	--icon-color: var(--token-color-foreground-action);
+	--icon-color: var(--mds-color-foreground-action);
 
 	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 6px;
@@ -29,17 +29,17 @@
 	}
 
 	&:hover {
-		--icon-color: var(--token-color-foreground-action-hover);
+		--icon-color: var(--mds-color-foreground-action-hover);
 
 		opacity: 1;
 		box-shadow: var(--token-surface-mid-box-shadow);
 	}
 
 	&:focus-visible {
-		--icon-color: var(--token-color-foreground-action-active);
+		--icon-color: var(--mds-color-foreground-action-active);
 
 		opacity: 1;
-		background: var(--token-color-surface-faint);
+		background: var(--mds-color-surface-faint);
 	}
 }
 

@@ -16,7 +16,7 @@
 	composes: g-offset-scroll-margin-top from global;
 	margin-top: 0;
 	margin-bottom: var(--spacing-sml);
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .meta {
@@ -33,7 +33,7 @@
 }
 
 .createAccountCta {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .buttonGroup {

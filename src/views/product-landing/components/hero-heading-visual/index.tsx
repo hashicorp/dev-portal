@@ -39,14 +39,14 @@ function getProductGradient(
 	// For Sentinel, use a blue gradient, as specified in designs
 	if (productSlug === 'sentinel') {
 		return {
-			start: `var(--token-color-palette-blue-50)`,
-			stop: `var(--token-color-palette-blue-100)`,
+			start: `var(--mds-color-palette-blue-50)`,
+			stop: `var(--mds-color-palette-blue-100)`,
 		}
 	}
 	// As a base case, return a default gradient
 	return {
-		start: `var(--token-color-palette-neutral-100)`,
-		stop: `var(--token-color-palette-neutral-50)`,
+		start: `var(--mds-color-palette-neutral-100)`,
+		stop: `var(--mds-color-palette-neutral-50)`,
 	}
 }
 

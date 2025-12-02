@@ -31,6 +31,7 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 // Global imports
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
 import { InstruqtProvider } from 'contexts/instruqt-lab'
+
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
@@ -39,7 +40,6 @@ import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 
 // Local imports
 import './style.css'
-import '@hashicorp/react-design-system-components/src/design-system-components.scss'
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED === 'true') {
 	import('react-dom').then((ReactDOM) => {
@@ -86,7 +86,10 @@ export default function App({
 
 	return (
 		<ConditionalPostHogProvider>
-			<MDSProvider imageComponent={NextImageAdapter} linkComponent={NextLinkAdapter}>
+			<MDSProvider
+				imageComponent={NextImageAdapter}
+				linkComponent={NextLinkAdapter}
+			>
 				<QueryClientProvider client={queryClient}>
 					<SSRProvider>
 						<QueryParamProvider adapter={NextAdapter}>
@@ -94,15 +97,15 @@ export default function App({
 								<SessionProvider session={session}>
 									<DeviceSizeProvider>
 										<CurrentProductProvider currentProduct={currentProduct}>
-											<HeadMetadata {...pageProps.metadata} />
-											<InstruqtProvider>
+											<InstruqtProvider source="sandbox" renderEmbed={true}>
+												<HeadMetadata {...pageProps.metadata} />
 												<LazyMotion
 													features={() =>
 														import('lib/framer-motion-features').then(
-														(mod) => mod.default
-													)
-												}
-												strict={process.env.NODE_ENV === 'development'}
+															(mod) => mod.default
+														)
+													}
+													strict={process.env.NODE_ENV === 'development'}
 												>
 													<Component {...pageProps} />
 													<Toaster />

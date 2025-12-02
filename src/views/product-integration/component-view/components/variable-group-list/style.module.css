@@ -8,7 +8,7 @@
 	padding-left: 0;
 
 	& > li.variableGroupListItem {
-		background-color: var(--token-color-surface-primary);
+		background-color: var(--mds-color-surface-primary);
 		border-radius: 6px;
 		padding: 16px;
 		padding-bottom: 0;
@@ -21,11 +21,11 @@
 		}
 
 		&.highlight {
-			background: var(--token-color-surface-action);
+			background: var(--mds-color-surface-action);
 		}
 
 		& .arrowIcon {
-			color: var(--token-color-foreground-faint);
+			color: var(--mds-color-foreground-faint);
 			margin-right: 10px;
 		}
 
@@ -46,11 +46,11 @@
 
 			& .required {
 				font-size: 13px;
-				color: var(--token-color-foreground-faint);
+				color: var(--mds-color-foreground-faint);
 				margin-left: 8px;
 
 				&.isRequired {
-					color: var(--token-color-palette-purple-300);
+					color: var(--mds-color-palette-purple-300);
 				}
 			}
 		}
@@ -79,38 +79,38 @@
 
 			& .topRow {
 				& .key {
-					color: var(--token-color-foreground-primary);
+					color: var(--mds-color-foreground-primary);
 				}
 			}
 		}
 
 		@nest html[data-theme='dark'] & {
-			background-color: var(--token-color-surface-faint);
+			background-color: var(--mds-color-surface-faint);
 
 			/** 
 			* Need to repeat this because of the higher
 			* specificity with the html data attribute selector
 			**/
 			&.highlight {
-				background-color: var(--token-color-surface-action);
+				background-color: var(--mds-color-surface-action);
 			}
 		}
 	}
 }
 
 .nestedDivider {
-	color: var(--token-color-border-primary);
-	background-color: var(--token-color-border-primary);
+	color: var(--mds-color-border-primary);
+	background-color: var(--mds-color-border-primary);
 }
 
 .key {
 	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-code-200 from global;
-	border: 1px solid var(--token-color-border-primary);
+	border: 1px solid var(--mds-color-border-primary);
 	border-radius: 5px;
 	padding: 2px 4px 3px;
-	background: var(--token-color-palette-neutral-50);
-	color: var(--token-color-foreground-strong);
+	background: var(--mds-color-palette-neutral-50);
+	color: var(--mds-color-foreground-strong);
 }
 
 .permalink {

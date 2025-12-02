@@ -18,7 +18,7 @@ the correct elements, roles, states, and properties are being set in the markup.
      Note that ::after seems needed here to position the border below
      the button elements. Using bottom-border would not create overlap. */
 	&.isNested::after {
-		background: var(--token-color-border-primary);
+		background: var(--mds-color-border-primary);
 		bottom: 0;
 		content: '';
 		height: 1px;
@@ -36,16 +36,16 @@ Styles for each tab button.
 	background-color: transparent;
 	border-radius: 5px;
 	border: 1px solid transparent;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	cursor: pointer;
 	flex-shrink: 0; /* Ensure items will trigger overflow */
 	font-weight: var(--token-typography-font-weight-medium);
 	padding: 7px 11px;
 
 	&[aria-selected='true'] {
-		color: var(--token-color-foreground-action);
-		background-color: var(--token-color-surface-action);
-		border-color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
+		background-color: var(--mds-color-surface-action);
+		border-color: var(--mds-color-foreground-action);
 	}
 
 	&:focus-visible {
@@ -53,8 +53,8 @@ Styles for each tab button.
 	}
 
 	&:hover {
-		color: var(--token-color-foreground-action);
-		border-color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
+		border-color: var(--mds-color-foreground-action);
 	}
 
 	/* In nested tabs, use a thick bottom border, visible when active */
@@ -65,7 +65,7 @@ Styles for each tab button.
 		padding: 8px 12px 6px 12px;
 
 		&[aria-selected='true'] {
-			border-bottom-color: var(--token-color-foreground-action);
+			border-bottom-color: var(--mds-color-foreground-action);
 		}
 
 		&:not(:focus-visible) {
@@ -84,7 +84,7 @@ Styles for each tab button.
 
 		&[aria-selected='true'] {
 			&::after {
-				background-color: var(--token-color-foreground-action);
+				background-color: var(--mds-color-foreground-action);
 				border-radius: 3px;
 				bottom: -1px;
 				content: '';

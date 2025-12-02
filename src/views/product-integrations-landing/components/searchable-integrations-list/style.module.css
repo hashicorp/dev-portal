@@ -21,7 +21,7 @@
 }
 
 .results {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
 	margin-bottom: 12px;
@@ -42,7 +42,7 @@
 .noFilters {
 	display: flex;
 	align-items: center;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	composes: hds-typography-body-200 from global;
 	composes: hds-font-weight-semibold from global;
 }
@@ -79,7 +79,7 @@
 		margin-right: 9px;
 
 		& > svg {
-			color: var(--token-color-palette-blue-200);
+			color: var(--mds-color-palette-blue-200);
 		}
 	}
 }
@@ -96,7 +96,7 @@
 	display: flex;
 	height: fit-content;
 	padding: 8px;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
 
 .justifyEnd {

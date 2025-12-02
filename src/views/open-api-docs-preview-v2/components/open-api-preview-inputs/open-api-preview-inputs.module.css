@@ -4,10 +4,10 @@
  */
 
 .root {
-	--highlight-color: var(--token-color-foreground-highlight);
+	--highlight-color: var(--mds-color-foreground-highlight);
 	--border-width: 4px;
 
-	background: var(--token-color-surface-primary);
+	background: var(--mds-color-surface-primary);
 	border-left: var(--border-width) solid var(--highlight-color);
 	bottom: 0;
 	position: fixed;
@@ -54,7 +54,7 @@
 	flex-shrink: 0;
 
 	/* Swap blue and purple to match the --highlight-color */
-	--token-color-palette-blue-200: var(--token-color-foreground-highlight);
-	--token-color-palette-blue-300: var(--token-color-palette-purple-300);
-	--token-color-palette-blue-400: var(--token-color-palette-purple-400);
+	--mds-color-palette-blue-200: var(--mds-color-palette-purple-200);
+	--mds-color-palette-blue-300: var(--mds-color-palette-purple-300);
+	--mds-color-palette-blue-400: var(--mds-color-palette-purple-400);
 }

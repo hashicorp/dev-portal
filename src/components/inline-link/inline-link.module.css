@@ -25,49 +25,45 @@ ones set in the surrounding text.
 }
 
 .primary {
-	color: var(--token-color-foreground-action);
+	color: var(--mds-color-foreground-action);
 
 	&:active {
-		color: var(--token-color-foreground-action-active);
+		color: var(--mds-color-foreground-action-active);
 	}
 
 	&:hover {
-		color: var(--token-color-foreground-action-hover);
+		color: var(--mds-color-foreground-action-hover);
 	}
 
 	&:visited {
-		color: var(--token-color-foreground-action-visited);
+		color: var(--mds-color-foreground-action-visited);
 
 		&:hover {
-			color: var(--token-color-foreground-action-visited-hover);
+			color: var(--mds-color-foreground-action-visited-hover);
 		}
 	}
 }
 
 .secondary {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	&:active {
-		color: var(--token-color-foreground-faint);
+		color: var(--mds-color-foreground-faint);
 	}
 
 	&:hover {
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 	}
 
 	&:focus {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
-	/**
-	* Note: The HDS spec doesn't specify visit styles for the 'secondary' color
-	* so we're using the primary :visited styles for consistency
-	*/
 	&:visited {
-		color: var(--token-color-foreground-action-visited);
+		color: var(--mds-color-foreground-action-visited);
 
 		&:hover {
-			color: var(--token-color-foreground-action-visited-hover);
+			color: var(--mds-color-foreground-action-visited-hover);
 		}
 	}
 }

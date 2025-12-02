@@ -19,7 +19,7 @@
 	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-display-300 from global;
 	font-weight: var(--token-typography-font-weight-bold);
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .sectionGroups {
@@ -38,7 +38,7 @@
 	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-display-200 from global;
 	font-weight: var(--token-typography-font-weight-semibold);
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .groupProperties {
@@ -49,5 +49,5 @@
 
 .noGroupsMessage {
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }

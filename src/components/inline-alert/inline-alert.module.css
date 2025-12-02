@@ -4,15 +4,15 @@
  */
 
 .default {
-	--background-color: var(--token-color-surface-faint);
-	--accent-color: var(--token-color-foreground-primary);
-	--border-color: var(--token-color-border-strong);
+	--background-color: var(--mds-color-surface-faint);
+	--accent-color: var(--mds-color-foreground-primary);
+	--border-color: var(--mds-color-border-strong);
 	--padding: 16px;
 
 	background: var(--background-color);
 	border: 1px solid var(--border-color);
 	border-radius: 6px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	padding: var(--padding);
 	composes: hds-typography-body-200 from global;
 	display: flex;
@@ -57,19 +57,19 @@
 }
 
 .highlight {
-	--background-color: var(--token-color-palette-purple-50);
-	--accent-color: var(--token-color-foreground-highlight-on-surface);
-	--border-color: var(--token-color-border-highlight);
+	--background-color: var(--mds-color-palette-purple-50);
+	--accent-color: var(--mds-color-foreground-highlight-on-surface);
+	--border-color: var(--mds-color-border-highlight);
 }
 
 .warning {
-	--background-color: var(--token-color-palette-amber-50);
-	--accent-color: var(--token-color-foreground-warning-on-surface);
-	--border-color: var(--token-color-border-warning);
+	--background-color: var(--mds-color-palette-amber-50);
+	--accent-color: var(--mds-color-foreground-warning-on-surface);
+	--border-color: var(--mds-color-border-warning);
 }
 
 .critical {
-	--background-color: var(--token-color-palette-red-50);
-	--accent-color: var(--token-color-foreground-critical-on-surface);
-	--border-color: var(--token-color-border-critical);
+	--background-color: var(--mds-color-palette-red-50);
+	--accent-color: var(--mds-color-foreground-critical-on-surface);
+	--border-color: var(--mds-color-border-critical);
 }

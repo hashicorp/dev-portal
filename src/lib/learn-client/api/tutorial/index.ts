@@ -33,7 +33,6 @@ export async function getTutorial(
 		return formatTutorialData(augmentedData) as TutorialFullCollectionCtx
 	}
 
-	// This is handled by tutorial template /pages/tutorials/[...slug] to render 404 page
 	if (getTutorialRes.status === 404) {
 		console.error('Learn Api Client: 404 — Tutorial not found')
 		return null
@@ -78,8 +77,6 @@ export async function getTutorials(
 	throw error
 }
 
-// getAllTutorials
-// if a limit is not passed, all tutorials are fetched
 export async function getAllTutorials(
 	options?: getAllTutorialsOptions
 ): Promise<
@@ -88,12 +85,11 @@ export async function getAllTutorials(
 	let result = []
 	const limit = options?.limit?.toString()
 	const recurse = Boolean(!limit)
-	// errors handled by the `fetchAll` function
 	const allTutorials = (await fetchAll({
 		baseUrl: TUTORIAL_API_ROUTE,
 		recurse,
 		limit,
-		fullContent: options?.fullContent, // used if needing the tutorial's mdx content
+		fullContent: options?.fullContent,
 	})) as ApiTutorial[]
 
 	if (options?.slugsOnly) {
@@ -104,6 +100,5 @@ export async function getAllTutorials(
 	} else {
 		return allTutorials.map(formatTutorialData)
 	}
-
 	return result
 }

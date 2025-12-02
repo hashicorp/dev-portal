@@ -27,14 +27,6 @@ import docsViewStyles from 'views/docs-view/docs-view.module.css'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import { SidebarProps } from '@components/sidebar'
 
-// SSR-safe dynamic import
-let posthog: typeof import('posthog-js').default | null = null
-if (typeof window !== 'undefined') {
-	import('posthog-js').then((module) => {
-		posthog = module.default
-	})
-}
-
 interface SandboxPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
 	layoutProps: {
@@ -43,26 +35,6 @@ interface SandboxPageProps {
 	}
 	availableSandboxes: SandboxLab[]
 	otherSandboxes: SandboxLab[]
-}
-
-const trackSandboxPageError = (
-	errorType: string,
-	errorMessage: string,
-	context?: Record<string, unknown>
-) => {
-	if (typeof window !== 'undefined' && posthog?.capture) {
-		posthog.capture('sandbox_page_error', {
-			error_type: errorType,
-			error_message: errorMessage,
-			timestamp: new Date().toISOString(),
-			page_url: window.location.href,
-			...context,
-		})
-	}
-
-	if (process.env.NODE_ENV === 'development') {
-		console.error(`[SandboxPage] ${errorMessage}`, context)
-	}
 }
 
 export const SandboxView = ({
@@ -89,7 +61,7 @@ export const SandboxView = ({
 					const targetUrl = `/${primaryProduct}/sandbox?launch=${lab.labId}`
 
 					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-						labId: lab.labId,
+						labId: lab.instruqtTrack || lab.labId,
 						page: targetUrl,
 					})
 
@@ -98,14 +70,10 @@ export const SandboxView = ({
 				}
 
 				if (hasConfigError) {
-					trackSandboxPageError(
-						SANDBOX_EVENT.SANDBOX_ERROR,
-						'Cannot launch lab due to configuration error',
-						{
-							lab_id: lab.labId,
-							lab_title: lab.title,
-						}
-					)
+					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_ERROR, {
+						labId: lab.labId,
+						page: router.asPath,
+					})
 
 					toast({
 						title: 'Sandbox Configuration Error',
@@ -118,14 +86,10 @@ export const SandboxView = ({
 				}
 
 				if (!openLab) {
-					trackSandboxPageError(
-						SANDBOX_EVENT.SANDBOX_ERROR,
-						'openLab function is not available',
-						{
-							lab_id: lab.labId,
-							lab_title: lab.title,
-						}
-					)
+					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_ERROR, {
+						labId: lab.labId,
+						page: router.asPath,
+					})
 
 					toast({
 						title: 'Sandbox Unavailable',
@@ -140,15 +104,10 @@ export const SandboxView = ({
 				const embedLabId = lab.instruqtTrack
 
 				if (!embedLabId) {
-					trackSandboxPageError(
-						SANDBOX_EVENT.SANDBOX_ERROR,
-						'Lab embed ID is missing or invalid',
-						{
-							lab_id: lab.labId,
-							lab_title: lab.title,
-							full_lab_id: lab.fullLabId,
-						}
-					)
+					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_ERROR, {
+						labId: lab.labId,
+						page: router.asPath,
+					})
 
 					toast({
 						title: 'Unable to Launch Sandbox',
@@ -159,24 +118,14 @@ export const SandboxView = ({
 					return
 				}
 
-				openLab(embedLabId)
+				openLab(embedLabId, 'sandbox')
 				setActive(true)
-
-				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-					labId: lab.labId,
-					page: `/${product.slug}/sandbox`,
-				})
 			} catch (error) {
-				trackSandboxPageError(
-					'lab_launch_exception',
-					'Unexpected error launching sandbox',
-					{
-						lab_id: lab.labId,
-						lab_title: lab.title,
-						error_message:
-							error instanceof Error ? error.message : String(error),
-					}
-				)
+				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_ERROR, {
+					labId: lab.labId,
+					page: router.asPath,
+					error: error instanceof Error ? error.message : String(error),
+				})
 
 				toast({
 					title: 'Launch Error',
@@ -232,7 +181,10 @@ export const SandboxView = ({
 		}
 	}, [router.query.launch, availableSandboxes, handleLabClick, router])
 
-	const renderDocumentation = (documentation?: SandboxLab['documentation']) => {
+	const renderDocumentation = (
+		documentation?: SandboxLab['documentation'],
+		labId?: string
+	) => {
 		if (!documentation) return null
 
 		try {
@@ -248,15 +200,12 @@ export const SandboxView = ({
 				</div>
 			)
 		} catch (error) {
-			trackSandboxPageError(
-				SANDBOX_EVENT.SANDBOX_ERROR,
-				'Failed to render sandbox documentation',
-				{
-					error_message: error instanceof Error ? error.message : String(error),
-					has_compiled_source: !!documentation.compiledSource,
-					has_scope: !!documentation.scope,
-				}
-			)
+			const errorMsg = error instanceof Error ? error.message : String(error)
+			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_ERROR, {
+				labId: labId,
+				page: router.asPath,
+				error: `${errorMsg} (has_compiled_source=${!!documentation?.compiledSource}, has_scope=${!!documentation?.scope})`,
+			})
 
 			return (
 				<div className={s.mdxContent}>
@@ -339,7 +288,7 @@ export const SandboxView = ({
 							{availableSandboxes.map((lab) => (
 								<Tab key={lab.labId} heading={lab.title}>
 									{lab.documentation ? (
-										renderDocumentation(lab.documentation)
+										renderDocumentation(lab.documentation, lab.labId)
 									) : (
 										<p className={s.noDocumentation}>
 											No documentation is available for this sandbox.
@@ -412,13 +361,13 @@ export const SandboxView = ({
 									productsUsed: lab.products as ProductOption[],
 								}
 							})}
-						className={s.sandboxGrid}
-					/>
-				</ErrorBoundary>
-			</>
-		)}
-	</SidebarSidecarLayout>
-)
+							className={s.sandboxGrid}
+						/>
+					</ErrorBoundary>
+				</>
+			)}
+		</SidebarSidecarLayout>
+	)
 }
 
 // Re-export for backward compatibility

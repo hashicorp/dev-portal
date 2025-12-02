@@ -5,13 +5,13 @@
 
 .heroBackground {
 	background: url('./assets/certifications-hero-gradient.svg'),
-		var(--token-color-foreground-strong);
+		var(--mds-color-foreground-strong);
 	background-size: cover;
 	background-position: top center;
 	background-repeat: no-repeat;
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-page-faint);
+		background-color: var(--mds-color-page-faint);
 	}
 }
 

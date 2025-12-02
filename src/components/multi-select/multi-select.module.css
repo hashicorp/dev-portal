@@ -10,6 +10,6 @@
 	padding-top: 8px;
 
 	& label {
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 	}
 }

@@ -8,19 +8,19 @@
 
 	&.dark {
 		& .submittedMsgText {
-			color: var(--token-color-foreground-high-contrast);
+			color: var(--mds-color-foreground-high-contrast);
 		}
 		& .submittedMsgTextLink {
-			color: var(--token-color-foreground-high-contrast);
+			color: var(--mds-color-foreground-high-contrast);
 			text-decoration: underline;
 		}
 
 		@nest html[data-theme='dark'] & {
 			& .submittedMsgText {
-				color: var(--token-color-foreground-strong);
+				color: var(--mds-color-foreground-strong);
 			}
 			& .submittedMsgTextLink {
-				color: var(--token-color-foreground-strong);
+				color: var(--mds-color-foreground-strong);
 				text-decoration: underline;
 			}
 		}
@@ -30,26 +30,26 @@
 .iconWrapper {
 	display: flex;
 	column-gap: 8px;
-	color: var(--token-color-foreground-high-contrast);
+	color: var(--mds-color-foreground-high-contrast);
 	width: 100%;
 
 	&.success {
-		color: var(--token-color-foreground-success);
+		color: var(--mds-color-foreground-success);
 	}
 
 	&.error {
-		color: var(--token-color-foreground-warning);
+		color: var(--mds-color-foreground-warning);
 	}
 
 	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 
 		&.success {
-			color: var(--token-color-foreground-success);
+			color: var(--mds-color-foreground-success);
 		}
 
 		&.error {
-			color: var(--token-color-foreground-warning);
+			color: var(--mds-color-foreground-warning);
 		}
 	}
 }

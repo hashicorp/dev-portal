@@ -6,7 +6,7 @@
 .styleNestedMarkElements {
 	& mark {
 		background-color: transparent;
-		color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
 		font-style: normal;
 	}
 }
@@ -20,7 +20,7 @@
 	gap: 12px;
 
 	&:hover {
-		background: var(--token-color-surface-strong);
+		background: var(--mds-color-surface-strong);
 		box-shadow: var(--token-surface-base-box-shadow);
 		cursor: pointer;
 	}
@@ -43,14 +43,14 @@
 
 .title {
 	composes: styleNestedMarkElements;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	display: block;
 }
 
 .description {
 	composes: styleNestedMarkElements;
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: block;
 	margin-top: 2px;
 	overflow: hidden;
@@ -66,7 +66,7 @@
 }
 
 .metaDotSeparator {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: block;
 	flex-shrink: 0;
 	height: 6px;
@@ -92,7 +92,7 @@
 .productBreadcrumbText {
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-regular from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
 
 /* URL path */
@@ -100,14 +100,14 @@
 .breadcrumb {
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-regular from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
 .externalLink {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	width: 14px;
 	height: 14px;
 }

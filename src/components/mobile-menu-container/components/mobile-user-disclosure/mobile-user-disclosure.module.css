@@ -8,7 +8,7 @@
 	composes: hds-surface-base from global;
 
 	/* properties */
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	border-radius: 6px;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .text {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .chevron {
@@ -64,7 +64,7 @@
 	width: 24px;
 
 	& svg {
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 
 		/* Only enable animation if query is supported and value is no-preference */
 		@media (prefers-reduced-motion: no-preference) {
@@ -80,7 +80,7 @@
 	width: unset;
 
 	&::before {
-		border-top: 1px solid var(--token-color-border-primary);
+		border-top: 1px solid var(--mds-color-border-primary);
 		content: '';
 		left: 6px;
 		position: absolute;
@@ -90,7 +90,7 @@
 }
 
 .label {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	display: block;
 	margin-bottom: 4px;
 	padding-left: 16px;
@@ -113,7 +113,7 @@
 	background-color: transparent;
 	border: none;
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	gap: 8px;
 	padding-bottom: 8px;

@@ -4,14 +4,14 @@
  */
 
 .root {
-	background: var(--token-color-surface-faint);
-	border: 1px solid var(--token-color-border-faint);
+	background: var(--mds-color-surface-faint);
+	border: 1px solid var(--mds-color-border-faint);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: 16px;
 	border-radius: 6px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	gap: 12px;
 
 	&.inline {

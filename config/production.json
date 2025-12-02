@@ -34,7 +34,11 @@
 			"terraform-enterprise",
 			"sentinel",
 			"hcp-docs",
-			"boundary"
+			"boundary",
+			"consul",
+			"nomad",
+			"packer",
+			"vagrant"
 		]
 	}
 }

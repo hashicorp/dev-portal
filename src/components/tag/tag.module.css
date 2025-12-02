@@ -6,7 +6,7 @@
 .root {
 	align-items: center;
 	border-radius: 50px;
-	border: 1px solid var(--token-color-border-strong);
+	border: 1px solid var(--mds-color-border-strong);
 	display: flex;
 	width: fit-content;
 	min-height: 1.5rem;
@@ -34,17 +34,17 @@
 	width: fit-content;
 
 	&:hover {
-		background-color: var(--token-color-surface-interactive-hover);
+		background-color: var(--mds-color-surface-interactive-hover);
 		cursor: pointer;
 	}
 
 	&:active {
-		background-color: var(--token-color-surface-interactive-active);
+		background-color: var(--mds-color-surface-interactive-active);
 	}
 }
 
 .removeIcon {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	height: 12px;
 	width: 12px;
@@ -58,7 +58,7 @@
 	border-radius: inherit;
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: block;
 	font-family: var(--token-typography-body-100-font-family);
 	font-size: var(--token-typography-body-100-font-size);
