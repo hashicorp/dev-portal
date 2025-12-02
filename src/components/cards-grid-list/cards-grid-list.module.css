@@ -34,11 +34,11 @@
      *
      * On larger viewports, where our content area reaches up to 780px width,
      * cards are meant to be in two columns.
-     *
+     * 
      * Note: we could explicitly set 2 columns here instead - it would achieve
      * a similar effect. However, it would arguably be much more brittle,
      * and might be more difficult to reason about.
-     *
+     * 
      * For example, with 2 explicit columns, if our content area shrank
      * to below 540px, or rather below 564px since we have 24px gap,
      * we'd end up breaking our desired 270px minimum card width.
