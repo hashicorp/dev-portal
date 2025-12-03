@@ -66,13 +66,17 @@ export function ExamDetailsCard({
 								<CtaGroup>
 									{links.prepare ? (
 										<ButtonLink
+<<<<<<< HEAD
 											text="Start studying"
+=======
+											text="Prepare for the exam"
+>>>>>>> parent of 6b6435570 (Merge branch 'BE/certs/buttons' into BE/certs/web/revamp)
 											href={links.prepare}
 										/>
 									) : null}
 									{links.register ? (
 										<StandaloneLink
-											text="Schedule your exam"
+											text="Register for the exam"
 											href={links.register}
 											color="secondary"
 											icon={<IconArrowRight16 />}
