@@ -65,9 +65,19 @@
 			"shortName": "Docs"
 		},
 		{
+         "iconName": "terminal-screen",
+         "name": "CLI",
+         "path": "docs/commands"
+      },
+		{
 			"iconName": "api",
 			"name": "API",
 			"path": "api-docs"
-		}
+		},
+      {
+         "iconName": "docs",
+         "name": "Domain model",
+         "path": "docs/domain-model"
+      }
 	]
 }

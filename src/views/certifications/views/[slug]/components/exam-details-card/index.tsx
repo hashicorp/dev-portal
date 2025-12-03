@@ -66,13 +66,13 @@ export function ExamDetailsCard({
 								<CtaGroup>
 									{links.prepare ? (
 										<ButtonLink
-											text="Prepare for the exam"
+											text="Explore study resources"
 											href={links.prepare}
 										/>
 									) : null}
 									{links.register ? (
 										<StandaloneLink
-											text="Register for the exam"
+											text="Schedule your exam"
 											href={links.register}
 											color="secondary"
 											icon={<IconArrowRight16 />}
