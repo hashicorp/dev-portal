@@ -14,7 +14,7 @@
 			"examCode": "003",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.16",
-			"description": "Demonstrate your foundational Vault knowledge and skills in an hour-long multiple-choice exam.",
+			"description": "Prove your foundational Vault knowledge and skills in an hour-long multiple-choice exam.",
 			"links": {
 				"prepare": "/vault/tutorials/associate-cert-003",
 				"register": "/certifications/signin"
@@ -26,7 +26,7 @@
 			"examTier": "pro",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.16",
-			"description": "Prove your advanced, production-level Vault operational expertise in an intensive, lab-based exam.",
+			"description": "Demonstrate your advanced, production-level Vault operational expertise in an intensive, lab-based exam.",
 			"links": {
 				"prepare": "/vault/tutorials/ops-pro-cert",
 				"register": "/certifications/signin"
@@ -38,7 +38,7 @@
 			"examCode": "003",
 			"productSlug": "consul",
 			"versionTested": "Consul 1.15",
-			"description": "Demonstrate your foundational Consul knowledge and skills in an hour-long multiple-choice exam.",
+			"description": "Prove your foundational Consul knowledge and skills in an hour-long multiple-choice exam.",
 			"links": {
 				"prepare": "/consul/tutorials/certification-003",
 				"register": "/certifications/signin"

@@ -14,7 +14,7 @@
 			"examCode": "003",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.3",
-			"description": "Terraform Associate 003 will be retired and replaced by version 004 on January 8, 2026. Compare the differences between the two versions below. Demonstrate your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
+			"description": "Terraform Associate 003 will be retired and replaced by version 004 on January 8, 2026. Compare the differences between the two versions below. Prove your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
 			"links": {
 				"prepare": "/terraform/tutorials/certification-003",
 				"register": "/certifications/signin"
@@ -26,7 +26,7 @@
 			"examCode": "004",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.12",
-			"description": "Terraform Associate 004 will replace the current 003 version on January 8, 2026. Compare the differences between the two versions below. Demonstrate your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
+			"description": "Terraform Associate 004 will replace the current 003 version on January 8, 2026. Compare the differences between the two versions below. Prove your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
 			"links": {
 				"prepare": "/terraform/tutorials/certification-004",
 				"register": "/certifications/signin"
@@ -38,7 +38,7 @@
 			"examTier": "pro",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.6",
-			"description": "Prove your advanced, production-level Terraform expertise in an intensive, lab-based exam.",
+			"description": "Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam.",
 			"links": {
 				"prepare": "/terraform/tutorials/pro-cert",
 				"register": "/certifications/signin"

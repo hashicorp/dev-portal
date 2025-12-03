@@ -66,7 +66,7 @@ export function ExamDetailsCard({
 								<CtaGroup>
 									{links.prepare ? (
 										<ButtonLink
-											text="Explore study resources"
+											text="Start studying"
 											href={links.prepare}
 										/>
 									) : null}

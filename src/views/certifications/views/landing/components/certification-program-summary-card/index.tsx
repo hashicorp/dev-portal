@@ -35,7 +35,7 @@ export function CertificationProgramSummaryCard({
 					<>
 						<div className={s.description}>{description}</div>
 						<CtaGroup className={s.buttonGroup}>
-							<ButtonLink text="Overview" href={`/certifications/${slug}`} />
+							<ButtonLink text="Learn More" href={`/certifications/${slug}`} />
 						</CtaGroup>
 					</>
 				}
