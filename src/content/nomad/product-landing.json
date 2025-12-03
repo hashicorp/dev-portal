@@ -51,8 +51,8 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"nomad/schedule-edge-services",
-				"nomad/external-application-load-balancing"
+				"nomad/monolith-migration-overview",
+				"nomad/run-ai-workload"
 			]
 		},
 		{
