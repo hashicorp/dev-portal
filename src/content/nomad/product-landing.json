@@ -175,7 +175,7 @@
 			"cards": [
 				{
 					"heading": "Task Drivers",
-					"body": "Task drivers are used by Nomad clients to execute a task and provide resource isolation. Extending task drivers allows Nomad the flexibility to support a broad set of workloads.",
+					"body": "Nomad clients use task drivers to execute a task. Extending task drivers allows Nomad to support many types of workloads.",
 					"url": "nomad/docs/deploy/task-driver"
 				},
 				{
