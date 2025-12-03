@@ -14,7 +14,7 @@ export default function SignupHeader() {
 				Stay Informed
 			</Heading>
 			<Text size={200}>
-				Sign up to be notified of updates to the HashiCorp
+				Sign up to be notified with updates to the HashiCorp Product
 				Certifications program and to receive news and information about
 				HashiCorp products.
 			</Text>

@@ -77,7 +77,7 @@ function ExamCard({
 				/>
 				<CtaGroup>
 					{showComingSoon ? <ComingSoonBadge /> : null}
-					<StandaloneLinkContents text="Study for the exam" />
+					<StandaloneLinkContents text="Prepare for the exam" />
 				</CtaGroup>
 			</ExamCardContents>
 		</CardLink>
