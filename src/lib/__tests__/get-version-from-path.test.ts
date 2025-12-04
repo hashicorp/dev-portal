@@ -29,6 +29,13 @@ describe('getVersionFromPath', () => {
 			const version = getVersionFromPath(path)
 			expect(version).toEqual('0.7.x')
 		}
+
+		{
+			const path = 'https://developer.hashicorp.com/vault/docs/v2.x/k8s/connect'
+
+			const version = getVersionFromPath(path)
+			expect(version).toEqual('v2.x')
+		}
 	})
 
 	it('should return `undefined` if no version is present', () => {

@@ -85,4 +85,14 @@ describe('getTargetPath', () => {
 		const target = getTargetPath(input)
 		expect(target).toEqual('/consul/docs/1.15.x/k8s/connect')
 	})
+
+	it('should handle short versions', () => {
+		const input = {
+			basePath: 'vault/docs',
+			asPath: '/vault/docs/secrets/kv',
+			version: 'v2.x',
+		}
+		const target = getTargetPath(input)
+		expect(target).toEqual('/vault/docs/v2.x/secrets/kv')
+	})
 })
