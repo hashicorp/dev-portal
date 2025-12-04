@@ -51,8 +51,8 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"nomad/monolith-migration-overview",
-				"nomad/run-ai-workload"
+				"nomad/run-ai-workload",
+				"nomad/monolith-migration-overview"
 			]
 		},
 		{
@@ -187,7 +187,7 @@
 		},
 		{
 			"type": "heading",
-			"heading": "Infrastructure deployment best practices",
+			"heading": "Best practices for deploying infrastructure",
 			"level": 2,
 			"size": 400
 		},
@@ -196,29 +196,29 @@
 			"cards": [
 				{
 					"heading": "Define your container orchestrator",
-					"body": "Using infrastructure as code to define your container orchestration creates consistent, version-controlled specifications for Nomad.",
+					"body": "Use infrastructure as code to define your container orchestration and create consistent version-controlled specifications for Nomad.",
 					"url": "well-architected-framework/define-and-automate-processes/define/as-code/orchestration"
 				},
 				{
 					"heading": "Monitor your container orchestrator",
-					"body": "Monitoring container orchestrators is important for keeping your clusters and services healthy, and lets you sustain high performance and reliability.",
+					"body": "Monitor container orchestrators to keep your clusters and services healthy, which ensures your application's performance and reliability.",
 					"url": "well-architected-framework/define-and-automate-processes/monitor/setup-monitoring-agents/containers"
 				},
 				{
 					"heading": "Optimize your container orchestrator",
-					"body": "Container orchestrators allow your applications to scale quickly and enable you to optimize resource utilization.",
+					"body": "Container orchestrators quickly scale your applications and help you optimize resource utilization.",
 					"url": "well-architected-framework/optimize-systems/scale-resources/containers"
 				},
 				{
 					"heading": "Secure your container orchestrator",
-					"body": "A zero trust security model enhances security by eliminating implicit trust and continuously verifying access requests.",
+					"body": "A zero trust security model enhances your application's security by eliminating implicit trust and continuously verifying access requests.",
 					"url": "well-architected-framework/secure-systems/infrastructure/zero-trust-security"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Package management best practices",
+			"heading": "Best practices for package management",
 			"level": 2,
 			"size": 400
 		},
@@ -253,7 +253,7 @@
 			"cards": [
 				{
 					"heading": "Implement CI/CD",
-					"body": "Continuous integration and deployment pipelines ensure consistent, reliable delivery while reducing manual errors and deployment time.",
+					"body": "Continuous integration and deployment pipelines ensure that delivery is consistent and reliable while reducing manual errors and deployment time.",
 					"url": "well-architected-framework/define-and-automate-processes/automate/cicd"
 				},
 				{
@@ -263,12 +263,12 @@
 				},
 				{
 					"heading": "Automate deployments",
-					"body": "Automated deployments eliminate manual errors and provide predictable, repeatable processes for both applications and infrastructure.",
+					"body": "Automated deployments eliminate manual errors to provide predictable and repeatable processes for both applications and infrastructure.",
 					"url": "well-architected-framework/define-and-automate-processes/automate/deployments"
 				},
 				{
 					"heading": "Zero downtime deployments",
-					"body": "Zero-downtime deployment strategies aim to reduce or eliminate downtime when you update your infrastructure or applications.",
+					"body": "Zero downtime deployment strategies are designed to reduce or eliminate downtime when you update your infrastructure or applications.",
 					"url": "well-architected-framework/define-and-automate-processes/deploy/zero-downtime-deployments"
 				}
 			]
