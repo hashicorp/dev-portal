@@ -40,6 +40,11 @@
 					"description": "Use the Terraform CLI to manage configuration, plugins, infrastructure, and state.",
 					"title": "Terraform CLI",
 					"url": "/terraform/cli"
+				},
+				{
+					"description": "Use CDK for Terraform to write and deploy Terraform configurations in your preferred programming language.",
+					"title": "CDK for Terraform",
+					"url": "/terraform/cdktf"
 				}
 			]
 		},
