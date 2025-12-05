@@ -1,27 +1,27 @@
 <!-- Each "## Heading Two" section in this document will be used to populate an FAQ item -->
-## Exam Availability
+## Exam availability
 
-The Terraform Associate 003 exam will be replaced by the Terraform Associate 004 exam version on January 8, 2026.
+The Terraform Associate 003 exam will be replaced by the 004 exam version on January 8, 2026. All versions of the Terraform Associate exam validate your skills at the associate level. You may hold both certifications at the same time.
 
-- **December 9, 2025:** Advance scheduling for Terraform Associate 004 begins.
-- **January 5, 2026:** Last day to schedule Terraform Associate 003.
+Advanced scheduling for Terraform Associate 004 is now open.
+
+- **January 5, 2026**: Last day to schedule Terraform Associate 003.
 - **January 7, 2026:** Last day to take Terraform Associate 003.
-   -  If you take the (003) version at this time and fail, you will need to take the (004) version when you reattempt the exam.
-- **January 8, 2026:** First day to take Terraform Associate 004. Terraform Associate 003 is now retired.
+    - If you take the 003 version at this time and fail, you will need to take the 004 version when you reattempt the exam.
+- **January 8, 2026:** First day to take Terraform Associate 004. Terraform Associate 003 is retired.
 
-## Which Exam to Take
+## Who should take this exam 
 
-You can use either version of the exam to validate your Terraform knowledge at the associate level. Terraform Associate 003 is currently available, and the Terraform Associate 004 certification will launch on January 8, 2026. You can hold both the (003) and (004) at the same time.
+You should take the Terraform Associate certification exam if you are a Cloud Engineer with foundational Terraform knowledge and skills, who can identify Terraform Enterprise features and distinguish them from Community edition. 
 
-- **Terraform Associate 003:** Exam available now.
-- **Terraform Associate 004:** Coming January 8, 2026. The Terraform Associate 003 exam will no longer be available to take once Terraform Associate 004 is released.
-
-## Prerequisites
+Prerequisites:
 
 - Basic terminal skills
-- Basic understanding of on-premises and cloud architecture
+- Understanding of on-premises and cloud architecture
 
-## Exam Details
+While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup.
+
+## Exam details
 
 |                     |                                                                                   |
 | ------------------- | --------------------------------------------------------------------------------- |
@@ -32,7 +32,7 @@ You can use either version of the exam to validate your Terraform knowledge at t
 | **Language**        | English                                                                           |
 | **Expiration**      | 2 years                                                                           |
 
-## Exam Objectives
+## Exam objectives
 
 |       |                                                                                                     |
 | ----- | --------------------------------------------------------------------------------------------------- |
@@ -84,49 +84,40 @@ You can use either version of the exam to validate your Terraform knowledge at t
 | 9a    | Explain how HCP Terraform helps to manage infrastructure                                          |
 | 9b    | Describe how HCP Terraform enables collaboration and governance                                   |
 
-## Requirements for Attending an Exam
+## Renewing your certification
 
-Review the [rules and policies](https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125-Exam-appointment-rules-and-requirements) for taking HashiCorp certification exams.
+Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate).  
 
-## Renewing Your Certification
+### Scenario 1: You hold an unexpired Terraform Associate certification from the 003 version of the exam
 
-#### Renew by passing a professional-level exam
+#### Option 1: Pass the Terraform Authoring and Operations Professional exam 
 
-**_Unexpired_ Terraform Associate credentials:** 
+- Extend your Associate credentials' expiration date 
+- Earn a new professional-level badge and certificate 
 
-When you pass the Terraform Authoring and Operations Professional exam, you will receive the professional-level credentials (badge and corresponding certificate). You will also extend the expiration of your Terraform Associate credentials. 
+#### Option 2: Pass the 003 version of the Terraform Associate exam starting 6 months before expiration 
 
-#### Renew by passing an associate-level exam
+- Extend your credentials' expiration date 
 
-**_Unexpired_ Terraform Associate 002 credentials:** 
+### Scenario 2: You hold an unexpired Terraform Associate certification from the 002 version of the exam
 
-* You can take the current version of the Terraform Associate exam starting 6 months before your expiration date. 
-* You will receive a new, separate set of credentials that will reflect your recertification date. 
-* The expiration date of your existing Terraform Associate 002 credentials will not be updated.
+#### Option 1: Pass the Terraform Authoring and Operations Professional exam 
 
-**_Unexpired_ Terraform Associate 003 credentials:** 
+- Extend your Associate credentials' expiration date 
+- Earn a new professional-level badge and certificate 
 
-* You can retake the Terraform Associate 003 exam starting 6 months before your expiration date to extend your (003) expiration date.
+#### Option 2: Pass the 003 version of the Terraform Associate exam starting 6 months before expiration 
 
-#### Have _expired_ Terraform Associate credentials? 
+- Receive a new, separate set of credentials with a new expiration date 
+- Your original credentials' expiration date is not updated 
 
-* You are eligible to recertify at any time by passing the current version of the Terraform Associate exam. 
-* You will receive a new, separate set of credentials with a new expiration date.
+### Scenario 3: You hold any expired Terraform Associate certification 
 
-For questions about how Terraform Associate 004 impacts your recertification, contact certifications@hashicorp.com.
+_There is only one option for recertifying if your certification has already expired._ 
 
-Learn more about recertification in our [Knowledgebase](https://hashicorp-certifications.zendesk.com/hc/en-us/articles/9677396620941).
+#### Pass the current version of the Terraform Associate exam at any time
 
-## Content Differences Between the (002) and (003) Exams
+- Receive a new, separate set of credentials with a new expiration date 
+- Your expired credentials' expiration date is not updated 
 
-We updated the Terraform Associate from version 002 to 003 in 2023 to account for how Terraform had grown. The changes were primarily a reorganization and rewording of the 002 exam objectives. More significant changes are listed below.
-
-| #  | Objective Description                                                                      | Status in Terraform Associate 003                                           |
-|----|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| 3e | Explain when to use and not use provisioners and when to use local-exec or remote-exec | REMOVED                                                                     |
-| 4  | Use Terraform outside of core workflow                                                     | `terraform taint` removed, other topics reorganized                         |
-| 6b | Initialize a Terraform working directory (`terraform init`)                                | Includes questions about `terraform.lock.hcl`                               |
-| 7  | Implement and maintain state                                                               | Cloud integration authentication, and cloud backends added                  |
-| 8a | Demonstrate use of variables and outputs                                                   | Covers sensitive variables and outputs' relationship to exposure on the CLI |
-| 8g | ~~Configure~~ resource using a `dynamic` block                                             | Use cases for `dynamic` block are still tested in objective 8               |
-| 9  | Understand HCP Terraform capabilities                                                    | Restructured to accommodate the current and future state of HCP Terraform |
+Learn more about recertification in our [Knowledge base](https://hashicorp-certifications.zendesk.com/hc/en-us/articles/9677396620941-Recertification-policies-and-processes).
