@@ -7,6 +7,7 @@ import {
 	VERSION_IN_PATH_REGEX,
 	TFE_VERSION_IN_PATH_REGEXP,
 	NO_V_VERSION_IN_PATH_REGEX,
+	SHORT_VERSION_REGEX
 } from 'constants/version-path'
 
 /**
@@ -20,7 +21,8 @@ export function removeVersionFromPath(path: string): string {
 		return (
 			VERSION_IN_PATH_REGEX.test(el) ||
 			TFE_VERSION_IN_PATH_REGEXP.test(el) ||
-			NO_V_VERSION_IN_PATH_REGEX.test(el)
+			NO_V_VERSION_IN_PATH_REGEX.test(el) ||
+			SHORT_VERSION_REGEX.test(el)
 		)
 	})
 

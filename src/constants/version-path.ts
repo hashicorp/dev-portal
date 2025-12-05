@@ -11,3 +11,5 @@ export const NO_V_VERSION_IN_PATH_REGEX = /\d+\.\d+\.(\d+|\w+)/i
 
 /** This REGEX is used to parse a Terraform Enterprise version from a URL */
 export const TFE_VERSION_IN_PATH_REGEXP = /v[0-9]{6}-\d+/i
+
+export const SHORT_VERSION_REGEX = /v\d+\.(\d+|\w+)/i
