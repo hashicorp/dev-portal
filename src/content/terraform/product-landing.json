@@ -126,7 +126,6 @@
 			"tutorialSlugs": [
 				"terraform/multicloud-kubernetes",
 				"terraform/preview-environments-vercel",
-				"terraform/cdktf-assets-stacks-lambda",
 				"packer/golden-image-with-hcp-packer"
 			]
 		},
