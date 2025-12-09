@@ -9,6 +9,7 @@ import Badge from 'components/badge'
 import { OperationSections } from '../operation-sections'
 import { OperationExamples } from '../operation-examples'
 import { OperationDetails } from '../operation-details'
+import { Text } from '@hashicorp/mds-react'
 // Types
 import type { PropertyDetailsSectionProps } from '../operation-details'
 import type { ReactNode } from 'react'
@@ -59,7 +60,15 @@ export default function OperationContent({
 	return (
 		<>
 			<div className={s.header}>
-				<h1 className={s.heading}>{operationId}</h1>
+				<Text.DisplayExpressive
+					tag="h1"
+					color="strong"
+					weight="bold"
+					size="400"
+					className={s.heading}
+				>
+					{operationId}
+				</Text.DisplayExpressive>
 				{versionSwitcherSlot ? (
 					<div className={s.versionSwitcherSlot}>{versionSwitcherSlot}</div>
 				) : null}
