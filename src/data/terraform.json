@@ -59,6 +59,7 @@
 		{
 			"iconName": "code",
 			"name": "CDK for Terraform",
+			"path": "cdktf",
 			"productSlugForLoader": "terraform-cdk"
 		},
 		{
