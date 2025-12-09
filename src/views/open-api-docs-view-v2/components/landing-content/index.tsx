@@ -9,6 +9,7 @@ import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
 import StandaloneLink from '@components/standalone-link'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
+import { Text } from '@hashicorp/mds-react'
 // Local
 import { Status } from './components/status'
 import { DescriptionMdx } from './components/description-mdx'
@@ -47,7 +48,15 @@ export function LandingContent({
 						<ProductIcon productSlug={serviceProductSlug} />
 					</IconTile>
 					<span>
-						<h1 className={s.heading}>{heading}</h1>
+						<Text.DisplayExpressive
+							tag="h1"
+							color="strong"
+							weight="bold"
+							size="400"
+							className={s.heading}
+						>
+							{heading}
+						</Text.DisplayExpressive>
 						{statusIndicatorConfig ? (
 							<Status
 								endpointUrl={statusIndicatorConfig.endpointUrl}
