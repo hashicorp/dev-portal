@@ -9,6 +9,8 @@ const { loadEnvConfig } = require('@next/env')
 const projectDir = process.cwd()
 loadEnvConfig(projectDir)
 
+// just a test comment
+
 const fs = require('fs')
 const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
