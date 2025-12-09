@@ -7,6 +7,7 @@ import {
 	TFE_VERSION_IN_PATH_REGEXP,
 	VERSION_IN_PATH_REGEX,
 	NO_V_VERSION_IN_PATH_REGEX,
+	SHORT_VERSION_REGEX
 } from 'constants/version-path'
 
 const LEADING_TRAILING_SLASHES_REGEXP = /^\/+|\/+$/g
@@ -42,7 +43,8 @@ export function getTargetPath({
 		(el) =>
 			TFE_VERSION_IN_PATH_REGEXP.test(el) ||
 			VERSION_IN_PATH_REGEX.test(el) ||
-			NO_V_VERSION_IN_PATH_REGEX.test(el)
+			NO_V_VERSION_IN_PATH_REGEX.test(el) ||
+			SHORT_VERSION_REGEX.test(el)
 	)
 
 	const VERSION_CUTOFF_INDEX = 3
@@ -56,6 +58,7 @@ export function getTargetPath({
 			.replace(TFE_VERSION_IN_PATH_REGEXP, '')
 			.replace(VERSION_IN_PATH_REGEX, '')
 			.replace(NO_V_VERSION_IN_PATH_REGEX, '')
+			.replace(SHORT_VERSION_REGEX, '')
 			.replace(LEADING_TRAILING_SLASHES_REGEXP, ''))
 
 		const lastHalf = pathSegments.slice(VERSION_CUTOFF_INDEX, pathSegments.length)
