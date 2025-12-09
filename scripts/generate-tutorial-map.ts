@@ -12,7 +12,7 @@ import { getAllTutorials } from '../src/lib/learn-client/api/tutorial'
 // API, so we set the API URL explicitly since local development will typically
 // be using the staging API.
 process.env.NEXT_PUBLIC_LEARN_API_BASE_URL =
-	'https://bchqb4rczb.us-east-1.awsapprunner.com'
+	process.env.NEXT_PUBLIC_LEARN_API_BASE_URL_PROD
 
 /**
  * This function creates a map of 'database-slug': 'dev-dot/path'
