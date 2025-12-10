@@ -23,32 +23,13 @@ import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import { validateSandboxConfigWithDetailedErrors } from 'lib/validate-sandbox-config'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
 
-// SSR-safe dynamic import
-let posthog: typeof import('posthog-js').default | null = null
-if (typeof window !== 'undefined') {
-	import('posthog-js').then((module) => {
-		posthog = module.default
-	})
-}
-
-/**
- * Tracks Instruqt context errors with PostHog and development logging
- */
 function trackInstruqtError(
-	errorType: string,
+	_errorType: string,
 	errorMessage: string,
 	context?: Record<string, unknown>
 ) {
-	posthog.capture('instruqt_context_error', {
-		error_type: errorType,
-		error_message: errorMessage,
-		timestamp: new Date().toISOString(),
-		page_url: window.location.href,
-		...context,
-	})
-
 	if (process.env.NODE_ENV === 'development') {
-		if (errorType.includes('warning') || errorType.includes('storage')) {
+		if (_errorType.includes('warning') || _errorType.includes('storage')) {
 			console.warn(`[InstruqtContext] ${errorMessage}`, context)
 		} else {
 			console.error(`[InstruqtContext] ${errorMessage}`, context)
@@ -135,11 +116,6 @@ function InstruqtProvider({
 					error_count: validation.errors.length,
 				}
 			)
-
-			posthog.capture('sandbox_config_error', {
-				errors: validation.errors,
-				timestamp: new Date().toISOString(),
-			})
 		} else if (validation.warnings.length > 0) {
 			trackInstruqtError(
 				'config_warnings',
@@ -272,6 +248,7 @@ function InstruqtProvider({
 		}
 	}, [active, labId, labSource, isClient, hasConfigError])
 
+	// Track sandbox open only once when lab becomes active avoid infinite loops
 	useEffect(() => {
 		if (active && labId && !hasConfigError) {
 			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
@@ -279,7 +256,7 @@ function InstruqtProvider({
 				page: router.asPath,
 			})
 		}
-	}, [router.asPath, active, labId, hasConfigError])
+	}, [active, labId, hasConfigError, router.asPath])
 
 	useEffect(() => {
 		if (previousPathRef.current !== router.asPath) {

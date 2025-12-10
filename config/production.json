@@ -35,7 +35,10 @@
 			"sentinel",
 			"hcp-docs",
 			"boundary",
-			"consul"
+			"consul",
+			"nomad",
+			"packer",
+			"vagrant"
 		]
 	}
 }

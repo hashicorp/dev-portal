@@ -11,6 +11,7 @@ import { CardEyebrowText } from 'components/card/components'
 import TutorialCard, { TutorialCardPropsWithId } from '..'
 import ProgressIconAndLabel from '../components/progress-icon-and-label'
 import { getSpeakableDuration } from './build-aria-label'
+import s from './with-auth-elements.module.css'
 
 /**
  * Displays a TutorialCard, which shows additional user-data-specific elements
@@ -55,8 +56,11 @@ export function TutorialCardWithAuthElements({
 					: getSpeakableDuration(restProps.duration)
 			}
 			eyebrowSlot={
-				<>
-					{/** Progress is only queried if auth is enabled */}
+				<div
+					className={
+						`${s.eyebrowSlot} ${hasBookmark ? s.spaceBetween : s.flexStart}`
+					}
+				>
 					{shouldRenderProgress ? (
 						<ProgressIconAndLabel status={tutorialProgressStatus} />
 					) : (
@@ -67,7 +71,7 @@ export function TutorialCardWithAuthElements({
 							tutorial={{ id: tutorialId, name: restProps.heading }}
 						/>
 					)}
-				</>
+				</div>
 			}
 		/>
 	)

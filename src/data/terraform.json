@@ -42,7 +42,6 @@
 		"enterprise",
 		"mcp-server",
 		"migrate",
-		"cdktf",
 		{
 			"icon": "provider",
 			"label": "Provider Use",
