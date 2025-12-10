@@ -9,6 +9,7 @@
 
 .sandboxCard {
 	padding: 18px;
+	box-shadow: var(--mds-surface-mid-box-shadow);
 }
 
 .cardHeader {

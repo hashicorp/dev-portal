@@ -8,6 +8,9 @@ import classNames from 'classnames'
 import { CardProps } from './types'
 import s from './card.module.css'
 
+/**
+ * @deprecated Use Card component from `@hashicorp/mds-react` instead.
+ */
 const Card = ({
 	children,
 	className,

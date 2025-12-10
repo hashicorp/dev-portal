@@ -5,7 +5,7 @@
 
 import { ReactElement } from 'react'
 import slugify from 'slugify'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import Link from 'components/link'
 import Text from 'components/text'
 import { SidecarMarketingCardProps } from './types'
@@ -17,7 +17,7 @@ const SidecarMarketingCard = ({
 	featuredDocsLinks,
 }: SidecarMarketingCardProps): ReactElement => {
 	return (
-		<Card elevation="base">
+		<Card className={s.card}>
 			<Text className={s.cardTitle} size={300} weight="semibold">
 				{title}
 			</Text>

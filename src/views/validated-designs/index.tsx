@@ -8,7 +8,7 @@ import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import { HvdCategoryGroup, HvdGuide } from './types'
 import LandingHero from 'components/landing-hero'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import CardLink from 'components/card-link'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
@@ -47,7 +47,6 @@ export default function ValidatedDesignsLandingView({
 			<div className={s.categoryGroupsContainer}>
 				{categoryGroups.map((category: HvdCategoryGroup) => (
 					<Card
-						elevation="base"
 						key={category.slug}
 						className={s.categoryGroupContainer}
 					>

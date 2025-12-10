@@ -13,7 +13,7 @@ import classNames from 'classnames'
 import s from './style.module.css'
 import { OperationObjectType } from '../../types'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import Badge from 'components/badge'
 import Text from 'components/text'
 
@@ -104,7 +104,7 @@ function OperationObject({
 					<Tabs showAnchorLine={false}>
 						<Tab heading="Request">
 							<span className={s.spacer} />
-							<Card elevation="base">
+							<Card className={s.card}>
 								{pathParams.length > 0 ? (
 									<Parameters title="Path Parameters" params={pathParams} />
 								) : null}
@@ -119,7 +119,7 @@ function OperationObject({
 
 						<Tab heading="Response">
 							<span className={s.spacer} />
-							<Card elevation="base">
+							<Card className={s.card}>
 								{successResponse ? (
 									<>
 										<p className={s.columnSectionHeading}>

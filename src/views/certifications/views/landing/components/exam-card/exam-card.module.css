@@ -30,4 +30,5 @@
 .comingSoonCard {
 	composes: cardBase;
 	background: var(--mds-color-surface-faint);
+	box-shadow: var(--mds-surface-mid-box-shadow);
 }

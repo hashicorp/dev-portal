@@ -5,7 +5,7 @@
 
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import ButtonLink from 'components/button-link'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import Heading from 'components/heading'
 import Text from 'components/text'
 import vagrantData from 'data/vagrant.json'
@@ -18,7 +18,7 @@ import s from './vagrant-downloads.module.css'
 
 const VagrantDownloadsMerchandisingSlot = (): ReactElement => {
 	return (
-		<Card elevation="base">
+		<Card className={s.card}>
 			<Heading className={s.heading} level={3} size={300} weight="semibold">
 				VMware utility
 			</Heading>

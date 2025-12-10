@@ -42,3 +42,7 @@
 		text-decoration: underline;
 	}
 }
+
+.card {
+	padding: 16px;
+}

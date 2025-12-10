@@ -6,7 +6,7 @@
 import classNames from 'classnames'
 import BadgeList from 'components/badge-list'
 import Button from 'components/button'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
@@ -39,7 +39,6 @@ export default function ContentHeaderCard({
 	const hasButtons = buttons && buttons.length > 0
 	return (
 		<Card
-			elevation="base"
 			className={classNames(s.contentHeaderCard, className)}
 		>
 			<div className={s.cardTop}>

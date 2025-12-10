@@ -11,7 +11,7 @@ import AuthenticatedView from 'views/authenticated-view'
 import Text from 'components/text'
 import Heading from 'components/heading'
 import CopySnippet from 'components/hds-copy-snippet'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import StandaloneLink from 'components/standalone-link'
 import InlineLink from 'components/inline-link'
 
@@ -58,7 +58,7 @@ const ProfileAccountViewContent = () => {
 				Primary email
 			</Heading>
 
-			<Card className={s.section} elevation="base">
+			<Card className={s.section}>
 				<Text className={s.description}>
 					Email address associated with your profile name
 				</Text>
@@ -71,7 +71,7 @@ const ProfileAccountViewContent = () => {
 				HashiCorp ID
 			</Heading>
 
-			<Card className={s.section} elevation="base">
+			<Card className={s.section}>
 				<Text className={s.description}>Your ID within HashiCorp</Text>
 				<div className={classNames('ph-no-capture', s.copySnippetWrapper)}>
 					<CopySnippet textToCopy={user.id} />
