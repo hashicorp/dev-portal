@@ -11,7 +11,7 @@ import { CodeBlock } from '@hashicorp/mds-react/components'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import Heading, { HeadingProps } from 'components/heading'
 import Tabs, { Tab } from 'components/tabs'
 import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
@@ -142,7 +142,7 @@ const DownloadsSection = ({
 				const prettyOSName = prettyOs(osKey)
 
 				return (
-					<Card className={s.card} elevation="base" key={osKey}>
+					<Card className={s.card} key={osKey}>
 						<ContentWithPermalink
 							className={s.headingContainer}
 							id={osKey}

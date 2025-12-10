@@ -11,7 +11,7 @@ import {
 import { ExamBadgeAndTitle } from '../'
 import CardLink from 'components/card-link'
 import s from './exam-card.module.css'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import Badge from 'components/badge'
 import { ExamCardUnlinkedProps, ExamCardProps } from './types'
 

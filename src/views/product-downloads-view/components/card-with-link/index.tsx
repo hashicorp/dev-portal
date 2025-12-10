@@ -7,7 +7,7 @@
 import { ReactNode } from 'react'
 
 // Global imports
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import Text from 'components/text'
 
 // Local imports
@@ -30,7 +30,7 @@ const CardWithLink = ({
 	link,
 }: CardWithLinkProps) => {
 	return (
-		<Card className={classNames(s.root, className)} elevation="base">
+		<Card className={classNames(s.root, className)}>
 			{typeof icon !== 'undefined' ? icon : null}
 			<div className={s.contentContainer}>
 				<Text className={s.contentHeading} size={200} weight="semibold">
