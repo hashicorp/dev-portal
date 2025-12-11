@@ -95,4 +95,56 @@ describe('getTargetPath', () => {
 		const target = getTargetPath(input)
 		expect(target).toEqual('/vault/docs/v2.x/secrets/kv')
 	})
+
+	describe('with 3-segment basePath (terraform/plugin/framework)', () => {
+		it('should return a target path while on "latest"', () => {
+			const input = {
+				basePath: 'terraform/plugin/framework',
+				asPath: '/terraform/plugin/framework/resources',
+				version: 'v1.15.x',
+			}
+			const target = getTargetPath(input)
+			expect(target).toEqual('/terraform/plugin/framework/v1.15.x/resources')
+		})
+
+		it('should return a target path while on an older version', () => {
+			const input = {
+				basePath: 'terraform/plugin/framework',
+				asPath: '/terraform/plugin/framework/v1.15.x/resources',
+				version: 'v1.16.x',
+			}
+			const target = getTargetPath(input)
+			expect(target).toEqual('/terraform/plugin/framework/v1.16.x/resources')
+		})
+
+		it('should handle nested paths with version switching', () => {
+			const input = {
+				basePath: 'terraform/plugin/framework',
+				asPath: '/terraform/plugin/framework/v1.15.x/functions/returns/number',
+				version: 'v1.16.x',
+			}
+			const target = getTargetPath(input)
+			expect(target).toEqual('/terraform/plugin/framework/v1.16.x/functions/returns/number')
+		})
+
+		it('should handle root path version switching', () => {
+			const input = {
+				basePath: 'terraform/plugin/framework',
+				asPath: '/terraform/plugin/framework',
+				version: 'v1.15.x',
+			}
+			const target = getTargetPath(input)
+			expect(target).toEqual('/terraform/plugin/framework/v1.15.x')
+		})
+
+		it('should handle getting-started paths', () => {
+			const input = {
+				basePath: 'terraform/plugin/framework',
+				asPath: '/terraform/plugin/framework/getting-started/code-walkthrough',
+				version: 'v1.15.x',
+			}
+			const target = getTargetPath(input)
+			expect(target).toEqual('/terraform/plugin/framework/v1.15.x/getting-started/code-walkthrough')
+		})
+	})
 })

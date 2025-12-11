@@ -33,13 +33,19 @@ export function getTargetPath({
 		.replace(/^\//i, '')
 		.split('/')
 
+	// Calculate how many segments the basePath contains so this can be handled dynamically
+	// e.g., "vault/docs" = 2, "terraform/plugin/framework" = 3
+	const basePathSegmentCount = basePath.split('/').length
+
 	let rest = asPath
 		.replace(basePath, '') // strip basePath
 		.replace(LEADING_TRAILING_SLASHES_REGEXP, '') // strip leading and trailing slashes
 
-	// version is only expected to be at index 2, or 3 in the case of TF-Plugins
-	// - "product" will be at index 0, and "basePath" at index 1
-	const indexOfVersion = pathSegments.findIndex(
+	// Previous assumption was that version was to be expected at index 2 or 3, but the assumption broke
+	// Now, version is expected to appear immediately after the basePath segments
+	// Start searching from the index after all basePath segments
+	const startSearchIndex = basePathSegmentCount 
+	const indexOfVersion = pathSegments.slice(startSearchIndex).findIndex(
 		(el) =>
 			TFE_VERSION_IN_PATH_REGEXP.test(el) ||
 			VERSION_IN_PATH_REGEX.test(el) ||
@@ -47,25 +53,33 @@ export function getTargetPath({
 			SHORT_VERSION_REGEX.test(el)
 	)
 
-	const VERSION_CUTOFF_INDEX = 3
-	if (indexOfVersion <= VERSION_CUTOFF_INDEX) {
+	// Convert relative index to absolute index in pathSegments array
+	const absoluteVersionIndex = indexOfVersion >= 0 ? startSearchIndex + indexOfVersion : -1
+
+	// Set cutoff to 1 position after where we start searching
+	// This limits the blast radius to avoid matching versions in content slugs
+	const VERSION_CUTOFF_INDEX = startSearchIndex + 1
+	if (absoluteVersionIndex >= 0 && absoluteVersionIndex <= VERSION_CUTOFF_INDEX) {
 		// Let's use the version cutoff index to limit the blast radius of this regex.
 		// Anything beyond that in the URL will be ignored. That way versions in URL slugs
 		// won't be accidentally matched and removed.
 		// Example: /vault/docs/v1.17.x/upgrading/upgrade-to-1.17.x
 		// We want to avoid the "upgrade-to-1.17.x" part being matched and removed.
-		const firstHalf = pathSegments.slice(2, VERSION_CUTOFF_INDEX).map((el) => el
+		
+		// Extract any segments between basePath and version (should typically be empty)
+		const segmentsBetweenBaseAndVersion = pathSegments.slice(basePathSegmentCount, absoluteVersionIndex).map((el) => el
 			.replace(TFE_VERSION_IN_PATH_REGEXP, '')
 			.replace(VERSION_IN_PATH_REGEX, '')
 			.replace(NO_V_VERSION_IN_PATH_REGEX, '')
 			.replace(SHORT_VERSION_REGEX, '')
 			.replace(LEADING_TRAILING_SLASHES_REGEXP, ''))
 
-		const lastHalf = pathSegments.slice(VERSION_CUTOFF_INDEX, pathSegments.length)
-			// Replace the version in the last half with the target version
+		// Extract segments after the version
+		const segmentsAfterVersion = pathSegments.slice(absoluteVersionIndex + 1, pathSegments.length)
+			// Replace the version in these segments with the target version
 			.map((el) => (el).replace(NO_V_VERSION_IN_PATH_REGEX, version))
 
-		rest = firstHalf.concat(lastHalf).filter(Boolean).join('/')
+		rest = segmentsBetweenBaseAndVersion.concat(segmentsAfterVersion).filter(Boolean).join('/')
 	}
 	return '/' + basePath + '/' + version + (rest ? `/${rest}` : '')
 }
