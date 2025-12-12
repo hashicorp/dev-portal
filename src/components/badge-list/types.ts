@@ -5,7 +5,7 @@
 
 import { BadgeProps } from "@hashicorp/mds-react/components"
 
-export interface BadgeListBadgeProps {
+export interface BadgeListBadge {
 	text: BadgeProps['text']
 	icon?: BadgeProps['icon']
 	color?: BadgeProps['color']
@@ -13,7 +13,7 @@ export interface BadgeListBadgeProps {
 }
 
 export interface BadgeListProps {
-	badges: Array<BadgeListBadgeProps>
+	badges: Array<BadgeListBadge>
 	className?: string
 	size?: BadgeProps['size']
 	type?: BadgeProps['type']
