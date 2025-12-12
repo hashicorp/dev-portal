@@ -4,10 +4,9 @@
  */
 
 // Components
-import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
-import { Text } from '@hashicorp/mds-react'
+import { Badge, Text } from '@hashicorp/mds-react/components'
 // Local
 import { Status } from './components/status'
 // Types
