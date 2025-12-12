@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { BadgeListBadgeProps } from '@components/badge-list/types'
+import { BadgeListBadge } from '@components/badge-list/types'
 import { Flag, Integration, Tier } from './integrations-api-client/integration'
 
 // Converts an Integration object into an array of Badges to be used by our badge-list
 export function getIntegrationBadges(
 	integration: Integration,
 	tierFirst: boolean
-): Array<BadgeListBadgeProps> {
-	let tierBadge: BadgeListBadgeProps
+): Array<BadgeListBadge> {
+	let tierBadge: BadgeListBadge
 	switch (integration.tier) {
 		case Tier.OFFICIAL:
 			tierBadge = {
@@ -40,7 +40,7 @@ export function getIntegrationBadges(
 			break
 	}
 
-	let typeBadge: BadgeListBadgeProps
+	let typeBadge: BadgeListBadge
 	if (integration.integration_type) {
 		typeBadge = {
 			text: integration.integration_type.name,
@@ -52,8 +52,8 @@ export function getIntegrationBadges(
 		// Be sure to keep this tierFirst entry here as the first item
 		...(tierFirst ? [tierBadge] : []),
 		...(typeBadge ? [typeBadge] : []),
-		...integration.flags.map((flag: Flag): BadgeListBadgeProps => {
-			let icon: BadgeListBadgeProps['icon'] = undefined
+		...integration.flags.map((flag: Flag): BadgeListBadge => {
+			let icon: BadgeListBadge['icon'] = undefined
 			switch (flag.slug) {
 				case 'builtin':
 					icon = 'wrench'
