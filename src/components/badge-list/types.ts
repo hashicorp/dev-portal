@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { BadgeProps } from 'components/badge/types'
+import { BadgeProps } from "@hashicorp/mds-react/components"
 
-export interface Badge {
+export interface BadgeListBadgeProps {
 	text: BadgeProps['text']
 	icon?: BadgeProps['icon']
 	color?: BadgeProps['color']
@@ -13,7 +13,7 @@ export interface Badge {
 }
 
 export interface BadgeListProps {
-	badges: Array<Badge>
+	badges: Array<BadgeListBadgeProps>
 	className?: string
 	size?: BadgeProps['size']
 	type?: BadgeProps['type']

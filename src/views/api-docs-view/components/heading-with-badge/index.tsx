@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import s from './heading-with-badge.module.css'
 
 /**

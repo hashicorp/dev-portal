@@ -3,16 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
-import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
-import { IconNomadColor16 } from '@hashicorp/flight-icons/svg-react/nomad-color-16'
-import { IconPackerColor16 } from '@hashicorp/flight-icons/svg-react/packer-color-16'
-import { IconPlay16 } from '@hashicorp/flight-icons/svg-react/play-16'
-import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
-import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
-import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-color-16'
-import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
-import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
+import type { FlightIconName } from '@hashicorp/mds-react/components'
 import boundaryGraphic from './img/boundary.svg'
 import consulGraphic from './img/consul.svg'
 import nomadGraphic from './img/nomad.svg'
@@ -22,45 +13,45 @@ import vagrantGraphic from './img/vagrant.svg'
 import vaultGraphic from './img/vault.svg'
 import waypointGraphic from './img/waypoint.svg'
 
-const BADGE_ICON_MAP = {
+const BADGE_ICON_MAP: Record<string, {icon: FlightIconName, label: string}> = {
 	vault: {
-		icon: <IconVaultColor16 />,
+		icon: 'vault-color',
 		label: 'Vault',
 	},
 	consul: {
-		icon: <IconConsulColor16 />,
+		icon: 'consul-color',
 		label: 'Consul',
 	},
 	terraform: {
-		icon: <IconTerraformColor16 />,
+		icon: 'terraform-color',
 		label: 'Terraform',
 	},
 	nomad: {
-		icon: <IconNomadColor16 />,
+		icon: 'nomad-color',
 		label: 'Nomad',
 	},
 	boundary: {
-		icon: <IconBoundaryColor16 />,
+		icon: 'boundary-color',
 		label: 'Boundary',
 	},
 	packer: {
-		icon: <IconPackerColor16 />,
+		icon: 'packer-color',
 		label: 'Packer',
 	},
 	vagrant: {
-		icon: <IconVagrantColor16 />,
+		icon: 'vagrant-color',
 		label: 'Vagrant',
 	},
 	waypoint: {
-		icon: <IconWaypointColor16 />,
+		icon: 'waypoint-color',
 		label: 'Waypoint',
 	},
 	video: {
-		icon: <IconPlay16 />,
+		icon: 'play',
 		label: 'Video',
 	},
 	interactive: {
-		icon: <IconTerminalScreen16 />,
+		icon: 'terminal-screen',
 		label: 'Interactive',
 	},
 }

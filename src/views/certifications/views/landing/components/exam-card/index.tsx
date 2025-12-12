@@ -12,7 +12,7 @@ import { ExamBadgeAndTitle } from '../'
 import CardLink from 'components/card-link'
 import s from './exam-card.module.css'
 import { MDSCard } from '@components/mds-card'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import { ExamCardUnlinkedProps, ExamCardProps } from './types'
 
 /**

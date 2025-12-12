@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
@@ -18,7 +17,7 @@ const CommandBarDialogFooter = () => {
 		<div className={s.footer}>
 			<div className={s.footerLeft} id={instructionsElementId}>
 				<Badge
-					ariaLabel="Tab key"
+					accessibleText="Tab key"
 					color="neutral"
 					size="small"
 					text="Tab"
@@ -28,9 +27,9 @@ const CommandBarDialogFooter = () => {
 					to navigate,
 				</Text>
 				<Badge
-					ariaLabel="Enter key"
+					accessibleText="Enter key"
 					color="neutral"
-					icon={<IconCornerDownLeft16 />}
+					icon="corner-down-left"
 					size="small"
 					type="filled"
 				/>
@@ -38,7 +37,7 @@ const CommandBarDialogFooter = () => {
 					to select,
 				</Text>
 				<Badge
-					ariaLabel="Escape key"
+					accessibleText="Escape key"
 					color="neutral"
 					size="small"
 					text="Esc"

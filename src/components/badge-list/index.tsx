@@ -4,10 +4,10 @@
  */
 
 import classNames from 'classnames'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import Tooltip from 'components/tooltip'
 import s from './badge-list.module.css'
-import { Badge as BadgeListBadge, BadgeListProps } from './types'
+import { BadgeListBadgeProps, BadgeListProps } from './types'
 
 export default function BadgeList({
 	badges,
@@ -17,7 +17,7 @@ export default function BadgeList({
 }: BadgeListProps) {
 	return (
 		<ul className={classNames(s.badgeList, className)}>
-			{badges.map((badge: BadgeListBadge) => {
+			{badges.map((badge: BadgeListBadgeProps) => {
 				return (
 					<li key={badge.text} className={s.badge}>
 						{badge.tooltip ? (
