@@ -6,9 +6,8 @@
 import { ChangeEvent } from 'react'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import { useCurrentProduct } from 'contexts'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
-import { CmdCtrlIcon, KIcon } from 'components/command-bar/components'
 import Tag from 'components/tag'
 import s from './command-bar-dialog.module.css'
 
@@ -74,16 +73,16 @@ const CommandBarDialogHeader = () => {
 				) : (
 					<div className={s.badges}>
 						<Badge
-							ariaLabel="Command key"
+							accessibleText="Command or control key"
 							color="neutral"
-							icon={<CmdCtrlIcon />}
+							text="⌘/ctrl"
 							size="small"
 							type="outlined"
 						/>
 						<Badge
-							ariaLabel="K key"
+							accessibleText="K key"
 							color="neutral"
-							icon={<KIcon />}
+							text="K"
 							size="small"
 							type="outlined"
 						/>

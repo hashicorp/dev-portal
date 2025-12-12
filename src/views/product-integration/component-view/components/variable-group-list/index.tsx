@@ -5,7 +5,7 @@
 
 import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
 import classNames from 'classnames'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import MdxHeadingPermalink from 'components/dev-dot-content/mdx-components/mdx-heading-permalink'
 import { getVariableSlug } from '../../helpers'
 import DevDotContent from 'components/dev-dot-content'

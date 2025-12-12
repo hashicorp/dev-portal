@@ -6,14 +6,18 @@
 import { forwardRef } from 'react'
 import classNames from 'classnames'
 import { HeadingProps } from './types'
-import { Text } from '@hashicorp/mds-react'
+import { Text } from '@hashicorp/mds-react/components'
+
+type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ level, size, weight, ...rest }, ref) => {
+	const tag = `h${level}` satisfies HeadingTag
+
 	if (size === 600) {
 		return (
 			<Text.DisplayExpressive
-				tag={`h${level}`}
+				tag={tag}
 				size="400"
 				weight={weight}
 				ref={ref}
@@ -33,7 +37,7 @@ const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
 		className,
 	}
 
-	const HeadingElement = `h${level}` as React.ElementType
+	const HeadingElement = tag
 	return <HeadingElement ref={ref} {...passableProps} />
   }
 )

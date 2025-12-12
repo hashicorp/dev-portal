@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
-import { IconLoading16 } from '@hashicorp/flight-icons/svg-react/loading-16'
-import { IconHelp16 } from '@hashicorp/flight-icons/svg-react/help-16'
-import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
-import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
-import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
-import Badge, { BadgeProps } from 'components/badge'
+import { Badge, type BadgeProps } from '@hashicorp/mds-react/components'
 
 /**
  * Represents status values we expect back from the StatusPage API. Ref:
@@ -44,37 +38,37 @@ const STATUS_CONTENT_MAP: Record<
 	operational: {
 		text: 'Operational',
 		color: 'success',
-		icon: <IconCheckCircle16 />,
+		icon: 'check-circle',
 	},
 	degraded_performance: {
 		text: 'Degraded',
 		color: 'warning',
-		icon: <IconAlertTriangle16 />,
+		icon: 'alert-triangle',
 	},
 	partial_outage: {
 		text: 'Partial Outage',
 		color: 'warning',
-		icon: <IconAlertTriangle16 />,
+		icon: 'alert-triangle',
 	},
 	major_outage: {
 		text: 'Major Outage',
 		color: 'critical',
-		icon: <IconX16 />,
+		icon: 'x',
 	},
 	under_maintenance: {
 		text: 'Maintenance',
 		color: 'highlight',
-		icon: <IconWrench16 />,
+		icon: 'wrench',
 	},
 	loading: {
 		text: 'Loading…',
 		color: 'neutral',
-		icon: <IconLoading16 />,
+		icon: 'loading',
 	},
 	unknown: {
 		text: 'Unknown',
 		color: 'neutral',
-		icon: <IconHelp16 />,
+		icon: 'help',
 	},
 }
 
