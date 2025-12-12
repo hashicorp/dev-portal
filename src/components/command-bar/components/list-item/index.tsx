@@ -123,7 +123,7 @@ const CommandBarButtonListItem = ({
 				<CommandBarListItemContent
 					badges={badges}
 					description={description}
-					// icon={icon}
+					icon={icon}
 					title={title}
 				/>
 			</button>
