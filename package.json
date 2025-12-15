@@ -102,7 +102,7 @@
 		"@hashicorp/flight-icons": "^3.7.0",
 		"@hashicorp/localstorage-polyfill": "^1.0.14",
 		"@hashicorp/mds-next": "^0.9.3",
-		"@hashicorp/mds-react": "^0.9.12",
+		"@hashicorp/mds-react": "^0.9.13",
 		"@hashicorp/mds-tokens": "^0.9.6",
 		"@hashicorp/mktg-global-styles": "^4.5.0",
 		"@hashicorp/platform-analytics": "^0.12.0",
