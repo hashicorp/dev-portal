@@ -51,8 +51,8 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"nomad/schedule-edge-services",
-				"nomad/external-application-load-balancing"
+				"nomad/run-ai-workload",
+				"nomad/monolith-migration-overview"
 			]
 		},
 		{
@@ -175,13 +175,101 @@
 			"cards": [
 				{
 					"heading": "Task Drivers",
-					"body": "Task drivers are used by Nomad clients to execute a task and provide resource isolation. Extending task drivers allows Nomad the flexibility to support a broad set of workloads.",
+					"body": "Nomad clients use task drivers to execute a task. Extending task drivers allows Nomad to support many types of workloads.",
 					"url": "nomad/docs/deploy/task-driver"
 				},
 				{
 					"heading": "External Tools",
 					"body": "External tools provide additional capabilities and use cases to Nomad and can sometimes be deployed as a Nomad job in your cluster.",
 					"url": "nomad/tools"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Best practices for deploying infrastructure",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Define your container orchestrator",
+					"body": "Use infrastructure as code to define your container orchestration and create consistent version-controlled specifications for Nomad.",
+					"url": "well-architected-framework/define-and-automate-processes/define/as-code/orchestration"
+				},
+				{
+					"heading": "Monitor your container orchestrator",
+					"body": "Monitor container orchestrators to keep your clusters and services healthy, which ensures your application's performance and reliability.",
+					"url": "well-architected-framework/define-and-automate-processes/monitor/setup-monitoring-agents/containers"
+				},
+				{
+					"heading": "Optimize your container orchestrator",
+					"body": "Container orchestrators quickly scale your applications and help you optimize resource utilization.",
+					"url": "well-architected-framework/optimize-systems/scale-resources/containers"
+				},
+				{
+					"heading": "Secure your container orchestrator",
+					"body": "A zero trust security model enhances your application's security by eliminating implicit trust and continuously verifying access requests.",
+					"url": "well-architected-framework/secure-systems/infrastructure/zero-trust-security"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Best practices for package management",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Create immutable containers",
+					"body": "Immutable containers package your application into an unchangeable unit that you build once and deploy one or more times.",
+					"url": "well-architected-framework/define-and-automate-processes/define/immutable-infrastructure/containers"
+				},
+				{
+					"heading": "Package applications",
+					"body": "Application packaging creates deployable artifacts that ensure consistency across environments and simplify deployment processes.",
+					"url": "well-architected-framework/define-and-automate-processes/automate/packaging"
+				},
+				{
+					"heading": "Centralize packages",
+					"body": "Centralize software artifacts and dependencies to streamline the build process and enhance security and governance.",
+					"url": "well-architected-framework/define-and-automate-processes/define/centralize-packages"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "CI/CD automation best practices",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Implement CI/CD",
+					"body": "Continuous integration and deployment pipelines ensure that delivery is consistent and reliable while reducing manual errors and deployment time.",
+					"url": "well-architected-framework/define-and-automate-processes/automate/cicd"
+				},
+				{
+					"heading": "Automate testing",
+					"body": "Automated testing validates that applications and infrastructure work correctly before deployment, reducing the risk of failures in production.",
+					"url": "well-architected-framework/define-and-automate-processes/automate/testing"
+				},
+				{
+					"heading": "Automate deployments",
+					"body": "Automated deployments eliminate manual errors to provide predictable and repeatable processes for both applications and infrastructure.",
+					"url": "well-architected-framework/define-and-automate-processes/automate/deployments"
+				},
+				{
+					"heading": "Zero downtime deployments",
+					"body": "Zero downtime deployment strategies are designed to reduce or eliminate downtime when you update your infrastructure or applications.",
+					"url": "well-architected-framework/define-and-automate-processes/deploy/zero-downtime-deployments"
 				}
 			]
 		}
