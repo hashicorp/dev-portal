@@ -124,7 +124,7 @@ for further details.
 .main {
 	width: 100%;
 	min-width: 0;
-	max-width: 1400px;
+	max-width: 1050px;
 }
 
 /* .sidecarPosition handles the sticky positioning and max-height of all the
