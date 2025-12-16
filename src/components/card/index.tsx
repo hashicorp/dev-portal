@@ -9,7 +9,7 @@ import { CardProps } from './types'
 import s from './card.module.css'
 
 /**
- * @deprecated Use Card component from `@hashicorp/mds-react` instead.
+ * @deprecated Use MDSCard component instead.
  */
 const Card = ({
 	children,

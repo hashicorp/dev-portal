@@ -7,7 +7,7 @@
 import { ReactNode } from 'react'
 
 // Global imports
-import { Card } from '@hashicorp/mds-react/components'
+import { MDSCard } from '@components/mds-card'
 import Text from 'components/text'
 
 // Local imports
@@ -30,7 +30,7 @@ const CardWithLink = ({
 	link,
 }: CardWithLinkProps) => {
 	return (
-		<Card className={classNames(s.root, className)}>
+		<MDSCard className={classNames(s.root, className)} isLightBackground={true}>
 			{typeof icon !== 'undefined' ? icon : null}
 			<div className={s.contentContainer}>
 				<Text className={s.contentHeading} size={200} weight="semibold">
@@ -43,7 +43,7 @@ const CardWithLink = ({
 				) : null}
 			</div>
 			{typeof link !== 'undefined' ? link : null}
-		</Card>
+		</MDSCard>
 	)
 }
 

@@ -6,7 +6,7 @@
 import { gt } from 'semver'
 import classNames from 'classnames'
 // Components
-import { Card } from '@hashicorp/mds-react/components'
+import { MDSCard } from '@components/mds-card'
 import CardWithLink from 'views/product-downloads-view/components/card-with-link'
 import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
 import Heading from 'components/heading'
@@ -46,7 +46,7 @@ function InstallCallout({
 	// previous versions of boundary do not work with the installer
 	return headingData.id === 'installer' &&
 		gt('0.18.0', currentVersion) ? null : (
-		<Card className={classNames(cardClassName, s.card)}>
+		<MDSCard className={classNames(cardClassName, s.card)} isLightBackground={true}>
 			<ContentWithPermalink
 				className={s.headingContainer}
 				id={headingData.id}
@@ -81,7 +81,7 @@ function InstallCallout({
 				))}
 			</div>
 			{children}
-		</Card>
+		</MDSCard>
 	)
 }
 

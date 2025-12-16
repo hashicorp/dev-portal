@@ -6,7 +6,7 @@
 import classNames from 'classnames'
 import BadgeList from 'components/badge-list'
 import Button from 'components/button'
-import { Card } from '@hashicorp/mds-react/components'
+import { MDSCard } from '@components/mds-card'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
@@ -38,8 +38,9 @@ export default function ContentHeaderCard({
 	const hasLinks = links && links.length > 0
 	const hasButtons = buttons && buttons.length > 0
 	return (
-		<Card
+		<MDSCard
 			className={classNames(s.contentHeaderCard, className)}
+			isLightBackground={true}
 		>
 			<div className={s.cardTop}>
 				{icon && (
@@ -137,7 +138,7 @@ export default function ContentHeaderCard({
 					)}
 				</div>
 			)}
-		</Card>
+		</MDSCard>
 	)
 }
 
