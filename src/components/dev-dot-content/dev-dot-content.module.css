@@ -14,13 +14,19 @@
 .root {
 	composes: hds-typography-body-300 from global;
 
+	/* Cover the case of MDX content NOT in a .mdx-content-container */
+	& > :not(.mdx-content-container):not(.mdx-content-full-width) {
+		max-width: var(--mdx-content-max-width);
+	}
+
 	& :global {
 		/* Note on alert overrides: alert classes are applied at content
        extraction time, so it is currently difficult to remove or modify these
        classes and their associated styles rather than override them.
        https://app.asana.com/0/1100423001970639/1202448738938137/f */
 
-		& .mdx-content-container {
+		/* Cover the case of MDX content IN a .mdx-content-container */
+		& .mdx-content-container:only-child {
 			& > :not(.mdx-content-full-width) {
 				max-width: var(--mdx-content-max-width);
 			}
