@@ -23,7 +23,7 @@ type ProductName =
 type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'well-architected-framework'
 
 type TerraformSubProducts = `${Extract<ProductSlug, 'terraform'>}-${
-	| 'cdk'
+//	| 'cdk'
 	| 'docs-agents'
 	| 'docs-common'
 	| 'enterprise'

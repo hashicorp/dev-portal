@@ -13,11 +13,13 @@
 		"expirationDate": "2024-04-29T00:00:00-08:00"
 	},
 	"basePaths": [
-		"cdktf",
 		"cli",
 		"cloud-docs",
+		"cloud-docs/collaborate",
+		"cloud-docs/administer",
 		"cloud-docs/agents",
 		"docs",
+		"enterprise/administer",
 		"enterprise/deploy",
 		"internals",
 		"intro",
@@ -37,7 +39,9 @@
 		"docs",
 		"intro",		
 		"enterprise/deploy",
-		"cloud-docs",
+		"enterprise/administer",
+		"cloud-docs/administer",
+		"cloud-docs/collaborate",
 		"plugin",
 		"cli",
 		"language"
@@ -59,13 +63,18 @@
 			"iconName": "org"
 		},
 		{
+			"name": "Administer Terraform Enterprise",
+			"path": "enterprise/administer",
+			"iconName": "cloud"
+		},
+		{
 			"name": "Administer HCP Terraform",
-			"path": "cloud-docs",
+			"path": "cloud-docs/administer",
 			"iconName": "cloud"
 		},
 		{
 			"name": "Collaborate using HCP Terraform",
-			"path": "cloud-docs",
+			"path": "cloud-docs/collaborate",
 			"iconName": "cloud"
 		},
 		{
