@@ -61,7 +61,7 @@ describe('getNavItems', () => {
 			docsNavItems: [
 				'docs',
 				'language',
-//				'cdktf',
+				'cdktf',
 				'cli',
 				'cloud-docs',
 				'enterprise',
@@ -82,7 +82,7 @@ describe('getNavItems', () => {
 				{
 					iconName: 'tools',
 					name: 'CDK for Terraform',
-//					path: 'cdktf',
+					path: 'cdktf',
 					productSlugForLoader: 'terraform-cdk',
 				},
 				{
