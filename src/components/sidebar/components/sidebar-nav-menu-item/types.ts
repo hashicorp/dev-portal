@@ -5,7 +5,7 @@
 
 import { ReactElement } from 'react'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
-import Badge, { BadgeProps } from 'components/badge'
+import { Badge, type BadgeProps } from '@hashicorp/mds-react/components'
 import { MenuItem } from 'components/sidebar'
 import { ProductSlug } from 'types/products'
 
@@ -17,7 +17,7 @@ interface RightIconsContainerProps {
 interface SidebarNavMenuItemBadgeProps {
 	color?: Exclude<
 		BadgeProps['color'],
-		'error' | 'neutral-dark-mode' | 'success' | 'warning'
+		'error' | 'success' | 'warning'
 	>
 	text: BadgeProps['text']
 	type?: BadgeProps['type']
