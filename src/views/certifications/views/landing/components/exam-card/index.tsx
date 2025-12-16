@@ -11,7 +11,7 @@ import {
 import { ExamBadgeAndTitle } from '../'
 import CardLink from 'components/card-link'
 import s from './exam-card.module.css'
-import { Card } from '@hashicorp/mds-react/components'
+import { MDSCard } from '@components/mds-card'
 import Badge from 'components/badge'
 import { ExamCardUnlinkedProps, ExamCardProps } from './types'
 
@@ -38,7 +38,7 @@ function ExamCardUnlinked({
 	examTier,
 }: ExamCardUnlinkedProps) {
 	return (
-		<Card className={s.comingSoonCard}>
+		<MDSCard className={s.comingSoonCard}>
 			<ExamCardContents>
 				<ExamBadgeAndTitle
 					title={title}
@@ -48,7 +48,7 @@ function ExamCardUnlinked({
 				/>
 				<ComingSoonBadge />
 			</ExamCardContents>
-		</Card>
+		</MDSCard>
 	)
 }
 
