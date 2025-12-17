@@ -7,8 +7,6 @@
 	--bg: var(--mds-color-palette-neutral-50);
 	--border: var(--mds-color-palette-alpha-200);
 	--radius: 6px;
-
-	position: relative;
 }
 
 .tableWrapper {
@@ -134,7 +132,7 @@
 
 /**
  * Why `pointer-events: none`? (https://stackoverflow.com/a/6441884)
- * 
+ *
  * To allow mouse/touch events to "pass through" this absolutely position
  * element. Otherwise, this element would receive the events and scrolling on
  * the `overflow: auto` element above would be blocked.
