@@ -42,7 +42,7 @@ function CalloutCard({
 	}
 
 	return (
-		<MDSCard className={s.card}>
+		<MDSCard className={s.card} isLightBackground={true}>
 			<h2 id={headingSlug} className={s.heading}>
 				{heading}
 			</h2>
