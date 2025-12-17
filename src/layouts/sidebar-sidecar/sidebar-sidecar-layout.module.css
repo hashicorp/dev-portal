@@ -117,7 +117,9 @@ for further details.
 .mainAndSidecar {
 	display: flex;
 	width: 100%;
-	justify-content: space-between;
+	@media (--dev-dot-sidecar-up) {
+		justify-content: space-between; /* Only apply when sidecar is visible */
+	}
 }
 
 /* .main handles the max-width and sizing for the main area. */
