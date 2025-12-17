@@ -15,7 +15,7 @@
 	composes: hds-typography-body-300 from global;
 
 	/* Cover the case of MDX content NOT in a .mdx-content-container */
-	& > :not(.mdx-content-container):not(.mdx-content-full-width) {
+	& > :global(:not(.mdx-content-container):not(.mdx-content-full-width)) {
 		max-width: var(--mdx-content-max-width);
 	}
 
