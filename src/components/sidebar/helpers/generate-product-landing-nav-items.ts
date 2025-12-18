@@ -29,10 +29,11 @@ export const generateProductLandingSidebarMenuItems = (
 		...(badge && { badge }),
 	}))
 
-	let docsItems
+ 	let docsItems
 	const menuItems = []
-	const introNavItem = routes.find((route) => route.fullPath.endsWith('/intro'))
-
+	// ATRU super hacky comment so that intro isn't forced into the top of the nav 
+	//	const introNavItem = routes.find((route) => route.fullPath.endsWith('/intro'))
+   const introNavItem = routes.find((route) => route.fullPath)
 	/**
 	 * This order is meaningful and should align with the global nav order see
 	 * /src/components/navigation-header/components/product-page-content/utils/get-nav-items.ts
@@ -52,33 +53,37 @@ export const generateProductLandingSidebarMenuItems = (
 			fullPath: `/${product.slug}/install`,
 		})
 	}
-
-	if (product.slug === 'terraform') {
-		docsItems = [
+// made 'terraform' behave like other navs because I couldn't figure out how to flatten the routes
+ 	if (product.slug === 'terraform') {
+		/* docsItems =  [
 			{
 				title: 'Documentation',
 				isOpen: true,
 				routes: introNavItem
-					? routes.filter((route) => !route.fullPath.endsWith('/intro'))
+ 					? routes.filter((route) => !route.fullPath.endsWith('/intro'))
 					: routes,
-			},
-		]
-	} else {
+ 			},
+		] */
+		docsItems = introNavItem  
+ 			? routes.filter((route) => !route.fullPath.endsWith('/docs'))
+			: routes
+ 	} else {
 		docsItems = introNavItem
 			? routes.filter((route) => !route.fullPath.endsWith('/intro'))
 			: routes
 	}
 
-	if (introNavItem) {
+ 	if (introNavItem) {
 		menuItems.push(introNavItem)
 	}
-
+  
 	// Add a "Tutorials" link for all products
-	menuItems.push({
+	// atru - temporarily hide tutorials links
+/* 	menuItems.push({
 		title: 'Tutorials',
 		fullPath: `/${product.slug}/tutorials`,
 	})
-
+ */
 	// Add "Documentation" item links for all products
 	menuItems.push(...docsItems)
 
