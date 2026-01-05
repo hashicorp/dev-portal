@@ -1,0 +1,10 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.lightBackground {
+    @nest html[data-theme='dark'] & {
+		background-color: var(--mds-color-surface-faint);
+	}
+}
