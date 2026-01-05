@@ -9,7 +9,6 @@ This is a development and testing environment. It provides the learner an opport
 
 </Warning>
 
-**Overview**
 The Boundary Enterprise cluster contains one controller server and one worker, each with Boundary installed and running. A PostgreSQL database is running on the Boundary controller.
 
 The Boundary target is an Ubuntu 24.04 server with the openssh-server and postgresql-server packages installed. The following Boundary users are preconfigured for SSH access on the `ubuntu-host` host:
@@ -40,44 +39,46 @@ Database:
  - username: `postgres`
  - password: `postgres`
 
-**Access the Boundary Admin UI**
+### Access the Boundary Admin UI
 
 You can log in to the Boundary Admin UI in the tab named `Boundary Admin UI`.
 
 To log into the Boundary Admin UI, use the following credentials for the admin user:
 
-Username: `admin`
-Password: `password`
+- username: `admin`
+- password: `password`
 
 Or log in as the unprivileged user:
 
-Username: `user`
-Password: `password`
+- username: `user`
+- password: `password`
 
-Within Boundary the following resources are configured:
+The following resources are configured within Boundary:
 
-- Org: `sandbox org`
-- Project: `sandbox project`
+Orgs: `sandbox org`
 
-- Host Catalogs:
+Projects: `sandbox project`
+
+Host Catalogs:
  - `ubuntu-host-catalog`
  - `controller-host-catalog`
 
-- Credential Store:
+Credential Stores:
  - `ubuntu-host-creds`
 
-- Targets:
+Targets:
  - `boundary-db`
  - `northwind-db`
  - `ubuntu-target-tcp`
  - `ssh-recording-target-priya`
 
-- Aliases:
+Aliases:
  - `priya`
 
 You can access these targets from the Boundary workstation by configuring the CLI.
 
-**CLI Access**
+### CLI access
+
 The shell in the Boundary workstation tab has the Boundary, Vault, and 
 Terraform CLI tools installed.
 
@@ -115,7 +116,7 @@ then you may have a provisioning issue with the sandbox. Relaunch the sandbox an
 
 </Tip>
 
-After authentication, you can connect to targets using the `boundary connect` command.
+After authenticating, you can connect to targets using the `boundary connect` command.
 
 To connect to the `northwind` database on the `ubuntu-host` host:
 
@@ -196,7 +197,7 @@ priya@hst_hi2n8ghvx8's password:
 priya@ubuntu-host$
 ```
 
-**Vault integration**
+### Vault integration
 
 You can optionally set up Vault to act as a credential broker for Boundary. You can access the Vault server from the Boundary workstation, where the `VAULT_ADDR=https://vault-server:8200` environment variable is set.
 
@@ -263,7 +264,7 @@ Target information:
     Storage Bucket ID:        sb_k3cw9Va7Ch
 ```
 
-**Target Aliases**
+### Target Aliases
 
 Aliases can be used in the `global` scope to easily refer to resources.
 Target aliases simplify the process of connecting to a target, and can 
@@ -275,7 +276,7 @@ $ boundary connect ssh priya
 priya@ubuntu-host$
 ```
 
-**Troubleshooting and experimenting**
+### Troubleshooting and experimenting
 
 You can access the targets and databases directly without using Boundary.
 For example, you can SSH into the ubuntu-target as the Oliver user:
@@ -359,16 +360,16 @@ This environment is not production-ready, as it does not follow recommendations 
 - [Vault with integrated storage deployment guide](/vault/tutorials/day-one-raft/raft-deployment-guide)
 - [Harden Vault server deployments](/vault/tutorials/archive/production-hardening)
 
-**Community edition**
+### Community edition
 
 The Boundary Enterprise Sandbox uses Boundary Enterprise and Vault Community editions. This means
 you cannot use Vauln Enterprise features here.
 
-**TLS**
+### TLS
 
 TLS is not enabled for any of the components in this sandbox environment.
 
-**Platform limitations**
+### Platform limitations
 
 Because of the limitations of this platform:
 
