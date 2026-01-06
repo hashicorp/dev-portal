@@ -14,6 +14,7 @@
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 20px;
+	box-shadow: var(--mds-surface-mid-box-shadow);
 
 	/* 500px with 16px base font */
 	@media (min-width: 31.25rem) {
