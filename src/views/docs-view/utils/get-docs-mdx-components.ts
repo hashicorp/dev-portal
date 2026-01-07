@@ -40,7 +40,7 @@ const ProviderTable = dynamic(
 	() => import('components/author-primitives/terraform/provider-table')
 )
 const SentinelEmbedded = dynamic(
-	() => import('@hashicorp/react-sentinel-embedded')
+	() => import('components/author-primitives/sentinel/sentinel-embedded')
 )
 
 const HCPCallout = dynamic(
