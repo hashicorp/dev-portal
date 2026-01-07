@@ -7,6 +7,9 @@
 	--bg: var(--mds-color-palette-neutral-50);
 	--border: var(--mds-color-palette-alpha-200);
 	--radius: 6px;
+
+	/* needed by .scrim below to not bleed to the whole page */
+	position: relative;
 }
 
 .tableWrapper {
