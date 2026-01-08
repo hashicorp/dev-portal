@@ -28,5 +28,7 @@
 }
 
 .badge {
-	color: var(--mds-color-foreground-faint);
+	color: var(--mds-color-foreground-faint) !important;
+	background-color: transparent !important;
+	padding: 0;
 }

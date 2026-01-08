@@ -4,7 +4,7 @@
  */
 
 import ButtonLink from 'components/button-link'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import StandaloneLink from 'components/standalone-link'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 // Shared certifications
@@ -66,7 +66,7 @@ export function ExamDetailsCard({
 								<CtaGroup>
 									{links.prepare ? (
 										<ButtonLink
-											text="Prepare for the exam"
+											text="Start studying"
 											href={links.prepare}
 										/>
 									) : null}

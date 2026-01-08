@@ -5,7 +5,7 @@
 
 import classNames from 'classnames'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import CardLink from 'components/card-link'
 import { ToastColor, developmentToast } from 'components/toast'
 import Tooltip from 'components/tooltip'
@@ -91,7 +91,7 @@ const ContentCardLink = ({
 							{badges.map(({ icon, label }: ContentCardLinkBadge) => (
 								<li key={label} className={s.badgeListItem}>
 									<Tooltip label={label}>
-										<Badge ariaLabel={label} icon={icon} size="medium" />
+										<Badge accessibleText={label} icon={icon} size="medium" />
 									</Tooltip>
 								</li>
 							))}
