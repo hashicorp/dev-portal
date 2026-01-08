@@ -33,6 +33,10 @@
 /* Print Styles */
 @import './print.css';
 
+:root {
+	--mdx-content-max-width: 75ch;
+}
+
 /*
  * About this selector:
  * `.g-subnav ~ *` finds all elements after the navigation.

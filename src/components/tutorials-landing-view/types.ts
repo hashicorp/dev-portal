@@ -5,12 +5,12 @@
 
 import { ProductName, ProductSlug } from 'types/products'
 import { Collection } from 'lib/learn-client/types'
-import { type BadgeProps } from 'components/badge'
+import type { BadgeProps } from '@hashicorp/mds-react/components'
 import { CardLinkProps } from 'components/card-link'
 
 interface ContentCardLinkBadge {
 	icon: BadgeProps['icon']
-	label: BadgeProps['ariaLabel']
+	label: BadgeProps['accessibleText']
 }
 
 type ContentCardLinkEyebrowPart = string

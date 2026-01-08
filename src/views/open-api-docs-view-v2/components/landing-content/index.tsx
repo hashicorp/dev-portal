@@ -4,12 +4,11 @@
  */
 
 // Components
-import Badge from 'components/badge'
+import { Badge, Text } from '@hashicorp/mds-react/components'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
 import StandaloneLink from '@components/standalone-link'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
-import { Text } from '@hashicorp/mds-react'
 // Local
 import { Status } from './components/status'
 import { DescriptionMdx } from './components/description-mdx'
