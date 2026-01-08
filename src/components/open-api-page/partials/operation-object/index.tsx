@@ -14,7 +14,7 @@ import s from './style.module.css'
 import { OperationObjectType } from '../../types'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import { MDSCard } from '@components/mds-card'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import Text from 'components/text'
 
 function Parameters({ title, params }) {

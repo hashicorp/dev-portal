@@ -4,12 +4,11 @@
  */
 
 // Components
-import Badge from 'components/badge'
+import { Badge, Text } from '@hashicorp/mds-react/components'
 // Local components
 import { OperationSections } from '../operation-sections'
 import { OperationExamples } from '../operation-examples'
 import { OperationDetails } from '../operation-details'
-import { Text } from '@hashicorp/mds-react'
 // Types
 import type { PropertyDetailsSectionProps } from '../operation-details'
 import type { ReactNode } from 'react'

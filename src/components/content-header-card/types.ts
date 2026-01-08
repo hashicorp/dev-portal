@@ -4,7 +4,7 @@
  */
 
 import { type ReactElement } from 'react'
-import { Badge } from 'components/badge-list/types'
+import type { BadgeListBadge } from '@components/badge-list/types'
 import { ProductSlug } from 'types/products'
 
 export interface DropdownItem {
@@ -37,7 +37,7 @@ export interface ContentHeaderCardProps {
 	attribution?: string
 	description?: string
 	note?: string
-	badges?: Array<Badge>
+	badges?: Array<BadgeListBadge>
 	dropdown?: Dropdown
 	links?: Array<Link>
 	buttons?: Array<Button>
