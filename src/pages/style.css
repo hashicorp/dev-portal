@@ -24,9 +24,6 @@
 /* Theme files */
 @import 'styles/themes/global.css';
 
-/* Display 600 type style. HDS candidate, only in Dev Dot for now */
-@import 'styles/hds-typography-display-600.css';
-
 /* Sizing styles, used in DevDot */
 @import 'styles/sizing.css';
 
@@ -35,6 +32,10 @@
 
 /* Print Styles */
 @import './print.css';
+
+:root {
+	--mdx-content-max-width: 75ch;
+}
 
 /*
  * About this selector:

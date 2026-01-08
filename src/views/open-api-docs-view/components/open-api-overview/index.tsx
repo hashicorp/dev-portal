@@ -4,9 +4,9 @@
  */
 
 // Components
-import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
+import { Badge, Text } from '@hashicorp/mds-react/components'
 // Local
 import { Status } from './components/status'
 // Types
@@ -53,9 +53,16 @@ export function OpenApiOverview({
 						<ProductIcon productSlug={serviceProductSlug} />
 					</IconTile>
 					<span>
-						<h1 id={heading.id} className={s.heading}>
+						<Text.DisplayExpressive
+							id={heading.id}
+							tag="h1"
+							color="strong"
+							weight="bold"
+							size="400"
+							className={s.heading}
+						>
 							{heading.text}
-						</h1>
+						</Text.DisplayExpressive>
 						{statusIndicatorConfig ? (
 							<Status
 								endpointUrl={statusIndicatorConfig.endpointUrl}
