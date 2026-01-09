@@ -6,7 +6,7 @@
 // Third-party
 import classNames from 'classnames'
 // Components
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 // Local
 import { ContentWithPermalink } from '../content-with-permalink'
 // Types

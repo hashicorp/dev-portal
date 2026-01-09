@@ -4,7 +4,7 @@
  */
 
 // Components
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 // Local components
 import { ContentWithPermalink } from '../content-with-permalink'
 import { PropertyDetails } from '../property-details'

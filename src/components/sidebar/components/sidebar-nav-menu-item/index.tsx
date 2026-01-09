@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -16,7 +16,7 @@ import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-l
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { ProductSlug } from 'types/products'
 import isAbsoluteUrl from 'lib/is-absolute-url'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import Link from 'components/link'
 import { MenuItem } from 'components/sidebar'
 import ProductIcon from 'components/product-icon'
