@@ -92,7 +92,7 @@
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^8.25.0",
 		"vite-tsconfig-paths": "^4.3.2",
-		"vitest": "^1.4.0",
+		"vitest": "^1.6.1",
 		"yargs": "^17.6.2"
 	},
 	"dependencies": {
