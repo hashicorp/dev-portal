@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -126,7 +126,7 @@ const SidebarSidecarLayoutContent = ({
 					[s.withSandboxPadding]: sandboxIsActive
 				})}>
 					<div className={s.breadcrumbContainer}>
-						<div className={s.breadcrumbMaxWidth}>
+						<div>
 							{breadcrumbLinks ? (
 								<BreadcrumbBar links={breadcrumbLinks} />
 							) : null}

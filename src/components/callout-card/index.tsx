@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { SUPPORTED_ICONS } from 'content/supported-icons'
 import ButtonLink from 'components/button-link'
-import Card from 'components/card'
+import { MDSCard } from 'components/mds-card'
 import { developmentToast, ToastColor } from 'components/toast'
 import IconCardLink from 'components/icon-card-link'
 import StandaloneLink from 'components/standalone-link'
@@ -42,7 +42,7 @@ function CalloutCard({
 	}
 
 	return (
-		<Card className={s.card} elevation="base">
+		<MDSCard className={s.card} isLightBackground={true}>
 			<h2 id={headingSlug} className={s.heading}>
 				{heading}
 			</h2>
@@ -88,7 +88,7 @@ function CalloutCard({
 					})}
 				</ul>
 			) : null}
-		</Card>
+		</MDSCard>
 	)
 }
 

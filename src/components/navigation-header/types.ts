@@ -1,10 +1,10 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { BadgeProps } from 'components/badge'
 import { ReactElement } from 'react'
+import type { BadgeProps } from '@hashicorp/mds-react/components'
 import type {
 	ProductSlug,
 	ProductNavData,

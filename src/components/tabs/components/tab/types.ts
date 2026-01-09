@@ -1,9 +1,10 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { type ReactElement, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
+import type { FlightIconName } from '@hashicorp/mds-react/components'
 
 export interface TabProps {
 	/**
@@ -31,7 +32,7 @@ export interface TabProps {
 	/**
 	 * An optional icon to render before the text of a Tab.
 	 */
-	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
+	icon?: FlightIconName
 
 	group?: string
 }

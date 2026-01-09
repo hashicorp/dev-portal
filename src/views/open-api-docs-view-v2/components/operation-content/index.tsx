@@ -4,7 +4,7 @@
  */
 
 // Components
-import Badge from 'components/badge'
+import { Badge, Text } from '@hashicorp/mds-react/components'
 // Local components
 import { OperationSections } from '../operation-sections'
 import { OperationExamples } from '../operation-examples'
@@ -59,7 +59,15 @@ export default function OperationContent({
 	return (
 		<>
 			<div className={s.header}>
-				<h1 className={s.heading}>{operationId}</h1>
+				<Text.DisplayExpressive
+					tag="h1"
+					color="strong"
+					weight="bold"
+					size="400"
+					className={s.heading}
+				>
+					{operationId}
+				</Text.DisplayExpressive>
 				{versionSwitcherSlot ? (
 					<div className={s.versionSwitcherSlot}>{versionSwitcherSlot}</div>
 				) : null}

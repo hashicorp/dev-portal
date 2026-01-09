@@ -1,13 +1,10 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { IconPlay16 } from '@hashicorp/flight-icons/svg-react/play-16'
-import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import { ProductOption } from 'lib/learn-client/types'
-import Badge from 'components/badge'
-import ProductIcon from 'components/product-icon'
+import { Badge, type FlightIconName } from '@hashicorp/mds-react/components'
 import { CardBadgesProps, CardBadgeOption } from './types'
 import s from './card-badges.module.css'
 import Tooltip from 'components/tooltip'
@@ -15,24 +12,24 @@ import Tooltip from 'components/tooltip'
 /**
  * Map product badge options to icons
  */
-const PRODUCT_ICON_MAP: Record<ProductOption, JSX.Element> = {
-	boundary: <ProductIcon productSlug="boundary" />,
-	consul: <ProductIcon productSlug="consul" />,
-	nomad: <ProductIcon productSlug="nomad" />,
-	packer: <ProductIcon productSlug="packer" />,
-	terraform: <ProductIcon productSlug="terraform" />,
-	vault: <ProductIcon productSlug="vault" />,
-	vagrant: <ProductIcon productSlug="vagrant" />,
-	waypoint: <ProductIcon productSlug="waypoint" />,
-	sentinel: <ProductIcon productSlug="hcp" />,
+const PRODUCT_ICON_MAP: Record<ProductOption, FlightIconName> = {
+	boundary: 'boundary-color',
+	consul: 'consul-color',
+	nomad: 'nomad-color',
+	packer: 'packer-color',
+	terraform: 'terraform-color',
+	vault: 'vault-color',
+	vagrant: 'vagrant-color',
+	waypoint: 'waypoint-color',
+	sentinel: 'hcp',
 }
 /**
  * Map all card badge options to icons
  */
-const CARD_BADGE_ICON_MAP: Record<CardBadgeOption, JSX.Element> = {
+const CARD_BADGE_ICON_MAP: Record<CardBadgeOption, FlightIconName> = {
 	...PRODUCT_ICON_MAP,
-	video: <IconPlay16 />,
-	interactive: <IconTerminalScreen16 />,
+	video: 'play',
+	interactive: 'terminal-screen',
 }
 
 /**
@@ -66,7 +63,7 @@ function CardBadges({ badges }: CardBadgesProps) {
 					<li className={s.listItem} key={badge}>
 						<Tooltip label={CARD_BADGE_LABEL_MAP[badge]}>
 							<Badge
-								ariaLabel={CARD_BADGE_LABEL_MAP[badge]}
+								accessibleText={CARD_BADGE_LABEL_MAP[badge]}
 								icon={CARD_BADGE_ICON_MAP[badge]}
 								size="small"
 							/>
