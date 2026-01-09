@@ -10,6 +10,7 @@ import {
 	GoogleSpreadsheetRow,
 	GoogleSpreadsheetWorksheet,
 } from 'google-spreadsheet'
+import { JWT } from 'google-auth-library'
 import Bowser from 'bowser'
 
 const FEEDBACK_SHEET_ID = process.env.TUTORIAL_FEEDBACK_SHEET_ID
@@ -45,11 +46,12 @@ interface StatusError extends Error {
 
 async function setupDocument(): Promise<GoogleSpreadsheetWorksheet> {
 	const private_key = FEEDBACK_PRIVATE_KEY.replace(/\\n/g, '\n')
-	const doc = new GoogleSpreadsheet(FEEDBACK_SHEET_ID)
-	await doc.useServiceAccountAuth({
-		client_email: FEEDBACK_SERVICE_EMAIL,
-		private_key,
+	const serviceAccountAuth = new JWT({
+		email: FEEDBACK_SERVICE_EMAIL,
+		key: private_key,
+		scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 	})
+	const doc = new GoogleSpreadsheet(FEEDBACK_SHEET_ID, serviceAccountAuth)
 	await doc.loadInfo()
 
 	const sheet = doc.sheetsByIndex[0]
@@ -97,7 +99,7 @@ async function findAndUpdate(
 	const rows = await sheet.getRows()
 	let existingRowIndex = null
 	rows.some((row: GoogleSpreadsheetRow, index: number) => {
-		if (row.sessionId === sessionId) {
+		if (row.get('sessionId') === sessionId) {
 			existingRowIndex = index
 			return true
 		}
@@ -106,7 +108,7 @@ async function findAndUpdate(
 	if (existingRowIndex) {
 		//  we have to assign individual properties this way bc the column properties are getter/setters
 		Object.keys(newRow).forEach((key: string) => {
-			rows[existingRowIndex][key] = newRow[key]
+			rows[existingRowIndex].set(key, newRow[key])
 		})
 		return rows[existingRowIndex]
 	} else {

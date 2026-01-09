@@ -6,6 +6,7 @@
 import Cors from 'cors'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { GoogleSpreadsheet } from 'google-spreadsheet'
+import { JWT } from 'google-auth-library'
 
 // Filter the body for any keys that aren't included in this list
 export const allowedKeys = [
@@ -115,11 +116,15 @@ export default async function handler(
 
 	try {
 		// Load up the Google Spreadsheet
-		const doc = new GoogleSpreadsheet(process.env.FEEDBACK_SHEET_ID)
-		await doc.useServiceAccountAuth({
-			client_email: process.env.FEEDBACK_SERVICE_EMAIL,
-			private_key: process.env.FEEDBACK_PRIVATE_KEY,
+		const serviceAccountAuth = new JWT({
+			email: process.env.FEEDBACK_SERVICE_EMAIL,
+			key: process.env.FEEDBACK_PRIVATE_KEY,
+			scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 		})
+		const doc = new GoogleSpreadsheet(
+			process.env.FEEDBACK_SHEET_ID,
+			serviceAccountAuth
+		)
 		await doc.loadInfo()
 
 		// Add a Row with the users feedback to the sheet
