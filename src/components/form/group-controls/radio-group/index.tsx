@@ -6,7 +6,7 @@
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import { Legend, HelperText, Errors } from 'components/form/components'
 import RadioField from 'components/form/field-controls/radio-field'
 import { RadioGroupOption, RadioGroupProps } from './types'

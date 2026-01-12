@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -9,7 +9,7 @@ import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
 import { useOnSwipe } from 'hooks/use-on-swipe'
-import Card from 'components/card'
+import { MDSCard } from '@components/mds-card'
 import { useCommandBar } from 'components/command-bar'
 import { StandaloneLinkContents } from 'components/standalone-link'
 import Text from 'components/text'
@@ -203,7 +203,7 @@ const SearchFeaturedCard = () => {
 	}, [currentIndex])
 
 	return (
-		<Card className={s.root} elevation="mid">
+		<MDSCard className={s.root}>
 			<h2 className={s.heading}>Search with ease</h2>
 			<Text className={s.description} size={200} weight="medium">
 				<span>Find examples, reference material,</span>
@@ -300,7 +300,7 @@ const SearchFeaturedCard = () => {
 					})}
 				</div>
 			</div>
-		</Card>
+		</MDSCard>
 	)
 }
 

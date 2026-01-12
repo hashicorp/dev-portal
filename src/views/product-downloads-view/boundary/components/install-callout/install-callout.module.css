@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -27,4 +27,8 @@
 	@media (--dev-dot-tablet-up) {
 		grid-template-columns: 16px 1fr 90px;
 	}
+}
+
+.card {
+	padding: 16px;
 }

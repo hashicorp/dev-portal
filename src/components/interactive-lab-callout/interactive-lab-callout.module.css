@@ -6,6 +6,7 @@
 .interactiveCallout {
 	align-items: center;
 	background-color: var(--mds-color-foreground-strong);
+	padding: 16px;
 
 	@media (--dev-dot-tablet-up) {
 		display: flex;

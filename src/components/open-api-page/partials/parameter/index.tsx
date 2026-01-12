@@ -1,12 +1,12 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import s from './style.module.css'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import AccordionDisclosure from 'components/accordion-disclosure'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 
 function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 	if (data.type === 'array' && data.items) {

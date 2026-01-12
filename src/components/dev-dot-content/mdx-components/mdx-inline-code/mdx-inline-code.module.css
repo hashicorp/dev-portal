@@ -9,6 +9,7 @@
 	border: 1px solid var(--mds-color-border-primary);
 	line-height: 1;
 	padding: 2px 4px 3px 4px;
+	overflow-wrap: anywhere;
 
 	@nest html[data-theme='dark'] & {
 		background-color: var(--mds-color-surface-strong);

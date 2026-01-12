@@ -1,11 +1,11 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import React from 'react'
 import { ProductSlug } from 'types/products'
-import Card from 'components/card'
+import { MDSCard } from '@components/mds-card'
 import CardTitle from 'components/card/components/card-title'
 import CardDescription from 'components/card/components/card-description'
 import CardFooter from 'components/card/components/card-footer'
@@ -34,7 +34,7 @@ const SandboxCard: React.FC<SandboxCardProps> = ({
 }) => {
 	return (
 		<div className={`${s.sandboxCardWrapper} ${className || ''}`}>
-			<Card className={s.sandboxCard}>
+			<MDSCard className={s.sandboxCard} isLightBackground={true}>
 				<div className={s.cardHeader}>
 					<CardTitle text={title} />
 					<div className={s.productIcons}>
@@ -64,7 +64,7 @@ const SandboxCard: React.FC<SandboxCardProps> = ({
 						text="Launch Sandbox"
 					/>
 				</CardFooter>
-			</Card>
+			</MDSCard>
 		</div>
 	)
 }

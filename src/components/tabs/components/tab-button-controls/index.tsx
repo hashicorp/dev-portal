@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import { TabControlsProps, TabItem } from '../../types'
 import newIndexFromKeypress from '../../helpers/new-index-from-keypress'
+import { FlightIcon } from '@hashicorp/mds-react/components'
 import s from './tab-button-controls.module.css'
 
 function TabButtonControls({
@@ -21,7 +22,7 @@ function TabButtonControls({
 }: TabControlsProps) {
 	// After keydown events, we want to focus the active "tab" button element.
 	const wasKeypress = useRef<boolean>(false)
-	const buttonElements = useRef<{ [key in string]: HTMLButtonElement }>({})
+	const buttonElements = useRef<(HTMLButtonElement | null)[]>([])
 
 	/**
 	 * After keypress events, but not after clicks,
@@ -96,15 +97,15 @@ function TabButtonControls({
 						onClick={() => setActiveTabIndex(index)}
 						onKeyDown={handleKeyDown}
 						onKeyUp={handleKeyUp}
-						ref={(element: HTMLButtonElement) =>
-							(buttonElements.current[index] = element)
-						}
+						ref={(element: HTMLButtonElement | null) => {
+							buttonElements.current[index] = element
+						}}
 						role="tab"
 						tabIndex={isActive ? 0 : -1}
 						type="button"
 					>
 						<span className={s.label}>
-							{icon}
+							{icon ? <FlightIcon name={icon} size={16} /> : null}
 							{labelSlot || label}
 						</span>
 					</button>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -14,6 +14,7 @@
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 20px;
+	box-shadow: var(--mds-surface-mid-box-shadow);
 
 	/* 500px with 16px base font */
 	@media (min-width: 31.25rem) {

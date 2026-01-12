@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -7,7 +7,7 @@
 import { ReactNode } from 'react'
 
 // Global imports
-import Card from 'components/card'
+import { MDSCard } from '@components/mds-card'
 import Text from 'components/text'
 
 // Local imports
@@ -30,7 +30,7 @@ const CardWithLink = ({
 	link,
 }: CardWithLinkProps) => {
 	return (
-		<Card className={classNames(s.root, className)} elevation="base">
+		<MDSCard className={classNames(s.root, className)} isLightBackground={true}>
 			{typeof icon !== 'undefined' ? icon : null}
 			<div className={s.contentContainer}>
 				<Text className={s.contentHeading} size={200} weight="semibold">
@@ -43,7 +43,7 @@ const CardWithLink = ({
 				) : null}
 			</div>
 			{typeof link !== 'undefined' ? link : null}
-		</Card>
+		</MDSCard>
 	)
 }
 

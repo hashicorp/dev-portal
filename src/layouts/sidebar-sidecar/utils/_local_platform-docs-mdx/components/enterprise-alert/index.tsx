@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -7,12 +7,12 @@ import type { ReactNode } from 'react'
 import classNames from 'classnames'
 
 import { useCurrentProduct } from 'contexts'
-import Badge from 'components/badge'
-import ProductIcon from 'components/product-icon'
+import { Badge } from '@hashicorp/mds-react/components'
 import Text from 'components/text'
 import InlineLink from 'components/inline-link'
 import { ProductSlug } from 'types/products'
 import { isProductSlug, productSlugsToNames } from 'lib/products'
+import { PRODUCT_SLUGS_TO_ICON_NAMES } from 'constants/product-slugs-to-icon-names'
 import s from './enterprise-alert.module.css'
 
 interface EnterpriseAlertProps {
@@ -68,7 +68,7 @@ export function EnterpriseAlert({
 		>
 			<Badge
 				className={s.badge}
-				icon={<ProductIcon productSlug={product} />}
+				icon={PRODUCT_SLUGS_TO_ICON_NAMES[product]}
 				text={badgeText ?? plusOrEnterprise}
 				type="outlined"
 				size="medium"
