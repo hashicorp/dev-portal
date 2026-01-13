@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -60,7 +60,7 @@ export function MdxTable(props: JSX.IntrinsicElements['table']) {
 	const tabIndex = isScrollable ? 0 : undefined
 
 	return (
-		<div className={s.root}>
+		<div className={classNames(s.root, 'mdx-content-full-width')}>
 			<div
 				className={classNames(s.tableWrapper)}
 				ref={scrollableRef}

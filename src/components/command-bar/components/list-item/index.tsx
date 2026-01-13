@@ -1,12 +1,12 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import { ReactElement, PropsWithChildren } from 'react'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
-import Badge, { BadgeProps } from 'components/badge'
+import { Badge, type BadgeProps } from '@hashicorp/mds-react/components'
 import Link from 'components/link'
 import Text from 'components/text'
 import { developmentToast, ToastColor } from 'components/toast'
@@ -74,7 +74,6 @@ const CommandBarListItemContent = ({
 									// eslint-disable-next-line react/no-array-index-key
 									key={index}
 									color="neutral"
-									className={s.productBadge}
 									size="small"
 									text={badgeText}
 									type="outlined"

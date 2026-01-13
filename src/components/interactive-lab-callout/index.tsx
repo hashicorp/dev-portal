@@ -1,11 +1,11 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import Image from 'next/legacy/image'
 import Button from 'components/button'
-import Card from 'components/card'
+import { MDSCard } from '@components/mds-card'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { useTutorialContext } from 'contexts/tutorial-context'
 import { FC } from 'react'
@@ -46,7 +46,7 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 	}
 
 	return (
-		<Card className={s.interactiveCallout} elevation="base">
+		<MDSCard className={s.interactiveCallout}>
 			<div>
 				<p className={s.title}>Launch Terminal</p>
 				<p className={s.description}>
@@ -71,7 +71,7 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 					layout="responsive"
 				/>
 			</div>
-		</Card>
+		</MDSCard>
 	)
 }
 

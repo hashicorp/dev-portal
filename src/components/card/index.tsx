@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -8,6 +8,9 @@ import classNames from 'classnames'
 import { CardProps } from './types'
 import s from './card.module.css'
 
+/**
+ * @deprecated Use MDSCard component instead.
+ */
 const Card = ({
 	children,
 	className,

@@ -1,12 +1,12 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 // Third-party
 import classNames from 'classnames'
 // Components
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 // Local
 import { ContentWithPermalink } from '../content-with-permalink'
 // Types

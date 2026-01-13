@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -28,5 +28,7 @@
 }
 
 .badge {
-	color: var(--mds-color-foreground-faint);
+	color: var(--mds-color-foreground-faint) !important;
+	background-color: transparent !important;
+	padding: 0;
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -38,7 +38,10 @@ const TutorialCardsGridList = ({
 		)
 	})
 
-	const { isFetching, isRefetching } = useBookmarksByTutorialIds({
+	// Fetch bookmarks in the background - this primes the cache for individual tutorial cards
+	// If this fails, tutorials still render without bookmark buttons
+	// const { isFetching, isRefetching } = useBookmarksByTutorialIds({
+	useBookmarksByTutorialIds({
 		tutorialIds,
 	})
 
@@ -52,11 +55,14 @@ const TutorialCardsGridList = ({
 	 * The bookmark queries are disabled
 	 * when is auth is disabled or no user is authenticated. When queries are
 	 * `disabled`, `isLoading` is `true` forever.
+	 * 
+	 * However, we want to at least render the tutorial cards even if bookmarks 
+	 * are loading or failed, so commenting this out for now
 	 */
-	const isFirstLoad = isFetching && !isRefetching
-	if (isFirstLoad) {
-		return null
-	}
+	// const isFirstLoad = isFetching && !isRefetching
+	// if (isFirstLoad) {
+	// 	return null
+	// }
 
 	return <CardsGridList {...restProps}>{cardsGridListItems}</CardsGridList>
 }

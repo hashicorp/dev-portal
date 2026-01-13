@@ -1,13 +1,13 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import classNames from 'classnames'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import Tooltip from 'components/tooltip'
 import s from './badge-list.module.css'
-import { Badge as BadgeListBadge, BadgeListProps } from './types'
+import { BadgeListBadge, BadgeListProps } from './types'
 
 export default function BadgeList({
 	badges,

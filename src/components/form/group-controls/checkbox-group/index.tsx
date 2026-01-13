@@ -1,11 +1,11 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import { Errors, HelperText, Legend } from 'components/form/components'
 import { CheckboxField } from 'components/form/field-controls'
 import { CheckboxGroupOption, CheckboxGroupProps } from './types'

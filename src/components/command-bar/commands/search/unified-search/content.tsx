@@ -1,16 +1,10 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Icons
-import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconGrid16 } from '@hashicorp/flight-icons/svg-react/grid-16'
-import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
-import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
-import { IconSupport16 } from '@hashicorp/flight-icons/svg-react/support-16'
 // Types
-import type { ReactElement } from 'react'
+import { type FlightIconName } from '@hashicorp/mds-react/components'
 import type { SearchContentTypes } from './types'
 
 /**
@@ -20,27 +14,27 @@ export const tabContentByType: Record<
 	SearchContentTypes,
 	{
 		heading: string
-		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
+		icon: FlightIconName
 	}
 > = {
 	global: {
 		heading: 'All',
-		icon: <IconGrid16 />,
+		icon: 'grid',
 	},
 	docs: {
 		heading: 'Documentation',
-		icon: <IconDocs16 />,
+		icon: 'docs',
 	},
 	tutorial: {
 		heading: 'Tutorials',
-		icon: <IconLearn16 />,
+		icon: 'learn',
 	},
 	integration: {
 		heading: 'Integrations',
-		icon: <IconPipeline16 />,
+		icon: 'pipeline',
 	},
 	knowledgebase: {
 		heading: 'Support',
-		icon: <IconSupport16 />,
+		icon: 'support',
 	},
 }

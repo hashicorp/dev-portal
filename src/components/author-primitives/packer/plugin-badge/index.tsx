@@ -1,50 +1,45 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import React from 'react'
-import Badge from 'components/badge'
-import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
-import { IconRocket16 } from '@hashicorp/flight-icons/svg-react/rocket-16'
-import { IconUsers16 } from '@hashicorp/flight-icons/svg-react/users-16'
-import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
-import { IconArchive16 } from '@hashicorp/flight-icons/svg-react/archive-16'
+import { Badge, type FlightIconName } from '@hashicorp/mds-react/components'
 
-type PluginLabelType =
-	| 'official'
-	| 'community'
-	| 'hcp_packer_ready'
-	| 'verified'
-	| 'archived'
-
-const badgeTypes = {
+const BADGE_TYPES = {
 	official: {
 		label: 'Official',
-		iconSvg: <IconHashicorp16 />,
+		iconName: 'hashicorp',
 	},
 	community: {
 		label: 'Community',
-		iconSvg: <IconUsers16 />,
+		iconName: 'users',
 	},
 	hcp_packer_ready: {
 		label: 'HCP Packer Ready',
-		iconSvg: <IconRocket16 />,
+		iconName: 'rocket',
 	},
 	verified: {
 		label: 'Verified',
-
-		iconSvg: <IconAward16 />,
+		iconName: 'award',
 	},
 	archived: {
 		label: 'Archived',
-		iconSvg: <IconArchive16 />,
+		iconName: 'archive',
 	},
-}
+
+
+
+} satisfies Record<
+	string,
+	{ label: string; iconName: FlightIconName }
+>
+
+type PluginLabelType = keyof typeof BADGE_TYPES
 
 function PluginBadge({ type }: { type: PluginLabelType }): React.ReactElement {
-	const { label, iconSvg } = badgeTypes[type]
-	return <Badge text={label} size="small" type="outlined" icon={iconSvg} />
+	const { label, iconName } = BADGE_TYPES[type]
+	return <Badge text={label} size="small" type="outlined" icon={iconName} />
 }
 
 export default PluginBadge

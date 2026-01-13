@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -8,7 +8,7 @@ import { tabContentByType } from '../../../content'
 // Helpers
 import { getShouldRenderIntegrationsTab } from './get-should-render-integrations-tab'
 // Types
-import type { ReactElement } from 'react'
+import type { FlightIconName } from '@hashicorp/mds-react/components'
 import type { Hit } from 'instantsearch.js'
 import type { ProductSlug } from 'types/products'
 import { SearchContentTypes, type UnifiedSearchResults } from '../../../types'
@@ -27,7 +27,7 @@ export interface UnifiedSearchTabContent {
 	heading: string
 	hitCount: number
 	hits: Hit[]
-	icon: ReactElement<React.JSX.IntrinsicElements['svg']>
+	icon: FlightIconName
 	otherTabData: OtherTabData
 }
 

@@ -1,10 +1,10 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 // Components
-import Badge from 'components/badge'
+import { Badge, Text } from '@hashicorp/mds-react/components'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
 import StandaloneLink from '@components/standalone-link'
@@ -47,7 +47,15 @@ export function LandingContent({
 						<ProductIcon productSlug={serviceProductSlug} />
 					</IconTile>
 					<span>
-						<h1 className={s.heading}>{heading}</h1>
+						<Text.DisplayExpressive
+							tag="h1"
+							color="strong"
+							weight="bold"
+							size="400"
+							className={s.heading}
+						>
+							{heading}
+						</Text.DisplayExpressive>
 						{statusIndicatorConfig ? (
 							<Status
 								endpointUrl={statusIndicatorConfig.endpointUrl}

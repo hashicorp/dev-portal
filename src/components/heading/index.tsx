@@ -1,25 +1,48 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { forwardRef } from 'react'
 import classNames from 'classnames'
 import { HeadingProps } from './types'
+import { Text } from '@hashicorp/mds-react/components'
 
-const Heading: React.FC<HeadingProps> = ({ level, size, weight, ...rest }) => {
+type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+
+const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ level, size, weight, ...rest }, ref) => {
+	const tag = `h${level}` satisfies HeadingTag
+
+	if (size === 600) {
+		return (
+			<Text.DisplayExpressive
+				tag={tag}
+				size="400"
+				weight={weight}
+				ref={ref}
+				{...rest}
+			/>
+		)
+	}
+
 	const className = classNames(
 		`hds-typography-display-${size}`,
 		`hds-font-weight-${weight}`,
 		rest.className
 	)
+
 	const passableProps = {
 		...rest,
 		className,
 	}
 
-	const HeadingElement = `h${level}` as React.ElementType
-	return <HeadingElement {...passableProps} />
-}
+	const HeadingElement = tag
+	return <HeadingElement ref={ref} {...passableProps} />
+  }
+)
+
+Heading.displayName = "Heading"
 
 export type { HeadingProps }
 export default Heading

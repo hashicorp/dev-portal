@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -12,6 +12,7 @@ import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
 import LinkRegion from 'components/link-region'
 import { Snippet } from 'react-instantsearch'
+import { FlightIcon } from '@hashicorp/mds-react/components'
 // Content (icons by content type)
 import { tabContentByType } from '../../content'
 // Types
@@ -41,7 +42,7 @@ export function UnifiedHit({
 			opensInNewTab={type === SearchContentTypes.KNOWLEDGEBASE}
 		>
 			<IconTile className={s.icon} size="small">
-				{tabContentByType[type].icon}
+				<FlightIcon name={tabContentByType[type].icon} />
 			</IconTile>
 			<div className={s.content}>
 				<Text

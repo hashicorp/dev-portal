@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -11,8 +11,8 @@ import {
 import { ExamBadgeAndTitle } from '../'
 import CardLink from 'components/card-link'
 import s from './exam-card.module.css'
-import Card from 'components/card'
-import Badge from 'components/badge'
+import { MDSCard } from '@components/mds-card'
+import { Badge } from '@hashicorp/mds-react/components'
 import { ExamCardUnlinkedProps, ExamCardProps } from './types'
 
 /**
@@ -38,7 +38,7 @@ function ExamCardUnlinked({
 	examTier,
 }: ExamCardUnlinkedProps) {
 	return (
-		<Card className={s.comingSoonCard}>
+		<MDSCard className={s.comingSoonCard}>
 			<ExamCardContents>
 				<ExamBadgeAndTitle
 					title={title}
@@ -48,7 +48,7 @@ function ExamCardUnlinked({
 				/>
 				<ComingSoonBadge />
 			</ExamCardContents>
-		</Card>
+		</MDSCard>
 	)
 }
 

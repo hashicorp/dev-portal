@@ -36,7 +36,7 @@ function CertificationProgramView({
 						{exams.map((exam) => {
 							const { title, examCode } = exam
 							const fullTitle = title + (examCode ? ` (${examCode})` : '')
-							const accordionHeading = `${fullTitle} Details`
+							const accordionHeading = `${fullTitle} details`
 
 							return (
 								<div key={fullTitle}>

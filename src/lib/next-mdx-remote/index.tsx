@@ -101,7 +101,7 @@ export function MDXRemote({
 	// markdown components (such as "h1" or "a") with the "components" object
 	const content = (
 		<MDX.MDXProvider components={components}>
-			<Content />
+			<Content className={'mdx-content-container'} />
 		</MDX.MDXProvider>
 	)
 

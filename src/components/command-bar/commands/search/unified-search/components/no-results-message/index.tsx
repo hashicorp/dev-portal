@@ -1,10 +1,9 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement } from 'react'
-import Badge from 'components/badge'
+import { Badge, type FlightIconName } from '@hashicorp/mds-react/components'
 import Text from 'components/text'
 import { useCommandBar } from 'components/command-bar'
 import s from './no-results-message.module.css'
@@ -14,7 +13,7 @@ interface NoResultsMessageProps {
 	tabsWithResults: {
 		type: SearchContentTypes
 		heading: string
-		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
+		icon: FlightIconName
 	}[]
 	currentTabHeading: string
 }

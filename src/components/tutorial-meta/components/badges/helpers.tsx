@@ -1,13 +1,11 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { IconPlay16 } from '@hashicorp/flight-icons/svg-react/play-16'
-import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import { EditionOption, ProductUsed } from 'lib/learn-client/types'
-import Badge, { BadgeProps } from 'components/badge'
-import ProductIcon from 'components/product-icon'
+import { Badge, type BadgeProps } from '@hashicorp/mds-react/components'
+import { PRODUCT_SLUGS_TO_ICON_NAMES } from 'constants/product-slugs-to-icon-names'
 import s from './badges.module.css'
 
 const editionDisplayOptions: { [K in EditionOption]: string } = {
@@ -29,9 +27,9 @@ export function getIsBeta(productsUsed: ProductUsed[]): boolean {
 }
 
 function TutorialMetaBadge(
-	props: Omit<BadgeProps, 'type' | 'className' | 'size'>
+	{text, ...rest}: Omit<BadgeProps, 'type' | 'className' | 'size'>
 ) {
-	return <Badge {...props} type="base" className={s.badge} size="small" />
+	return <Badge text={text} className={s.badge} size="small" {...rest} />
 }
 
 /**
@@ -62,7 +60,7 @@ export const generateBadges = ({
 			badges.push(
 				<TutorialMetaBadge
 					key={product.slug}
-					icon={<ProductIcon productSlug={product.slug} />}
+					icon={PRODUCT_SLUGS_TO_ICON_NAMES[product.slug]}
 					text={product.name}
 				/>
 			)
@@ -70,12 +68,12 @@ export const generateBadges = ({
 	}
 
 	if (hasVideo) {
-		badges.push(<TutorialMetaBadge icon={<IconPlay16 />} text="Video" />)
+		badges.push(<TutorialMetaBadge icon='play' text="Video" />)
 	}
 
 	if (isInteractive) {
 		badges.push(
-			<TutorialMetaBadge icon={<IconTerminalScreen16 />} text="Interactive" />
+			<TutorialMetaBadge icon='terminal-screen' text="Interactive" />
 		)
 	}
 
