@@ -31,7 +31,7 @@ const CommandBarDialogHeader = () => {
 	return (
 		<div className={s.header}>
 			<div className={s.icon}>{currentCommand.icon}</div>
-			{currentTags.length > 0 ? (
+			{/* {currentTags.length > 0 ? (
 				<div className={s.headerTags}>
 					{currentTags.map((tag: CommandBarTag) => (
 						<Tag
@@ -41,7 +41,7 @@ const CommandBarDialogHeader = () => {
 						/>
 					))}
 				</div>
-			) : null}
+			) : null} */}
 			<div className={s.inputWrapper}>
 				<input
 					aria-label={inputPlaceholder}
