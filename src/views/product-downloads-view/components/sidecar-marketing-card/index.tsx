@@ -1,11 +1,11 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import { ReactElement } from 'react'
 import slugify from 'slugify'
-import Card from 'components/card'
+import { MDSCard } from '@components/mds-card'
 import Link from 'components/link'
 import Text from 'components/text'
 import { SidecarMarketingCardProps } from './types'
@@ -17,7 +17,7 @@ const SidecarMarketingCard = ({
 	featuredDocsLinks,
 }: SidecarMarketingCardProps): ReactElement => {
 	return (
-		<Card elevation="base">
+		<MDSCard className={s.card} isLightBackground={true}>
 			<Text className={s.cardTitle} size={300} weight="semibold">
 				{title}
 			</Text>
@@ -42,7 +42,7 @@ const SidecarMarketingCard = ({
 					</Text>
 				))}
 			</ul>
-		</Card>
+		</MDSCard>
 	)
 }
 

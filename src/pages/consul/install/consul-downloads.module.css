@@ -16,3 +16,7 @@
 .downloadToolsCardDescription {
 	color: var(--mds-color-foreground-faint);
 }
+
+.card {
+	padding: 16px;
+}

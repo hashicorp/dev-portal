@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 import { ReactElement } from 'react'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import { useCommandBar } from 'components/command-bar'
-import { CmdCtrlIcon, KIcon } from 'components/command-bar/components'
 import Text from 'components/text'
 import s from './command-bar-activator.module.css'
 
@@ -34,17 +33,17 @@ const CommandBarActivator = ({
 			</span>
 			<span className={s.right}>
 				<Badge
-					ariaLabel="Command or control key"
-					className={s.keyBadge}
-					color="neutral-dark-mode"
-					icon={<CmdCtrlIcon />}
+					accessibleText="Command or control key"
+					color="neutral"
+					type="inverted"
+					text="⌘/ctrl"
 					size="small"
 				/>
 				<Badge
-					ariaLabel="K key"
-					className={s.keyBadge}
-					color="neutral-dark-mode"
-					icon={<KIcon />}
+					accessibleText="K key"
+					color="neutral"
+					type="inverted"
+					text="K"
 					size="small"
 				/>
 			</span>

@@ -1,12 +1,12 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 import { Legend, HelperText, Errors } from 'components/form/components'
 import RadioField from 'components/form/field-controls/radio-field'
 import { RadioGroupOption, RadioGroupProps } from './types'

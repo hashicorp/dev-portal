@@ -1,5 +1,5 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -8,7 +8,7 @@ import type { PropsWithChildren } from 'react'
 import classNames from 'classnames'
 // Components
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
-import Badge from 'components/badge'
+import { Badge } from '@hashicorp/mds-react/components'
 // Styles
 import s from './property-details.module.css'
 import { ContentWithPermalink } from '../content-with-permalink'

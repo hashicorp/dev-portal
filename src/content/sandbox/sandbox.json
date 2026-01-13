@@ -26,6 +26,14 @@
 			"documentation": "boundary.mdx"
 		},
 		{
+			"title": "Boundary Enterprise Sandbox",
+			"description": "Experiment with Boundary Enterprise. This sandbox contains a Boundary Enterprise cluster (one controller server and two workers) configured with a Boundary target (Ubuntu 24.04), a Postgres database, and Vault.",
+			"products": ["boundary"],
+			"labId": "boundary-enterprise-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/boundary-enterprise-sandbox?token=em_vpMB3GEjiY3i-dif",
+			"documentation": "boundary-ent.mdx"
+		},
+		{
 			"title": "Consul Sandbox (Service discovery)",
 			"description": "Experiment with Consul. This sandbox contains a Consul cluster (3 servers and 4 clients) and a Bastion host. It also runs HashiCups, a demo web application.",
 			"products": ["consul"],

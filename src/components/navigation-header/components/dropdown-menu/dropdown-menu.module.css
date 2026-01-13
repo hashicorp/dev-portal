@@ -1,11 +1,20 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 .root {
 	width: fit-content;
 	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		right: -24px;
+		top: 0;
+		bottom: 0;
+		width: 24px;
+	}
 }
 
 .activatorWrapper {

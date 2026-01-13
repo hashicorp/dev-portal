@@ -1,10 +1,11 @@
 /**
- * Copyright (c) HashiCorp, Inc.
+ * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
 
 import { ReactNode } from 'react'
 import Tabs, { Tab as MdxTab } from 'components/tabs'
+import classNames from 'classnames'
 import s from './mdx-tabs.module.css'
 
 /**
@@ -14,7 +15,7 @@ import s from './mdx-tabs.module.css'
  */
 function MdxTabs({ children }: { children: ReactNode }) {
 	return (
-		<div className={s.tabsWrapper}>
+		<div className={classNames(s.tabsWrapper)}>
 			<Tabs allowNestedStyles>{children}</Tabs>
 		</div>
 	)
