@@ -37,7 +37,7 @@ const ProductPageHeaderContent = () => {
 
 	return (
 		<>
-			<div className={s.productsDropdown}>
+			{/* <div className={s.productsDropdown}>
 				<NavigationMenu.Root className={s.mobileMenuNavList}>
 					<NavigationHeaderDropdownMenu
 						ariaLabel="Main menu"
@@ -51,7 +51,7 @@ const ProductPageHeaderContent = () => {
 						}}
 					/>
 				</NavigationMenu.Root>
-			</div>
+			</div> */}
 
 			<div className={s.productLinkAndNav}>
 				<ProductIconTextLink
