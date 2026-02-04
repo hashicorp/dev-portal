@@ -10,7 +10,6 @@ import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-dow
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
