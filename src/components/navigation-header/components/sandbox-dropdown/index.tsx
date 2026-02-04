@@ -229,11 +229,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		openLab(fullLabId)
 		setActive(true)
 
-		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-			labId: fullLabId,
-			page: router.asPath,
-		})
-
 		setIsOpen(false)
 		setDropdownPosition(null)
 	}

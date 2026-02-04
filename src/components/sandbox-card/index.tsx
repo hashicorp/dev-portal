@@ -12,7 +12,6 @@ import CardFooter from 'components/card/components/card-footer'
 import ButtonLink from 'components/button-link'
 import ProductIcon from 'components/product-icon'
 import s from './sandbox-card.module.css'
-import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 
 export interface SandboxCardProps {
 	title: string
@@ -57,7 +56,7 @@ const SandboxCard: React.FC<SandboxCardProps> = ({
 						onClick={(e) => {
 							e.preventDefault()
 							e.stopPropagation()
-							trackSandboxInteraction('click', labId, { lab_title: title })
+
 							onLaunch()
 						}}
 						size="medium"
