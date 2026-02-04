@@ -237,7 +237,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.searchPage)
 
-		expect(String(contents)).toMatch(/(learn.hashicorp.com)?\/search/)
+		expect(String(contents)).toMatch(/(learn\.hashicorp\.com)?\/search/)
 	})
 
 	test('Product hub pages should be rewritten to dev portal', async () => {
