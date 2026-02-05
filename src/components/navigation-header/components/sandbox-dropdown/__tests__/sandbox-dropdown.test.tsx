@@ -154,7 +154,7 @@ describe('SandboxDropdown', () => {
 		// Find and click the first lab button in the list
 		const labButton = labsList?.querySelector('button')
 		expect(labButton).toBeInTheDocument()
-		
+
 		fireEvent.click(labButton)
 
 		await vi.waitFor(() => {
@@ -182,17 +182,12 @@ describe('SandboxDropdown', () => {
 		// Find and click the first lab button in the list
 		const labButton = labsList?.querySelector('button')
 		expect(labButton).toBeInTheDocument()
-		
+
 		fireEvent.click(labButton)
 
 		await vi.waitFor(() => {
 			expect(openLabSpy).toHaveBeenCalledWith(expect.any(String))
 			expect(setActiveSpy).toHaveBeenCalledWith(true)
-			// Verify tracking events were called
-			expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {
-				labId: expect.any(String),
-				page: '/',
-			})
 			// Verify interaction tracking
 			expect(mockTrackSandboxInteraction).toHaveBeenCalledWith(
 				'hover',

@@ -217,17 +217,16 @@ describe('InstruqtEmbed Context', () => {
 
 		fireEvent.click(screen.getByText('Open Lab'))
 
+		// Note: SANDBOX_OPEN event is tracked when the iframe loads,
+		// not when openLab is called. So we wait to ensure it is NOT called here.
 		await waitFor(
 			() => {
-				expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
+				expect(mockTrackSandboxEvent).not.toHaveBeenCalledWith(
 					SANDBOX_EVENT.SANDBOX_OPEN,
-					{
-						labId: 'test-lab-id',
-						page: '/test-path',
-					}
+					expect.any(Object)
 				)
 			},
-			{ timeout: 3000 }
+			{ timeout: 1000 }
 		)
 	})
 
