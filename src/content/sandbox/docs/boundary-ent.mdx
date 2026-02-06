@@ -400,7 +400,7 @@ establishing a session. Targets need to be associated with a host to establish a
 
 For example, in the sandbox the following host exists:
 
-- `ubuntu-target-host`
+- `ubuntu-host`
 
 The host is configured with a hostname (address) of `ubuntu-target`. This is the address 
 of the host in the lab environment that Boundary will use to start a connection. Functionally, 
@@ -459,7 +459,7 @@ Within Boundary the following resources are configured:
 - Project: `sandbox project`
 
 - Host Catalogs:
-  - `ubuntu-target-host-catalog`
+  - `ubuntu-host-catalog`
   - `controller-host-catalog`
 
 - Credential Store:
@@ -467,9 +467,9 @@ Within Boundary the following resources are configured:
 
 - Targets:
   - `boundary-db` (Boundary's local database)
-  - `northwind-db` (on ubuntu-target-tcp host)
-  - `ubuntu-target-tcp` (on ubuntu-target-tcp host)
-  - `ssh-recording-target-priya` (on ubuntu-target-tcp host)
+  - `northwind-db` (on ubuntu-host host)
+  - `ubuntu-target-tcp` (on ubuntu-host host)
+  - `ssh-recording-target-priya` (on ubuntu-host host)
 
 - Aliases:
   - `priya`
@@ -933,8 +933,7 @@ SSH targets in Boundary Enterprise enable the following features:
 
 ### Exercise
 
-Completing this exercise allows you to enter the raffle for a free pro exam voucher 
-for Terraform or Vault.
+You may complete this exercise use the Admin UI, CLI, or Terraform.
 
 1. Create a new ssh target called `khalid-target`
    - Set a target type of `ssh`
@@ -963,11 +962,7 @@ for Terraform or Vault.
      or, use a target alias to connect to the target
    - `boundary connect ssh sandbox.khalid`
 
-1. After connecting to the target, take a screenshot or a picture of what you find.
-   Show the instructor the picture to enter the raffle for a free certification exam voucher!
-
 </Tab>
-
 <Tab heading="4: Configure storage policies">
 
 ### Enforce compliance standards with storage policies
@@ -1047,14 +1042,16 @@ This includes the following components:
 - MinIO storage backend
 - Ubuntu target
 
-What are the requirements of these components? How must they be configured to create a
-functional and secure Boundary deployment? How do the ingress and egress workers fuction in
-a multi-hop sessions deployment, and how can this provide enhanced security for your network?
+Examine these components and answer the following questions:
+
+- What are the requirements for these components?
+- How must they be configured to create a functional and secure Boundary deployment?
+- How do the ingress and egress workers function in a multi-hop sessions deployment, and how can this provide enhanced security for your network?
 
 You can check the controller or worker configurations by examining `/etc/boundary.d/boundary.hcl` 
 file on the those hosts.
 
-Use the following documentatation to deepen your understanding:
+Use the following documentation to deepen your understanding:
 
 - [Boundary Enterprise reference architecture](/boundary/tutorials/enterprise/ent-reference-architecture)
 - [Boundary Enterprise deployment guide](/boundary/tutorials/enterprise/ent-deployment-guide)
