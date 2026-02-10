@@ -12,6 +12,8 @@ on:
 jobs:
   on-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview' && github.event.repository.name == 'dev-portal' || github.event_name == 'workflow_dispatch'
     steps:
       - name: summary
