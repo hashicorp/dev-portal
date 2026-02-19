@@ -276,29 +276,32 @@ export function getStaticGenerationFunctions({
 
 			/**
 			 * Try to load the static props for the given context.
-			 * 
+			 *
 			 * Retry logic with exponential backoff for 404 errors is now handled
 			 * at the fetch level (in content-api/index.ts) for each individual API call.
 			 * This prevents transient backend failures from caching 404 pages.
-			 * 
+			 *
 			 * If all retries fail with 404, we return { notFound: true } (page doesn't exist).
 			 * For non-404 errors, we throw to let Next.js serve stale content.
-			 * 
+			 *
 			 * https://nextjs.org/docs/api-reference/data-fetching/get-static-props#notfound
 			 */
 			let loadStaticPropsResult
 			try {
 				loadStaticPropsResult = await loader.loadStaticProps(ctx)
 			} catch (error) {
-				console.error('[docs-view/server] error loading static props after retries', error)
+				console.error(
+					'[docs-view/server] error loading static props after retries',
+					error
+				)
 
 				// If it's a 404 after all retries, let the page be 404'd
 				// Return notFound so Next.js shows a 404 page
 				if (error.status === 404) {
-					return { 
+					return {
 						notFound: true,
-						revalidate: 10 // Will retry after 10 seconds
-					 }
+						revalidate: 10, // Will retry after 10 seconds
+					}
 				}
 
 				// For non-404 errors (500, network errors, etc.), throw the error
@@ -487,6 +490,39 @@ export function getStaticGenerationFunctions({
 
 			const { hideVersionSelector, projectName } = options
 
+			const context = docsBasePathFullPath.includes('/api-docs')
+				? 'APIReference'
+				: 'TechArticle'		
+			const url = `https://developer.hashicorp.com${breadcrumbLinks[breadcrumbLinks.length - 1].url}`
+
+			const structuredData = {
+				'@context': 'https://schema.org',
+				'@type': context,
+				headline: frontMatter.page_title ?? null,
+				description: frontMatter.description ?? null,
+				url,
+				datePublished: frontMatter.created_at ?? null,
+				dateModified: frontMatter.last_modified ?? null,
+				author: {
+					'@type': 'Organization',
+					name: 'HashiCorp',
+					url: 'https://www.hashicorp.com',
+				},
+				publisher: {
+					'@type': 'Organization',
+					name: 'HashiCorp',
+				},
+				isPartOf: {
+					'@type': 'WebSite',
+					name: 'HashiCorp Developer',
+					url: 'https://developer.hashicorp.com',
+				},
+				about: {
+					'@type': 'SoftwareApplication',
+					name: product.name,
+				},
+			}
+
 			/**
 			 * TODO: the DocsViewProps type should likely be set at the
 			 * function return value level, rather than only here.
@@ -502,6 +538,7 @@ export function getStaticGenerationFunctions({
 						frontMatter,
 						pathParts,
 					}),
+					structuredData,
 				},
 				outlineItems,
 				pageHeading,

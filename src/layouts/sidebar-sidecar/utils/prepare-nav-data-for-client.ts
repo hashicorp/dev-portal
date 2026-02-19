@@ -72,7 +72,7 @@ async function prepareNavDataForClient({
 }: {
 	basePaths: string[]
 	nodes: NavNode[]
-	tutorialMap: Record<string, string>
+	tutorialMap: Record<string, Record<string, string>>
 	startingIndex?: number
 }): Promise<{ preparedItems: MenuItem[]; traversedNodes: number }> {
 	const preparedNodes = []
@@ -121,7 +121,7 @@ async function prepareNavNodeForClient({
 }: {
 	node: NavNode
 	basePaths: string[]
-	tutorialMap: Record<string, string>
+	tutorialMap: Record<string, Record<string, string>>
 	nodeIndex: number
 }): Promise<{ preparedItem: MenuItem; traversedNodes: number }> {
 	/**

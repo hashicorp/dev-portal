@@ -19,7 +19,7 @@ const getMdxLinksToRewrite = async ({
 	filePaths: string[]
 	urlAdjustFn: (url: string) => string
 	repo: string
-	tutorialMap: Record<string, string>
+	tutorialMap: Record<string, Record<string, string>>
 }): Promise<{
 	mdxLinksToRewrite: Record<string, Record<string, string>>
 	mdxUnrewriteableLinks: Record<string, Record<string, string>>

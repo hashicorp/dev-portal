@@ -15,13 +15,22 @@ import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'
 vi.mock('data/_tutorial-map.generated.json', async () => {
 	return {
 		default: {
-			'consul/gossip-encryption-secure':
-				'/consul/tutorials/gossip-encryption-secure',
-			'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
-			'vault/getting-started-install':
-				'/vault/tutorials/getting-started/getting-started-install',
-			'cloud/amazon-peering-hcp':
-				'/hcp/tutorials/networking/amazon-peering-hcp',
+			'consul/gossip-encryption-secure': {
+				path: '/consul/tutorials/gossip-encryption-secure',
+				last_modified: '2024-01-01T00:00:00.000Z',
+			},
+			'waypoint/aws-ecs': {
+				path: '/waypoint/tutorials/deploy-aws/aws-ecs',
+				last_modified: '2024-01-01T00:00:00.000Z',
+			},
+			'vault/getting-started-install': {
+				path: '/vault/tutorials/getting-started/getting-started-install',
+				last_modified: '2024-01-01T00:00:00.000Z',
+			},
+			'cloud/amazon-peering-hcp': {
+				path: '/hcp/tutorials/networking/amazon-peering-hcp',
+				last_modified: '2024-01-01T00:00:00.000Z',
+			},
 		},
 	}
 })

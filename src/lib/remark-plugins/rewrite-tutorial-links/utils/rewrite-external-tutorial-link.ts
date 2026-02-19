@@ -26,7 +26,7 @@ import { SplitLearnPath } from '../types'
 
 export function rewriteExternalTutorialLink(
 	urlObject: URL,
-	tutorialMap: { [key: string]: string }
+	tutorialMap: { [key: string]: Record<string, string> }
 ) {
 	/**
 	 * Validate the given `nodePath` (via `url.pathname`), and parse out the
@@ -71,7 +71,7 @@ export function rewriteExternalTutorialLink(
 			normalizeSlugForTutorials(normalizedProductSlug),
 			filename,
 		].join('/')
-		path = tutorialMap[tutorialSlug]
+		path = tutorialMap[tutorialSlug]?.path
 	}
 
 	/**

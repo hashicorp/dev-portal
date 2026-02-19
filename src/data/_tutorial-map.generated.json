@@ -1,741 +1,2898 @@
 {
-	"cloud/vault-manage-namespaces": "/vault/tutorials/manage-hcp-vault-dedicated/vault-manage-namespaces",
-	"cloud/scale-out-vault": "/vault/tutorials/manage-hcp-vault-dedicated/scale-out-vault",
-	"cloud/scale-out-vault-terraform": "/vault/tutorials/manage-hcp-vault-dedicated/scale-out-vault-terraform",
-	"cloud/manage-codified-vault-hcp-terraform": "/vault/tutorials/manage-hcp-vault-dedicated/manage-codified-vault-hcp-terraform",
-	"cloud/why-use-hcp-vault": "/vault/tutorials/get-started-hcp-vault-dedicated/why-use-hcp-vault",
-	"cloud/manage-clusters": "/vault/tutorials/get-started-hcp-vault-dedicated/manage-clusters",
-	"cloud/manage-access-secrets": "/vault/tutorials/get-started-hcp-vault-dedicated/manage-access-secrets",
-	"cloud/create-secret": "/vault/tutorials/get-started-hcp-vault-dedicated/create-secret",
-	"cloud/create-cluster": "/vault/tutorials/get-started-hcp-vault-dedicated/create-cluster",
-	"waypoint/build-self-service-idp": "/waypoint/tutorials/self-service/build-self-service-idp",
-	"terraform/stacks-deploy": "/terraform/tutorials/cloud/stacks-deploy",
-	"terraform/stacks-eks-deferred": "/terraform/tutorials/cloud/stacks-eks-deferred",
-	"terraform/drift-and-policy": "/terraform/tutorials/cloud/drift-and-policy",
-	"nomad/jobs-version": "/nomad/tutorials/manage-jobs/jobs-version",
-	"boundary/minio-session-rec": "/boundary/tutorials/host-management/minio-session-rec",
-	"vault/hashiconf-kubernetes-vso-enterprise": "/vault/tutorials/kubernetes/hashiconf-kubernetes-vso-enterprise",
-	"vault/associate-study-003": "/vault/tutorials/associate-cert-003/associate-study-003",
-	"vault/associate-review-003": "/vault/tutorials/associate-cert-003/associate-review-003",
-	"vault/associate-questions-003": "/vault/tutorials/associate-cert-003/associate-questions-003",
-	"sentinel/write-policy": "/sentinel/tutorials/get-started/write-policy",
-	"sentinel/static-imports": "/sentinel/tutorials/get-started/static-imports",
-	"sentinel/testing": "/sentinel/tutorials/get-started/testing",
-	"sentinel/simplify-functions": "/sentinel/tutorials/get-started/simplify-functions",
-	"sentinel/reuse-modules": "/sentinel/tutorials/get-started/reuse-modules",
-	"sentinel/policy-as-code": "/sentinel/tutorials/get-started/policy-as-code",
-	"sentinel/install": "/sentinel/tutorials/get-started/install",
-	"cloud/hcp-vault-secrets-establish-secure-acl-model": "/hcp/tutorials/get-started-hcp-vault-secrets/hcp-vault-secrets-establish-secure-acl-model",
-	"well-architected-framework/security-secure-hashicorp-tools-with-tls": "/well-architected-framework/security/security-secure-hashicorp-tools-with-tls",
-	"well-architected-framework/operational-excellence-manage-your-infrastructure-components-with-terraform": "/well-architected-framework/operational-excellence/operational-excellence-manage-your-infrastructure-components-with-terraform",
-	"waypoint/create-action": "/waypoint/tutorials/hcp-waypoint/create-action",
-	"nomad/prometheus-service-mesh-metrics": "/nomad/tutorials/manage-clusters/prometheus-service-mesh-metrics",
-	"vault/why-use-vault": "/vault/tutorials/get-started/why-use-vault",
-	"vault/understand-static-dynamic-secrets": "/vault/tutorials/get-started/understand-static-dynamic-secrets",
-	"vault/troubleshoot": "/vault/tutorials/get-started/troubleshoot",
-	"vault/setup": "/vault/tutorials/get-started/setup",
-	"vault/learn-ui": "/vault/tutorials/get-started/learn-ui",
-	"vault/learn-terraform": "/vault/tutorials/get-started/learn-terraform",
-	"vault/learn-http-api": "/vault/tutorials/get-started/learn-http-api",
-	"vault/learn-cli": "/vault/tutorials/get-started/learn-cli",
-	"vault/introduction-tokens": "/vault/tutorials/get-started/introduction-tokens",
-	"vault/introduction-roles": "/vault/tutorials/get-started/introduction-roles",
-	"vault/introduction-policies": "/vault/tutorials/get-started/introduction-policies",
-	"vault/introduction-next-steps": "/vault/tutorials/get-started/introduction-next-steps",
-	"vault/install-binary": "/vault/tutorials/get-started/install-binary",
-	"vault/discover-plugins": "/vault/tutorials/get-started/discover-plugins",
-	"vault/available-editions": "/vault/tutorials/get-started/available-editions",
-	"terraform/pro-orientation": "/terraform/tutorials/pro-cert/pro-orientation",
-	"vault/monitoring-vault-with-datadog": "/vault/tutorials/archive/monitoring-vault-with-datadog",
-	"consul/sameness-groups": "/consul/tutorials/developer-mesh/sameness-groups",
-	"well-architected-framework/reliability-zero-downtime-deployments": "/well-architected-framework/reliability/reliability-zero-downtime-deployments",
-	"well-architected-framework/operational-excellence-application-deployment": "/well-architected-framework/operational-excellence/operational-excellence-application-deployment",
-	"cloud/hcp-vault-secrets-kubernetes-vso": "/hcp/tutorials/get-started-hcp-vault-secrets/hcp-vault-secrets-kubernetes-vso",
-	"vault/plugin-workoad-identity-federation": "/vault/tutorials/enterprise/plugin-workoad-identity-federation",
-	"vault/spring-reload-secrets": "/vault/tutorials/app-integration/spring-reload-secrets",
-	"consul/load-balancing-nginx-plus": "/consul/tutorials/archive/load-balancing-nginx-plus",
-	"consul/consul-terraform-sync-zscaler-application-segments": "/consul/tutorials/archive/consul-terraform-sync-zscaler-application-segments",
-	"nomad/deploy-api-gateway-on-nomad": "/nomad/tutorials/integrate-consul/deploy-api-gateway-on-nomad",
-	"terraform/pro-review": "/terraform/tutorials/pro-cert/pro-review",
-	"consul/terraform-consul-provider": "/consul/tutorials/archive/terraform-consul-provider",
-	"consul/single-sign-on-auth0": "/consul/tutorials/archive/single-sign-on-auth0",
-	"consul/monitor-with-appdynamics": "/consul/tutorials/archive/monitor-with-appdynamics",
-	"consul/kubernetes-layer7-observability": "/consul/tutorials/archive/kubernetes-layer7-observability",
-	"consul/docker-container-agents": "/consul/tutorials/archive/docker-container-agents",
-	"consul/docker-compose-observability": "/consul/tutorials/archive/docker-compose-observability",
-	"consul/amazon-ecs-admin-partitions": "/consul/tutorials/archive/amazon-ecs-admin-partitions",
-	"consul/sync-pivotal-cloud-services": "/consul/tutorials/archive/sync-pivotal-cloud-services",
-	"consul/load-balancing-haproxy": "/consul/tutorials/archive/load-balancing-haproxy",
-	"consul/kubernetes-openshift-red-hat": "/consul/tutorials/archive/kubernetes-openshift-red-hat",
-	"terraform/servicenow-no-code": "/terraform/tutorials/it-saas/servicenow-no-code",
-	"consul/troubleshooting": "/consul/tutorials/archive/troubleshooting",
-	"consul/autopilot-datacenter-operations": "/consul/tutorials/archive/autopilot-datacenter-operations",
-	"well-architected-framework/security-zero-trust-video": "/well-architected-framework/security/security-zero-trust-video",
-	"consul/sync-aws-services": "/consul/tutorials/archive/sync-aws-services",
-	"terraform/providers-function-only": "/terraform/tutorials/providers-plugin-framework/providers-function-only",
-	"terraform/providers-plugin-framework-functions": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-functions",
-	"well-architected-framework/reliability-deploy-application-monitoring-components": "/well-architected-framework/reliability/reliability-deploy-application-monitoring-components",
-	"consul/associate-study-003": "/consul/tutorials/certification-003/associate-study-003",
-	"consul/associate-review-003": "/consul/tutorials/certification-003/associate-review-003",
-	"consul/associate-questions-003": "/consul/tutorials/certification-003/associate-questions-003",
-	"cloud/vault-radar-secret-scanning": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-secret-scanning",
-	"cloud/vault-radar-ticketing-setup": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-ticketing-setup",
-	"cloud/vault-radar-introduction": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-introduction",
-	"cloud/vault-radar-alert-setup": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-alert-setup",
-	"consul/monitor-applications-health-checks": "/consul/tutorials/connect-services/monitor-applications-health-checks",
-	"well-architected-framework/verify-hashicorp-binary": "/well-architected-framework/operational-excellence/verify-hashicorp-binary",
-	"consul/terminating-gateway": "/consul/tutorials/connect-services/terminating-gateway",
-	"consul/access-control-manage-permissions": "/consul/tutorials/secure-services/access-control-manage-permissions",
-	"consul/consul-template-load-balancing": "/consul/tutorials/network-automation/consul-template-load-balancing",
-	"nomad/integration-gcp": "/nomad/tutorials/fed-workload-identity/integration-gcp",
-	"terraform/pro-study": "/terraform/tutorials/pro-cert/pro-study",
-	"cloud/kubernetes-vso-hcp-vault": "/vault/tutorials/integrate-kubernetes-hcp-vault-dedicated/kubernetes-vso-hcp-vault",
-	"consul/server-metrics-and-logs": "/consul/tutorials/observe-your-network/server-metrics-and-logs",
-	"boundary/oidc-okta": "/boundary/tutorials/identity-management/oidc-okta",
-	"boundary/oidc-auth0": "/boundary/tutorials/identity-management/oidc-auth0",
-	"boundary/oidc-azure": "/boundary/tutorials/identity-management/oidc-azure",
-	"consul/proxy-access-logs": "/consul/tutorials/observe-your-network/proxy-access-logs",
-	"nomad/job-spec-actions": "/nomad/tutorials/job-specifications/job-spec-actions",
-	"nomad/vault-acl": "/nomad/tutorials/integrate-vault/vault-acl",
-	"nomad/consul-acl": "/nomad/tutorials/integrate-consul/consul-acl",
-	"nomad/nomad-pack-detailed-usage": "/nomad/tutorials/nomad-pack/nomad-pack-detailed-usage",
-	"consul/proxy-metrics": "/consul/tutorials/observe-your-network/proxy-metrics",
-	"nomad/sso-oidc-auth0": "/nomad/tutorials/access-control/sso-oidc-auth0",
-	"consul/secure-services-intentions": "/consul/tutorials/secure-services/secure-services-intentions",
-	"consul/secure-services-intentions-l7": "/consul/tutorials/secure-services/secure-services-intentions-l7",
-	"vault/benchmark-vault": "/vault/tutorials/operations/benchmark-vault",
-	"waypoint/use-template": "/waypoint/tutorials/hcp-waypoint/use-template",
-	"waypoint/set-up-rbac": "/waypoint/tutorials/hcp-waypoint/set-up-rbac",
-	"waypoint/install-addon": "/waypoint/tutorials/hcp-waypoint/install-addon",
-	"waypoint/get-started-hcp": "/waypoint/tutorials/hcp-waypoint/get-started-hcp",
-	"waypoint/destroy-project-resources": "/waypoint/tutorials/hcp-waypoint/destroy-project-resources",
-	"waypoint/create-addon": "/waypoint/tutorials/hcp-waypoint/create-addon",
-	"waypoint/create-template": "/waypoint/tutorials/hcp-waypoint/create-template",
-	"boundary/aws-session-rec-vault": "/boundary/tutorials/host-management/aws-session-rec-vault",
-	"boundary/ldap-auth": "/boundary/tutorials/identity-management/ldap-auth",
-	"terraform/test": "/terraform/tutorials/configuration-language/test",
-	"vault/secrets-sync": "/vault/tutorials/enterprise/secrets-sync",
-	"vault/saml": "/vault/tutorials/auth-methods/saml",
-	"vault/pki-cieps": "/vault/tutorials/enterprise/pki-cieps",
-	"consul/service-splitters-canary-deployment": "/consul/tutorials/control-network-traffic/service-splitters-canary-deployment",
-	"boundary/kubernetes-getting-started-setup": "/boundary/tutorials/kubernetes-connect/kubernetes-getting-started-setup",
-	"boundary/kubernetes-getting-started-intro": "/boundary/tutorials/kubernetes-connect/kubernetes-getting-started-intro",
-	"boundary/kubernetes-getting-started-config": "/boundary/tutorials/kubernetes-connect/kubernetes-getting-started-config",
-	"boundary/kubernetes-getting-started-connect": "/boundary/tutorials/kubernetes-connect/kubernetes-getting-started-connect",
-	"consul/consul-ecs": "/consul/tutorials/connect-services/consul-ecs",
-	"terraform/azure-virtual-machine-scale-sets": "/terraform/tutorials/it-saas/azure-virtual-machine-scale-sets",
-	"cloud/hcp-vault-secrets-terraform": "/hcp/tutorials/get-started-hcp-vault-secrets/hcp-vault-secrets-terraform",
-	"vault/pki-acme-caddy": "/vault/tutorials/secrets-management/pki-acme-caddy",
-	"vault/agent-env-vars": "/vault/tutorials/vault-agent/agent-env-vars",
-	"cloud/hcp-vault-secrets-retrieve-secret": "/hcp/tutorials/get-started-hcp-vault-secrets/hcp-vault-secrets-retrieve-secret",
-	"cloud/hcp-vault-secrets-introduction": "/hcp/tutorials/get-started-hcp-vault-secrets/hcp-vault-secrets-introduction",
-	"cloud/hcp-vault-secrets-install-cli": "/hcp/tutorials/get-started-hcp-vault-secrets/hcp-vault-secrets-install-cli",
-	"cloud/hcp-vault-secrets-create-secret": "/hcp/tutorials/get-started-hcp-vault-secrets/hcp-vault-secrets-create-secret",
-	"boundary/ent-reference-architecture": "/boundary/tutorials/enterprise/ent-reference-architecture",
-	"boundary/ent-deployment-guide": "/boundary/tutorials/enterprise/ent-deployment-guide",
-	"terraform/dynamic-credentials-no-code": "/terraform/tutorials/cloud/dynamic-credentials-no-code",
-	"consul/permissive-mtls": "/consul/tutorials/secure-services/permissive-mtls",
-	"terraform/checks": "/terraform/tutorials/configuration-language/checks",
-	"consul/virtual-machine-gs-service-mesh-access": "/consul/tutorials/get-started-vms/virtual-machine-gs-service-mesh-access",
-	"vault/google-workspace-oauth": "/vault/tutorials/auth-methods/google-workspace-oauth",
-	"vault/secure-confluent-logs": "/vault/tutorials/archive/secure-confluent-logs",
-	"vault/pgp-encrypted-key-shares": "/vault/tutorials/operations/pgp-encrypted-key-shares",
-	"terraform/dynamic-credentials-vault": "/terraform/tutorials/cloud/dynamic-credentials-vault",
-	"terraform/kubernetes-operator-v2": "/terraform/tutorials/kubernetes/kubernetes-operator-v2",
-	"terraform/kubernetes-operator-v2-agentpool": "/terraform/tutorials/kubernetes/kubernetes-operator-v2-agentpool",
-	"terraform/drift-detection": "/terraform/tutorials/cloud/drift-detection",
-	"consul/kubernetes-windows-nodes": "/consul/tutorials/connect-services/kubernetes-windows-nodes",
-	"vault/vault-secrets-operator": "/vault/tutorials/kubernetes/vault-secrets-operator",
-	"cloud/kubernetes-hcp-vault": "/vault/tutorials/integrate-kubernetes-hcp-vault-dedicated/kubernetes-hcp-vault",
-	"vault/troubleshoot-tune-enterprise-replication": "/vault/tutorials/enterprise/troubleshoot-tune-enterprise-replication",
-	"vault/azure-root-cred-rotate": "/vault/tutorials/secrets-management/azure-root-cred-rotate",
-	"nomad/gs-start-a-cluster": "/nomad/tutorials/get-started/gs-start-a-cluster",
-	"nomad/gs-stop-nomad": "/nomad/tutorials/get-started/gs-stop-nomad",
-	"nomad/gs-overview": "/nomad/tutorials/get-started/gs-overview",
-	"nomad/gs-install": "/nomad/tutorials/get-started/gs-install",
-	"nomad/gs-deploy-job": "/nomad/tutorials/get-started/gs-deploy-job",
-	"terraform/servicenow-sgc": "/terraform/tutorials/it-saas/servicenow-sgc",
-	"vault/gcp-auth-method": "/vault/tutorials/auth-methods/gcp-auth-method",
-	"vault/gcp-secrets-engine": "/vault/tutorials/secrets-management/gcp-secrets-engine",
-	"vault/pki-unified-crl-ocsp-cross-cluster": "/vault/tutorials/secrets-management/pki-unified-crl-ocsp-cross-cluster",
-	"vault/namespaces-secrets-sharing": "/vault/tutorials/enterprise/namespaces-secrets-sharing",
-	"vault/agent-quick-start": "/vault/tutorials/vault-agent/agent-quick-start",
-	"nomad/sso-oidc-vault": "/nomad/tutorials/single-sign-on/sso-oidc-vault",
-	"boundary/hcp-certificate-injection": "/boundary/tutorials/credential-management/hcp-certificate-injection",
-	"boundary/hcp-manage-multi-hop": "/boundary/tutorials/hcp-administration/hcp-manage-multi-hop",
-	"boundary/community-manage-workers": "/boundary/tutorials/community-administration/community-manage-workers",
-	"terraform/dynamic-credentials": "/terraform/tutorials/cloud/dynamic-credentials",
-	"packer/revoke-image": "/packer/tutorials/hcp/revoke-image",
-	"terraform/projects": "/terraform/tutorials/cloud/projects",
-	"vault/disaster-recovery-replication-failover": "/vault/tutorials/enterprise/disaster-recovery-replication-failover",
-	"terraform/tfe-metrics": "/terraform/tutorials/enterprise/tfe-metrics",
-	"nomad/cluster-setup-overview": "/nomad/tutorials/cluster-setup/cluster-setup-overview",
-	"nomad/cluster-setup-gcp": "/nomad/tutorials/cluster-setup/cluster-setup-gcp",
-	"nomad/cluster-setup-azure": "/nomad/tutorials/cluster-setup/cluster-setup-azure",
-	"consul/virtual-machine-gs-monitoring": "/consul/tutorials/get-started-vms/virtual-machine-gs-monitoring",
-	"vault/database-secrets-mssql": "/vault/tutorials/db-credentials/database-secrets-mssql",
-	"vault/intro-vault-aws-lambda-extension": "/vault/tutorials/app-integration/intro-vault-aws-lambda-extension",
-	"packer/multicloud": "/packer/tutorials/cloud-production/multicloud",
-	"vault/kubernetes-minikube-tls": "/vault/tutorials/kubernetes/kubernetes-minikube-tls",
-	"nomad/variables-tasks": "/nomad/tutorials/variables/variables-tasks",
-	"nomad/variables-create": "/nomad/tutorials/variables/variables-create",
-	"nomad/variables-acls": "/nomad/tutorials/variables/variables-acls",
-	"vault/audit-elastic-incident-response": "/vault/tutorials/operations/audit-elastic-incident-response",
-	"well-architected-framework/security-sensitive-data": "/well-architected-framework/security/security-sensitive-data",
-	"well-architected-framework/security-prevent-lateral-movement": "/well-architected-framework/security/security-prevent-lateral-movement",
-	"well-architected-framework/security-cicd-vault": "/well-architected-framework/security/security-cicd-vault",
-	"well-architected-framework/security-introduction": "/well-architected-framework/security/security-introduction",
-	"terraform/confluent-provider": "/terraform/tutorials/applications/confluent-provider",
-	"cloud/gcp-connect-hcp": "/hcp/tutorials/networking/gcp-connect-hcp",
-	"terraform/no-code-provisioning": "/terraform/tutorials/cloud/no-code-provisioning",
-	"boundary/hcp-private-vault-cred-injection": "/boundary/tutorials/credential-management/hcp-private-vault-cred-injection",
-	"terraform/associate-study-003": "/terraform/tutorials/certification-003/associate-study-003",
-	"terraform/associate-review-003": "/terraform/tutorials/certification-003/associate-review-003",
-	"boundary/hcp-vault-cred-brokering-quickstart": "/boundary/tutorials/credential-management/hcp-vault-cred-brokering-quickstart",
-	"consul/virtual-machine-gs-service-mesh": "/consul/tutorials/get-started-vms/virtual-machine-gs-service-mesh",
-	"consul/virtual-machine-gs-deploy": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy",
-	"terraform/providers-plugin-framework-resource-update": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-resource-update",
-	"terraform/providers-plugin-framework-resource-import": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-resource-import",
-	"terraform/providers-plugin-framework-resource-delete": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-resource-delete",
-	"terraform/providers-plugin-framework-release-publish": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-release-publish",
-	"terraform/providers-plugin-framework-provider": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-provider",
-	"terraform/providers-plugin-framework-provider-configure": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-provider-configure",
-	"terraform/providers-plugin-framework-documentation-generation": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-documentation-generation",
-	"terraform/providers-plugin-framework-logging": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-logging",
-	"terraform/providers-plugin-framework-data-source-read": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-data-source-read",
-	"terraform/providers-plugin-framework-acceptance-testing": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-acceptance-testing",
-	"consul/cluster-peering": "/consul/tutorials/implement-multi-tenancy/cluster-peering",
-	"consul/consul-windows-workloads": "/consul/tutorials/connect-services/consul-windows-workloads",
-	"cloud/hcp-gs-deploy": "/consul/tutorials/get-started-hcp/hcp-gs-deploy",
-	"cloud/hcp-gs-canary-deployments": "/consul/tutorials/get-started-hcp/hcp-gs-canary-deployments",
-	"consul/kubernetes-gs-service-mesh": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-service-mesh",
-	"consul/kubernetes-gs-observability": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-observability",
-	"consul/kubernetes-gs-ingress": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-ingress",
-	"consul/kubernetes-gs-deploy": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy",
-	"cloud/hcp-gs-intentions": "/consul/tutorials/get-started-hcp/hcp-gs-intentions",
-	"packer/github-actions": "/packer/tutorials/cloud-production/github-actions",
-	"terraform/module-object-attributes": "/terraform/tutorials/modules/module-object-attributes",
-	"consul/vault-pki-consul-connect-ca": "/consul/tutorials/operate-consul/vault-pki-consul-connect-ca",
-	"nomad/keyboard-commands": "/nomad/tutorials/web-ui/keyboard-commands",
-	"boundary/hcp-getting-started-credentials": "/boundary/tutorials/get-started-hcp/hcp-getting-started-credentials",
-	"well-architected-framework/operational-excellence-tao": "/well-architected-framework/operational-excellence/operational-excellence-tao",
-	"vault/kubernetes-secrets-engine": "/vault/tutorials/kubernetes/kubernetes-secrets-engine",
-	"nomad/service-discovery-consul-conversion": "/nomad/tutorials/service-discovery/service-discovery-consul-conversion",
-	"nomad/service-discovery-app-deployment": "/nomad/tutorials/service-discovery/service-discovery-app-deployment",
-	"nomad/cluster-setup-aws": "/nomad/tutorials/cluster-setup/cluster-setup-aws",
-	"boundary/hcp-ssh-cred-injection": "/boundary/tutorials/hcp-administration/hcp-ssh-cred-injection",
-	"consul/serverless-consul-with-lambda": "/consul/tutorials/connect-services/serverless-consul-with-lambda",
-	"terraform/aws-dynamodb-scale": "/terraform/tutorials/aws/aws-dynamodb-scale",
-	"cloud/consul-end-to-end-aks": "/consul/tutorials/cloud-deploy-automation/consul-end-to-end-aks",
-	"cloud/vault-access-cluster": "/vault/tutorials/get-started-hcp-vault-dedicated/vault-access-cluster",
-	"terraform/enterprise-reference-architecture": "/well-architected-framework/terraform/enterprise-reference-architecture",
-	"boundary/hcp-manage-workers": "/boundary/tutorials/hcp-administration/hcp-manage-workers",
-	"boundary/hcp-manage-users-groups": "/boundary/tutorials/hcp-administration/hcp-manage-users-groups",
-	"boundary/hcp-manage-sessions": "/boundary/tutorials/hcp-administration/hcp-manage-sessions",
-	"boundary/hcp-manage-targets": "/boundary/tutorials/hcp-administration/hcp-manage-targets",
-	"boundary/hcp-manage-scopes": "/boundary/tutorials/hcp-administration/hcp-manage-scopes",
-	"boundary/hcp-manage-roles": "/boundary/tutorials/hcp-administration/hcp-manage-roles",
-	"boundary/hcp-getting-started-intro": "/boundary/tutorials/get-started-hcp/hcp-getting-started-intro",
-	"boundary/hcp-manage-intro": "/boundary/tutorials/hcp-administration/hcp-manage-intro",
-	"boundary/hcp-getting-started-desktop-app": "/boundary/tutorials/get-started-hcp/hcp-getting-started-desktop-app",
-	"boundary/hcp-getting-started-install": "/boundary/tutorials/get-started-hcp/hcp-getting-started-install",
-	"boundary/hcp-getting-started-console": "/boundary/tutorials/get-started-hcp/hcp-getting-started-console",
-	"boundary/hcp-getting-started-create": "/boundary/tutorials/get-started-hcp/hcp-getting-started-create",
-	"boundary/hcp-getting-started-connect": "/boundary/tutorials/get-started-hcp/hcp-getting-started-connect",
-	"boundary/hcp-getting-started-cloud": "/boundary/tutorials/get-started-hcp/hcp-getting-started-cloud",
-	"vault/raft-upgrade-automation": "/vault/tutorials/raft/raft-upgrade-automation",
-	"vault/raft-redundancy-zones": "/vault/tutorials/raft/raft-redundancy-zones",
-	"terraform/validation-enforcement": "/terraform/tutorials/cloud/validation-enforcement",
-	"vault/apply-codified-vault-hcp-terraform": "/vault/tutorials/operations/apply-codified-vault-hcp-terraform",
-	"consul/kubernetes-vault-consul-secrets-management": "/consul/tutorials/operate-consul/kubernetes-vault-consul-secrets-management",
-	"vault/kubernetes-minikube-raft": "/vault/tutorials/kubernetes/kubernetes-minikube-raft",
-	"cloud/consul-end-to-end-azure-vm": "/consul/tutorials/cloud-deploy-automation/consul-end-to-end-azure-vm",
-	"cloud/consul-client-azure-virtual-machines": "/consul/tutorials/hcp-connect-services/consul-client-azure-virtual-machines",
-	"cloud/consul-client-aws-ec2": "/consul/tutorials/hcp-connect-services/consul-client-aws-ec2",
-	"cloud/consul-client-aks": "/consul/tutorials/hcp-connect-services/consul-client-aks",
-	"cloud/azure-peering-hcp": "/hcp/tutorials/networking/azure-peering-hcp",
-	"well-architected-framework/reliability-tolerate-failure": "/well-architected-framework/reliability/reliability-tolerate-failure",
-	"well-architected-framework/reliability-introduction": "/well-architected-framework/reliability/reliability-introduction",
-	"well-architected-framework/reliability-implementation-resources": "/well-architected-framework/reliability/reliability-implementation-resources",
-	"boundary/event-logging": "/boundary/tutorials/self-managed-deployment/event-logging",
-	"terraform/custom-conditions": "/terraform/tutorials/configuration-language/custom-conditions",
-	"vault/active-directory-mfa-login-totp": "/vault/tutorials/auth-methods/active-directory-mfa-login-totp",
-	"nomad/schedule-edge-services": "/nomad/tutorials/edge/schedule-edge-services",
-	"boundary/prometheus-metrics": "/boundary/tutorials/self-managed-deployment/prometheus-metrics",
-	"terraform/cloud-run-tasks-snyk": "/terraform/tutorials/cloud/cloud-run-tasks-snyk",
-	"vault/managed-key-pki": "/vault/tutorials/secrets-management/managed-key-pki",
-	"packer/hcp-schedule-image-iterations-revocation": "/packer/tutorials/hcp/hcp-schedule-image-iterations-revocation",
-	"vault/aws-eks-anywhere": "/vault/tutorials/kubernetes/aws-eks-anywhere",
-	"cloud/vault-oidc-okta": "/vault/tutorials/manage-hcp-vault-dedicated/vault-oidc-okta",
-	"terraform/cloud-vcs-change": "/terraform/tutorials/cloud-get-started/cloud-vcs-change",
-	"boundary/azure-sql-database": "/boundary/tutorials/self-managed-deployment/azure-sql-database",
-	"well-architected-framework/operational-excellence-resources": "/well-architected-framework/operational-excellence/operational-excellence-resources",
-	"well-architected-framework/operational-excellence-enable-teams": "/well-architected-framework/operational-excellence/operational-excellence-enable-teams",
-	"well-architected-framework/operational-excellence-introduction": "/well-architected-framework/operational-excellence/operational-excellence-introduction",
-	"well-architected-framework/operational-excellence-automate-infrastructure": "/well-architected-framework/operational-excellence/operational-excellence-automate-infrastructure",
-	"well-architected-framework/implement-cloud-operating-model": "/well-architected-framework/com/implement-cloud-operating-model",
-	"well-architected-framework/cloud-operating-model": "/well-architected-framework/com/cloud-operating-model",
-	"vault/multi-factor-authentication": "/vault/tutorials/auth-methods/multi-factor-authentication",
-	"vault/mount-move": "/vault/tutorials/enterprise/mount-move",
-	"vault/ibm-db2-openldap": "/vault/tutorials/secrets-management/ibm-db2-openldap",
-	"terraform/plan": "/terraform/tutorials/cli/plan",
-	"terraform/init": "/terraform/tutorials/cli/init",
-	"terraform/apply": "/terraform/tutorials/cli/apply",
-	"nomad/external-application-load-balancing": "/nomad/tutorials/load-balancing/external-application-load-balancing",
-	"packer/setup-hcp-terraform-run-task": "/packer/tutorials/hcp/setup-hcp-terraform-run-task",
-	"packer/run-tasks-resource-image-validation": "/packer/tutorials/hcp/run-tasks-resource-image-validation",
-	"packer/run-tasks-data-source-image-validation": "/packer/tutorials/hcp/run-tasks-data-source-image-validation",
-	"packer/hcp-immediately-revoke-artifact-versions": "/packer/tutorials/hcp-get-started/hcp-immediately-revoke-artifact-versions",
-	"nomad/hcdiag-with-nomad": "/nomad/tutorials/manage-clusters/hcdiag-with-nomad",
-	"cloud/vault-auth-method-aws": "/vault/tutorials/manage-hcp-vault-dedicated/vault-auth-method-aws",
-	"boundary/aws-host-catalogs": "/boundary/tutorials/host-management/aws-host-catalogs",
-	"terraform/preview-environments-vercel": "/terraform/tutorials/applications/preview-environments-vercel",
-	"terraform/aws-asg": "/terraform/tutorials/aws/aws-asg",
-	"consul/kubernetes-admin-partitions": "/consul/tutorials/implement-multi-tenancy/kubernetes-admin-partitions",
-	"vault/agent-aws-ecs": "/vault/tutorials/vault-agent/agent-aws-ecs",
-	"consul/kubernetes-api-gateway": "/consul/tutorials/control-network-traffic/kubernetes-api-gateway",
-	"cloud/consul-end-to-end-resources": "/consul/tutorials/cloud-deploy-automation/consul-end-to-end-resources",
-	"cloud/consul-end-to-end-overview": "/consul/tutorials/cloud-deploy-automation/consul-end-to-end-overview",
-	"cloud/consul-end-to-end-existing-eks": "/consul/tutorials/cloud-deploy-automation/consul-end-to-end-existing-eks",
-	"cloud/consul-end-to-end-eks": "/consul/tutorials/cloud-deploy-automation/consul-end-to-end-eks",
-	"cloud/consul-end-to-end-ecs": "/consul/tutorials/cloud-deploy-automation/consul-end-to-end-ecs",
-	"cloud/consul-end-to-end-ec2": "/consul/tutorials/cloud-deploy-automation/consul-end-to-end-ec2",
-	"terraform/pattern-recovery": "/terraform/tutorials/recommended-patterns/pattern-recovery",
-	"consul/introduction-chaos-engineering": "/consul/tutorials/control-network-traffic/introduction-chaos-engineering",
-	"vault/transform-code-example": "/vault/tutorials/app-integration/transform-code-example",
-	"consul/hcdiag-with-consul": "/consul/tutorials/operate-consul/hcdiag-with-consul",
-	"terraform/move-config": "/terraform/tutorials/configuration-language/move-config",
-	"terraform/migrate-remote-s3-backend-hcp-terraform": "/terraform/tutorials/cloud/migrate-remote-s3-backend-hcp-terraform",
-	"terraform/aws-control-tower-aft": "/terraform/tutorials/aws/aws-control-tower-aft",
-	"consul/security": "/consul/tutorials/production-vms/security",
-	"consul/multi-security": "/consul/tutorials/production-multi-cluster/multi-security",
-	"consul/multi-disaster-recovery": "/consul/tutorials/production-multi-cluster/multi-disaster-recovery",
-	"consul/multi-cluster-reference-architecture": "/consul/tutorials/production-multi-cluster/multi-cluster-reference-architecture",
-	"consul/disaster-recovery": "/consul/tutorials/operate-consul/disaster-recovery",
-	"terraform/enable-sso-saml-tfe-okta": "/terraform/tutorials/enterprise/enable-sso-saml-tfe-okta",
-	"boundary/azure-host-catalogs": "/boundary/tutorials/host-management/azure-host-catalogs",
-	"vault/oidc-identity-provider": "/vault/tutorials/auth-methods/oidc-identity-provider",
-	"vault/key-management-secrets-engine-gcp-cloud-kms": "/vault/tutorials/key-management/key-management-secrets-engine-gcp-cloud-kms",
-	"vault/emergency-break-glass-features": "/vault/tutorials/operations/emergency-break-glass-features",
-	"vault/customize-http-headers": "/vault/tutorials/operations/customize-http-headers",
-	"terraform/cloud-create-variable-set": "/terraform/tutorials/cloud-get-started/cloud-create-variable-set",
-	"terraform/cloud-multiple-variable-sets": "/terraform/tutorials/cloud/cloud-multiple-variable-sets",
-	"terraform/console": "/terraform/tutorials/cli/console",
-	"vault/monitor-telemetry-grafana-prometheus": "/vault/tutorials/archive/monitor-telemetry-grafana-prometheus",
-	"terraform/cdktf-applications": "/terraform/tutorials/cdktf/cdktf-applications",
-	"packer/hcp-push-artifact-metadata": "/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata",
-	"packer/hcp-artifact-channels": "/packer/tutorials/hcp-get-started/hcp-artifact-channels",
-	"packer/hcp-create-child-artifact": "/packer/tutorials/hcp-get-started/hcp-create-child-artifact",
-	"packer/golden-image-with-hcp-packer": "/packer/tutorials/cloud-production/golden-image-with-hcp-packer",
-	"terraform/microsoft-caf-enterprise-scale": "/terraform/tutorials/azure/microsoft-caf-enterprise-scale",
-	"nomad/nomad-pack-writing-packs": "/nomad/tutorials/nomad-pack/nomad-pack-writing-packs",
-	"nomad/nomad-pack-intro": "/nomad/tutorials/nomad-pack/nomad-pack-intro",
-	"terraform/aws-cloud-control": "/terraform/tutorials/aws/aws-cloud-control",
-	"vault/pki-engine-external-ca": "/vault/tutorials/secrets-management/pki-engine-external-ca",
-	"terraform/hcdiag-with-tfe": "/terraform/tutorials/enterprise/hcdiag-with-tfe",
-	"vault/ops-pro-study": "/vault/tutorials/ops-pro-cert/ops-pro-study",
-	"vault/ops-pro-review": "/vault/tutorials/ops-pro-cert/ops-pro-review",
-	"vault/ops-pro-overview": "/vault/tutorials/ops-pro-cert/ops-pro-overview",
-	"terraform/tfe-log-forwarding": "/terraform/tutorials/enterprise/tfe-log-forwarding",
-	"terraform/github-user-teams": "/terraform/tutorials/it-saas/github-user-teams",
-	"terraform/rds-upgrade": "/terraform/tutorials/aws/rds-upgrade",
-	"consul/docker-compose-auto-config": "/consul/tutorials/archive/docker-compose-auto-config",
-	"vault/custom-secrets-engine-secrets": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-secrets",
-	"vault/custom-secrets-engine-role": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-role",
-	"vault/custom-secrets-engine-creds": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-creds",
-	"vault/custom-secrets-engine-config": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-config",
-	"vault/custom-secrets-engine-build": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-build",
-	"vault/custom-secrets-engine-backend": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-backend",
-	"terraform/google-workspace": "/terraform/tutorials/it-saas/google-workspace",
-	"terraform/entra-id": "/terraform/tutorials/it-saas/entra-id",
-	"boundary/oidc-idp-groups": "/boundary/tutorials/identity-management/oidc-idp-groups",
-	"vault/write-a-policy-using-audit-logs": "/vault/tutorials/policies/write-a-policy-using-audit-logs",
-	"vault/write-a-policy-using-api-docs": "/vault/tutorials/policies/write-a-policy-using-api-docs",
-	"vault/versioned-kv": "/vault/tutorials/secrets-management/versioned-kv",
-	"vault/username-templating": "/vault/tutorials/secrets-management/username-templating",
-	"vault/troubleshooting-vault": "/vault/tutorials/monitoring/troubleshooting-vault",
-	"vault/troubleshoot-irrevocable-leases": "/vault/tutorials/monitoring/troubleshoot-irrevocable-leases",
-	"vault/transform": "/vault/tutorials/encryption-as-a-service/transform",
-	"vault/tokens": "/vault/tutorials/tokens/tokens",
-	"vault/tokenization": "/vault/tutorials/encryption-as-a-service/tokenization",
-	"vault/token-management": "/vault/tutorials/tokens/token-management",
-	"vault/terraform-secrets-engine": "/vault/tutorials/secrets-management/terraform-secrets-engine",
-	"vault/storage-migration-checklist": "/vault/tutorials/raft/storage-migration-checklist",
-	"vault/ssh-otp": "/vault/tutorials/secrets-management/ssh-otp",
-	"vault/sop-upgrade": "/vault/tutorials/standard-procedures/sop-upgrade",
-	"vault/sop-restore": "/vault/tutorials/standard-procedures/sop-restore",
-	"vault/sop-backup": "/vault/tutorials/standard-procedures/sop-backup",
-	"vault/sentinel": "/vault/tutorials/policies/sentinel",
-	"vault/sentinel-policy-examples": "/vault/tutorials/policies/sentinel-policy-examples",
-	"vault/sentinel-http-import": "/vault/tutorials/policies/sentinel-http-import",
-	"vault/secure-introduction": "/vault/tutorials/app-integration/secure-introduction",
-	"vault/seal-wrap": "/vault/tutorials/auto-unseal/seal-wrap",
-	"vault/resource-quotas": "/vault/tutorials/operations/resource-quotas",
-	"vault/rekeying-and-rotating": "/vault/tutorials/operations/rekeying-and-rotating",
-	"vault/recovery-mode": "/vault/tutorials/monitoring/recovery-mode",
-	"vault/raft-storage": "/vault/tutorials/raft/raft-storage",
-	"vault/raft-reference-architecture": "/vault/tutorials/day-one-raft/raft-reference-architecture",
-	"vault/raft-migration": "/vault/tutorials/raft/raft-migration",
-	"vault/raft-lost-quorum": "/vault/tutorials/raft/raft-lost-quorum",
-	"vault/raft-deployment-guide": "/vault/tutorials/day-one-raft/raft-deployment-guide",
-	"vault/raft-autopilot": "/vault/tutorials/raft/raft-autopilot",
-	"vault/query-audit-device-logs": "/vault/tutorials/monitoring/query-audit-device-logs",
-	"vault/production-hardening": "/vault/tutorials/operations/production-hardening",
-	"vault/policy-templating": "/vault/tutorials/policies/policy-templating",
-	"vault/policies": "/vault/tutorials/policies/policies",
-	"vault/plugin-backends": "/vault/tutorials/app-integration/plugin-backends",
-	"vault/pki-engine": "/vault/tutorials/secrets-management/pki-engine",
-	"vault/performance-tuning": "/vault/tutorials/operations/performance-tuning",
-	"vault/performance-standbys": "/vault/tutorials/enterprise/performance-standbys",
-	"vault/performance-replication": "/vault/tutorials/enterprise/performance-replication",
-	"vault/pattern-policy-templates": "/vault/tutorials/kubernetes/pattern-policy-templates",
-	"vault/password-policies": "/vault/tutorials/policies/password-policies",
-	"vault/openldap": "/vault/tutorials/secrets-management/openldap",
-	"vault/oidc-auth": "/vault/tutorials/auth-methods/oidc-auth",
-	"vault/oidc-auth-azure": "/vault/tutorials/auth-methods/oidc-auth-azure",
-	"vault/namespaces": "/vault/tutorials/enterprise/namespaces",
-	"vault/multi-cluster-architecture": "/vault/tutorials/day-one-raft/multi-cluster-architecture",
-	"vault/monitor-telemetry-audit-splunk": "/vault/tutorials/monitoring/monitor-telemetry-audit-splunk",
-	"vault/monitor-replication": "/vault/tutorials/monitoring/monitor-replication",
-	"vault/kubernetes-sidecar": "/vault/tutorials/kubernetes/kubernetes-sidecar",
-	"vault/kubernetes-security-concerns": "/vault/tutorials/kubernetes/kubernetes-security-concerns",
-	"vault/kubernetes-secret-store-driver": "/vault/tutorials/kubernetes/kubernetes-secret-store-driver",
-	"vault/kubernetes-raft-deployment-guide": "/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide",
-	"vault/kubernetes-openshift": "/vault/tutorials/kubernetes/kubernetes-openshift",
-	"vault/kubernetes-minikube-consul": "/vault/tutorials/kubernetes/kubernetes-minikube-consul",
-	"vault/kubernetes-google-cloud-gke": "/vault/tutorials/kubernetes/kubernetes-google-cloud-gke",
-	"vault/kubernetes-external-vault": "/vault/tutorials/kubernetes/kubernetes-external-vault",
-	"vault/kubernetes-cert-manager": "/vault/tutorials/archive/kubernetes-cert-manager",
-	"vault/kubernetes-azure-aks": "/vault/tutorials/kubernetes/kubernetes-azure-aks",
-	"vault/kubernetes-amazon-eks": "/vault/tutorials/kubernetes/kubernetes-amazon-eks",
-	"vault/kmip-engine": "/vault/tutorials/enterprise/kmip-engine",
-	"vault/key-management-secrets-engine-azure-key-vault": "/vault/tutorials/key-management/key-management-secrets-engine-azure-key-vault",
-	"vault/inspect-data-integrated-storage": "/vault/tutorials/monitoring/inspect-data-integrated-storage",
-	"vault/inspect-data-boltdb": "/vault/tutorials/monitoring/inspect-data-boltdb",
-	"vault/identity": "/vault/tutorials/auth-methods/identity",
-	"vault/hsm-entropy": "/vault/tutorials/enterprise/hsm-entropy",
-	"vault/hcdiag-with-vault": "/vault/tutorials/monitoring/hcdiag-with-vault",
-	"vault/github-actions": "/vault/tutorials/app-integration/github-actions",
-	"vault/getting-started-secrets-engines": "/vault/tutorials/getting-started/getting-started-secrets-engines",
-	"vault/getting-started-policies": "/vault/tutorials/getting-started/getting-started-policies",
-	"vault/getting-started-next-steps": "/vault/tutorials/getting-started/getting-started-next-steps",
-	"vault/getting-started-intro": "/vault/tutorials/getting-started/getting-started-intro",
-	"vault/getting-started-install": "/vault/tutorials/getting-started/getting-started-install",
-	"vault/getting-started-help": "/vault/tutorials/getting-started/getting-started-help",
-	"vault/getting-started-first-secret": "/vault/tutorials/getting-started/getting-started-first-secret",
-	"vault/getting-started-dynamic-secrets": "/vault/tutorials/getting-started/getting-started-dynamic-secrets",
-	"vault/getting-started-dev-server": "/vault/tutorials/getting-started/getting-started-dev-server",
-	"vault/getting-started-deploy": "/vault/tutorials/getting-started/getting-started-deploy",
-	"vault/getting-started-authentication": "/vault/tutorials/getting-started/getting-started-authentication",
-	"vault/getting-started-apis": "/vault/tutorials/getting-started/getting-started-apis",
-	"vault/eaas-transit": "/vault/tutorials/encryption-as-a-service/eaas-transit",
-	"vault/eaas-transit-rewrap": "/vault/tutorials/encryption-as-a-service/eaas-transit-rewrap",
-	"vault/eaas-spring-demo": "/vault/tutorials/encryption-as-a-service/eaas-spring-demo",
-	"vault/dotnet-vault-agent": "/vault/tutorials/app-integration/dotnet-vault-agent",
-	"vault/dotnet-httpclient": "/vault/tutorials/app-integration/dotnet-httpclient",
-	"vault/disaster-recovery": "/vault/tutorials/enterprise/disaster-recovery",
-	"vault/diagnose-startup-issues": "/vault/tutorials/monitoring/diagnose-startup-issues",
-	"vault/database-secrets": "/vault/tutorials/db-credentials/database-secrets",
-	"vault/database-secrets-couchbase": "/vault/tutorials/db-credentials/database-secrets-couchbase",
-	"vault/database-root-rotation": "/vault/tutorials/db-credentials/database-root-rotation",
-	"vault/database-mongodb": "/vault/tutorials/db-credentials/database-mongodb",
-	"vault/cubbyhole-response-wrapping": "/vault/tutorials/secrets-management/cubbyhole-response-wrapping",
-	"vault/control-groups": "/vault/tutorials/enterprise/control-groups",
-	"vault/codify-mgmt-vault-terraform": "/vault/tutorials/operations/codify-mgmt-vault-terraform",
-	"vault/codify-mgmt-enterprise": "/vault/tutorials/operations/codify-mgmt-enterprise",
-	"vault/blocked-audit-devices": "/vault/tutorials/monitoring/blocked-audit-devices",
-	"vault/batch-tokens": "/vault/tutorials/tokens/batch-tokens",
-	"vault/azure-secrets": "/vault/tutorials/secrets-management/azure-secrets",
-	"vault/aws-lambda": "/vault/tutorials/archive/aws-lambda",
-	"vault/autounseal-transit": "/vault/tutorials/auto-unseal/autounseal-transit",
-	"vault/autounseal-gcp-kms": "/vault/tutorials/auto-unseal/autounseal-gcp-kms",
-	"vault/autounseal-azure-keyvault": "/vault/tutorials/auto-unseal/autounseal-azure-keyvault",
-	"vault/autounseal-aws-kms": "/vault/tutorials/auto-unseal/autounseal-aws-kms",
-	"vault/associate-study": "/vault/tutorials/associate-cert/associate-study",
-	"vault/associate-review": "/vault/tutorials/associate-cert/associate-review",
-	"vault/associate-questions": "/vault/tutorials/associate-cert/associate-questions",
-	"vault/approle": "/vault/tutorials/auth-methods/approle",
-	"vault/approle-best-practices": "/vault/tutorials/auth-methods/approle-best-practices",
-	"vault/agent-windows-service": "/vault/tutorials/vault-agent/agent-windows-service",
-	"vault/agent-templates": "/vault/tutorials/vault-agent/agent-templates",
-	"vault/agent-kubernetes": "/vault/tutorials/kubernetes/agent-kubernetes",
-	"vault/agent-caching": "/vault/tutorials/vault-agent/agent-caching",
-	"vault/agent-aws": "/vault/tutorials/vault-agent/agent-aws",
-	"vault/active-directory": "/vault/tutorials/secrets-management/active-directory",
-	"vagrant/getting-started-up": "/vagrant/tutorials/getting-started/getting-started-up",
-	"vagrant/getting-started-teardown": "/vagrant/tutorials/getting-started/getting-started-teardown",
-	"vagrant/getting-started-synced-folders": "/vagrant/tutorials/getting-started/getting-started-synced-folders",
-	"vagrant/getting-started-share": "/vagrant/tutorials/getting-started/getting-started-share",
-	"vagrant/getting-started-rebuild": "/vagrant/tutorials/getting-started/getting-started-rebuild",
-	"vagrant/getting-started-provisioning": "/vagrant/tutorials/networking-provisioning-operations/getting-started-provisioning",
-	"vagrant/getting-started-providers": "/vagrant/tutorials/networking-provisioning-operations/getting-started-providers",
-	"vagrant/getting-started-project-setup": "/vagrant/tutorials/getting-started/getting-started-project-setup",
-	"vagrant/getting-started-networking": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking",
-	"vagrant/getting-started-install": "/vagrant/tutorials/getting-started/getting-started-install",
-	"vagrant/getting-started-index": "/vagrant/tutorials/getting-started/getting-started-index",
-	"vagrant/getting-started-boxes": "/vagrant/tutorials/getting-started/getting-started-boxes",
-	"terraform/vsphere-provider": "/terraform/tutorials/virtual-machine/vsphere-provider",
-	"terraform/versions": "/terraform/tutorials/configuration-language/versions",
-	"terraform/verify-archive": "/terraform/tutorials/cli/verify-archive",
-	"terraform/variables": "/terraform/tutorials/configuration-language/variables",
-	"terraform/troubleshooting-workflow": "/terraform/tutorials/configuration-language/troubleshooting-workflow",
-	"terraform/tfe-provider-run-triggers": "/terraform/tutorials/automation/tfe-provider-run-triggers",
-	"terraform/state-import": "/terraform/tutorials/state/state-import",
-	"terraform/state-cli": "/terraform/tutorials/state/state-cli",
-	"terraform/spotify-playlist": "/terraform/tutorials/community-providers/spotify-playlist",
-	"terraform/sentinel-testing": "/terraform/tutorials/policy/sentinel-testing",
-	"terraform/sentinel-policy": "/terraform/tutorials/policy/sentinel-policy",
-	"terraform/sentinel-install": "/terraform/tutorials/policy/sentinel-install",
-	"terraform/sentinel-import": "/terraform/tutorials/policy/sentinel-import",
-	"terraform/sentinel-cloud-integration": "/terraform/tutorials/policy/sentinel-cloud-integration",
-	"terraform/sensitive-variables": "/terraform/tutorials/configuration-language/sensitive-variables",
-	"terraform/secrets-vault": "/terraform/tutorials/secrets/secrets-vault",
-	"terraform/resource": "/terraform/tutorials/configuration-language/resource",
-	"terraform/resource-targeting": "/terraform/tutorials/state/resource-targeting",
-	"terraform/resource-lifecycle": "/terraform/tutorials/state/resource-lifecycle",
-	"terraform/resource-drift": "/terraform/tutorials/state/resource-drift",
-	"terraform/refresh": "/terraform/tutorials/state/refresh",
-	"terraform/provider-versioning": "/terraform/tutorials/configuration-language/provider-versioning",
-	"terraform/policy-quickstart": "/terraform/tutorials/cloud-get-started/policy-quickstart",
-	"terraform/providers-plugin-framework-resource-create": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-resource-create",
-	"terraform/pattern-module-creation": "/terraform/tutorials/modules/pattern-module-creation",
-	"terraform/pattern-backups": "/terraform/tutorials/recommended-patterns/pattern-backups",
-	"terraform/packer": "/terraform/tutorials/provision/packer",
-	"terraform/outputs": "/terraform/tutorials/configuration-language/outputs",
-	"terraform/organize-configuration": "/terraform/tutorials/modules/organize-configuration",
-	"terraform/oci-variables": "/terraform/tutorials/oci-get-started/oci-variables",
-	"terraform/oci-outputs": "/terraform/tutorials/oci-get-started/oci-outputs",
-	"terraform/oci-destroy": "/terraform/tutorials/oci-get-started/oci-destroy",
-	"terraform/oci-change": "/terraform/tutorials/oci-get-started/oci-change",
-	"terraform/oci-build": "/terraform/tutorials/oci-get-started/oci-build",
-	"terraform/multicloud-kubernetes": "/terraform/tutorials/networking/multicloud-kubernetes",
-	"terraform/module": "/terraform/tutorials/modules/module",
-	"terraform/module-use": "/terraform/tutorials/modules/module-use",
-	"terraform/module-private-registry-share": "/terraform/tutorials/modules/module-private-registry-share",
-	"terraform/private-registry-add": "/terraform/tutorials/modules/private-registry-add",
-	"terraform/module-create": "/terraform/tutorials/modules/module-create",
-	"terraform/locals": "/terraform/tutorials/configuration-language/locals",
-	"terraform/lambda-api-gateway": "/terraform/tutorials/aws/lambda-api-gateway",
-	"terraform/kubernetes-provider": "/terraform/tutorials/kubernetes/kubernetes-provider",
-	"terraform/kubernetes-operator": "/terraform/tutorials/kubernetes/kubernetes-operator",
-	"terraform/kubernetes-crd-faas": "/terraform/tutorials/kubernetes/kubernetes-crd-faas",
-	"terraform/kubernetes-consul-vault-pipeline": "/terraform/tutorials/kubernetes/kubernetes-consul-vault-pipeline",
-	"terraform/install-cli": "/terraform/tutorials/aws-get-started/install-cli",
-	"terraform/infrastructure-as-code": "/terraform/tutorials/aws-get-started/infrastructure-as-code",
-	"terraform/heroku-provider": "/terraform/tutorials/applications/heroku-provider",
-	"terraform/helm-provider": "/terraform/tutorials/kubernetes/helm-provider",
-	"terraform/google-cloud-platform-variables": "/terraform/tutorials/gcp-get-started/google-cloud-platform-variables",
-	"terraform/google-cloud-platform-outputs": "/terraform/tutorials/gcp-get-started/google-cloud-platform-outputs",
-	"terraform/google-cloud-platform-destroy": "/terraform/tutorials/gcp-get-started/google-cloud-platform-destroy",
-	"terraform/google-cloud-platform-change": "/terraform/tutorials/gcp-get-started/google-cloud-platform-change",
-	"terraform/google-cloud-platform-build": "/terraform/tutorials/gcp-get-started/google-cloud-platform-build",
-	"terraform/gke": "/terraform/tutorials/kubernetes/gke",
-	"terraform/github-oauth": "/terraform/tutorials/cloud/github-oauth",
-	"terraform/github-actions": "/terraform/tutorials/automation/github-actions",
-	"terraform/functions": "/terraform/tutorials/configuration-language/functions",
-	"terraform/for-each": "/terraform/tutorials/configuration-language/for-each",
-	"terraform/expressions": "/terraform/tutorials/configuration-language/expressions",
-	"terraform/eks": "/terraform/tutorials/kubernetes/eks",
-	"terraform/docker-variables": "/terraform/tutorials/docker-get-started/docker-variables",
-	"terraform/docker-outputs": "/terraform/tutorials/docker-get-started/docker-outputs",
-	"terraform/docker-destroy": "/terraform/tutorials/docker-get-started/docker-destroy",
-	"terraform/docker-change": "/terraform/tutorials/docker-get-started/docker-change",
-	"terraform/docker-build": "/terraform/tutorials/docker-get-started/docker-build",
-	"terraform/digitalocean-provider": "/terraform/tutorials/applications/digitalocean-provider",
-	"terraform/dependencies": "/terraform/tutorials/configuration-language/dependencies",
-	"terraform/datadog-provider": "/terraform/tutorials/applications/datadog-provider",
-	"terraform/data-sources": "/terraform/tutorials/configuration-language/data-sources",
-	"terraform/count": "/terraform/tutorials/configuration-language/count",
-	"terraform/cost-estimation": "/terraform/tutorials/cloud-get-started/cost-estimation",
-	"terraform/cloudflare-static-website": "/terraform/tutorials/applications/cloudflare-static-website",
-	"terraform/cloud-workspace-create": "/terraform/tutorials/cloud-get-started/cloud-workspace-create",
-	"terraform/cloud-workspace-configure": "/terraform/tutorials/cloud-get-started/cloud-workspace-configure",
-	"terraform/cloud-versions": "/terraform/tutorials/cloud/cloud-versions",
-	"terraform/cloud-state-api": "/terraform/tutorials/cloud/cloud-state-api",
-	"terraform/cloud-sign-up": "/terraform/tutorials/cloud-get-started/cloud-sign-up",
-	"terraform/cloud-run-triggers": "/terraform/tutorials/cloud/cloud-run-triggers",
-	"terraform/cloud-permissions": "/terraform/tutorials/cloud/cloud-permissions",
-	"terraform/cloud-migrate": "/terraform/tutorials/cloud/cloud-migrate",
-	"terraform/cloud-login": "/terraform/tutorials/cloud-get-started/cloud-login",
-	"terraform/cloud-init": "/terraform/tutorials/provision/cloud-init",
-	"terraform/cloud-destroy": "/terraform/tutorials/cloud-get-started/cloud-destroy",
-	"terraform/cloud-change": "/terraform/tutorials/cloud-get-started/cloud-change",
-	"terraform/cloud-agents": "/terraform/tutorials/cloud/cloud-agents",
-	"terraform/circle-ci": "/terraform/tutorials/automation/circle-ci",
-	"terraform/cdktf-install": "/terraform/tutorials/cdktf/cdktf-install",
-	"terraform/cdktf-build": "/terraform/tutorials/cdktf/cdktf-build",
-	"terraform/cdktf-assets-stacks-lambda": "/terraform/tutorials/cdktf/cdktf-assets-stacks-lambda",
-	"terraform/blue-green-canary-tests-deployments": "/terraform/tutorials/aws/blue-green-canary-tests-deployments",
-	"terraform/azure-variables": "/terraform/tutorials/azure-get-started/azure-variables",
-	"terraform/azure-remote": "/terraform/tutorials/azure-get-started/azure-remote",
-	"terraform/azure-outputs": "/terraform/tutorials/azure-get-started/azure-outputs",
-	"terraform/azure-destroy": "/terraform/tutorials/azure-get-started/azure-destroy",
-	"terraform/azure-change": "/terraform/tutorials/azure-get-started/azure-change",
-	"terraform/azure-build": "/terraform/tutorials/azure-get-started/azure-build",
-	"terraform/aws-variables": "/terraform/tutorials/aws-get-started/aws-variables",
-	"terraform/aws-remote": "/terraform/tutorials/aws-get-started/aws-remote",
-	"terraform/aws-rds": "/terraform/tutorials/aws/aws-rds",
-	"terraform/aws-outputs": "/terraform/tutorials/aws-get-started/aws-outputs",
-	"terraform/aws-iam-policy": "/terraform/tutorials/aws/aws-iam-policy",
-	"terraform/aws-destroy": "/terraform/tutorials/aws-get-started/aws-destroy",
-	"terraform/aws-default-tags": "/terraform/tutorials/aws/aws-default-tags",
-	"terraform/aws-change": "/terraform/tutorials/aws-get-started/aws-change",
-	"terraform/aws-build": "/terraform/tutorials/aws-get-started/aws-build",
-	"terraform/aws-assumerole": "/terraform/tutorials/aws/aws-assumerole",
-	"terraform/automate-terraform": "/terraform/tutorials/automation/automate-terraform",
-	"terraform/associate-questions": "/terraform/tutorials/certification-003/associate-questions",
-	"terraform/aks": "/terraform/tutorials/kubernetes/aks",
-	"packer/hcl2-upgrade": "/packer/tutorials/configuration-language/hcl2-upgrade",
-	"packer/get-started-install-cli": "/packer/tutorials/docker-get-started/get-started-install-cli",
-	"packer/docker-get-started-variables": "/packer/tutorials/docker-get-started/docker-get-started-variables",
-	"packer/docker-get-started-provision": "/packer/tutorials/docker-get-started/docker-get-started-provision",
-	"packer/docker-get-started-post-processors": "/packer/tutorials/docker-get-started/docker-get-started-post-processors",
-	"packer/docker-get-started-parallel-builds": "/packer/tutorials/docker-get-started/docker-get-started-parallel-builds",
-	"packer/docker-get-started-build-image": "/packer/tutorials/docker-get-started/docker-get-started-build-image",
-	"packer/aws-windows-image": "/packer/tutorials/cloud-production/aws-windows-image",
-	"packer/aws-get-started-variables": "/packer/tutorials/aws-get-started/aws-get-started-variables",
-	"packer/aws-get-started-provision": "/packer/tutorials/aws-get-started/aws-get-started-provision",
-	"packer/aws-get-started-post-processors-vagrant": "/packer/tutorials/aws-get-started/aws-get-started-post-processors-vagrant",
-	"packer/aws-get-started-parallel-builds": "/packer/tutorials/aws-get-started/aws-get-started-parallel-builds",
-	"packer/aws-get-started-build-image": "/packer/tutorials/aws-get-started/aws-get-started-build-image",
-	"nomad/windows-agent": "/nomad/tutorials/windows/windows-agent",
-	"nomad/web-ui-workload-info": "/nomad/tutorials/web-ui/web-ui-workload-info",
-	"nomad/web-ui-submit-job": "/nomad/tutorials/web-ui/web-ui-submit-job",
-	"nomad/web-ui-considerations": "/nomad/tutorials/web-ui/web-ui-considerations",
-	"nomad/web-ui-cluster-info": "/nomad/tutorials/web-ui/web-ui-cluster-info",
-	"nomad/web-ui-access": "/nomad/tutorials/web-ui/web-ui-access",
-	"nomad/vault-postgres": "/nomad/tutorials/integrate-vault/vault-postgres",
-	"nomad/vault-pki-nomad": "/nomad/tutorials/integrate-vault/vault-pki-nomad",
-	"nomad/vault-nomad-secrets": "/nomad/tutorials/integrate-vault/vault-nomad-secrets",
-	"nomad/topology-visualization": "/nomad/tutorials/web-ui/topology-visualization",
-	"nomad/task-dependencies-interjob": "/nomad/tutorials/task-deps/task-dependencies-interjob",
-	"nomad/stateful-workloads": "/nomad/tutorials/stateful-workloads/stateful-workloads",
-	"nomad/stateful-workloads-portworx": "/nomad/tutorials/stateful-workloads/stateful-workloads-portworx",
-	"nomad/stateful-workloads-host-volumes": "/nomad/tutorials/stateful-workloads/stateful-workloads-host-volumes",
-	"nomad/stateful-workloads-csi-volumes": "/nomad/tutorials/stateful-workloads/stateful-workloads-csi-volumes",
-	"nomad/spread": "/nomad/tutorials/advanced-scheduling/spread",
-	"nomad/sentinel": "/nomad/tutorials/governance-and-policy/sentinel",
-	"nomad/security-gossip-encryption": "/nomad/tutorials/transport-security/security-gossip-encryption",
-	"nomad/security-enable-tls": "/nomad/tutorials/transport-security/security-enable-tls",
-	"nomad/security-concepts": "/nomad/tutorials/transport-security/security-concepts",
-	"nomad/reverse-proxy-ui": "/nomad/tutorials/manage-clusters/reverse-proxy-ui",
-	"nomad/quotas": "/nomad/tutorials/governance-and-policy/quotas",
-	"nomad/prometheus-metrics": "/nomad/tutorials/manage-clusters/prometheus-metrics",
-	"nomad/production-reference-architecture-vm-with-consul": "/nomad/tutorials/enterprise/production-reference-architecture-vm-with-consul",
-	"nomad/production-deployment-guide-vm-with-consul": "/nomad/tutorials/enterprise/production-deployment-guide-vm-with-consul",
-	"nomad/preemption": "/nomad/tutorials/advanced-scheduling/preemption",
-	"nomad/plugin-lxc": "/nomad/tutorials/plugins/plugin-lxc",
-	"nomad/outage-recovery": "/nomad/tutorials/manage-clusters/outage-recovery",
-	"nomad/node-drain": "/nomad/tutorials/manage-clusters/node-drain",
-	"nomad/namespaces": "/nomad/tutorials/manage-clusters/namespaces",
-	"nomad/multiregion-deployments": "/nomad/tutorials/manage-clusters/multiregion-deployments",
-	"nomad/memory-oversubscription": "/nomad/tutorials/advanced-scheduling/memory-oversubscription",
-	"nomad/load-balancing": "/nomad/tutorials/load-balancing/load-balancing",
-	"nomad/load-balancing-traefik": "/nomad/tutorials/load-balancing/load-balancing-traefik",
-	"nomad/load-balancing-nginx": "/nomad/tutorials/load-balancing/load-balancing-nginx",
-	"nomad/load-balancing-haproxy": "/nomad/tutorials/load-balancing/load-balancing-haproxy",
-	"nomad/load-balancing-fabio": "/nomad/tutorials/load-balancing/load-balancing-fabio",
-	"nomad/levant-abstract-jobs": "/nomad/tutorials/templates/levant-abstract-jobs",
-	"nomad/jobs": "/nomad/tutorials/manage-jobs/jobs",
-	"nomad/jobs-utilization": "/nomad/tutorials/manage-jobs/jobs-utilization",
-	"nomad/jobs-submit": "/nomad/tutorials/manage-jobs/jobs-submit",
-	"nomad/jobs-inspect": "/nomad/tutorials/manage-jobs/jobs-inspect",
-	"nomad/jobs-configuring": "/nomad/tutorials/manage-jobs/jobs-configuring",
-	"nomad/jobs-accessing-logs": "/nomad/tutorials/manage-jobs/jobs-accessing-logs",
-	"nomad/job-update-strategies": "/nomad/tutorials/job-updates/job-update-strategies",
-	"nomad/job-update-handle-signals": "/nomad/tutorials/job-updates/job-update-handle-signals",
-	"nomad/job-spec-parameterized": "/nomad/tutorials/job-specifications/job-spec-parameterized",
-	"nomad/job-spec-java-windows": "/nomad/tutorials/job-specifications/job-spec-java-windows",
-	"nomad/job-spec-java-linux": "/nomad/tutorials/job-specifications/job-spec-java-linux",
-	"nomad/job-rolling-update": "/nomad/tutorials/job-updates/job-rolling-update",
-	"nomad/job-blue-green-and-canary-deployments": "/nomad/tutorials/job-updates/job-blue-green-and-canary-deployments",
-	"nomad/horizontal-cluster-scaling": "/nomad/tutorials/autoscaler/horizontal-cluster-scaling",
-	"nomad/horizontal-cluster-scaling-on-demand-batch": "/nomad/tutorials/autoscaler/horizontal-cluster-scaling-on-demand-batch",
-	"nomad/hashicorp-enterprise-license": "/nomad/tutorials/enterprise/hashicorp-enterprise-license",
-	"nomad/governance-and-policy": "/nomad/tutorials/governance-and-policy/governance-and-policy",
-	"nomad/go-template-syntax": "/nomad/tutorials/templates/go-template-syntax",
-	"nomad/format-output-with-templates": "/nomad/tutorials/templates/format-output-with-templates",
-	"nomad/federation": "/nomad/tutorials/manage-clusters/federation",
-	"nomad/failures": "/nomad/tutorials/job-failure-handling/failures",
-	"nomad/failures-restart": "/nomad/tutorials/job-failure-handling/failures-restart",
-	"nomad/failures-reschedule": "/nomad/tutorials/job-failure-handling/failures-reschedule",
-	"nomad/failures-check-restart": "/nomad/tutorials/job-failure-handling/failures-check-restart",
-	"nomad/exec-users-host-volumes": "/nomad/tutorials/stateful-workloads/exec-users-host-volumes",
-	"nomad/event-stream": "/nomad/tutorials/integrate-nomad/event-stream",
-	"nomad/dynamic-application-sizing": "/nomad/tutorials/autoscaler/dynamic-application-sizing",
-	"nomad/dynamic-application-sizing-concepts": "/nomad/tutorials/autoscaler/dynamic-application-sizing-concepts",
-	"nomad/dry-jobs-levant": "/nomad/tutorials/templates/dry-jobs-levant",
-	"nomad/consul-service-mesh": "/nomad/tutorials/integrate-consul/consul-service-mesh",
-	"nomad/clustering": "/nomad/tutorials/manage-clusters/clustering",
-	"nomad/autoscaler-vagrant-demo": "/nomad/tutorials/autoscaler/autoscaler-vagrant-demo",
-	"nomad/autopilot": "/nomad/tutorials/manage-clusters/autopilot",
-	"nomad/affinity": "/nomad/tutorials/advanced-scheduling/affinity",
-	"nomad/advanced-scheduling": "/nomad/tutorials/advanced-scheduling/advanced-scheduling",
-	"nomad/access-control": "/nomad/tutorials/access-control/access-control",
-	"nomad/access-control-tokens": "/nomad/tutorials/access-control/access-control-tokens",
-	"nomad/access-control-policies": "/nomad/tutorials/access-control/access-control-policies",
-	"nomad/access-control-create-policy": "/nomad/tutorials/access-control/access-control-create-policy",
-	"nomad/access-control-bootstrap": "/nomad/tutorials/access-control/access-control-bootstrap",
-	"consul/vault-pki-consul-secure-tls": "/consul/tutorials/operate-consul/vault-pki-consul-secure-tls",
-	"consul/vault-kv-consul-secure-gossip": "/consul/tutorials/operate-consul/vault-kv-consul-secure-gossip",
-	"consul/vault-consul-secrets": "/consul/tutorials/operate-consul/vault-consul-secrets",
-	"consul/upgrade-federated-environment": "/consul/tutorials/archive/upgrade-federated-environment",
-	"consul/upgrade-automation": "/consul/tutorials/archive/upgrade-automation",
-	"consul/tls-encryption-secure-existing-datacenter": "/consul/tutorials/archive/tls-encryption-secure-existing-datacenter",
-	"consul/tls-encryption-openssl-secure": "/consul/tutorials/archive/tls-encryption-openssl-secure",
-	"consul/service-registration-external-services": "/consul/tutorials/connect-services/service-registration-external-services",
-	"consul/service-mesh-production-checklist": "/nomad/tutorials/integrate-consul/service-mesh-production-checklist",
-	"consul/service-mesh-gateways": "/consul/tutorials/archive/service-mesh-gateways",
-	"consul/service-mesh-circuit-breaking": "/consul/tutorials/control-network-traffic/service-mesh-circuit-breaking",
-	"consul/reference-architecture": "/consul/tutorials/production-vms/reference-architecture",
-	"consul/redundancy-zones": "/consul/tutorials/operate-consul/redundancy-zones",
-	"consul/recovery-outage": "/consul/tutorials/operate-consul/recovery-outage",
-	"consul/recovery-outage-primary": "/consul/tutorials/operate-consul/recovery-outage-primary",
-	"consul/production-checklist": "/consul/tutorials/production-vms/production-checklist",
-	"consul/namespaces-share-datacenter-access": "/consul/tutorials/implement-multi-tenancy/namespaces-share-datacenter-access",
-	"consul/namespaces-secure-shared-access": "/consul/tutorials/implement-multi-tenancy/namespaces-secure-shared-access",
-	"consul/monitor-health-telegraf": "/consul/tutorials/archive/monitor-health-telegraf",
-	"consul/kubernetes-scope-microservice": "/consul/tutorials/archive/kubernetes-scope-microservice",
-	"consul/kubernetes-reference-architecture": "/consul/tutorials/production-kubernetes/kubernetes-reference-architecture",
-	"consul/kubernetes-model-the-monolith": "/consul/tutorials/archive/kubernetes-model-the-monolith",
-	"consul/kubernetes-migrate-to-microservices": "/consul/tutorials/archive/kubernetes-migrate-to-microservices",
-	"consul/kubernetes-gke-google": "/consul/tutorials/archive/kubernetes-gke-google",
-	"consul/kubernetes-disaster-recovery": "/consul/tutorials/production-kubernetes/kubernetes-disaster-recovery",
-	"consul/kubernetes-deployment-guide": "/consul/tutorials/production-kubernetes/kubernetes-deployment-guide",
-	"consul/kubernetes-consul-design-patterns": "/consul/tutorials/archive/kubernetes-consul-design-patterns",
-	"consul/virtual-machine-gs-service-discovery": "/consul/tutorials/get-started-vms/virtual-machine-gs-service-discovery",
-	"consul/get-started-explore-the-ui": "/consul/tutorials/archive/get-started-explore-the-ui",
-	"consul/federation-network-areas": "/consul/tutorials/archive/federation-network-areas",
-	"consul/federation-gossip-wan": "/consul/tutorials/archive/federation-gossip-wan",
-	"consul/deployment-guide": "/consul/tutorials/production-vms/deployment-guide",
-	"consul/consul-terraform-sync": "/consul/tutorials/network-automation/consul-terraform-sync",
-	"consul/backup-and-restore": "/consul/tutorials/operate-consul/backup-and-restore",
-	"consul/audit-logging": "/consul/tutorials/observe-your-network/audit-logging",
-	"consul/access-control-token-migration": "/consul/tutorials/archive/access-control-token-migration",
-	"cloud/vault-namespaces": "/vault/tutorials/get-started-hcp-vault-dedicated/vault-namespaces",
-	"cloud/vault-auth-method": "/vault/tutorials/get-started-hcp-vault-dedicated/vault-auth-method",
-	"cloud/terraform-hcp-provider-vault": "/vault/tutorials/manage-hcp-vault-dedicated/terraform-hcp-provider-vault",
-	"cloud/terraform-hcp-consul-provider": "/consul/tutorials/cloud-production/terraform-hcp-consul-provider",
-	"cloud/consul-hcp-migration": "/consul/tutorials/cloud-production/consul-hcp-migration",
-	"cloud/consul-hcp-federation": "/consul/tutorials/cloud-production/consul-hcp-federation",
-	"cloud/consul-client-eks": "/consul/tutorials/hcp-connect-services/consul-client-eks",
-	"cloud/amazon-transit-gateway": "/hcp/tutorials/networking/amazon-transit-gateway",
-	"cloud/amazon-peering-hcp": "/hcp/tutorials/networking/amazon-peering-hcp",
-	"boundary/community-vault-cred-brokering-quickstart": "/boundary/tutorials/credential-management/community-vault-cred-brokering-quickstart",
-	"boundary/upgrade-version": "/boundary/tutorials/self-managed-deployment/upgrade-version",
-	"boundary/target-aware-workers": "/boundary/tutorials/worker-management/target-aware-workers",
-	"boundary/community-manage-users-groups": "/boundary/tutorials/community-administration/community-manage-users-groups",
-	"boundary/community-manage-targets": "/boundary/tutorials/community-administration/community-manage-targets",
-	"boundary/community-manage-sessions": "/boundary/tutorials/community-administration/community-manage-sessions",
-	"boundary/community-manage-scopes": "/boundary/tutorials/community-administration/community-manage-scopes",
-	"boundary/community-manage-roles": "/boundary/tutorials/community-administration/community-manage-roles",
-	"boundary/community-manage-intro": "/boundary/tutorials/community-administration/community-manage-intro",
-	"boundary/community-get-started-next-steps": "/boundary/tutorials/get-started-community/community-get-started-next-steps",
-	"boundary/community-get-started": "/boundary/tutorials/get-started-community/community-get-started",
-	"boundary/community-get-started-install": "/boundary/tutorials/get-started-community/community-get-started-install",
-	"boundary/community-get-started-dev": "/boundary/tutorials/get-started-community/community-get-started-dev",
-	"boundary/community-get-started-desktop-app": "/boundary/tutorials/get-started-community/community-get-started-desktop-app",
-	"boundary/community-get-started-console": "/boundary/tutorials/get-started-community/community-get-started-console",
-	"boundary/community-get-started-connect": "/boundary/tutorials/get-started-community/community-get-started-connect",
-	"boundary/community-get-started-config": "/boundary/tutorials/get-started-community/community-get-started-config"
+  "cloud/manage-hcp-vault-terraform": {
+    "path": "/vault/tutorials/manage-hcp-vault-dedicated/manage-hcp-vault-terraform",
+    "last_modified": "2026-02-13T01:25:19.367Z"
+  },
+  "cloud/deploy-hcp-vault-terraform": {
+    "path": "/vault/tutorials/manage-hcp-vault-dedicated/deploy-hcp-vault-terraform",
+    "last_modified": "2026-02-13T01:25:19.106Z"
+  },
+  "cloud/configure-hcp-vault-terraform": {
+    "path": "/vault/tutorials/manage-hcp-vault-dedicated/configure-hcp-vault-terraform",
+    "last_modified": "2026-02-13T01:25:18.901Z"
+  },
+  "cloud/vault-radar-audit-logging": {
+    "path": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-audit-logging",
+    "last_modified": "2026-01-13T15:06:16.927Z"
+  },
+  "vault/kmip-with-db2": {
+    "path": "/vault/tutorials/enterprise/kmip-with-db2",
+    "last_modified": "2026-01-12T15:50:06.846Z"
+  },
+  "validated-patterns/vault-trusted-identity-brokering": {
+    "path": "/validated-patterns/vault/vault-trusted-identity-brokering",
+    "last_modified": "2026-01-05T17:08:26.351Z"
+  },
+  "validated-patterns/extend-vault-enterprise-for-hybrid-and-multi-cloud-deployments": {
+    "path": "/validated-patterns/vault/extend-vault-enterprise-for-hybrid-and-multi-cloud-deployments",
+    "last_modified": "2026-01-06T16:53:04.865Z"
+  },
+  "terraform/actions": {
+    "path": "/terraform/tutorials/configuration-language/actions",
+    "last_modified": "2025-12-19T16:24:40.543Z"
+  },
+  "validated-patterns/vault-agent-approle": {
+    "path": "/validated-patterns/vault/vault-agent-approle",
+    "last_modified": "2025-12-10T10:15:33.064Z"
+  },
+  "terraform/stacks-migrate": {
+    "path": "/terraform/tutorials/cloud/stacks-migrate",
+    "last_modified": "2025-11-06T20:15:04.955Z"
+  },
+  "vault/troubleshoot-kmip-oracle-tde": {
+    "path": "/vault/tutorials/monitoring/troubleshoot-kmip-oracle-tde",
+    "last_modified": "2025-10-16T14:21:57.882Z"
+  },
+  "nomad/scale-ai-workload": {
+    "path": "/nomad/tutorials/ai-workloads/scale-ai-workload",
+    "last_modified": "2025-10-09T16:16:28.496Z"
+  },
+  "terraform/associate-study-004": {
+    "path": "/terraform/tutorials/certification-004/associate-study-004",
+    "last_modified": "2026-01-08T15:36:56.429Z"
+  },
+  "terraform/associate-review-004": {
+    "path": "/terraform/tutorials/certification-004/associate-review-004",
+    "last_modified": "2026-01-08T15:36:56.440Z"
+  },
+  "terraform/associate-questions-004": {
+    "path": "/terraform/tutorials/certification-004/associate-questions-004",
+    "last_modified": "2026-01-08T15:36:56.089Z"
+  },
+  "boundary/sandbox-ent": {
+    "path": "/boundary/tutorials/sandbox-ent/sandbox-ent",
+    "last_modified": "2025-09-25T19:56:26.815Z"
+  },
+  "terraform/self-service-workflows": {
+    "path": "/terraform/tutorials/hashiconf/self-service-workflows",
+    "last_modified": "2025-09-25T14:21:07.678Z"
+  },
+  "nomad/hashiconf-2025": {
+    "path": "/nomad/tutorials/archive/hashiconf-2025",
+    "last_modified": "2025-10-10T13:37:49.605Z"
+  },
+  "terraform/providers-plugin-framework-lab": {
+    "path": "/terraform/tutorials/community-providers/providers-plugin-framework-lab",
+    "last_modified": "2025-09-22T17:24:04.116Z"
+  },
+  "validated-patterns/vault-pki-with-vso-and-openshift": {
+    "path": "/validated-patterns/vault/vault-pki-with-vso-and-openshift",
+    "last_modified": "2025-09-17T17:39:49.594Z"
+  },
+  "validated-patterns/ai-agent-identity-with-hashicorp-vault": {
+    "path": "/validated-patterns/vault/ai-agent-identity-with-hashicorp-vault",
+    "last_modified": "2025-09-16T14:32:19.796Z"
+  },
+  "validated-patterns/integrate-hcp-packer-with-ansible-automation-platform": {
+    "path": "/validated-patterns/packer/integrate-hcp-packer-with-ansible-automation-platform",
+    "last_modified": "2025-09-12T16:36:25.188Z"
+  },
+  "nomad/run-ai-workload": {
+    "path": "/nomad/tutorials/ai-workloads/run-ai-workload",
+    "last_modified": "2025-10-09T16:16:28.363Z"
+  },
+  "nomad/configure-ai-workload": {
+    "path": "/nomad/tutorials/ai-workloads/configure-ai-workload",
+    "last_modified": "2025-09-12T13:46:49.459Z"
+  },
+  "terraform/cloud-refresh-only": {
+    "path": "/terraform/tutorials/cloud-get-started/cloud-refresh-only",
+    "last_modified": "2025-09-03T14:54:30.934Z"
+  },
+  "terraform/cloud-link-workspaces": {
+    "path": "/terraform/tutorials/cloud-get-started/cloud-link-workspaces",
+    "last_modified": "2025-09-03T14:54:30.721Z"
+  },
+  "terraform/cloud-create-vcs-workspace": {
+    "path": "/terraform/tutorials/cloud-get-started/cloud-create-vcs-workspace",
+    "last_modified": "2025-09-03T14:54:30.512Z"
+  },
+  "terraform/cloud-create-project": {
+    "path": "/terraform/tutorials/cloud-get-started/cloud-create-project",
+    "last_modified": "2025-09-03T14:54:30.510Z"
+  },
+  "validated-patterns/terraform-integrate-ansible-automation-platform": {
+    "path": "/validated-patterns/terraform/terraform-integrate-ansible-automation-platform",
+    "last_modified": "2025-09-18T08:34:50.071Z"
+  },
+  "terraform/configure-providers": {
+    "path": "/terraform/tutorials/configuration-language/configure-providers",
+    "last_modified": "2025-08-05T21:05:01.499Z"
+  },
+  "validated-patterns/integrate-vault-ssh-with-ansible-automation-platform": {
+    "path": "/validated-patterns/vault/integrate-vault-ssh-with-ansible-automation-platform",
+    "last_modified": "2025-09-18T08:34:49.415Z"
+  },
+  "validated-patterns/build-azure-lz-with-terraform": {
+    "path": "/validated-patterns/terraform/build-azure-lz-with-terraform",
+    "last_modified": "2025-09-18T08:34:49.168Z"
+  },
+  "validated-patterns/build-aws-lz-with-terraform": {
+    "path": "/validated-patterns/terraform/build-aws-lz-with-terraform",
+    "last_modified": "2025-09-18T08:34:49.194Z"
+  },
+  "validated-patterns/terraform-vault-backed-dynamic-credentials-aws": {
+    "path": "/validated-patterns/terraform/terraform-vault-backed-dynamic-credentials-aws",
+    "last_modified": "2025-09-18T08:34:50.311Z"
+  },
+  "terraform/sandbox": {
+    "path": "/terraform/tutorials/sandbox/sandbox",
+    "last_modified": "2025-07-11T23:39:01.579Z"
+  },
+  "boundary/gcp-host-catalogs": {
+    "path": "/boundary/tutorials/host-management/gcp-host-catalogs",
+    "last_modified": "2025-10-13T22:09:06.671Z"
+  },
+  "terraform/aws-manage": {
+    "path": "/terraform/tutorials/aws-get-started/aws-manage",
+    "last_modified": "2025-07-21T14:11:41.480Z"
+  },
+  "terraform/aws-hcp-terraform": {
+    "path": "/terraform/tutorials/aws-get-started/aws-hcp-terraform",
+    "last_modified": "2025-07-14T22:27:04.106Z"
+  },
+  "terraform/aws-create": {
+    "path": "/terraform/tutorials/aws-get-started/aws-create",
+    "last_modified": "2025-07-21T14:11:41.057Z"
+  },
+  "vault/policy-templates-kubernetes": {
+    "path": "/vault/tutorials/kubernetes/policy-templates-kubernetes",
+    "last_modified": "2025-06-17T21:42:32.500Z"
+  },
+  "terraform/gitops": {
+    "path": "/well-architected-framework/operational-excellence/gitops",
+    "last_modified": "2025-09-03T14:54:32.837Z"
+  },
+  "well-architected-framework/security-identify-protect-leaked-secrets": {
+    "path": "/well-architected-framework/security/security-identify-protect-leaked-secrets",
+    "last_modified": "2025-05-30T18:27:23.312Z"
+  },
+  "validated-patterns/automate-deployments-with-hcp-terraform-and-servicenow-catalog": {
+    "path": "/validated-patterns/terraform/automate-deployments-with-hcp-terraform-and-servicenow-catalog",
+    "last_modified": "2025-09-18T08:34:49.063Z"
+  },
+  "cloud/install-vault-radar-agent": {
+    "path": "/hcp/tutorials/hcp-vault-radar-operations/install-vault-radar-agent",
+    "last_modified": "2025-07-18T17:53:59.645Z"
+  },
+  "cloud/correlate-findings-vault": {
+    "path": "/hcp/tutorials/hcp-vault-radar-operations/correlate-findings-vault",
+    "last_modified": "2025-04-30T15:38:24.360Z"
+  },
+  "cloud/copy-secrets-to-vault": {
+    "path": "/hcp/tutorials/hcp-vault-radar-operations/copy-secrets-to-vault",
+    "last_modified": "2025-04-30T15:38:24.287Z"
+  },
+  "validated-patterns/integrate-vault-with-backstage-and-okta": {
+    "path": "/validated-patterns/vault/integrate-vault-with-backstage-and-okta",
+    "last_modified": "2025-09-18T08:34:49.439Z"
+  },
+  "validated-patterns/vault-secrets-queried-with-chef": {
+    "path": "/validated-patterns/vault/vault-secrets-queried-with-chef",
+    "last_modified": "2025-09-18T08:34:50.646Z"
+  },
+  "nomad/sso-oidc-keycloak": {
+    "path": "/nomad/tutorials/archive/sso-oidc-keycloak",
+    "last_modified": "2025-07-16T21:21:45.842Z"
+  },
+  "nomad/stateful-workloads-dynamic-host-volumes": {
+    "path": "/nomad/tutorials/archive/stateful-workloads-dynamic-host-volumes",
+    "last_modified": "2025-07-16T21:21:46.246Z"
+  },
+  "well-architected-framework/implementation-resources-consul-reliability": {
+    "path": "/well-architected-framework/ir-consul/implementation-resources-consul-reliability",
+    "last_modified": "2025-05-12T22:17:22.929Z"
+  },
+  "terraform/bulk-migrate-hcp": {
+    "path": "/terraform/tutorials/cloud/bulk-migrate-hcp",
+    "last_modified": "2025-02-28T13:28:00.524Z"
+  },
+  "validated-patterns/vulnerability-and-patch-management": {
+    "path": "/validated-patterns/terraform/vulnerability-and-patch-management",
+    "last_modified": "2025-09-18T08:34:50.770Z"
+  },
+  "validated-patterns/vault-securing-kafka": {
+    "path": "/validated-patterns/vault/vault-securing-kafka",
+    "last_modified": "2025-09-18T08:34:50.666Z"
+  },
+  "validated-patterns/vault-migrate-storage-raft": {
+    "path": "/validated-patterns/vault/vault-migrate-storage-raft",
+    "last_modified": "2025-09-18T08:34:50.544Z"
+  },
+  "validated-patterns/vault-kubernetes-auth": {
+    "path": "/validated-patterns/vault/vault-kubernetes-auth",
+    "last_modified": "2025-09-18T08:34:50.408Z"
+  },
+  "validated-patterns/upgrade-and-refactor-terraform-modules": {
+    "path": "/validated-patterns/terraform/upgrade-and-refactor-terraform-modules",
+    "last_modified": "2025-09-18T08:34:50.283Z"
+  },
+  "validated-patterns/upgrade-terraform-provider": {
+    "path": "/validated-patterns/terraform/upgrade-terraform-provider",
+    "last_modified": "2025-09-18T08:34:50.434Z"
+  },
+  "validated-patterns/terraform-integrate-vault": {
+    "path": "/validated-patterns/terraform/terraform-integrate-vault",
+    "last_modified": "2025-09-18T08:34:50.191Z"
+  },
+  "validated-patterns/terraform-palo-alto-cortex-cloud-integration": {
+    "path": "/validated-patterns/terraform/terraform-palo-alto-cortex-cloud-integration",
+    "last_modified": "2025-09-18T08:34:50.164Z"
+  },
+  "validated-patterns/terraform-integrate-hcp-packer": {
+    "path": "/validated-patterns/packer/terraform-integrate-hcp-packer",
+    "last_modified": "2025-09-18T08:34:50.041Z"
+  },
+  "validated-patterns/retrieve-vault-secrets-from-github-actions": {
+    "path": "/validated-patterns/vault/retrieve-vault-secrets-from-github-actions",
+    "last_modified": "2025-09-18T08:34:49.801Z"
+  },
+  "validated-patterns/nomad-workload-modernization-with-traefik": {
+    "path": "/validated-patterns/nomad/nomad-workload-modernization-with-traefik",
+    "last_modified": "2025-09-18T08:34:49.659Z"
+  },
+  "validated-patterns/push-containers-cloud-registries": {
+    "path": "/validated-patterns/packer/push-containers-cloud-registries",
+    "last_modified": "2025-09-18T08:34:49.827Z"
+  },
+  "validated-patterns/migrate-from-cloudformation": {
+    "path": "/validated-patterns/terraform/migrate-from-cloudformation",
+    "last_modified": "2025-09-18T08:34:49.535Z"
+  },
+  "validated-patterns/migrate-terraform-orgs-projects": {
+    "path": "/validated-patterns/terraform/migrate-terraform-orgs-projects",
+    "last_modified": "2025-09-18T08:34:49.692Z"
+  },
+  "validated-patterns/manage-vault-with-terraform": {
+    "path": "/validated-patterns/vault/manage-vault-with-terraform",
+    "last_modified": "2025-09-18T08:34:49.563Z"
+  },
+  "validated-patterns/hcp-boundary-secure-access-dynamic-secrets": {
+    "path": "/validated-patterns/boundary/hcp-boundary-secure-access-dynamic-secrets",
+    "last_modified": "2025-09-18T08:34:49.310Z"
+  },
+  "vault/manage-dynamic-leases": {
+    "path": "/vault/tutorials/db-credentials/manage-dynamic-leases",
+    "last_modified": "2025-03-31T13:21:27.964Z"
+  },
+  "vault/configure-external-database-connection": {
+    "path": "/vault/tutorials/db-credentials/configure-external-database-connection",
+    "last_modified": "2026-01-20T21:15:10.627Z"
+  },
+  "vagrant/setup-project": {
+    "path": "/vagrant/tutorials/get-started/setup-project",
+    "last_modified": "2025-01-28T05:14:02.499Z"
+  },
+  "vagrant/network-folder-sync": {
+    "path": "/vagrant/tutorials/get-started/network-folder-sync",
+    "last_modified": "2025-01-28T05:14:02.306Z"
+  },
+  "vagrant/provision": {
+    "path": "/vagrant/tutorials/get-started/provision",
+    "last_modified": "2025-01-28T05:14:02.304Z"
+  },
+  "vagrant/install": {
+    "path": "/vagrant/tutorials/get-started/install",
+    "last_modified": "2025-01-28T05:14:02.117Z"
+  },
+  "vagrant/multi-machine": {
+    "path": "/vagrant/tutorials/get-started/multi-machine",
+    "last_modified": "2025-01-28T05:14:02.114Z"
+  },
+  "vagrant/development-environment": {
+    "path": "/vagrant/tutorials/get-started/development-environment",
+    "last_modified": "2025-01-28T05:14:01.811Z"
+  },
+  "packer/track-artifact-package-metadata": {
+    "path": "/packer/tutorials/hcp/track-artifact-package-metadata",
+    "last_modified": "2025-09-25T14:47:43.671Z"
+  },
+  "well-architected-framework/implementation-resources-packer-reliability": {
+    "path": "/well-architected-framework/ir-packer/implementation-resources-packer-reliability",
+    "last_modified": "2025-01-14T16:39:19.611Z"
+  },
+  "well-architected-framework/implementation-resources-terraform-reliability": {
+    "path": "/well-architected-framework/ir-terraform/implementation-resources-terraform-reliability",
+    "last_modified": "2025-01-14T16:39:19.610Z"
+  },
+  "well-architected-framework/implementation-resources-nomad-reliability": {
+    "path": "/well-architected-framework/ir-nomad/implementation-resources-nomad-reliability",
+    "last_modified": "2025-07-11T21:57:25.354Z"
+  },
+  "vault/enable-secrets-sync": {
+    "path": "/vault/tutorials/enterprise/enable-secrets-sync",
+    "last_modified": "2025-09-03T18:25:21.230Z"
+  },
+  "vault/enable-auth-method": {
+    "path": "/vault/tutorials/auth-methods/enable-auth-method",
+    "last_modified": "2024-12-19T22:22:44.549Z"
+  },
+  "well-architected-framework/implementation-resources-vault-reliability": {
+    "path": "/well-architected-framework/ir-vault/implementation-resources-vault-reliability",
+    "last_modified": "2025-01-14T16:39:19.746Z"
+  },
+  "well-architected-framework/reliability-react-to-monitoring": {
+    "path": "/well-architected-framework/reliability/reliability-react-to-monitoring",
+    "last_modified": "2025-05-12T22:17:23.421Z"
+  },
+  "cloud/what-is-secret-scanning": {
+    "path": "/hcp/tutorials/get-started-hcp-vault-radar/what-is-secret-scanning",
+    "last_modified": "2025-11-19T20:53:32.933Z"
+  },
+  "nomad/monolith-migration-service-mesh-gateway": {
+    "path": "/nomad/tutorials/migrate-monolith/monolith-migration-service-mesh-gateway",
+    "last_modified": "2025-07-11T21:56:54.602Z"
+  },
+  "nomad/monolith-migration-overview": {
+    "path": "/nomad/tutorials/migrate-monolith/monolith-migration-overview",
+    "last_modified": "2025-07-11T21:56:54.454Z"
+  },
+  "nomad/monolith-migration-service-discovery": {
+    "path": "/nomad/tutorials/migrate-monolith/monolith-migration-service-discovery",
+    "last_modified": "2025-07-11T21:56:54.601Z"
+  },
+  "nomad/monolith-migration-hashicups": {
+    "path": "/nomad/tutorials/migrate-monolith/monolith-migration-hashicups",
+    "last_modified": "2025-07-11T21:56:54.449Z"
+  },
+  "nomad/monolith-migration-cluster-setup": {
+    "path": "/nomad/tutorials/migrate-monolith/monolith-migration-cluster-setup",
+    "last_modified": "2025-07-11T21:56:54.247Z"
+  },
+  "nomad/monolith-migration-autoscale": {
+    "path": "/nomad/tutorials/migrate-monolith/monolith-migration-autoscale",
+    "last_modified": "2025-07-11T21:56:54.264Z"
+  },
+  "well-architected-framework/security-secure-entities-with-x509": {
+    "path": "/well-architected-framework/security/security-secure-entities-with-x509",
+    "last_modified": "2025-05-21T14:42:49.152Z"
+  },
+  "well-architected-framework/operational-excellence-evolve-your-manual-deployments": {
+    "path": "/well-architected-framework/operational-excellence/operational-excellence-evolve-your-manual-deployments",
+    "last_modified": "2025-09-03T14:54:45.226Z"
+  },
+  "cloud/vault-manage-namespaces": {
+    "path": "/vault/tutorials/manage-hcp-vault-dedicated/vault-manage-namespaces",
+    "last_modified": "2024-12-20T14:34:14.853Z"
+  },
+  "cloud/scale-out-vault": {
+    "path": "/vault/tutorials/manage-hcp-vault-dedicated/scale-out-vault",
+    "last_modified": "2025-09-03T00:34:31.543Z"
+  },
+  "cloud/scale-out-vault-terraform": {
+    "path": "/vault/tutorials/manage-hcp-vault-dedicated/scale-out-vault-terraform",
+    "last_modified": "2024-12-20T14:34:14.366Z"
+  },
+  "cloud/why-use-hcp-vault": {
+    "path": "/vault/tutorials/get-started-hcp-vault-dedicated/why-use-hcp-vault",
+    "last_modified": "2026-01-27T00:55:38.990Z"
+  },
+  "cloud/manage-clusters": {
+    "path": "/vault/tutorials/get-started-hcp-vault-dedicated/manage-clusters",
+    "last_modified": "2025-11-05T15:51:48.511Z"
+  },
+  "cloud/manage-access-secrets": {
+    "path": "/vault/tutorials/get-started-hcp-vault-dedicated/manage-access-secrets",
+    "last_modified": "2026-01-27T00:55:37.308Z"
+  },
+  "cloud/create-secret": {
+    "path": "/vault/tutorials/get-started-hcp-vault-dedicated/create-secret",
+    "last_modified": "2026-01-27T00:55:36.946Z"
+  },
+  "cloud/create-cluster": {
+    "path": "/vault/tutorials/get-started-hcp-vault-dedicated/create-cluster",
+    "last_modified": "2026-01-27T00:55:36.925Z"
+  },
+  "waypoint/build-self-service-idp": {
+    "path": "/waypoint/tutorials/self-service/build-self-service-idp",
+    "last_modified": "2025-12-19T19:13:45.135Z"
+  },
+  "terraform/stacks-deploy": {
+    "path": "/terraform/tutorials/cloud/stacks-deploy",
+    "last_modified": "2025-10-09T15:54:05.330Z"
+  },
+  "terraform/stacks-eks-deferred": {
+    "path": "/terraform/tutorials/cloud/stacks-eks-deferred",
+    "last_modified": "2025-11-21T18:34:43.036Z"
+  },
+  "terraform/drift-and-policy": {
+    "path": "/terraform/tutorials/cloud/drift-and-policy",
+    "last_modified": "2025-09-03T14:54:32.059Z"
+  },
+  "nomad/jobs-version": {
+    "path": "/nomad/tutorials/archive/jobs-version",
+    "last_modified": "2025-07-16T21:21:39.423Z"
+  },
+  "boundary/minio-session-rec": {
+    "path": "/boundary/tutorials/host-management/minio-session-rec",
+    "last_modified": "2025-07-18T19:54:38.737Z"
+  },
+  "vault/associate-study-003": {
+    "path": "/vault/tutorials/associate-cert-003/associate-study-003",
+    "last_modified": "2025-10-10T18:52:40.336Z"
+  },
+  "vault/associate-review-003": {
+    "path": "/vault/tutorials/associate-cert-003/associate-review-003",
+    "last_modified": "2025-10-10T18:52:40.269Z"
+  },
+  "vault/associate-questions-003": {
+    "path": "/vault/tutorials/associate-cert-003/associate-questions-003",
+    "last_modified": "2025-12-04T18:46:33.119Z"
+  },
+  "sentinel/write-policy": {
+    "path": "/sentinel/tutorials/get-started/write-policy",
+    "last_modified": "2024-09-30T17:36:26.006Z"
+  },
+  "sentinel/static-imports": {
+    "path": "/sentinel/tutorials/get-started/static-imports",
+    "last_modified": "2024-09-30T17:36:25.630Z"
+  },
+  "sentinel/testing": {
+    "path": "/sentinel/tutorials/get-started/testing",
+    "last_modified": "2025-07-11T21:56:59.909Z"
+  },
+  "sentinel/simplify-functions": {
+    "path": "/sentinel/tutorials/get-started/simplify-functions",
+    "last_modified": "2024-09-30T17:36:25.249Z"
+  },
+  "sentinel/reuse-modules": {
+    "path": "/sentinel/tutorials/get-started/reuse-modules",
+    "last_modified": "2024-09-30T17:36:25.245Z"
+  },
+  "sentinel/policy-as-code": {
+    "path": "/sentinel/tutorials/get-started/policy-as-code",
+    "last_modified": "2024-09-30T17:36:24.846Z"
+  },
+  "sentinel/install": {
+    "path": "/sentinel/tutorials/get-started/install",
+    "last_modified": "2024-09-24T21:24:03.480Z"
+  },
+  "well-architected-framework/security-secure-hashicorp-tools-with-tls": {
+    "path": "/well-architected-framework/security/security-secure-hashicorp-tools-with-tls",
+    "last_modified": "2025-07-11T21:57:26.773Z"
+  },
+  "well-architected-framework/operational-excellence-manage-your-infrastructure-components-with-terraform": {
+    "path": "/well-architected-framework/operational-excellence/operational-excellence-manage-your-infrastructure-components-with-terraform",
+    "last_modified": "2025-01-14T16:39:19.975Z"
+  },
+  "waypoint/create-action": {
+    "path": "/waypoint/tutorials/hcp-waypoint/create-action",
+    "last_modified": "2025-09-01T13:02:34.345Z"
+  },
+  "nomad/prometheus-service-mesh-metrics": {
+    "path": "/nomad/tutorials/manage-clusters/prometheus-service-mesh-metrics",
+    "last_modified": "2025-07-11T21:56:55.706Z"
+  },
+  "vault/why-use-vault": {
+    "path": "/vault/tutorials/get-started/why-use-vault",
+    "last_modified": "2025-11-13T03:40:50.418Z"
+  },
+  "vault/understand-static-dynamic-secrets": {
+    "path": "/vault/tutorials/get-started/understand-static-dynamic-secrets",
+    "last_modified": "2026-02-18T23:03:11.593Z"
+  },
+  "vault/troubleshoot": {
+    "path": "/vault/tutorials/get-started/troubleshoot",
+    "last_modified": "2026-02-18T23:03:11.507Z"
+  },
+  "vault/setup": {
+    "path": "/vault/tutorials/get-started/setup",
+    "last_modified": "2026-02-18T23:03:10.829Z"
+  },
+  "vault/learn-ui": {
+    "path": "/vault/tutorials/get-started/learn-ui",
+    "last_modified": "2026-02-18T23:03:08.987Z"
+  },
+  "vault/learn-terraform": {
+    "path": "/vault/tutorials/get-started/learn-terraform",
+    "last_modified": "2026-02-18T23:03:08.899Z"
+  },
+  "vault/learn-http-api": {
+    "path": "/vault/tutorials/get-started/learn-http-api",
+    "last_modified": "2026-02-18T23:03:08.901Z"
+  },
+  "vault/learn-cli": {
+    "path": "/vault/tutorials/get-started/learn-cli",
+    "last_modified": "2026-02-18T23:03:08.812Z"
+  },
+  "vault/introduction-tokens": {
+    "path": "/vault/tutorials/get-started/introduction-tokens",
+    "last_modified": "2026-02-18T23:03:08.164Z"
+  },
+  "vault/introduction-roles": {
+    "path": "/vault/tutorials/get-started/introduction-roles",
+    "last_modified": "2026-02-18T23:03:08.069Z"
+  },
+  "vault/introduction-policies": {
+    "path": "/vault/tutorials/get-started/introduction-policies",
+    "last_modified": "2026-02-18T23:03:08.068Z"
+  },
+  "vault/introduction-next-steps": {
+    "path": "/vault/tutorials/get-started/introduction-next-steps",
+    "last_modified": "2025-11-19T20:55:13.753Z"
+  },
+  "vault/install-binary": {
+    "path": "/vault/tutorials/get-started/install-binary",
+    "last_modified": "2026-02-18T23:03:07.922Z"
+  },
+  "vault/discover-plugins": {
+    "path": "/vault/tutorials/get-started/discover-plugins",
+    "last_modified": "2026-02-18T23:03:07.269Z"
+  },
+  "vault/available-editions": {
+    "path": "/vault/tutorials/get-started/available-editions",
+    "last_modified": "2026-02-18T23:03:06.328Z"
+  },
+  "terraform/pro-orientation": {
+    "path": "/terraform/tutorials/pro-cert/pro-orientation",
+    "last_modified": "2025-12-09T20:59:24.548Z"
+  },
+  "vault/monitoring-vault-with-datadog": {
+    "path": "/vault/tutorials/archive/monitoring-vault-with-datadog",
+    "last_modified": "2024-12-20T14:34:39.526Z"
+  },
+  "well-architected-framework/reliability-zero-downtime-deployments": {
+    "path": "/well-architected-framework/reliability/reliability-zero-downtime-deployments",
+    "last_modified": "2025-07-11T21:57:26.421Z"
+  },
+  "well-architected-framework/operational-excellence-application-deployment": {
+    "path": "/well-architected-framework/operational-excellence/operational-excellence-application-deployment",
+    "last_modified": "2025-07-11T21:57:25.617Z"
+  },
+  "vault/plugin-workload-identity-federation": {
+    "path": "/vault/tutorials/enterprise/plugin-workload-identity-federation",
+    "last_modified": "2026-02-05T00:47:09.739Z"
+  },
+  "vault/spring-reload-secrets": {
+    "path": "/vault/tutorials/app-integration/spring-reload-secrets",
+    "last_modified": "2024-11-07T21:40:19.480Z"
+  },
+  "consul/load-balancing-nginx-plus": {
+    "path": "/consul/tutorials/archive/load-balancing-nginx-plus",
+    "last_modified": "2025-05-12T22:16:57.602Z"
+  },
+  "consul/consul-terraform-sync-zscaler-application-segments": {
+    "path": "/consul/tutorials/archive/consul-terraform-sync-zscaler-application-segments",
+    "last_modified": "2025-05-12T22:16:55.061Z"
+  },
+  "nomad/deploy-api-gateway-on-nomad": {
+    "path": "/nomad/tutorials/integrate-consul/deploy-api-gateway-on-nomad",
+    "last_modified": "2025-07-11T21:56:50.477Z"
+  },
+  "terraform/pro-review": {
+    "path": "/terraform/tutorials/pro-cert/pro-review",
+    "last_modified": "2025-10-10T18:52:37.235Z"
+  },
+  "consul/terraform-consul-provider": {
+    "path": "/consul/tutorials/archive/terraform-consul-provider",
+    "last_modified": "2024-05-02T22:20:39.606Z"
+  },
+  "consul/single-sign-on-auth0": {
+    "path": "/consul/tutorials/archive/single-sign-on-auth0",
+    "last_modified": "2024-12-03T16:48:21.380Z"
+  },
+  "consul/monitor-with-appdynamics": {
+    "path": "/consul/tutorials/archive/monitor-with-appdynamics",
+    "last_modified": "2024-12-03T16:48:19.716Z"
+  },
+  "consul/kubernetes-layer7-observability": {
+    "path": "/consul/tutorials/archive/kubernetes-layer7-observability",
+    "last_modified": "2025-05-12T22:16:56.994Z"
+  },
+  "consul/docker-container-agents": {
+    "path": "/consul/tutorials/archive/docker-container-agents",
+    "last_modified": "2025-05-12T22:16:55.775Z"
+  },
+  "consul/docker-compose-observability": {
+    "path": "/consul/tutorials/archive/docker-compose-observability",
+    "last_modified": "2024-12-03T16:48:17.252Z"
+  },
+  "consul/amazon-ecs-admin-partitions": {
+    "path": "/consul/tutorials/archive/amazon-ecs-admin-partitions",
+    "last_modified": "2025-08-21T22:49:31.179Z"
+  },
+  "consul/sync-pivotal-cloud-services": {
+    "path": "/consul/tutorials/archive/sync-pivotal-cloud-services",
+    "last_modified": "2025-05-12T22:16:59.634Z"
+  },
+  "consul/load-balancing-haproxy": {
+    "path": "/consul/tutorials/archive/load-balancing-haproxy",
+    "last_modified": "2024-04-29T23:03:45.328Z"
+  },
+  "consul/kubernetes-openshift-red-hat": {
+    "path": "/consul/tutorials/archive/kubernetes-openshift-red-hat",
+    "last_modified": "2025-05-12T22:16:57.283Z"
+  },
+  "terraform/servicenow-no-code": {
+    "path": "/terraform/tutorials/it-saas/servicenow-no-code",
+    "last_modified": "2025-09-03T14:54:36.354Z"
+  },
+  "consul/troubleshooting": {
+    "path": "/consul/tutorials/archive/troubleshooting",
+    "last_modified": "2025-05-12T22:16:59.914Z"
+  },
+  "consul/autopilot-datacenter-operations": {
+    "path": "/consul/tutorials/archive/autopilot-datacenter-operations",
+    "last_modified": "2025-05-12T22:16:54.669Z"
+  },
+  "well-architected-framework/security-zero-trust-video": {
+    "path": "/well-architected-framework/security/security-zero-trust-video",
+    "last_modified": "2024-04-23T17:34:04.945Z"
+  },
+  "consul/sync-aws-services": {
+    "path": "/consul/tutorials/archive/sync-aws-services",
+    "last_modified": "2025-05-12T22:16:59.522Z"
+  },
+  "terraform/providers-function-only": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-function-only",
+    "last_modified": "2024-04-18T19:25:35.051Z"
+  },
+  "terraform/providers-plugin-framework-functions": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-functions",
+    "last_modified": "2024-07-09T18:22:19.689Z"
+  },
+  "well-architected-framework/reliability-deploy-application-monitoring-components": {
+    "path": "/well-architected-framework/reliability/reliability-deploy-application-monitoring-components",
+    "last_modified": "2025-07-11T21:57:26.173Z"
+  },
+  "consul/associate-study-003": {
+    "path": "/consul/tutorials/certification-003/associate-study-003",
+    "last_modified": "2025-10-10T18:52:23.895Z"
+  },
+  "consul/associate-review-003": {
+    "path": "/consul/tutorials/certification-003/associate-review-003",
+    "last_modified": "2025-10-10T18:52:23.820Z"
+  },
+  "consul/associate-questions-003": {
+    "path": "/consul/tutorials/certification-003/associate-questions-003",
+    "last_modified": "2025-10-10T18:52:23.811Z"
+  },
+  "cloud/vault-radar-secret-scanning": {
+    "path": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-secret-scanning",
+    "last_modified": "2025-03-18T19:14:06.481Z"
+  },
+  "cloud/vault-radar-ticketing-setup": {
+    "path": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-ticketing-setup",
+    "last_modified": "2026-01-13T15:06:17.134Z"
+  },
+  "cloud/vault-radar-alert-setup": {
+    "path": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-alert-setup",
+    "last_modified": "2025-03-18T19:14:06.301Z"
+  },
+  "consul/monitor-applications-health-checks": {
+    "path": "/consul/tutorials/connect-services/monitor-applications-health-checks",
+    "last_modified": "2025-05-12T22:16:57.599Z"
+  },
+  "well-architected-framework/verify-hashicorp-binary": {
+    "path": "/well-architected-framework/operational-excellence/verify-hashicorp-binary",
+    "last_modified": "2024-02-21T18:18:14.176Z"
+  },
+  "consul/terminating-gateway": {
+    "path": "/consul/tutorials/connect-services/terminating-gateway",
+    "last_modified": "2025-05-12T22:16:59.634Z"
+  },
+  "consul/access-control-manage-permissions": {
+    "path": "/consul/tutorials/secure-services/access-control-manage-permissions",
+    "last_modified": "2025-05-12T22:16:54.037Z"
+  },
+  "consul/consul-template-load-balancing": {
+    "path": "/consul/tutorials/network-automation/consul-template-load-balancing",
+    "last_modified": "2024-12-03T16:48:16.455Z"
+  },
+  "nomad/integration-gcp": {
+    "path": "/nomad/tutorials/fed-workload-identity/integration-gcp",
+    "last_modified": "2025-07-11T21:56:52.458Z"
+  },
+  "terraform/pro-study": {
+    "path": "/terraform/tutorials/pro-cert/pro-study",
+    "last_modified": "2025-10-10T18:52:37.305Z"
+  },
+  "cloud/kubernetes-vso-hcp-vault": {
+    "path": "/vault/tutorials/integrate-kubernetes-hcp-vault-dedicated/kubernetes-vso-hcp-vault",
+    "last_modified": "2024-12-20T14:34:14.216Z"
+  },
+  "consul/server-metrics-and-logs": {
+    "path": "/consul/tutorials/observe-your-network/server-metrics-and-logs",
+    "last_modified": "2025-05-12T22:16:58.855Z"
+  },
+  "boundary/oidc-okta": {
+    "path": "/boundary/tutorials/identity-management/oidc-okta",
+    "last_modified": "2025-05-16T17:48:13.306Z"
+  },
+  "boundary/oidc-auth0": {
+    "path": "/boundary/tutorials/identity-management/oidc-auth0",
+    "last_modified": "2025-05-16T17:48:12.660Z"
+  },
+  "boundary/oidc-azure": {
+    "path": "/boundary/tutorials/identity-management/oidc-azure",
+    "last_modified": "2025-05-16T17:48:13.025Z"
+  },
+  "consul/proxy-access-logs": {
+    "path": "/consul/tutorials/observe-your-network/proxy-access-logs",
+    "last_modified": "2025-05-12T22:16:58.186Z"
+  },
+  "nomad/job-spec-actions": {
+    "path": "/nomad/tutorials/archive/job-spec-actions",
+    "last_modified": "2025-07-16T21:21:37.780Z"
+  },
+  "nomad/vault-acl": {
+    "path": "/nomad/tutorials/archive/vault-acl",
+    "last_modified": "2025-07-16T21:21:47.982Z"
+  },
+  "nomad/consul-acl": {
+    "path": "/nomad/tutorials/integrate-consul/consul-acl",
+    "last_modified": "2025-07-11T21:56:50.334Z"
+  },
+  "nomad/nomad-pack-detailed-usage": {
+    "path": "/nomad/tutorials/archive/nomad-pack-detailed-usage",
+    "last_modified": "2025-07-16T21:21:42.434Z"
+  },
+  "consul/proxy-metrics": {
+    "path": "/consul/tutorials/observe-your-network/proxy-metrics",
+    "last_modified": "2025-05-12T22:16:58.271Z"
+  },
+  "nomad/sso-oidc-auth0": {
+    "path": "/nomad/tutorials/archive/sso-oidc-auth0",
+    "last_modified": "2025-07-16T21:21:45.508Z"
+  },
+  "consul/secure-services-intentions": {
+    "path": "/consul/tutorials/secure-services/secure-services-intentions",
+    "last_modified": "2025-05-12T22:16:58.596Z"
+  },
+  "consul/secure-services-intentions-l7": {
+    "path": "/consul/tutorials/secure-services/secure-services-intentions-l7",
+    "last_modified": "2025-05-12T22:16:58.594Z"
+  },
+  "vault/benchmark-vault": {
+    "path": "/vault/tutorials/operations/benchmark-vault",
+    "last_modified": "2025-11-19T20:55:06.707Z"
+  },
+  "waypoint/use-template": {
+    "path": "/waypoint/tutorials/hcp-waypoint/use-template",
+    "last_modified": "2025-08-25T19:01:45.688Z"
+  },
+  "waypoint/set-up-rbac": {
+    "path": "/waypoint/tutorials/hcp-waypoint/set-up-rbac",
+    "last_modified": "2025-08-25T19:01:45.610Z"
+  },
+  "waypoint/install-addon": {
+    "path": "/waypoint/tutorials/hcp-waypoint/install-addon",
+    "last_modified": "2025-08-25T19:01:45.608Z"
+  },
+  "waypoint/get-started-hcp": {
+    "path": "/waypoint/tutorials/hcp-waypoint/get-started-hcp",
+    "last_modified": "2024-12-04T13:23:25.771Z"
+  },
+  "waypoint/destroy-project-resources": {
+    "path": "/waypoint/tutorials/hcp-waypoint/destroy-project-resources",
+    "last_modified": "2025-08-25T19:01:45.517Z"
+  },
+  "waypoint/create-addon": {
+    "path": "/waypoint/tutorials/hcp-waypoint/create-addon",
+    "last_modified": "2025-09-01T13:02:34.345Z"
+  },
+  "waypoint/create-template": {
+    "path": "/waypoint/tutorials/hcp-waypoint/create-template",
+    "last_modified": "2025-09-01T13:02:34.517Z"
+  },
+  "boundary/aws-session-rec-vault": {
+    "path": "/boundary/tutorials/host-management/aws-session-rec-vault",
+    "last_modified": "2025-07-18T19:54:37.017Z"
+  },
+  "boundary/ldap-auth": {
+    "path": "/boundary/tutorials/identity-management/ldap-auth",
+    "last_modified": "2024-12-03T16:48:12.942Z"
+  },
+  "terraform/test": {
+    "path": "/terraform/tutorials/configuration-language/test",
+    "last_modified": "2025-02-05T20:02:37.869Z"
+  },
+  "vault/saml": {
+    "path": "/vault/tutorials/archive/saml",
+    "last_modified": "2025-04-22T14:35:12.033Z"
+  },
+  "vault/pki-cieps": {
+    "path": "/vault/tutorials/pki/pki-cieps",
+    "last_modified": "2025-08-25T20:51:38.508Z"
+  },
+  "consul/service-splitters-canary-deployment": {
+    "path": "/consul/tutorials/control-network-traffic/service-splitters-canary-deployment",
+    "last_modified": "2025-05-12T22:16:59.173Z"
+  },
+  "boundary/kubernetes-getting-started-setup": {
+    "path": "/boundary/tutorials/kubernetes-connect/kubernetes-getting-started-setup",
+    "last_modified": "2024-12-16T17:00:59.926Z"
+  },
+  "boundary/kubernetes-getting-started-intro": {
+    "path": "/boundary/tutorials/kubernetes-connect/kubernetes-getting-started-intro",
+    "last_modified": "2025-07-18T19:34:33.454Z"
+  },
+  "boundary/kubernetes-getting-started-config": {
+    "path": "/boundary/tutorials/kubernetes-connect/kubernetes-getting-started-config",
+    "last_modified": "2024-11-12T19:57:47.912Z"
+  },
+  "boundary/kubernetes-getting-started-connect": {
+    "path": "/boundary/tutorials/kubernetes-connect/kubernetes-getting-started-connect",
+    "last_modified": "2025-09-04T19:44:33.161Z"
+  },
+  "consul/consul-ecs": {
+    "path": "/consul/tutorials/connect-services/consul-ecs",
+    "last_modified": "2025-11-12T17:18:44.996Z"
+  },
+  "terraform/azure-virtual-machine-scale-sets": {
+    "path": "/terraform/tutorials/it-saas/azure-virtual-machine-scale-sets",
+    "last_modified": "2024-12-03T16:48:29.975Z"
+  },
+  "vault/pki-acme-caddy": {
+    "path": "/vault/tutorials/pki/pki-acme-caddy",
+    "last_modified": "2026-02-16T21:56:26.414Z"
+  },
+  "vault/agent-env-vars": {
+    "path": "/vault/tutorials/vault-agent/agent-env-vars",
+    "last_modified": "2025-07-29T15:29:29.801Z"
+  },
+  "boundary/ent-reference-architecture": {
+    "path": "/boundary/tutorials/enterprise/ent-reference-architecture",
+    "last_modified": "2024-11-12T19:57:43.271Z"
+  },
+  "boundary/ent-deployment-guide": {
+    "path": "/boundary/tutorials/enterprise/ent-deployment-guide",
+    "last_modified": "2025-07-18T19:54:37.667Z"
+  },
+  "terraform/dynamic-credentials-no-code": {
+    "path": "/terraform/tutorials/cloud/dynamic-credentials-no-code",
+    "last_modified": "2025-09-03T14:54:32.167Z"
+  },
+  "consul/permissive-mtls": {
+    "path": "/consul/tutorials/secure-services/permissive-mtls",
+    "last_modified": "2025-05-12T22:16:58.108Z"
+  },
+  "terraform/checks": {
+    "path": "/terraform/tutorials/configuration-language/checks",
+    "last_modified": "2025-09-03T14:54:30.336Z"
+  },
+  "consul/virtual-machine-gs-service-mesh-access": {
+    "path": "/consul/tutorials/get-started-vms/virtual-machine-gs-service-mesh-access",
+    "last_modified": "2025-05-12T22:17:01.203Z"
+  },
+  "vault/google-workspace-oauth": {
+    "path": "/vault/tutorials/auth-methods/google-workspace-oauth",
+    "last_modified": "2025-06-11T15:30:24.482Z"
+  },
+  "vault/secure-confluent-logs": {
+    "path": "/vault/tutorials/archive/secure-confluent-logs",
+    "last_modified": "2025-06-11T15:30:27.911Z"
+  },
+  "vault/pgp-encrypted-key-shares": {
+    "path": "/vault/tutorials/archive/pgp-encrypted-key-shares",
+    "last_modified": "2025-11-06T16:18:57.016Z"
+  },
+  "terraform/dynamic-credentials-vault": {
+    "path": "/terraform/tutorials/cloud/dynamic-credentials-vault",
+    "last_modified": "2024-12-20T14:34:29.705Z"
+  },
+  "terraform/kubernetes-operator-v2": {
+    "path": "/terraform/tutorials/kubernetes/kubernetes-operator-v2",
+    "last_modified": "2025-09-01T13:02:11.934Z"
+  },
+  "terraform/kubernetes-operator-v2-agentpool": {
+    "path": "/terraform/tutorials/kubernetes/kubernetes-operator-v2-agentpool",
+    "last_modified": "2025-09-01T13:02:11.762Z"
+  },
+  "terraform/drift-detection": {
+    "path": "/terraform/tutorials/cloud/drift-detection",
+    "last_modified": "2025-09-03T14:54:32.060Z"
+  },
+  "consul/kubernetes-windows-nodes": {
+    "path": "/consul/tutorials/connect-services/kubernetes-windows-nodes",
+    "last_modified": "2025-05-12T22:16:57.507Z"
+  },
+  "vault/vault-secrets-operator": {
+    "path": "/vault/tutorials/kubernetes-introduction/vault-secrets-operator",
+    "last_modified": "2025-06-30T13:57:57.653Z"
+  },
+  "cloud/kubernetes-hcp-vault": {
+    "path": "/vault/tutorials/integrate-kubernetes-hcp-vault-dedicated/kubernetes-hcp-vault",
+    "last_modified": "2024-12-20T14:34:14.217Z"
+  },
+  "vault/troubleshoot-tune-enterprise-replication": {
+    "path": "/vault/tutorials/enterprise/troubleshoot-tune-enterprise-replication",
+    "last_modified": "2025-06-26T19:41:11.906Z"
+  },
+  "nomad/gs-start-a-cluster": {
+    "path": "/nomad/tutorials/get-started/gs-start-a-cluster",
+    "last_modified": "2025-07-11T21:56:51.998Z"
+  },
+  "nomad/gs-stop-nomad": {
+    "path": "/nomad/tutorials/get-started/gs-stop-nomad",
+    "last_modified": "2025-07-11T21:56:52.139Z"
+  },
+  "nomad/gs-overview": {
+    "path": "/nomad/tutorials/get-started/gs-overview",
+    "last_modified": "2025-07-11T21:56:51.997Z"
+  },
+  "nomad/gs-install": {
+    "path": "/nomad/tutorials/get-started/gs-install",
+    "last_modified": "2025-01-28T18:20:46.263Z"
+  },
+  "nomad/gs-deploy-job": {
+    "path": "/nomad/tutorials/get-started/gs-deploy-job",
+    "last_modified": "2025-07-11T21:56:51.845Z"
+  },
+  "terraform/servicenow-sgc": {
+    "path": "/terraform/tutorials/it-saas/servicenow-sgc",
+    "last_modified": "2025-09-03T14:54:36.440Z"
+  },
+  "vault/pki-unified-crl-ocsp-cross-cluster": {
+    "path": "/vault/tutorials/pki/pki-unified-crl-ocsp-cross-cluster",
+    "last_modified": "2025-04-22T14:35:10.498Z"
+  },
+  "vault/namespaces-secrets-sharing": {
+    "path": "/vault/tutorials/enterprise/namespaces-secrets-sharing",
+    "last_modified": "2025-08-29T21:03:18.009Z"
+  },
+  "vault/agent-quick-start": {
+    "path": "/vault/tutorials/vault-agent/agent-quick-start",
+    "last_modified": "2025-05-09T15:43:22.759Z"
+  },
+  "nomad/sso-oidc-vault": {
+    "path": "/nomad/tutorials/archive/sso-oidc-vault",
+    "last_modified": "2025-07-16T21:21:45.853Z"
+  },
+  "boundary/hcp-certificate-injection": {
+    "path": "/boundary/tutorials/credential-management/hcp-certificate-injection",
+    "last_modified": "2025-08-05T19:20:45.724Z"
+  },
+  "boundary/hcp-manage-multi-hop": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-manage-multi-hop",
+    "last_modified": "2025-07-18T20:36:36.179Z"
+  },
+  "boundary/community-manage-workers": {
+    "path": "/boundary/tutorials/community-administration/community-manage-workers",
+    "last_modified": "2024-12-16T17:00:54.217Z"
+  },
+  "terraform/dynamic-credentials": {
+    "path": "/terraform/tutorials/cloud/dynamic-credentials",
+    "last_modified": "2025-09-03T14:54:32.264Z"
+  },
+  "packer/revoke-image": {
+    "path": "/packer/tutorials/hcp/revoke-image",
+    "last_modified": "2025-09-03T14:54:28.227Z"
+  },
+  "terraform/projects": {
+    "path": "/terraform/tutorials/cloud/projects",
+    "last_modified": "2025-09-01T13:02:15.218Z"
+  },
+  "vault/disaster-recovery-replication-failover": {
+    "path": "/vault/tutorials/enterprise/disaster-recovery-replication-failover",
+    "last_modified": "2025-11-13T20:25:36.621Z"
+  },
+  "terraform/tfe-metrics": {
+    "path": "/terraform/tutorials/enterprise/tfe-metrics",
+    "last_modified": "2024-12-03T16:48:39.296Z"
+  },
+  "nomad/cluster-setup-overview": {
+    "path": "/nomad/tutorials/cluster-setup/cluster-setup-overview",
+    "last_modified": "2025-07-11T21:56:50.070Z"
+  },
+  "nomad/cluster-setup-gcp": {
+    "path": "/nomad/tutorials/cluster-setup/cluster-setup-gcp",
+    "last_modified": "2025-07-11T21:56:50.083Z"
+  },
+  "nomad/cluster-setup-azure": {
+    "path": "/nomad/tutorials/cluster-setup/cluster-setup-azure",
+    "last_modified": "2025-07-11T21:56:49.872Z"
+  },
+  "consul/virtual-machine-gs-monitoring": {
+    "path": "/consul/tutorials/get-started-vms/virtual-machine-gs-monitoring",
+    "last_modified": "2025-05-12T22:17:00.766Z"
+  },
+  "vault/intro-vault-aws-lambda-extension": {
+    "path": "/vault/tutorials/app-integration/intro-vault-aws-lambda-extension",
+    "last_modified": "2025-07-22T19:48:18.891Z"
+  },
+  "packer/multicloud": {
+    "path": "/packer/tutorials/cloud-production/multicloud",
+    "last_modified": "2025-08-21T22:50:18.461Z"
+  },
+  "vault/kubernetes-minikube-tls": {
+    "path": "/vault/tutorials/kubernetes/kubernetes-minikube-tls",
+    "last_modified": "2025-06-05T14:30:04.460Z"
+  },
+  "nomad/variables-tasks": {
+    "path": "/nomad/tutorials/archive/variables-tasks",
+    "last_modified": "2025-07-16T21:21:47.639Z"
+  },
+  "nomad/variables-create": {
+    "path": "/nomad/tutorials/variables/variables-create",
+    "last_modified": "2025-07-11T21:56:57.330Z"
+  },
+  "nomad/variables-acls": {
+    "path": "/nomad/tutorials/variables/variables-acls",
+    "last_modified": "2025-07-11T21:56:57.174Z"
+  },
+  "vault/audit-elastic-incident-response": {
+    "path": "/vault/tutorials/operations/audit-elastic-incident-response",
+    "last_modified": "2026-02-04T19:52:13.014Z"
+  },
+  "well-architected-framework/security-sensitive-data": {
+    "path": "/well-architected-framework/security/security-sensitive-data",
+    "last_modified": "2025-07-01T14:32:54.084Z"
+  },
+  "well-architected-framework/security-prevent-lateral-movement": {
+    "path": "/well-architected-framework/security/security-prevent-lateral-movement",
+    "last_modified": "2025-06-20T14:52:46.077Z"
+  },
+  "well-architected-framework/security-cicd-vault": {
+    "path": "/well-architected-framework/security/security-cicd-vault",
+    "last_modified": "2025-04-16T13:56:54.690Z"
+  },
+  "well-architected-framework/security-introduction": {
+    "path": "/well-architected-framework/security/security-introduction",
+    "last_modified": "2023-08-15T20:28:10.324Z"
+  },
+  "terraform/confluent-provider": {
+    "path": "/terraform/tutorials/applications/confluent-provider",
+    "last_modified": "2025-09-03T14:54:31.531Z"
+  },
+  "terraform/no-code-provisioning": {
+    "path": "/terraform/tutorials/cloud/no-code-provisioning",
+    "last_modified": "2025-09-01T13:02:13.839Z"
+  },
+  "boundary/hcp-private-vault-cred-injection": {
+    "path": "/boundary/tutorials/credential-management/hcp-private-vault-cred-injection",
+    "last_modified": "2024-12-20T14:34:12.223Z"
+  },
+  "boundary/hcp-vault-cred-brokering-quickstart": {
+    "path": "/boundary/tutorials/credential-management/hcp-vault-cred-brokering-quickstart",
+    "last_modified": "2025-10-21T15:11:21.467Z"
+  },
+  "consul/virtual-machine-gs-service-mesh": {
+    "path": "/consul/tutorials/get-started-vms/virtual-machine-gs-service-mesh",
+    "last_modified": "2025-05-12T22:17:02.268Z"
+  },
+  "consul/virtual-machine-gs-deploy": {
+    "path": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy",
+    "last_modified": "2025-05-12T22:17:00.764Z"
+  },
+  "terraform/providers-plugin-framework-resource-update": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-resource-update",
+    "last_modified": "2024-04-10T19:42:07.531Z"
+  },
+  "terraform/providers-plugin-framework-resource-import": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-resource-import",
+    "last_modified": "2024-04-10T19:42:07.047Z"
+  },
+  "terraform/providers-plugin-framework-resource-delete": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-resource-delete",
+    "last_modified": "2024-04-10T19:42:07.047Z"
+  },
+  "terraform/providers-plugin-framework-release-publish": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-release-publish",
+    "last_modified": "2024-12-03T16:48:37.464Z"
+  },
+  "terraform/providers-plugin-framework-provider": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-provider",
+    "last_modified": "2024-07-09T18:22:19.869Z"
+  },
+  "terraform/providers-plugin-framework-provider-configure": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-provider-configure",
+    "last_modified": "2024-07-09T18:22:19.870Z"
+  },
+  "terraform/providers-plugin-framework-documentation-generation": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-documentation-generation",
+    "last_modified": "2024-09-17T12:28:09.000Z"
+  },
+  "terraform/providers-plugin-framework-logging": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-logging",
+    "last_modified": "2024-04-10T19:42:05.457Z"
+  },
+  "terraform/providers-plugin-framework-data-source-read": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-data-source-read",
+    "last_modified": "2024-07-09T18:22:19.478Z"
+  },
+  "terraform/providers-plugin-framework-acceptance-testing": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-acceptance-testing",
+    "last_modified": "2024-07-09T18:22:19.294Z"
+  },
+  "consul/cluster-peering": {
+    "path": "/consul/tutorials/implement-multi-tenancy/cluster-peering",
+    "last_modified": "2025-05-12T22:16:54.793Z"
+  },
+  "consul/kubernetes-gs-service-mesh": {
+    "path": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-service-mesh",
+    "last_modified": "2025-11-12T17:18:47.532Z"
+  },
+  "consul/kubernetes-gs-observability": {
+    "path": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-observability",
+    "last_modified": "2025-11-12T17:18:47.224Z"
+  },
+  "consul/kubernetes-gs-ingress": {
+    "path": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-ingress",
+    "last_modified": "2025-11-12T17:18:47.228Z"
+  },
+  "consul/kubernetes-gs-deploy": {
+    "path": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy",
+    "last_modified": "2025-11-12T17:18:46.920Z"
+  },
+  "packer/github-actions": {
+    "path": "/packer/tutorials/cloud-production/github-actions",
+    "last_modified": "2025-08-21T22:50:16.541Z"
+  },
+  "terraform/module-object-attributes": {
+    "path": "/terraform/tutorials/modules/module-object-attributes",
+    "last_modified": "2025-09-03T14:54:34.064Z"
+  },
+  "consul/vault-pki-consul-connect-ca": {
+    "path": "/consul/tutorials/operate-consul/vault-pki-consul-connect-ca",
+    "last_modified": "2024-12-20T14:34:19.906Z"
+  },
+  "boundary/hcp-getting-started-credentials": {
+    "path": "/boundary/tutorials/get-started-hcp/hcp-getting-started-credentials",
+    "last_modified": "2024-11-01T16:48:40.588Z"
+  },
+  "well-architected-framework/operational-excellence-tao": {
+    "path": "/well-architected-framework/operational-excellence/operational-excellence-tao",
+    "last_modified": "2023-08-15T20:28:08.968Z"
+  },
+  "vault/kubernetes-secrets-engine": {
+    "path": "/vault/tutorials/kubernetes/kubernetes-secrets-engine",
+    "last_modified": "2025-04-01T14:22:14.765Z"
+  },
+  "nomad/service-discovery-consul-conversion": {
+    "path": "/nomad/tutorials/service-discovery/service-discovery-consul-conversion",
+    "last_modified": "2025-01-24T15:02:50.178Z"
+  },
+  "nomad/service-discovery-app-deployment": {
+    "path": "/nomad/tutorials/service-discovery/service-discovery-app-deployment",
+    "last_modified": "2025-07-11T21:56:56.312Z"
+  },
+  "nomad/cluster-setup-aws": {
+    "path": "/nomad/tutorials/cluster-setup/cluster-setup-aws",
+    "last_modified": "2025-07-11T21:56:49.875Z"
+  },
+  "boundary/hcp-ssh-cred-injection": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-ssh-cred-injection",
+    "last_modified": "2025-07-18T20:13:01.055Z"
+  },
+  "terraform/aws-dynamodb-scale": {
+    "path": "/terraform/tutorials/aws/aws-dynamodb-scale",
+    "last_modified": "2025-09-03T14:54:29.256Z"
+  },
+  "cloud/vault-access-cluster": {
+    "path": "/vault/tutorials/get-started-hcp-vault-dedicated/vault-access-cluster",
+    "last_modified": "2026-01-27T00:55:37.990Z"
+  },
+  "terraform/enterprise-reference-architecture": {
+    "path": "/well-architected-framework/terraform/enterprise-reference-architecture",
+    "last_modified": "2023-12-01T13:50:09.902Z"
+  },
+  "boundary/hcp-manage-workers": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-manage-workers",
+    "last_modified": "2025-07-18T21:10:41.902Z"
+  },
+  "boundary/hcp-manage-users-groups": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-manage-users-groups",
+    "last_modified": "2024-12-16T17:00:57.824Z"
+  },
+  "boundary/hcp-manage-sessions": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-manage-sessions",
+    "last_modified": "2024-12-16T17:00:57.437Z"
+  },
+  "boundary/hcp-manage-targets": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-manage-targets",
+    "last_modified": "2025-07-18T20:13:00.213Z"
+  },
+  "boundary/hcp-manage-scopes": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-manage-scopes",
+    "last_modified": "2024-12-16T17:00:57.074Z"
+  },
+  "boundary/hcp-manage-roles": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-manage-roles",
+    "last_modified": "2025-05-16T17:48:11.179Z"
+  },
+  "boundary/hcp-getting-started-intro": {
+    "path": "/boundary/tutorials/get-started-hcp/hcp-getting-started-intro",
+    "last_modified": "2024-12-02T23:04:58.905Z"
+  },
+  "boundary/hcp-manage-intro": {
+    "path": "/boundary/tutorials/hcp-administration/hcp-manage-intro",
+    "last_modified": "2025-07-18T20:12:59.146Z"
+  },
+  "boundary/hcp-getting-started-desktop-app": {
+    "path": "/boundary/tutorials/get-started-hcp/hcp-getting-started-desktop-app",
+    "last_modified": "2025-05-27T16:24:50.795Z"
+  },
+  "boundary/hcp-getting-started-install": {
+    "path": "/boundary/tutorials/get-started-hcp/hcp-getting-started-install",
+    "last_modified": "2025-05-27T16:24:50.929Z"
+  },
+  "boundary/hcp-getting-started-console": {
+    "path": "/boundary/tutorials/get-started-hcp/hcp-getting-started-console",
+    "last_modified": "2024-12-16T17:00:55.759Z"
+  },
+  "boundary/hcp-getting-started-create": {
+    "path": "/boundary/tutorials/get-started-hcp/hcp-getting-started-create",
+    "last_modified": "2024-12-02T23:04:58.199Z"
+  },
+  "boundary/hcp-getting-started-connect": {
+    "path": "/boundary/tutorials/get-started-hcp/hcp-getting-started-connect",
+    "last_modified": "2025-05-27T16:24:50.544Z"
+  },
+  "boundary/hcp-getting-started-cloud": {
+    "path": "/boundary/tutorials/get-started-hcp/hcp-getting-started-cloud",
+    "last_modified": "2024-11-12T19:57:44.339Z"
+  },
+  "vault/raft-upgrade-automation": {
+    "path": "/vault/tutorials/raft/raft-upgrade-automation",
+    "last_modified": "2025-06-05T14:30:08.912Z"
+  },
+  "vault/raft-redundancy-zones": {
+    "path": "/vault/tutorials/raft/raft-redundancy-zones",
+    "last_modified": "2025-01-06T14:53:32.515Z"
+  },
+  "terraform/validation-enforcement": {
+    "path": "/terraform/tutorials/cloud/validation-enforcement",
+    "last_modified": "2025-09-03T14:54:36.877Z"
+  },
+  "vault/apply-codified-vault-hcp-terraform": {
+    "path": "/vault/tutorials/operations/apply-codified-vault-hcp-terraform",
+    "last_modified": "2025-06-11T15:30:22.503Z"
+  },
+  "consul/kubernetes-vault-consul-secrets-management": {
+    "path": "/consul/tutorials/operate-consul/kubernetes-vault-consul-secrets-management",
+    "last_modified": "2025-05-12T22:16:57.384Z"
+  },
+  "vault/kubernetes-minikube-raft": {
+    "path": "/vault/tutorials/kubernetes-introduction/kubernetes-minikube-raft",
+    "last_modified": "2025-10-08T15:25:42.298Z"
+  },
+  "well-architected-framework/reliability-tolerate-failure": {
+    "path": "/well-architected-framework/reliability/reliability-tolerate-failure",
+    "last_modified": "2025-07-11T21:57:26.416Z"
+  },
+  "well-architected-framework/reliability-introduction": {
+    "path": "/well-architected-framework/reliability/reliability-introduction",
+    "last_modified": "2025-03-04T16:31:15.957Z"
+  },
+  "boundary/event-logging": {
+    "path": "/boundary/tutorials/self-managed-deployment/event-logging",
+    "last_modified": "2024-11-12T19:57:43.825Z"
+  },
+  "terraform/custom-conditions": {
+    "path": "/terraform/tutorials/configuration-language/custom-conditions",
+    "last_modified": "2025-09-03T14:54:31.623Z"
+  },
+  "vault/active-directory-mfa-login-totp": {
+    "path": "/vault/tutorials/auth-methods/active-directory-mfa-login-totp",
+    "last_modified": "2025-02-26T21:29:11.984Z"
+  },
+  "nomad/schedule-edge-services": {
+    "path": "/nomad/tutorials/edge/schedule-edge-services",
+    "last_modified": "2025-07-11T21:56:55.869Z"
+  },
+  "boundary/prometheus-metrics": {
+    "path": "/boundary/tutorials/self-managed-deployment/prometheus-metrics",
+    "last_modified": "2024-11-12T19:57:51.274Z"
+  },
+  "terraform/cloud-run-tasks-snyk": {
+    "path": "/terraform/tutorials/cloud/cloud-run-tasks-snyk",
+    "last_modified": "2025-09-03T14:54:30.937Z"
+  },
+  "vault/managed-key-pki": {
+    "path": "/vault/tutorials/pki/managed-key-pki",
+    "last_modified": "2025-11-08T02:56:05.960Z"
+  },
+  "packer/hcp-schedule-image-iterations-revocation": {
+    "path": "/packer/tutorials/hcp/hcp-schedule-image-iterations-revocation",
+    "last_modified": "2025-09-01T13:02:03.079Z"
+  },
+  "vault/aws-eks-anywhere": {
+    "path": "/vault/tutorials/kubernetes-platforms/aws-eks-anywhere",
+    "last_modified": "2025-06-05T14:29:59.072Z"
+  },
+  "cloud/vault-oidc-okta": {
+    "path": "/vault/tutorials/manage-hcp-vault-dedicated/vault-oidc-okta",
+    "last_modified": "2025-11-19T20:53:32.272Z"
+  },
+  "boundary/azure-sql-database": {
+    "path": "/boundary/tutorials/self-managed-deployment/azure-sql-database",
+    "last_modified": "2025-07-18T19:16:52.571Z"
+  },
+  "well-architected-framework/operational-excellence-resources": {
+    "path": "/well-architected-framework/operational-excellence/operational-excellence-resources",
+    "last_modified": "2024-05-24T12:32:40.409Z"
+  },
+  "well-architected-framework/operational-excellence-enable-teams": {
+    "path": "/well-architected-framework/operational-excellence/operational-excellence-enable-teams",
+    "last_modified": "2024-08-07T20:19:23.283Z"
+  },
+  "well-architected-framework/operational-excellence-introduction": {
+    "path": "/well-architected-framework/operational-excellence/operational-excellence-introduction",
+    "last_modified": "2025-01-21T15:04:44.790Z"
+  },
+  "well-architected-framework/operational-excellence-automate-infrastructure": {
+    "path": "/well-architected-framework/operational-excellence/operational-excellence-automate-infrastructure",
+    "last_modified": "2025-07-01T14:32:53.492Z"
+  },
+  "well-architected-framework/implement-cloud-operating-model": {
+    "path": "/well-architected-framework/com/implement-cloud-operating-model",
+    "last_modified": "2023-08-15T20:28:08.328Z"
+  },
+  "well-architected-framework/cloud-operating-model": {
+    "path": "/well-architected-framework/com/cloud-operating-model",
+    "last_modified": "2023-08-15T20:28:08.326Z"
+  },
+  "vault/multi-factor-authentication": {
+    "path": "/vault/tutorials/auth-methods/multi-factor-authentication",
+    "last_modified": "2025-04-22T14:35:08.781Z"
+  },
+  "vault/mount-move": {
+    "path": "/vault/tutorials/archive/mount-move",
+    "last_modified": "2025-04-22T14:35:08.603Z"
+  },
+  "terraform/plan": {
+    "path": "/terraform/tutorials/cli/plan",
+    "last_modified": "2025-09-03T14:54:34.864Z"
+  },
+  "terraform/init": {
+    "path": "/terraform/tutorials/cli/init",
+    "last_modified": "2025-09-03T14:54:33.295Z"
+  },
+  "terraform/apply": {
+    "path": "/terraform/tutorials/cli/apply",
+    "last_modified": "2025-09-03T14:54:28.773Z"
+  },
+  "nomad/external-application-load-balancing": {
+    "path": "/nomad/tutorials/load-balancing/external-application-load-balancing",
+    "last_modified": "2025-07-11T21:56:51.129Z"
+  },
+  "packer/setup-hcp-terraform-run-task": {
+    "path": "/packer/tutorials/hcp/setup-hcp-terraform-run-task",
+    "last_modified": "2025-09-01T13:02:03.696Z"
+  },
+  "packer/run-tasks-resource-image-validation": {
+    "path": "/packer/tutorials/hcp/run-tasks-resource-image-validation",
+    "last_modified": "2025-09-03T14:54:28.333Z"
+  },
+  "packer/run-tasks-data-source-image-validation": {
+    "path": "/packer/tutorials/hcp/run-tasks-data-source-image-validation",
+    "last_modified": "2025-09-03T14:54:28.331Z"
+  },
+  "packer/hcp-immediately-revoke-artifact-versions": {
+    "path": "/packer/tutorials/hcp-get-started/hcp-immediately-revoke-artifact-versions",
+    "last_modified": "2025-09-01T13:02:02.885Z"
+  },
+  "cloud/vault-auth-method-aws": {
+    "path": "/vault/tutorials/manage-hcp-vault-dedicated/vault-auth-method-aws",
+    "last_modified": "2024-12-20T14:34:14.762Z"
+  },
+  "boundary/aws-host-catalogs": {
+    "path": "/boundary/tutorials/host-management/aws-host-catalogs",
+    "last_modified": "2025-09-09T20:14:21.824Z"
+  },
+  "terraform/preview-environments-vercel": {
+    "path": "/terraform/tutorials/applications/preview-environments-vercel",
+    "last_modified": "2025-09-03T14:54:34.970Z"
+  },
+  "terraform/aws-asg": {
+    "path": "/terraform/tutorials/aws/aws-asg",
+    "last_modified": "2025-05-01T17:00:33.202Z"
+  },
+  "consul/kubernetes-admin-partitions": {
+    "path": "/consul/tutorials/implement-multi-tenancy/kubernetes-admin-partitions",
+    "last_modified": "2025-09-09T08:46:03.473Z"
+  },
+  "vault/agent-aws-ecs": {
+    "path": "/vault/tutorials/vault-agent/agent-aws-ecs",
+    "last_modified": "2025-05-29T20:19:32.803Z"
+  },
+  "consul/kubernetes-api-gateway": {
+    "path": "/consul/tutorials/control-network-traffic/kubernetes-api-gateway",
+    "last_modified": "2025-11-12T17:18:46.466Z"
+  },
+  "terraform/pattern-recovery": {
+    "path": "/terraform/tutorials/recommended-patterns/pattern-recovery",
+    "last_modified": "2025-05-13T16:31:00.196Z"
+  },
+  "consul/introduction-chaos-engineering": {
+    "path": "/consul/tutorials/control-network-traffic/introduction-chaos-engineering",
+    "last_modified": "2025-09-09T08:46:03.293Z"
+  },
+  "vault/transform-code-example": {
+    "path": "/vault/tutorials/app-integration/transform-code-example",
+    "last_modified": "2025-04-04T18:41:45.256Z"
+  },
+  "terraform/move-config": {
+    "path": "/terraform/tutorials/configuration-language/move-config",
+    "last_modified": "2025-09-03T14:54:34.370Z"
+  },
+  "terraform/migrate-remote-s3-backend-hcp-terraform": {
+    "path": "/terraform/tutorials/cloud/migrate-remote-s3-backend-hcp-terraform",
+    "last_modified": "2025-09-03T14:54:33.968Z"
+  },
+  "terraform/aws-control-tower-aft": {
+    "path": "/terraform/tutorials/aws/aws-control-tower-aft",
+    "last_modified": "2024-12-03T16:48:29.364Z"
+  },
+  "consul/security": {
+    "path": "/consul/tutorials/production-vms/security",
+    "last_modified": "2025-08-21T22:49:47.864Z"
+  },
+  "consul/multi-security": {
+    "path": "/consul/tutorials/production-multi-cluster/multi-security",
+    "last_modified": "2024-04-18T21:28:17.484Z"
+  },
+  "consul/multi-disaster-recovery": {
+    "path": "/consul/tutorials/production-multi-cluster/multi-disaster-recovery",
+    "last_modified": "2024-04-18T21:28:17.482Z"
+  },
+  "consul/multi-cluster-reference-architecture": {
+    "path": "/consul/tutorials/production-multi-cluster/multi-cluster-reference-architecture",
+    "last_modified": "2025-05-12T22:16:57.943Z"
+  },
+  "consul/disaster-recovery": {
+    "path": "/consul/tutorials/operate-consul/disaster-recovery",
+    "last_modified": "2025-05-12T22:16:55.554Z"
+  },
+  "terraform/enable-sso-saml-tfe-okta": {
+    "path": "/terraform/tutorials/enterprise/enable-sso-saml-tfe-okta",
+    "last_modified": "2024-05-30T23:08:23.598Z"
+  },
+  "boundary/azure-host-catalogs": {
+    "path": "/boundary/tutorials/host-management/azure-host-catalogs",
+    "last_modified": "2025-07-18T20:55:32.285Z"
+  },
+  "vault/oidc-identity-provider": {
+    "path": "/vault/tutorials/auth-methods/oidc-identity-provider",
+    "last_modified": "2025-09-15T14:35:21.986Z"
+  },
+  "vault/key-management-secrets-engine-gcp-cloud-kms": {
+    "path": "/vault/tutorials/key-management/key-management-secrets-engine-gcp-cloud-kms",
+    "last_modified": "2025-05-16T17:21:39.714Z"
+  },
+  "vault/emergency-break-glass-features": {
+    "path": "/vault/tutorials/operations/emergency-break-glass-features",
+    "last_modified": "2025-04-22T14:35:04.381Z"
+  },
+  "vault/customize-http-headers": {
+    "path": "/vault/tutorials/archive/customize-http-headers",
+    "last_modified": "2024-12-20T14:34:36.896Z"
+  },
+  "terraform/cloud-multiple-variable-sets": {
+    "path": "/terraform/tutorials/cloud/cloud-multiple-variable-sets",
+    "last_modified": "2025-09-03T14:54:30.843Z"
+  },
+  "terraform/console": {
+    "path": "/terraform/tutorials/cli/console",
+    "last_modified": "2025-09-03T14:54:31.530Z"
+  },
+  "vault/monitor-telemetry-grafana-prometheus": {
+    "path": "/vault/tutorials/archive/monitor-telemetry-grafana-prometheus",
+    "last_modified": "2025-04-22T14:35:08.425Z"
+  },
+  "packer/hcp-push-artifact-metadata": {
+    "path": "/packer/tutorials/hcp-get-started/hcp-push-artifact-metadata",
+    "last_modified": "2025-08-21T22:50:17.807Z"
+  },
+  "packer/hcp-artifact-channels": {
+    "path": "/packer/tutorials/hcp-get-started/hcp-artifact-channels",
+    "last_modified": "2025-08-21T22:50:17.030Z"
+  },
+  "packer/hcp-create-child-artifact": {
+    "path": "/packer/tutorials/hcp-get-started/hcp-create-child-artifact",
+    "last_modified": "2025-08-21T22:50:17.423Z"
+  },
+  "packer/golden-image-with-hcp-packer": {
+    "path": "/packer/tutorials/cloud-production/golden-image-with-hcp-packer",
+    "last_modified": "2025-09-01T13:02:02.494Z"
+  },
+  "terraform/microsoft-caf-enterprise-scale": {
+    "path": "/terraform/tutorials/azure/microsoft-caf-enterprise-scale",
+    "last_modified": "2024-12-03T16:48:35.361Z"
+  },
+  "nomad/nomad-pack-writing-packs": {
+    "path": "/nomad/tutorials/archive/nomad-pack-writing-packs",
+    "last_modified": "2025-07-16T21:21:42.776Z"
+  },
+  "nomad/nomad-pack-intro": {
+    "path": "/nomad/tutorials/archive/nomad-pack-intro",
+    "last_modified": "2025-07-16T21:21:42.368Z"
+  },
+  "terraform/aws-cloud-control": {
+    "path": "/terraform/tutorials/aws/aws-cloud-control",
+    "last_modified": "2025-02-05T20:02:29.804Z"
+  },
+  "vault/pki-engine-external-ca": {
+    "path": "/vault/tutorials/pki/pki-engine-external-ca",
+    "last_modified": "2024-12-20T14:34:40.601Z"
+  },
+  "vault/ops-pro-study": {
+    "path": "/vault/tutorials/ops-pro-cert/ops-pro-study",
+    "last_modified": "2025-10-10T18:52:43.212Z"
+  },
+  "vault/ops-pro-review": {
+    "path": "/vault/tutorials/ops-pro-cert/ops-pro-review",
+    "last_modified": "2025-10-10T18:52:43.112Z"
+  },
+  "vault/ops-pro-overview": {
+    "path": "/vault/tutorials/ops-pro-cert/ops-pro-overview",
+    "last_modified": "2025-10-10T18:52:43.109Z"
+  },
+  "terraform/tfe-log-forwarding": {
+    "path": "/terraform/tutorials/enterprise/tfe-log-forwarding",
+    "last_modified": "2025-02-05T20:02:37.867Z"
+  },
+  "terraform/github-user-teams": {
+    "path": "/terraform/tutorials/it-saas/github-user-teams",
+    "last_modified": "2025-02-05T20:02:33.514Z"
+  },
+  "terraform/rds-upgrade": {
+    "path": "/terraform/tutorials/aws/rds-upgrade",
+    "last_modified": "2025-02-27T15:23:02.784Z"
+  },
+  "consul/docker-compose-auto-config": {
+    "path": "/consul/tutorials/archive/docker-compose-auto-config",
+    "last_modified": "2025-05-12T22:16:55.669Z"
+  },
+  "vault/custom-secrets-engine-secrets": {
+    "path": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-secrets",
+    "last_modified": "2024-12-20T14:34:36.877Z"
+  },
+  "vault/custom-secrets-engine-role": {
+    "path": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-role",
+    "last_modified": "2024-12-20T14:34:36.794Z"
+  },
+  "vault/custom-secrets-engine-creds": {
+    "path": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-creds",
+    "last_modified": "2024-12-20T14:34:36.790Z"
+  },
+  "vault/custom-secrets-engine-config": {
+    "path": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-config",
+    "last_modified": "2024-12-20T14:34:36.702Z"
+  },
+  "vault/custom-secrets-engine-build": {
+    "path": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-build",
+    "last_modified": "2024-12-20T14:34:36.707Z"
+  },
+  "vault/custom-secrets-engine-backend": {
+    "path": "/vault/tutorials/custom-secrets-engine/custom-secrets-engine-backend",
+    "last_modified": "2024-12-20T14:34:36.616Z"
+  },
+  "terraform/google-workspace": {
+    "path": "/terraform/tutorials/it-saas/google-workspace",
+    "last_modified": "2024-12-03T16:48:34.294Z"
+  },
+  "terraform/entra-id": {
+    "path": "/terraform/tutorials/it-saas/entra-id",
+    "last_modified": "2024-12-03T16:48:33.645Z"
+  },
+  "boundary/oidc-idp-groups": {
+    "path": "/boundary/tutorials/identity-management/oidc-idp-groups",
+    "last_modified": "2024-12-16T17:01:01.593Z"
+  },
+  "vault/write-a-policy-using-audit-logs": {
+    "path": "/vault/tutorials/policies/write-a-policy-using-audit-logs",
+    "last_modified": "2025-06-05T00:23:36.453Z"
+  },
+  "vault/write-a-policy-using-api-docs": {
+    "path": "/vault/tutorials/policies/write-a-policy-using-api-docs",
+    "last_modified": "2025-06-05T00:23:36.361Z"
+  },
+  "vault/versioned-kv": {
+    "path": "/vault/tutorials/secrets-management/versioned-kv",
+    "last_modified": "2025-11-19T20:55:32.975Z"
+  },
+  "vault/username-templating": {
+    "path": "/vault/tutorials/db-credentials/username-templating",
+    "last_modified": "2025-03-31T13:21:31.281Z"
+  },
+  "vault/troubleshooting-vault": {
+    "path": "/vault/tutorials/monitoring/troubleshooting-vault",
+    "last_modified": "2025-04-22T14:35:14.050Z"
+  },
+  "vault/troubleshoot-irrevocable-leases": {
+    "path": "/vault/tutorials/monitoring/troubleshoot-irrevocable-leases",
+    "last_modified": "2024-12-03T16:48:48.849Z"
+  },
+  "vault/transform": {
+    "path": "/vault/tutorials/encryption-as-a-service/transform",
+    "last_modified": "2025-06-11T15:30:28.633Z"
+  },
+  "vault/tokenization": {
+    "path": "/vault/tutorials/encryption-as-a-service/tokenization",
+    "last_modified": "2025-06-11T15:30:28.438Z"
+  },
+  "vault/terraform-secrets-engine": {
+    "path": "/vault/tutorials/secrets-management/terraform-secrets-engine",
+    "last_modified": "2024-12-20T17:03:24.801Z"
+  },
+  "vault/storage-migration-checklist": {
+    "path": "/vault/tutorials/archive/storage-migration-checklist",
+    "last_modified": "2025-05-12T22:17:21.846Z"
+  },
+  "vault/ssh-otp": {
+    "path": "/vault/tutorials/secrets-management/ssh-otp",
+    "last_modified": "2025-05-01T14:54:36.496Z"
+  },
+  "vault/sop-upgrade": {
+    "path": "/vault/tutorials/standard-procedures/sop-upgrade",
+    "last_modified": "2025-01-15T13:54:58.194Z"
+  },
+  "vault/sop-restore": {
+    "path": "/vault/tutorials/standard-procedures/sop-restore",
+    "last_modified": "2024-12-16T15:11:19.527Z"
+  },
+  "vault/sop-backup": {
+    "path": "/vault/tutorials/standard-procedures/sop-backup",
+    "last_modified": "2024-12-16T15:11:19.523Z"
+  },
+  "vault/sentinel": {
+    "path": "/vault/tutorials/policies/sentinel",
+    "last_modified": "2025-09-03T00:36:22.255Z"
+  },
+  "vault/sentinel-policy-examples": {
+    "path": "/vault/tutorials/policies/sentinel-policy-examples",
+    "last_modified": "2025-12-16T00:00:12.120Z"
+  },
+  "vault/sentinel-http-import": {
+    "path": "/vault/tutorials/policies/sentinel-http-import",
+    "last_modified": "2024-11-14T18:49:05.698Z"
+  },
+  "vault/secure-introduction": {
+    "path": "/vault/tutorials/app-integration/secure-introduction",
+    "last_modified": "2025-06-05T14:30:09.284Z"
+  },
+  "vault/seal-wrap": {
+    "path": "/vault/tutorials/archive/seal-wrap",
+    "last_modified": "2025-05-16T16:02:58.934Z"
+  },
+  "vault/resource-quotas": {
+    "path": "/vault/tutorials/operations/resource-quotas",
+    "last_modified": "2025-04-16T03:00:33.143Z"
+  },
+  "vault/rekeying-and-rotating": {
+    "path": "/vault/tutorials/archive/rekeying-and-rotating",
+    "last_modified": "2024-12-05T18:54:46.204Z"
+  },
+  "vault/recovery-mode": {
+    "path": "/vault/tutorials/monitoring/recovery-mode",
+    "last_modified": "2024-12-20T14:34:41.458Z"
+  },
+  "vault/raft-storage": {
+    "path": "/vault/tutorials/raft/raft-storage",
+    "last_modified": "2025-06-05T14:30:08.743Z"
+  },
+  "vault/raft-reference-architecture": {
+    "path": "/vault/tutorials/day-one-raft/raft-reference-architecture",
+    "last_modified": "2025-11-19T20:55:27.121Z"
+  },
+  "vault/raft-migration": {
+    "path": "/vault/tutorials/archive/raft-migration",
+    "last_modified": "2025-01-06T16:00:50.658Z"
+  },
+  "vault/raft-lost-quorum": {
+    "path": "/vault/tutorials/raft/raft-lost-quorum",
+    "last_modified": "2025-02-06T14:55:04.068Z"
+  },
+  "vault/raft-deployment-guide": {
+    "path": "/vault/tutorials/day-one-raft/raft-deployment-guide",
+    "last_modified": "2026-02-04T19:52:21.089Z"
+  },
+  "vault/raft-autopilot": {
+    "path": "/vault/tutorials/raft/raft-autopilot",
+    "last_modified": "2025-01-06T14:53:32.286Z"
+  },
+  "vault/query-audit-device-logs": {
+    "path": "/vault/tutorials/monitoring/query-audit-device-logs",
+    "last_modified": "2025-05-19T16:00:43.529Z"
+  },
+  "vault/production-hardening": {
+    "path": "/vault/tutorials/archive/production-hardening",
+    "last_modified": "2024-12-06T21:16:02.528Z"
+  },
+  "vault/policy-templating": {
+    "path": "/vault/tutorials/policies/policy-templating",
+    "last_modified": "2025-06-17T21:42:32.822Z"
+  },
+  "vault/policies": {
+    "path": "/vault/tutorials/policies/policies",
+    "last_modified": "2025-11-19T20:55:24.770Z"
+  },
+  "vault/pki-engine": {
+    "path": "/vault/tutorials/pki/pki-engine",
+    "last_modified": "2026-02-04T19:52:20.256Z"
+  },
+  "vault/performance-tuning": {
+    "path": "/vault/tutorials/archive/performance-tuning",
+    "last_modified": "2025-05-12T22:17:20.494Z"
+  },
+  "vault/performance-standbys": {
+    "path": "/vault/tutorials/enterprise/performance-standbys",
+    "last_modified": "2024-11-20T17:17:27.999Z"
+  },
+  "vault/performance-replication": {
+    "path": "/vault/tutorials/enterprise/performance-replication",
+    "last_modified": "2024-11-20T17:17:27.867Z"
+  },
+  "vault/password-policies": {
+    "path": "/vault/tutorials/db-credentials/password-policies",
+    "last_modified": "2025-10-10T23:33:51.874Z"
+  },
+  "vault/openldap": {
+    "path": "/vault/tutorials/secrets-management/openldap",
+    "last_modified": "2025-08-25T15:21:29.270Z"
+  },
+  "vault/oidc-auth": {
+    "path": "/vault/tutorials/auth-methods/oidc-auth",
+    "last_modified": "2025-11-19T20:55:21.128Z"
+  },
+  "vault/oidc-auth-azure": {
+    "path": "/vault/tutorials/archive/oidc-auth-azure",
+    "last_modified": "2024-12-20T14:34:39.832Z"
+  },
+  "vault/namespaces": {
+    "path": "/vault/tutorials/enterprise/namespaces",
+    "last_modified": "2025-04-22T14:35:09.001Z"
+  },
+  "vault/multi-cluster-architecture": {
+    "path": "/vault/tutorials/day-one-raft/multi-cluster-architecture",
+    "last_modified": "2024-12-06T21:15:57.525Z"
+  },
+  "vault/monitor-telemetry-audit-splunk": {
+    "path": "/vault/tutorials/monitoring/monitor-telemetry-audit-splunk",
+    "last_modified": "2026-01-29T14:22:27.431Z"
+  },
+  "vault/monitor-replication": {
+    "path": "/vault/tutorials/monitoring/monitor-replication",
+    "last_modified": "2024-11-08T16:50:08.623Z"
+  },
+  "vault/kubernetes-sidecar": {
+    "path": "/vault/tutorials/kubernetes/kubernetes-sidecar",
+    "last_modified": "2025-06-05T14:30:05.032Z"
+  },
+  "vault/kubernetes-security-concerns": {
+    "path": "/vault/tutorials/kubernetes/kubernetes-security-concerns",
+    "last_modified": "2025-04-04T18:41:38.656Z"
+  },
+  "vault/kubernetes-secret-store-driver": {
+    "path": "/vault/tutorials/kubernetes-introduction/kubernetes-secret-store-driver",
+    "last_modified": "2025-06-05T14:30:04.630Z"
+  },
+  "vault/kubernetes-raft-deployment-guide": {
+    "path": "/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide",
+    "last_modified": "2025-06-05T14:30:04.632Z"
+  },
+  "vault/kubernetes-openshift": {
+    "path": "/vault/tutorials/kubernetes-platforms/kubernetes-openshift",
+    "last_modified": "2025-06-05T14:30:04.413Z"
+  },
+  "vault/kubernetes-minikube-consul": {
+    "path": "/vault/tutorials/archive/kubernetes-minikube-consul",
+    "last_modified": "2025-06-05T14:30:04.248Z"
+  },
+  "vault/kubernetes-google-cloud-gke": {
+    "path": "/vault/tutorials/kubernetes-platforms/kubernetes-google-cloud-gke",
+    "last_modified": "2025-06-05T14:30:03.994Z"
+  },
+  "vault/kubernetes-external-vault": {
+    "path": "/vault/tutorials/kubernetes-introduction/kubernetes-external-vault",
+    "last_modified": "2026-02-04T19:52:17.547Z"
+  },
+  "vault/kubernetes-cert-manager": {
+    "path": "/vault/tutorials/archive/kubernetes-cert-manager",
+    "last_modified": "2025-06-30T13:57:41.290Z"
+  },
+  "vault/kubernetes-azure-aks": {
+    "path": "/vault/tutorials/kubernetes-platforms/kubernetes-azure-aks",
+    "last_modified": "2025-06-05T14:30:03.703Z"
+  },
+  "vault/kubernetes-amazon-eks": {
+    "path": "/vault/tutorials/kubernetes-platforms/kubernetes-amazon-eks",
+    "last_modified": "2025-06-05T14:30:03.252Z"
+  },
+  "vault/kmip-engine": {
+    "path": "/vault/tutorials/enterprise/kmip-engine",
+    "last_modified": "2025-06-11T15:30:25.114Z"
+  },
+  "vault/key-management-secrets-engine-azure-key-vault": {
+    "path": "/vault/tutorials/key-management/key-management-secrets-engine-azure-key-vault",
+    "last_modified": "2025-06-11T15:30:24.953Z"
+  },
+  "vault/inspect-data-integrated-storage": {
+    "path": "/vault/tutorials/monitoring/inspect-data-integrated-storage",
+    "last_modified": "2024-11-07T16:49:52.074Z"
+  },
+  "vault/inspect-data-boltdb": {
+    "path": "/vault/tutorials/monitoring/inspect-data-boltdb",
+    "last_modified": "2024-12-03T16:48:43.878Z"
+  },
+  "vault/identity": {
+    "path": "/vault/tutorials/auth-methods/identity",
+    "last_modified": "2025-04-22T14:35:05.059Z"
+  },
+  "vault/hsm-entropy": {
+    "path": "/vault/tutorials/archive/hsm-entropy",
+    "last_modified": "2024-11-18T17:45:59.051Z"
+  },
+  "vault/github-actions": {
+    "path": "/vault/tutorials/app-integration/github-actions",
+    "last_modified": "2024-12-03T16:48:43.705Z"
+  },
+  "vault/eaas-transit": {
+    "path": "/vault/tutorials/encryption-as-a-service/eaas-transit",
+    "last_modified": "2025-11-19T20:55:10.877Z"
+  },
+  "vault/eaas-transit-rewrap": {
+    "path": "/vault/tutorials/encryption-as-a-service/eaas-transit-rewrap",
+    "last_modified": "2024-12-20T14:34:37.448Z"
+  },
+  "vault/eaas-spring-demo": {
+    "path": "/vault/tutorials/encryption-as-a-service/eaas-spring-demo",
+    "last_modified": "2026-02-04T19:52:15.559Z"
+  },
+  "vault/dotnet-vault-agent": {
+    "path": "/vault/tutorials/app-integration/dotnet-vault-agent",
+    "last_modified": "2025-06-30T13:57:36.138Z"
+  },
+  "vault/dotnet-httpclient": {
+    "path": "/vault/tutorials/app-integration/dotnet-httpclient",
+    "last_modified": "2024-12-03T16:48:42.746Z"
+  },
+  "vault/disaster-recovery": {
+    "path": "/vault/tutorials/enterprise/disaster-recovery",
+    "last_modified": "2025-10-22T18:29:04.805Z"
+  },
+  "vault/diagnose-startup-issues": {
+    "path": "/vault/tutorials/monitoring/diagnose-startup-issues",
+    "last_modified": "2024-12-20T14:34:37.190Z"
+  },
+  "vault/database-secrets": {
+    "path": "/vault/tutorials/db-credentials/database-secrets",
+    "last_modified": "2025-11-19T20:55:08.857Z"
+  },
+  "vault/database-root-rotation": {
+    "path": "/vault/tutorials/db-credentials/database-root-rotation",
+    "last_modified": "2025-03-31T13:21:25.510Z"
+  },
+  "vault/control-groups": {
+    "path": "/vault/tutorials/enterprise/control-groups",
+    "last_modified": "2025-09-03T00:36:03.178Z"
+  },
+  "vault/codify-mgmt-enterprise": {
+    "path": "/vault/tutorials/operations/codify-mgmt-enterprise",
+    "last_modified": "2025-08-25T20:51:35.203Z"
+  },
+  "vault/blocked-audit-devices": {
+    "path": "/vault/tutorials/monitoring/blocked-audit-devices",
+    "last_modified": "2024-11-01T15:50:50.884Z"
+  },
+  "vault/azure-secrets": {
+    "path": "/vault/tutorials/secrets-management/azure-secrets",
+    "last_modified": "2026-02-04T19:52:13.518Z"
+  },
+  "vault/aws-lambda": {
+    "path": "/vault/tutorials/archive/aws-lambda",
+    "last_modified": "2025-02-26T21:29:15.998Z"
+  },
+  "vault/autounseal-transit": {
+    "path": "/vault/tutorials/auto-unseal/autounseal-transit",
+    "last_modified": "2025-02-26T21:29:15.575Z"
+  },
+  "vault/autounseal-gcp-kms": {
+    "path": "/vault/tutorials/auto-unseal/autounseal-gcp-kms",
+    "last_modified": "2025-05-29T16:59:55.644Z"
+  },
+  "vault/autounseal-azure-keyvault": {
+    "path": "/vault/tutorials/auto-unseal/autounseal-azure-keyvault",
+    "last_modified": "2025-02-26T21:29:15.221Z"
+  },
+  "vault/autounseal-aws-kms": {
+    "path": "/vault/tutorials/auto-unseal/autounseal-aws-kms",
+    "last_modified": "2025-03-26T21:45:39.614Z"
+  },
+  "vault/approle": {
+    "path": "/vault/tutorials/auth-methods/approle",
+    "last_modified": "2025-07-01T21:50:37.104Z"
+  },
+  "vault/agent-kubernetes": {
+    "path": "/vault/tutorials/kubernetes-introduction/agent-kubernetes",
+    "last_modified": "2025-10-08T15:25:39.001Z"
+  },
+  "vault/agent-caching": {
+    "path": "/vault/tutorials/vault-agent/agent-caching",
+    "last_modified": "2025-06-05T14:29:57.997Z"
+  },
+  "vault/agent-aws": {
+    "path": "/vault/tutorials/vault-agent/agent-aws",
+    "last_modified": "2025-06-05T14:29:57.976Z"
+  },
+  "vagrant/getting-started-provisioning": {
+    "path": "/vagrant/tutorials/networking-provisioning-operations/getting-started-provisioning",
+    "last_modified": "2023-12-06T13:33:02.968Z"
+  },
+  "vagrant/getting-started-providers": {
+    "path": "/vagrant/tutorials/networking-provisioning-operations/getting-started-providers",
+    "last_modified": "2023-12-06T13:33:02.886Z"
+  },
+  "vagrant/getting-started-networking": {
+    "path": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking",
+    "last_modified": "2023-12-06T13:33:02.818Z"
+  },
+  "terraform/vsphere-provider": {
+    "path": "/terraform/tutorials/virtual-machine/vsphere-provider",
+    "last_modified": "2025-02-05T20:02:38.291Z"
+  },
+  "terraform/versions": {
+    "path": "/terraform/tutorials/configuration-language/versions",
+    "last_modified": "2025-06-10T21:42:15.146Z"
+  },
+  "terraform/verify-archive": {
+    "path": "/terraform/tutorials/cli/verify-archive",
+    "last_modified": "2023-08-08T16:09:17.098Z"
+  },
+  "terraform/variables": {
+    "path": "/terraform/tutorials/configuration-language/variables",
+    "last_modified": "2025-09-03T14:54:36.972Z"
+  },
+  "terraform/troubleshooting-workflow": {
+    "path": "/terraform/tutorials/configuration-language/troubleshooting-workflow",
+    "last_modified": "2024-12-03T16:48:39.403Z"
+  },
+  "terraform/tfe-provider-run-triggers": {
+    "path": "/terraform/tutorials/automation/tfe-provider-run-triggers",
+    "last_modified": "2025-09-01T13:02:17.922Z"
+  },
+  "terraform/state-import": {
+    "path": "/terraform/tutorials/state/state-import",
+    "last_modified": "2025-09-03T14:54:36.633Z"
+  },
+  "terraform/state-cli": {
+    "path": "/terraform/tutorials/state/state-cli",
+    "last_modified": "2025-11-17T13:55:25.107Z"
+  },
+  "terraform/spotify-playlist": {
+    "path": "/terraform/tutorials/community-providers/spotify-playlist",
+    "last_modified": "2024-12-03T16:48:38.803Z"
+  },
+  "terraform/sentinel-testing": {
+    "path": "/terraform/tutorials/policy/sentinel-testing",
+    "last_modified": "2025-09-01T13:02:17.117Z"
+  },
+  "terraform/sentinel-policy": {
+    "path": "/terraform/tutorials/policy/sentinel-policy",
+    "last_modified": "2025-09-01T13:02:17.114Z"
+  },
+  "terraform/sentinel-install": {
+    "path": "/terraform/tutorials/policy/sentinel-install",
+    "last_modified": "2025-09-01T13:02:16.943Z"
+  },
+  "terraform/sentinel-import": {
+    "path": "/terraform/tutorials/policy/sentinel-import",
+    "last_modified": "2025-09-03T14:54:36.217Z"
+  },
+  "terraform/sentinel-cloud-integration": {
+    "path": "/terraform/tutorials/policy/sentinel-cloud-integration",
+    "last_modified": "2025-09-03T14:54:36.216Z"
+  },
+  "terraform/sensitive-variables": {
+    "path": "/terraform/tutorials/configuration-language/sensitive-variables",
+    "last_modified": "2025-09-03T14:54:36.122Z"
+  },
+  "terraform/secrets-vault": {
+    "path": "/terraform/tutorials/secrets/secrets-vault",
+    "last_modified": "2024-12-20T14:34:33.161Z"
+  },
+  "terraform/resource": {
+    "path": "/terraform/tutorials/configuration-language/resource",
+    "last_modified": "2025-09-03T14:54:36.022Z"
+  },
+  "terraform/resource-targeting": {
+    "path": "/terraform/tutorials/state/resource-targeting",
+    "last_modified": "2025-09-03T14:54:35.924Z"
+  },
+  "terraform/resource-lifecycle": {
+    "path": "/terraform/tutorials/state/resource-lifecycle",
+    "last_modified": "2025-10-14T20:19:35.907Z"
+  },
+  "terraform/resource-drift": {
+    "path": "/terraform/tutorials/state/resource-drift",
+    "last_modified": "2025-09-01T13:02:16.355Z"
+  },
+  "terraform/refresh": {
+    "path": "/terraform/tutorials/state/refresh",
+    "last_modified": "2025-09-03T14:54:35.822Z"
+  },
+  "terraform/provider-versioning": {
+    "path": "/terraform/tutorials/configuration-language/provider-versioning",
+    "last_modified": "2025-09-03T14:54:35.252Z"
+  },
+  "terraform/policy-quickstart": {
+    "path": "/terraform/tutorials/policy/policy-quickstart",
+    "last_modified": "2025-12-19T18:21:45.417Z"
+  },
+  "terraform/providers-plugin-framework-resource-create": {
+    "path": "/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-resource-create",
+    "last_modified": "2024-07-09T18:22:20.065Z"
+  },
+  "terraform/pattern-module-creation": {
+    "path": "/terraform/tutorials/modules/pattern-module-creation",
+    "last_modified": "2025-10-06T16:39:45.859Z"
+  },
+  "terraform/pattern-backups": {
+    "path": "/terraform/tutorials/recommended-patterns/pattern-backups",
+    "last_modified": "2023-12-01T13:50:12.328Z"
+  },
+  "terraform/packer": {
+    "path": "/terraform/tutorials/provision/packer",
+    "last_modified": "2025-02-05T20:02:35.484Z"
+  },
+  "terraform/outputs": {
+    "path": "/terraform/tutorials/configuration-language/outputs",
+    "last_modified": "2025-09-03T14:54:34.703Z"
+  },
+  "terraform/organize-configuration": {
+    "path": "/terraform/tutorials/modules/organize-configuration",
+    "last_modified": "2024-12-03T16:48:36.388Z"
+  },
+  "terraform/oci-variables": {
+    "path": "/terraform/tutorials/oci-get-started/oci-variables",
+    "last_modified": "2023-08-08T16:09:14.347Z"
+  },
+  "terraform/oci-outputs": {
+    "path": "/terraform/tutorials/oci-get-started/oci-outputs",
+    "last_modified": "2023-08-08T16:09:14.268Z"
+  },
+  "terraform/oci-destroy": {
+    "path": "/terraform/tutorials/oci-get-started/oci-destroy",
+    "last_modified": "2023-08-08T16:09:14.263Z"
+  },
+  "terraform/oci-change": {
+    "path": "/terraform/tutorials/oci-get-started/oci-change",
+    "last_modified": "2024-04-22T13:09:52.913Z"
+  },
+  "terraform/oci-build": {
+    "path": "/terraform/tutorials/oci-get-started/oci-build",
+    "last_modified": "2024-12-03T16:48:36.135Z"
+  },
+  "terraform/multicloud-kubernetes": {
+    "path": "/terraform/tutorials/networking/multicloud-kubernetes",
+    "last_modified": "2025-05-12T22:17:13.364Z"
+  },
+  "terraform/module": {
+    "path": "/terraform/tutorials/modules/module",
+    "last_modified": "2024-04-22T13:09:52.656Z"
+  },
+  "terraform/module-use": {
+    "path": "/terraform/tutorials/modules/module-use",
+    "last_modified": "2025-09-23T13:06:22.598Z"
+  },
+  "terraform/module-private-registry-share": {
+    "path": "/terraform/tutorials/modules/module-private-registry-share",
+    "last_modified": "2025-11-03T22:35:04.146Z"
+  },
+  "terraform/private-registry-add": {
+    "path": "/terraform/tutorials/modules/private-registry-add",
+    "last_modified": "2025-11-03T22:35:07.238Z"
+  },
+  "terraform/module-create": {
+    "path": "/terraform/tutorials/modules/module-create",
+    "last_modified": "2024-12-03T16:48:35.515Z"
+  },
+  "terraform/locals": {
+    "path": "/terraform/tutorials/configuration-language/locals",
+    "last_modified": "2025-09-03T14:54:33.870Z"
+  },
+  "terraform/lambda-api-gateway": {
+    "path": "/terraform/tutorials/aws/lambda-api-gateway",
+    "last_modified": "2025-09-03T14:54:33.872Z"
+  },
+  "terraform/kubernetes-provider": {
+    "path": "/terraform/tutorials/kubernetes/kubernetes-provider",
+    "last_modified": "2026-01-05T16:37:16.032Z"
+  },
+  "terraform/kubernetes-operator": {
+    "path": "/terraform/tutorials/kubernetes/kubernetes-operator",
+    "last_modified": "2024-12-03T16:48:34.860Z"
+  },
+  "terraform/kubernetes-crd-faas": {
+    "path": "/terraform/tutorials/kubernetes/kubernetes-crd-faas",
+    "last_modified": "2024-12-03T16:48:34.756Z"
+  },
+  "terraform/kubernetes-consul-vault-pipeline": {
+    "path": "/terraform/tutorials/kubernetes/kubernetes-consul-vault-pipeline",
+    "last_modified": "2025-09-03T14:54:33.401Z"
+  },
+  "terraform/install-cli": {
+    "path": "/terraform/tutorials/aws-get-started/install-cli",
+    "last_modified": "2025-11-10T19:54:29.281Z"
+  },
+  "terraform/infrastructure-as-code": {
+    "path": "/terraform/tutorials/aws-get-started/infrastructure-as-code",
+    "last_modified": "2025-07-21T14:11:46.687Z"
+  },
+  "terraform/heroku-provider": {
+    "path": "/terraform/tutorials/applications/heroku-provider",
+    "last_modified": "2024-12-03T16:48:34.391Z"
+  },
+  "terraform/helm-provider": {
+    "path": "/terraform/tutorials/kubernetes/helm-provider",
+    "last_modified": "2024-12-03T16:48:34.392Z"
+  },
+  "terraform/google-cloud-platform-variables": {
+    "path": "/terraform/tutorials/gcp-get-started/google-cloud-platform-variables",
+    "last_modified": "2024-10-30T14:54:19.843Z"
+  },
+  "terraform/google-cloud-platform-outputs": {
+    "path": "/terraform/tutorials/gcp-get-started/google-cloud-platform-outputs",
+    "last_modified": "2024-04-22T13:09:50.551Z"
+  },
+  "terraform/google-cloud-platform-destroy": {
+    "path": "/terraform/tutorials/gcp-get-started/google-cloud-platform-destroy",
+    "last_modified": "2024-10-30T14:54:19.422Z"
+  },
+  "terraform/google-cloud-platform-change": {
+    "path": "/terraform/tutorials/gcp-get-started/google-cloud-platform-change",
+    "last_modified": "2024-10-30T14:54:19.426Z"
+  },
+  "terraform/google-cloud-platform-build": {
+    "path": "/terraform/tutorials/gcp-get-started/google-cloud-platform-build",
+    "last_modified": "2024-10-30T14:54:19.077Z"
+  },
+  "terraform/gke": {
+    "path": "/terraform/tutorials/kubernetes/gke",
+    "last_modified": "2024-12-03T16:48:34.052Z"
+  },
+  "terraform/github-oauth": {
+    "path": "/terraform/tutorials/cloud/github-oauth",
+    "last_modified": "2024-04-22T13:09:49.570Z"
+  },
+  "terraform/github-actions": {
+    "path": "/terraform/tutorials/automation/github-actions",
+    "last_modified": "2025-02-05T20:02:33.407Z"
+  },
+  "terraform/functions": {
+    "path": "/terraform/tutorials/configuration-language/functions",
+    "last_modified": "2025-09-03T14:54:32.657Z"
+  },
+  "terraform/for-each": {
+    "path": "/terraform/tutorials/configuration-language/for-each",
+    "last_modified": "2025-09-03T14:54:32.650Z"
+  },
+  "terraform/expressions": {
+    "path": "/terraform/tutorials/configuration-language/expressions",
+    "last_modified": "2025-09-03T14:54:32.480Z"
+  },
+  "terraform/eks": {
+    "path": "/terraform/tutorials/kubernetes/eks",
+    "last_modified": "2025-09-03T14:54:32.259Z"
+  },
+  "terraform/docker-variables": {
+    "path": "/terraform/tutorials/docker-get-started/docker-variables",
+    "last_modified": "2023-08-08T16:09:11.744Z"
+  },
+  "terraform/docker-outputs": {
+    "path": "/terraform/tutorials/docker-get-started/docker-outputs",
+    "last_modified": "2025-07-01T14:32:40.940Z"
+  },
+  "terraform/docker-destroy": {
+    "path": "/terraform/tutorials/docker-get-started/docker-destroy",
+    "last_modified": "2023-08-08T16:09:11.668Z"
+  },
+  "terraform/docker-change": {
+    "path": "/terraform/tutorials/docker-get-started/docker-change",
+    "last_modified": "2024-04-22T13:09:47.973Z"
+  },
+  "terraform/docker-build": {
+    "path": "/terraform/tutorials/docker-get-started/docker-build",
+    "last_modified": "2025-02-05T20:02:32.626Z"
+  },
+  "terraform/dependencies": {
+    "path": "/terraform/tutorials/configuration-language/dependencies",
+    "last_modified": "2025-09-03T14:54:31.865Z"
+  },
+  "terraform/datadog-provider": {
+    "path": "/terraform/tutorials/applications/datadog-provider",
+    "last_modified": "2024-12-03T16:48:32.602Z"
+  },
+  "terraform/data-sources": {
+    "path": "/terraform/tutorials/configuration-language/data-sources",
+    "last_modified": "2026-01-29T22:24:06.789Z"
+  },
+  "terraform/count": {
+    "path": "/terraform/tutorials/configuration-language/count",
+    "last_modified": "2025-09-03T14:54:31.626Z"
+  },
+  "terraform/cloudflare-static-website": {
+    "path": "/terraform/tutorials/applications/cloudflare-static-website",
+    "last_modified": "2024-12-03T16:48:32.184Z"
+  },
+  "terraform/cloud-versions": {
+    "path": "/terraform/tutorials/cloud/cloud-versions",
+    "last_modified": "2025-09-03T14:54:31.169Z"
+  },
+  "terraform/cloud-state-api": {
+    "path": "/terraform/tutorials/cloud/cloud-state-api",
+    "last_modified": "2025-09-03T14:54:31.169Z"
+  },
+  "terraform/cloud-sign-up": {
+    "path": "/terraform/tutorials/cloud-get-started/cloud-sign-up",
+    "last_modified": "2025-12-15T15:01:25.812Z"
+  },
+  "terraform/cloud-run-triggers": {
+    "path": "/terraform/tutorials/cloud/cloud-run-triggers",
+    "last_modified": "2025-09-03T14:54:31.066Z"
+  },
+  "terraform/cloud-permissions": {
+    "path": "/terraform/tutorials/cloud/cloud-permissions",
+    "last_modified": "2025-09-01T13:02:07.640Z"
+  },
+  "terraform/cloud-migrate": {
+    "path": "/terraform/tutorials/cloud/cloud-migrate",
+    "last_modified": "2025-09-03T14:54:30.743Z"
+  },
+  "terraform/cloud-init": {
+    "path": "/terraform/tutorials/provision/cloud-init",
+    "last_modified": "2024-12-03T16:48:31.388Z"
+  },
+  "terraform/cloud-destroy": {
+    "path": "/terraform/tutorials/cloud-get-started/cloud-destroy",
+    "last_modified": "2025-09-03T14:54:30.627Z"
+  },
+  "terraform/cloud-change": {
+    "path": "/terraform/tutorials/cloud/cloud-change",
+    "last_modified": "2026-01-08T15:36:59.396Z"
+  },
+  "terraform/cloud-agents": {
+    "path": "/terraform/tutorials/cloud/cloud-agents",
+    "last_modified": "2025-09-03T14:54:30.441Z"
+  },
+  "terraform/circle-ci": {
+    "path": "/terraform/tutorials/automation/circle-ci",
+    "last_modified": "2024-12-03T16:48:31.207Z"
+  },
+  "terraform/blue-green-canary-tests-deployments": {
+    "path": "/terraform/tutorials/aws/blue-green-canary-tests-deployments",
+    "last_modified": "2025-07-11T21:57:01.809Z"
+  },
+  "terraform/azure-variables": {
+    "path": "/terraform/tutorials/azure-get-started/azure-variables",
+    "last_modified": "2023-08-08T16:09:09.182Z"
+  },
+  "terraform/azure-remote": {
+    "path": "/terraform/tutorials/azure-get-started/azure-remote",
+    "last_modified": "2025-09-03T14:54:29.557Z"
+  },
+  "terraform/azure-outputs": {
+    "path": "/terraform/tutorials/azure-get-started/azure-outputs",
+    "last_modified": "2025-02-05T20:02:30.410Z"
+  },
+  "terraform/azure-destroy": {
+    "path": "/terraform/tutorials/azure-get-started/azure-destroy",
+    "last_modified": "2023-08-08T16:09:09.007Z"
+  },
+  "terraform/azure-change": {
+    "path": "/terraform/tutorials/azure-get-started/azure-change",
+    "last_modified": "2023-08-08T16:09:09.008Z"
+  },
+  "terraform/azure-build": {
+    "path": "/terraform/tutorials/azure-get-started/azure-build",
+    "last_modified": "2024-10-30T14:54:06.861Z"
+  },
+  "terraform/aws-rds": {
+    "path": "/terraform/tutorials/aws/aws-rds",
+    "last_modified": "2024-12-03T16:48:29.695Z"
+  },
+  "terraform/aws-iam-policy": {
+    "path": "/terraform/tutorials/aws/aws-iam-policy",
+    "last_modified": "2025-09-03T14:54:29.357Z"
+  },
+  "terraform/aws-destroy": {
+    "path": "/terraform/tutorials/aws-get-started/aws-destroy",
+    "last_modified": "2025-07-21T14:11:41.211Z"
+  },
+  "terraform/aws-default-tags": {
+    "path": "/terraform/tutorials/aws/aws-default-tags",
+    "last_modified": "2025-09-03T14:54:29.156Z"
+  },
+  "terraform/aws-assumerole": {
+    "path": "/terraform/tutorials/aws/aws-assumerole",
+    "last_modified": "2025-02-05T20:02:29.639Z"
+  },
+  "terraform/automate-terraform": {
+    "path": "/terraform/tutorials/automation/automate-terraform",
+    "last_modified": "2024-12-03T16:48:28.968Z"
+  },
+  "terraform/aks": {
+    "path": "/terraform/tutorials/kubernetes/aks",
+    "last_modified": "2025-11-20T20:55:57.701Z"
+  },
+  "packer/hcl2-upgrade": {
+    "path": "/packer/tutorials/configuration-language/hcl2-upgrade",
+    "last_modified": "2024-12-03T16:48:27.871Z"
+  },
+  "packer/get-started-install-cli": {
+    "path": "/packer/tutorials/docker-get-started/get-started-install-cli",
+    "last_modified": "2025-05-15T20:00:08.463Z"
+  },
+  "packer/docker-get-started-variables": {
+    "path": "/packer/tutorials/docker-get-started/docker-get-started-variables",
+    "last_modified": "2023-12-07T01:53:42.138Z"
+  },
+  "packer/docker-get-started-provision": {
+    "path": "/packer/tutorials/docker-get-started/docker-get-started-provision",
+    "last_modified": "2023-12-07T01:53:41.780Z"
+  },
+  "packer/docker-get-started-post-processors": {
+    "path": "/packer/tutorials/docker-get-started/docker-get-started-post-processors",
+    "last_modified": "2023-12-07T01:53:41.788Z"
+  },
+  "packer/docker-get-started-parallel-builds": {
+    "path": "/packer/tutorials/docker-get-started/docker-get-started-parallel-builds",
+    "last_modified": "2023-12-07T01:53:41.403Z"
+  },
+  "packer/docker-get-started-build-image": {
+    "path": "/packer/tutorials/docker-get-started/docker-get-started-build-image",
+    "last_modified": "2024-01-08T21:27:05.714Z"
+  },
+  "packer/aws-windows-image": {
+    "path": "/packer/tutorials/cloud-production/aws-windows-image",
+    "last_modified": "2024-12-03T16:48:27.538Z"
+  },
+  "packer/aws-get-started-variables": {
+    "path": "/packer/tutorials/aws-get-started/aws-get-started-variables",
+    "last_modified": "2023-12-07T01:53:41.064Z"
+  },
+  "packer/aws-get-started-provision": {
+    "path": "/packer/tutorials/aws-get-started/aws-get-started-provision",
+    "last_modified": "2024-01-08T21:27:05.579Z"
+  },
+  "packer/aws-get-started-post-processors-vagrant": {
+    "path": "/packer/tutorials/aws-get-started/aws-get-started-post-processors-vagrant",
+    "last_modified": "2023-12-07T01:53:40.700Z"
+  },
+  "packer/aws-get-started-parallel-builds": {
+    "path": "/packer/tutorials/aws-get-started/aws-get-started-parallel-builds",
+    "last_modified": "2026-02-19T16:22:21.128Z"
+  },
+  "packer/aws-get-started-build-image": {
+    "path": "/packer/tutorials/aws-get-started/aws-get-started-build-image",
+    "last_modified": "2024-04-29T12:23:59.967Z"
+  },
+  "nomad/windows-agent": {
+    "path": "/nomad/tutorials/windows/windows-agent",
+    "last_modified": "2025-01-24T15:02:52.455Z"
+  },
+  "nomad/web-ui-workload-info": {
+    "path": "/nomad/tutorials/archive/web-ui-workload-info",
+    "last_modified": "2025-07-16T21:21:49.154Z"
+  },
+  "nomad/web-ui-cluster-info": {
+    "path": "/nomad/tutorials/archive/web-ui-cluster-info",
+    "last_modified": "2025-07-16T21:21:48.566Z"
+  },
+  "nomad/vault-pki-nomad": {
+    "path": "/nomad/tutorials/integrate-vault/vault-pki-nomad",
+    "last_modified": "2025-11-07T20:24:54.129Z"
+  },
+  "nomad/vault-nomad-secrets": {
+    "path": "/nomad/tutorials/archive/vault-nomad-secrets",
+    "last_modified": "2025-07-16T21:21:47.972Z"
+  },
+  "nomad/topology-visualization": {
+    "path": "/nomad/tutorials/archive/topology-visualization",
+    "last_modified": "2025-07-16T21:21:47.293Z"
+  },
+  "nomad/task-dependencies-interjob": {
+    "path": "/nomad/tutorials/archive/task-dependencies-interjob",
+    "last_modified": "2025-07-16T21:21:46.962Z"
+  },
+  "nomad/stateful-workloads": {
+    "path": "/nomad/tutorials/archive/stateful-workloads",
+    "last_modified": "2025-07-16T21:21:46.950Z"
+  },
+  "nomad/stateful-workloads-portworx": {
+    "path": "/nomad/tutorials/archive/stateful-workloads-portworx",
+    "last_modified": "2025-03-31T14:24:56.347Z"
+  },
+  "nomad/stateful-workloads-host-volumes": {
+    "path": "/nomad/tutorials/archive/stateful-workloads-host-volumes",
+    "last_modified": "2025-07-16T21:21:46.618Z"
+  },
+  "nomad/stateful-workloads-csi-volumes": {
+    "path": "/nomad/tutorials/archive/stateful-workloads-csi-volumes",
+    "last_modified": "2025-07-16T21:21:46.251Z"
+  },
+  "nomad/spread": {
+    "path": "/nomad/tutorials/archive/spread",
+    "last_modified": "2025-07-16T21:21:45.498Z"
+  },
+  "nomad/sentinel": {
+    "path": "/nomad/tutorials/archive/sentinel",
+    "last_modified": "2025-07-16T21:21:44.894Z"
+  },
+  "nomad/security-gossip-encryption": {
+    "path": "/nomad/tutorials/archive/security-gossip-encryption",
+    "last_modified": "2025-07-16T21:21:44.882Z"
+  },
+  "nomad/security-enable-tls": {
+    "path": "/nomad/tutorials/archive/security-enable-tls",
+    "last_modified": "2025-07-16T21:21:44.544Z"
+  },
+  "nomad/security-concepts": {
+    "path": "/nomad/tutorials/archive/security-concepts",
+    "last_modified": "2025-07-16T21:21:44.529Z"
+  },
+  "nomad/reverse-proxy-ui": {
+    "path": "/nomad/tutorials/archive/reverse-proxy-ui",
+    "last_modified": "2025-07-16T21:21:43.953Z"
+  },
+  "nomad/quotas": {
+    "path": "/nomad/tutorials/archive/quotas",
+    "last_modified": "2025-07-16T21:21:43.942Z"
+  },
+  "nomad/prometheus-metrics": {
+    "path": "/nomad/tutorials/manage-clusters/prometheus-metrics",
+    "last_modified": "2026-01-27T13:38:49.761Z"
+  },
+  "nomad/production-reference-architecture-vm-with-consul": {
+    "path": "/nomad/tutorials/enterprise/production-reference-architecture-vm-with-consul",
+    "last_modified": "2025-07-11T21:56:55.555Z"
+  },
+  "nomad/production-deployment-guide-vm-with-consul": {
+    "path": "/nomad/tutorials/enterprise/production-deployment-guide-vm-with-consul",
+    "last_modified": "2025-07-11T21:56:55.409Z"
+  },
+  "nomad/preemption": {
+    "path": "/nomad/tutorials/archive/preemption",
+    "last_modified": "2025-07-16T21:21:43.124Z"
+  },
+  "nomad/plugin-lxc": {
+    "path": "/nomad/tutorials/archive/plugin-lxc",
+    "last_modified": "2025-07-11T21:56:55.245Z"
+  },
+  "nomad/outage-recovery": {
+    "path": "/nomad/tutorials/archive/outage-recovery",
+    "last_modified": "2025-07-16T21:21:42.771Z"
+  },
+  "nomad/node-drain": {
+    "path": "/nomad/tutorials/archive/node-drain",
+    "last_modified": "2025-07-16T21:21:42.024Z"
+  },
+  "nomad/namespaces": {
+    "path": "/nomad/tutorials/archive/namespaces",
+    "last_modified": "2025-07-16T21:21:42.024Z"
+  },
+  "nomad/multiregion-deployments": {
+    "path": "/nomad/tutorials/archive/multiregion-deployments",
+    "last_modified": "2025-07-16T21:21:41.670Z"
+  },
+  "nomad/memory-oversubscription": {
+    "path": "/nomad/tutorials/advanced-scheduling/memory-oversubscription",
+    "last_modified": "2025-07-11T21:56:54.084Z"
+  },
+  "nomad/load-balancing": {
+    "path": "/nomad/tutorials/archive/load-balancing",
+    "last_modified": "2026-01-27T13:38:48.993Z"
+  },
+  "nomad/load-balancing-traefik": {
+    "path": "/nomad/tutorials/archive/load-balancing-traefik",
+    "last_modified": "2026-01-27T13:38:48.880Z"
+  },
+  "nomad/load-balancing-nginx": {
+    "path": "/nomad/tutorials/archive/load-balancing-nginx",
+    "last_modified": "2026-01-27T13:38:48.874Z"
+  },
+  "nomad/load-balancing-haproxy": {
+    "path": "/nomad/tutorials/archive/load-balancing-haproxy",
+    "last_modified": "2026-01-27T13:38:48.748Z"
+  },
+  "nomad/load-balancing-fabio": {
+    "path": "/nomad/tutorials/archive/load-balancing-fabio",
+    "last_modified": "2026-01-27T13:38:48.763Z"
+  },
+  "nomad/levant-abstract-jobs": {
+    "path": "/nomad/tutorials/templates/levant-abstract-jobs",
+    "last_modified": "2025-07-11T21:56:53.639Z"
+  },
+  "nomad/jobs": {
+    "path": "/nomad/tutorials/archive/jobs",
+    "last_modified": "2025-07-16T21:21:39.755Z"
+  },
+  "nomad/jobs-utilization": {
+    "path": "/nomad/tutorials/archive/jobs-utilization",
+    "last_modified": "2025-07-16T21:21:39.413Z"
+  },
+  "nomad/jobs-submit": {
+    "path": "/nomad/tutorials/archive/jobs-submit",
+    "last_modified": "2025-07-16T21:21:39.075Z"
+  },
+  "nomad/jobs-inspect": {
+    "path": "/nomad/tutorials/archive/jobs-inspect",
+    "last_modified": "2025-07-16T21:21:39.062Z"
+  },
+  "nomad/jobs-configuring": {
+    "path": "/nomad/tutorials/archive/jobs-configuring",
+    "last_modified": "2025-07-16T21:21:38.733Z"
+  },
+  "nomad/jobs-accessing-logs": {
+    "path": "/nomad/tutorials/archive/jobs-accessing-logs",
+    "last_modified": "2025-07-16T21:21:38.730Z"
+  },
+  "nomad/job-update-strategies": {
+    "path": "/nomad/tutorials/archive/job-update-strategies",
+    "last_modified": "2025-07-16T21:21:38.363Z"
+  },
+  "nomad/job-update-handle-signals": {
+    "path": "/nomad/tutorials/archive/job-update-handle-signals",
+    "last_modified": "2025-07-16T21:21:38.353Z"
+  },
+  "nomad/job-spec-parameterized": {
+    "path": "/nomad/tutorials/job-specifications/job-spec-parameterized",
+    "last_modified": "2025-07-11T21:56:52.922Z"
+  },
+  "nomad/job-spec-java-windows": {
+    "path": "/nomad/tutorials/job-specifications/job-spec-java-windows",
+    "last_modified": "2025-07-11T21:56:52.779Z"
+  },
+  "nomad/job-spec-java-linux": {
+    "path": "/nomad/tutorials/job-specifications/job-spec-java-linux",
+    "last_modified": "2025-07-11T21:56:52.777Z"
+  },
+  "nomad/job-rolling-update": {
+    "path": "/nomad/tutorials/archive/job-rolling-update",
+    "last_modified": "2025-07-16T21:21:37.439Z"
+  },
+  "nomad/job-blue-green-and-canary-deployments": {
+    "path": "/nomad/tutorials/archive/job-blue-green-and-canary-deployments",
+    "last_modified": "2025-07-16T21:21:37.429Z"
+  },
+  "nomad/horizontal-cluster-scaling": {
+    "path": "/nomad/tutorials/autoscaler/horizontal-cluster-scaling",
+    "last_modified": "2025-07-11T21:56:52.320Z"
+  },
+  "nomad/horizontal-cluster-scaling-on-demand-batch": {
+    "path": "/nomad/tutorials/autoscaler/horizontal-cluster-scaling-on-demand-batch",
+    "last_modified": "2025-07-11T21:56:52.276Z"
+  },
+  "nomad/hashicorp-enterprise-license": {
+    "path": "/nomad/tutorials/enterprise/hashicorp-enterprise-license",
+    "last_modified": "2024-12-20T14:34:22.082Z"
+  },
+  "nomad/governance-and-policy": {
+    "path": "/nomad/tutorials/archive/governance-and-policy",
+    "last_modified": "2025-07-16T21:21:36.056Z"
+  },
+  "nomad/go-template-syntax": {
+    "path": "/nomad/tutorials/archive/go-template-syntax",
+    "last_modified": "2025-07-16T21:21:35.722Z"
+  },
+  "nomad/format-output-with-templates": {
+    "path": "/nomad/tutorials/archive/format-output-with-templates",
+    "last_modified": "2025-07-16T21:21:35.690Z"
+  },
+  "nomad/federation": {
+    "path": "/nomad/tutorials/archive/federation",
+    "last_modified": "2025-07-16T21:21:35.357Z"
+  },
+  "nomad/failures": {
+    "path": "/nomad/tutorials/archive/failures",
+    "last_modified": "2025-07-16T21:21:35.345Z"
+  },
+  "nomad/failures-restart": {
+    "path": "/nomad/tutorials/archive/failures-restart",
+    "last_modified": "2025-07-16T21:21:35.003Z"
+  },
+  "nomad/failures-reschedule": {
+    "path": "/nomad/tutorials/archive/failures-reschedule",
+    "last_modified": "2025-07-16T21:21:35.010Z"
+  },
+  "nomad/failures-check-restart": {
+    "path": "/nomad/tutorials/archive/failures-check-restart",
+    "last_modified": "2025-07-16T21:21:34.667Z"
+  },
+  "nomad/exec-users-host-volumes": {
+    "path": "/nomad/tutorials/archive/exec-users-host-volumes",
+    "last_modified": "2025-07-16T21:21:34.320Z"
+  },
+  "nomad/event-stream": {
+    "path": "/nomad/tutorials/archive/event-stream",
+    "last_modified": "2025-07-16T21:21:34.325Z"
+  },
+  "nomad/dynamic-application-sizing": {
+    "path": "/nomad/tutorials/autoscaler/dynamic-application-sizing",
+    "last_modified": "2025-12-01T14:56:07.362Z"
+  },
+  "nomad/dynamic-application-sizing-concepts": {
+    "path": "/nomad/tutorials/autoscaler/dynamic-application-sizing-concepts",
+    "last_modified": "2025-01-24T15:02:42.867Z"
+  },
+  "nomad/dry-jobs-levant": {
+    "path": "/nomad/tutorials/templates/dry-jobs-levant",
+    "last_modified": "2025-07-11T21:56:50.814Z"
+  },
+  "nomad/consul-service-mesh": {
+    "path": "/nomad/tutorials/integrate-consul/consul-service-mesh",
+    "last_modified": "2025-07-11T21:56:50.479Z"
+  },
+  "nomad/clustering": {
+    "path": "/nomad/tutorials/archive/clustering",
+    "last_modified": "2025-07-16T21:21:33.188Z"
+  },
+  "nomad/autoscaler-vagrant-demo": {
+    "path": "/nomad/tutorials/autoscaler/autoscaler-vagrant-demo",
+    "last_modified": "2025-01-24T15:02:41.848Z"
+  },
+  "nomad/autopilot": {
+    "path": "/nomad/tutorials/archive/autopilot",
+    "last_modified": "2025-07-16T21:21:32.333Z"
+  },
+  "nomad/affinity": {
+    "path": "/nomad/tutorials/archive/affinity",
+    "last_modified": "2025-07-16T21:21:32.336Z"
+  },
+  "nomad/advanced-scheduling": {
+    "path": "/nomad/tutorials/archive/advanced-scheduling",
+    "last_modified": "2025-07-16T21:21:31.980Z"
+  },
+  "nomad/access-control": {
+    "path": "/nomad/tutorials/archive/access-control",
+    "last_modified": "2025-12-09T20:58:56.355Z"
+  },
+  "nomad/access-control-tokens": {
+    "path": "/nomad/tutorials/archive/access-control-tokens",
+    "last_modified": "2025-07-16T21:21:31.646Z"
+  },
+  "nomad/access-control-policies": {
+    "path": "/nomad/tutorials/archive/access-control-policies",
+    "last_modified": "2025-07-16T21:21:31.591Z"
+  },
+  "nomad/access-control-create-policy": {
+    "path": "/nomad/tutorials/archive/access-control-create-policy",
+    "last_modified": "2025-07-16T21:21:31.136Z"
+  },
+  "nomad/access-control-bootstrap": {
+    "path": "/nomad/tutorials/archive/access-control-bootstrap",
+    "last_modified": "2025-07-16T21:21:31.246Z"
+  },
+  "consul/vault-pki-consul-secure-tls": {
+    "path": "/consul/tutorials/operate-consul/vault-pki-consul-secure-tls",
+    "last_modified": "2025-05-12T22:17:00.654Z"
+  },
+  "consul/vault-kv-consul-secure-gossip": {
+    "path": "/consul/tutorials/operate-consul/vault-kv-consul-secure-gossip",
+    "last_modified": "2024-12-20T14:34:19.794Z"
+  },
+  "consul/vault-consul-secrets": {
+    "path": "/consul/tutorials/operate-consul/vault-consul-secrets",
+    "last_modified": "2024-12-20T14:34:19.778Z"
+  },
+  "consul/upgrade-federated-environment": {
+    "path": "/consul/tutorials/archive/upgrade-federated-environment",
+    "last_modified": "2025-05-12T22:17:00.431Z"
+  },
+  "consul/upgrade-automation": {
+    "path": "/consul/tutorials/archive/upgrade-automation",
+    "last_modified": "2025-05-12T22:17:00.429Z"
+  },
+  "consul/tls-encryption-secure-existing-datacenter": {
+    "path": "/consul/tutorials/archive/tls-encryption-secure-existing-datacenter",
+    "last_modified": "2025-05-12T22:16:59.913Z"
+  },
+  "consul/tls-encryption-openssl-secure": {
+    "path": "/consul/tutorials/archive/tls-encryption-openssl-secure",
+    "last_modified": "2025-05-12T22:16:59.801Z"
+  },
+  "consul/service-registration-external-services": {
+    "path": "/consul/tutorials/connect-services/service-registration-external-services",
+    "last_modified": "2025-05-12T22:16:59.174Z"
+  },
+  "consul/service-mesh-production-checklist": {
+    "path": "/nomad/tutorials/integrate-consul/service-mesh-production-checklist",
+    "last_modified": "2025-05-12T22:16:59.072Z"
+  },
+  "consul/service-mesh-gateways": {
+    "path": "/consul/tutorials/archive/service-mesh-gateways",
+    "last_modified": "2025-05-12T22:16:59.073Z"
+  },
+  "consul/service-mesh-circuit-breaking": {
+    "path": "/consul/tutorials/control-network-traffic/service-mesh-circuit-breaking",
+    "last_modified": "2025-05-12T22:16:58.969Z"
+  },
+  "consul/reference-architecture": {
+    "path": "/consul/tutorials/production-vms/reference-architecture",
+    "last_modified": "2026-01-22T12:25:18.632Z"
+  },
+  "consul/redundancy-zones": {
+    "path": "/consul/tutorials/operate-consul/redundancy-zones",
+    "last_modified": "2025-05-12T22:16:58.366Z"
+  },
+  "consul/recovery-outage": {
+    "path": "/consul/tutorials/operate-consul/recovery-outage",
+    "last_modified": "2025-05-12T22:16:58.363Z"
+  },
+  "consul/recovery-outage-primary": {
+    "path": "/consul/tutorials/operate-consul/recovery-outage-primary",
+    "last_modified": "2025-05-12T22:16:58.272Z"
+  },
+  "consul/production-checklist": {
+    "path": "/consul/tutorials/production-vms/production-checklist",
+    "last_modified": "2025-05-12T22:16:58.185Z"
+  },
+  "consul/namespaces-share-datacenter-access": {
+    "path": "/consul/tutorials/implement-multi-tenancy/namespaces-share-datacenter-access",
+    "last_modified": "2025-05-12T22:16:58.102Z"
+  },
+  "consul/namespaces-secure-shared-access": {
+    "path": "/consul/tutorials/implement-multi-tenancy/namespaces-secure-shared-access",
+    "last_modified": "2025-05-12T22:16:58.014Z"
+  },
+  "consul/monitor-health-telegraf": {
+    "path": "/consul/tutorials/archive/monitor-health-telegraf",
+    "last_modified": "2025-05-12T22:16:57.863Z"
+  },
+  "consul/kubernetes-scope-microservice": {
+    "path": "/consul/tutorials/archive/kubernetes-scope-microservice",
+    "last_modified": "2025-05-12T22:16:57.378Z"
+  },
+  "consul/kubernetes-reference-architecture": {
+    "path": "/consul/tutorials/production-kubernetes/kubernetes-reference-architecture",
+    "last_modified": "2026-01-13T11:20:57.408Z"
+  },
+  "consul/kubernetes-model-the-monolith": {
+    "path": "/consul/tutorials/archive/kubernetes-model-the-monolith",
+    "last_modified": "2025-08-21T22:49:41.307Z"
+  },
+  "consul/kubernetes-migrate-to-microservices": {
+    "path": "/consul/tutorials/archive/kubernetes-migrate-to-microservices",
+    "last_modified": "2025-08-21T22:49:40.889Z"
+  },
+  "consul/kubernetes-gke-google": {
+    "path": "/consul/tutorials/archive/kubernetes-gke-google",
+    "last_modified": "2025-05-12T22:16:56.485Z"
+  },
+  "consul/kubernetes-disaster-recovery": {
+    "path": "/consul/tutorials/production-kubernetes/kubernetes-disaster-recovery",
+    "last_modified": "2026-01-13T11:20:56.042Z"
+  },
+  "consul/kubernetes-deployment-guide": {
+    "path": "/consul/tutorials/production-kubernetes/kubernetes-deployment-guide",
+    "last_modified": "2026-01-13T11:20:55.702Z"
+  },
+  "consul/kubernetes-consul-design-patterns": {
+    "path": "/consul/tutorials/archive/kubernetes-consul-design-patterns",
+    "last_modified": "2025-05-12T22:16:56.113Z"
+  },
+  "consul/virtual-machine-gs-service-discovery": {
+    "path": "/consul/tutorials/get-started-vms/virtual-machine-gs-service-discovery",
+    "last_modified": "2025-05-12T22:17:01.197Z"
+  },
+  "consul/get-started-explore-the-ui": {
+    "path": "/consul/tutorials/archive/get-started-explore-the-ui",
+    "last_modified": "2024-05-02T22:20:36.750Z"
+  },
+  "consul/federation-network-areas": {
+    "path": "/consul/tutorials/archive/federation-network-areas",
+    "last_modified": "2025-05-12T22:16:55.862Z"
+  },
+  "consul/federation-gossip-wan": {
+    "path": "/consul/tutorials/archive/federation-gossip-wan",
+    "last_modified": "2025-05-12T22:16:55.772Z"
+  },
+  "consul/deployment-guide": {
+    "path": "/consul/tutorials/production-vms/deployment-guide",
+    "last_modified": "2025-08-21T22:49:35.658Z"
+  },
+  "consul/consul-terraform-sync": {
+    "path": "/consul/tutorials/network-automation/consul-terraform-sync",
+    "last_modified": "2025-11-12T17:18:45.564Z"
+  },
+  "consul/backup-and-restore": {
+    "path": "/consul/tutorials/operate-consul/backup-and-restore",
+    "last_modified": "2024-04-18T21:28:14.996Z"
+  },
+  "consul/audit-logging": {
+    "path": "/consul/tutorials/observe-your-network/audit-logging",
+    "last_modified": "2025-05-12T22:16:54.526Z"
+  },
+  "consul/access-control-token-migration": {
+    "path": "/consul/tutorials/archive/access-control-token-migration",
+    "last_modified": "2025-08-21T22:49:29.962Z"
+  },
+  "cloud/vault-namespaces": {
+    "path": "/vault/tutorials/get-started-hcp-vault-dedicated/vault-namespaces",
+    "last_modified": "2026-01-27T00:55:38.363Z"
+  },
+  "cloud/vault-auth-method": {
+    "path": "/vault/tutorials/get-started-hcp-vault-dedicated/vault-auth-method",
+    "last_modified": "2026-01-27T00:55:38.180Z"
+  },
+  "boundary/community-vault-cred-brokering-quickstart": {
+    "path": "/boundary/tutorials/credential-management/community-vault-cred-brokering-quickstart",
+    "last_modified": "2025-07-18T18:39:21.806Z"
+  },
+  "boundary/upgrade-version": {
+    "path": "/boundary/tutorials/self-managed-deployment/upgrade-version",
+    "last_modified": "2024-12-02T23:05:06.344Z"
+  },
+  "boundary/target-aware-workers": {
+    "path": "/boundary/tutorials/worker-management/target-aware-workers",
+    "last_modified": "2025-07-18T18:59:44.025Z"
+  },
+  "boundary/community-manage-users-groups": {
+    "path": "/boundary/tutorials/community-administration/community-manage-users-groups",
+    "last_modified": "2024-12-16T17:00:53.830Z"
+  },
+  "boundary/community-manage-targets": {
+    "path": "/boundary/tutorials/community-administration/community-manage-targets",
+    "last_modified": "2025-07-18T20:12:56.379Z"
+  },
+  "boundary/community-manage-sessions": {
+    "path": "/boundary/tutorials/community-administration/community-manage-sessions",
+    "last_modified": "2024-12-16T17:00:53.462Z"
+  },
+  "boundary/community-manage-scopes": {
+    "path": "/boundary/tutorials/community-administration/community-manage-scopes",
+    "last_modified": "2024-12-16T17:00:53.464Z"
+  },
+  "boundary/community-manage-roles": {
+    "path": "/boundary/tutorials/community-administration/community-manage-roles",
+    "last_modified": "2024-12-16T17:00:53.098Z"
+  },
+  "boundary/community-manage-intro": {
+    "path": "/boundary/tutorials/community-administration/community-manage-intro",
+    "last_modified": "2025-07-18T20:12:55.635Z"
+  },
+  "boundary/community-get-started-next-steps": {
+    "path": "/boundary/tutorials/get-started-community/community-get-started-next-steps",
+    "last_modified": "2024-12-02T23:04:54.810Z"
+  },
+  "boundary/community-get-started": {
+    "path": "/boundary/tutorials/get-started-community/community-get-started",
+    "last_modified": "2025-10-13T22:09:06.235Z"
+  },
+  "boundary/community-get-started-install": {
+    "path": "/boundary/tutorials/get-started-community/community-get-started-install",
+    "last_modified": "2025-03-27T19:36:34.689Z"
+  },
+  "boundary/community-get-started-dev": {
+    "path": "/boundary/tutorials/get-started-community/community-get-started-dev",
+    "last_modified": "2025-03-27T19:36:34.689Z"
+  },
+  "boundary/community-get-started-desktop-app": {
+    "path": "/boundary/tutorials/get-started-community/community-get-started-desktop-app",
+    "last_modified": "2025-03-28T15:57:59.762Z"
+  },
+  "boundary/community-get-started-console": {
+    "path": "/boundary/tutorials/get-started-community/community-get-started-console",
+    "last_modified": "2024-12-02T23:04:54.091Z"
+  },
+  "boundary/community-get-started-connect": {
+    "path": "/boundary/tutorials/get-started-community/community-get-started-connect",
+    "last_modified": "2025-03-27T19:36:34.401Z"
+  },
+  "boundary/community-get-started-config": {
+    "path": "/boundary/tutorials/get-started-community/community-get-started-config",
+    "last_modified": "2024-12-16T17:00:51.947Z"
+  }
 }

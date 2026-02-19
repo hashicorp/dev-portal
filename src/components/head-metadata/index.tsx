@@ -36,6 +36,7 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 
 	const titleParts = [__config.dev_dot.meta.title]
 	const description = props.description ?? __config.dev_dot.meta.description
+	const structuredData = props?.structuredData
 
 	// We're using .unshift() to add the following elements to the beginning of the array
 	if (productName) {
@@ -177,6 +178,12 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 
 			{/* Some og tags do not get picked up for twitter's share cards, so we need these tags as well */}
 			<meta name="twitter:image" key="twitter:image" content={ogImageUrl} />
+			{structuredData && (
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+				/>
+			)}
 		</HashiHead>
 	)
 }

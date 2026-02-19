@@ -130,12 +130,29 @@ export async function getTutorialPageProps(
 		})
 	}
 
+	const structuredData = {
+		'@context': 'https://schema.org',
+		'@type': 'HowTo',
+		name: fullTutorialData.name,
+		description: fullTutorialData.description,
+		totalTime: fullTutorialData.readTime,
+		tool: {
+			'@type': 'SoftwareApplication',
+			name: product.name,
+		},
+		author: {
+			'@type': 'Organization',
+			name: 'HashiCorp',
+		},
+	}
+
 	return {
 		props: stripUndefinedProperties<TutorialViewProps>({
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
 				variant,
+				structuredData,
 			},
 			tutorial: {
 				...fullTutorialData,

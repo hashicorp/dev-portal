@@ -6,6 +6,7 @@
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { productSlugs, productSlugsToHostNames } from 'lib/products'
+import path from 'node:path'
 
 // HELPERS ------------------------------------------------------
 
@@ -77,17 +78,34 @@ const TEST_MD_LINKS = {
  * [key: database tutorial slug]: value — dev dot absolute path
  */
 const MOCK_TUTORIALS_MAP = {
-	'waypoint/getting-started-config':
-		'/waypoint/tutorials/getting-started/getting-started-config',
-	'waypoint/get-started-ui':
-		'/waypoint/tutorials/getting-started/getting-started-ui',
-	'vault/consul-deploy': '/vault/tutorials/consul-integration/consul-deploy',
-	'waypoint/get-started': '/waypoint/tutorials/get-started-docker/get-started',
-	'well-architected-framework/cloud-operating-model':
-		'/well-architected-framework/com/cloud-operating-model',
-	'validated-patterns/workload-modernization-with-traefik':
-		'/validated-patterns/nomad/workload-modernization-with-traefik',
-	'cloud/get-started-vault': '/vault/tutorials/cloud/get-started-vault',
+	'waypoint/getting-started-config': {
+		path: '/waypoint/tutorials/getting-started/getting-started-config',
+		last_modified: '2024-01-01T00:00:00.000Z',
+	},
+	'waypoint/get-started-ui': {
+		path: '/waypoint/tutorials/getting-started/getting-started-ui',
+		last_modified: '2024-01-01T00:00:00.000Z',
+	},
+	'vault/consul-deploy': {
+		path: '/vault/tutorials/consul-integration/consul-deploy',
+		last_modified: '2024-01-01T00:00:00.000Z',
+	},
+	'waypoint/get-started': {
+		path: '/waypoint/tutorials/get-started-docker/get-started',
+		last_modified: '2024-01-01T00:00:00.000Z',
+	},
+	'well-architected-framework/cloud-operating-model': {
+		path: '/well-architected-framework/com/cloud-operating-model',
+		last_modified: '2024-01-01T00:00:00.000Z',
+	},
+	'validated-patterns/workload-modernization-with-traefik': {
+		path: '/validated-patterns/nomad/workload-modernization-with-traefik',
+		last_modified: '2024-01-01T00:00:00.000Z',
+	},
+	'cloud/get-started-vault': {
+		path: '/vault/tutorials/cloud/get-started-vault',
+		last_modified: '2024-01-01T00:00:00.000Z',
+	},
 }
 
 // TESTS -----------------------------------------------------------------
@@ -214,13 +232,13 @@ describe('rewriteTutorialLinks remark plugin', () => {
 	})
 
 	test('Incorrect link does not throw, only logs the error message', async () => {
-		const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+		const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 		const getContents = async () =>
 			await remark()
 				.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 				.process(TEST_MD_LINKS.errorLink)
-		expect(getContents).not.toThrowError();
-		errorSpy.mockRestore();
+		expect(getContents).not.toThrowError()
+		errorSpy.mockRestore()
 	})
 
 	test('Definition link is rewritten', async () => {
