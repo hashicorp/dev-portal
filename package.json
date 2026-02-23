@@ -223,7 +223,9 @@
 		"react-dom": "^18.2.0",
 		"@hashicorp/react-components": {
 			"next": "^14.2.1"
-		}
+		},
+		"trim": "^0.0.3",
+		"trim-newlines": "^3.0.1"
 	},
 	"nextBundleAnalysis": {
 		"budget": null,
