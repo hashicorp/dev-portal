@@ -175,7 +175,7 @@
 		"isomorphic-unfetch": "^3.1.0",
 		"joi": "^17.6.0",
 		"js-cookie": "^2.2.1",
-		"jsonwebtoken": "^8.5.1",
+		"jsonwebtoken": "^9.0.0",
 		"klaw-sync": "^6.0.0",
 		"mdast": "^3.0.0",
 		"mdast-util-to-string": "^2.0.0",
