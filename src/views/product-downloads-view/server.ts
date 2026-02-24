@@ -80,6 +80,15 @@ const generateGetStaticProps = (
 			isEnterpriseMode,
 		})
 
+		const sortedAndFilteredReleases = {
+			name: releases.name,
+			versions: sortedAndFilteredVersions.reduce((acc, version) => {
+				acc[version.version] = version
+				return acc
+			}, {}),
+		}
+
+
 		/**
 		 * Transform featured collection entries into card data
 		 */
@@ -147,7 +156,7 @@ const generateGetStaticProps = (
 				sidecarHcpCallout,
 			},
 			product,
-			releases,
+			releases: sortedAndFilteredReleases,
 			sortedAndFilteredVersions,
 			packageManagers,
 		})

@@ -67,9 +67,14 @@ export function getLatestVersionFromVersions(
 	versions: ReleaseVersion[]
 ): string {
 	// exclude pre-releases and/or versions with tags or extra metadata
-	const validVersions = versions.filter(({ version }) =>
-		version.match(validSemverRegex)
-	)
+	const validVersions = versions.filter(({ version, builds }) => {
+		// Then check if we have builds, if not, return early
+		if (!Array.isArray(builds) || builds.length === 0) {
+			return false
+		}
+
+		return version.match(validSemverRegex)
+	})
 
 	// using the reverse sort here to get the latest version first
 	const [latestVersion] = semverSort(
