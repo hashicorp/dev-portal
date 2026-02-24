@@ -202,7 +202,9 @@ export const initializeVersionSwitcherOptions = ({
 
 export const sortPlatforms = (releaseData: ReleaseVersion): SortedReleases => {
 	// first we pull the platforms out of the release data object and format it the way we want
-	const platforms = releaseData.builds.reduce((acc, build) => {
+
+	// If the builds are null, return an empty array so at least the page still renders. (builds could be empty due to a build being pulled.)
+	const platforms = (releaseData.builds || []).reduce((acc, build) => {
 		if (!acc[build.os]) {
 			acc[build.os] = {}
 		}
