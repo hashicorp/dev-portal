@@ -88,7 +88,6 @@ const generateGetStaticProps = (
 			}, {}),
 		}
 
-
 		/**
 		 * Transform featured collection entries into card data
 		 */
