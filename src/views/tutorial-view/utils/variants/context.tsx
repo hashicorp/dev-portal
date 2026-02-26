@@ -52,6 +52,11 @@ export default function VariantProvider({
 		) {
 			setCurrentVariant(variant)
 		}
+
+		// if variant becomes undefined, reset the state
+		if (!variant && currentVariant) {
+			setCurrentVariant(undefined)
+		}
 	}, [variant, currentVariant])
 
 	return (

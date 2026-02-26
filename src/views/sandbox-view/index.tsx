@@ -50,31 +50,16 @@ export const SandboxView = ({
 	const handleLabClick = useCallback(
 		(lab: SandboxLab) => {
 			try {
-				trackSandboxInteraction(SANDBOX_EVENT.SANDBOX_OPEN, lab.labId, {
-					lab_title: lab.title,
-					products: lab.products,
-				})
-
 				const primaryProduct = lab.products[0]
 				if (primaryProduct !== product.slug) {
 					// Redirect to the lab's primary product sandbox page with auto-launch
 					const targetUrl = `/${primaryProduct}/sandbox?launch=${lab.labId}`
 
-					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-						labId: lab.instruqtTrack || lab.labId,
-						page: targetUrl,
-					})
+				router.push(targetUrl)
+				return
+			}
 
-					router.push(targetUrl)
-					return
-				}
-
-				if (hasConfigError) {
-					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_ERROR, {
-						labId: lab.labId,
-						page: router.asPath,
-					})
-
+			if (hasConfigError) {
 					toast({
 						title: 'Sandbox Configuration Error',
 						description:

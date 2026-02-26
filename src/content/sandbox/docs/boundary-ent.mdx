@@ -45,13 +45,13 @@ You can log in to the Boundary Admin UI in the tab named `Boundary Admin UI`.
 
 To log into the Boundary Admin UI, use the following credentials for the admin user:
 
-- username: `admin`
-- password: `password`
+- Username: `admin`
+- Password: `password`
 
 Or log in as the unprivileged user:
 
-- username: `user`
-- password: `password`
+- Username: `user`
+- Password: `password`
 
 The following resources are configured within Boundary:
 
@@ -201,6 +201,13 @@ priya@ubuntu-host$
 
 You can optionally set up Vault to act as a credential broker for Boundary. You can access the Vault server from the Boundary workstation, where the `VAULT_ADDR=https://vault-server:8200` environment variable is set.
 
+You can access vault from the boundary-workstation terminal using the root token in the /home/learner/vault directory, which is also available as an env var in /home/learner/.bashrc
+
+```
+$ source .bashrc
+$ vault login $VAULT_ROOT_TOKEN
+```
+
 To learn more about setting up a Vault credential library, check out the [Vault credential brokering quickstart](/boundary/tutorials/credential-management/community-vault-cred-brokering-quickstart) tutorial.
 
 Credential injection from Vault is enabled for the `ssh-recording-target-priya` target:
@@ -279,18 +286,18 @@ priya@ubuntu-host$
 ### Troubleshooting and experimenting
 
 You can access the targets and databases directly without using Boundary.
-For example, you can SSH into the ubuntu-target as the Oliver user:
+For example, you can SSH into the ubuntu-host as the Oliver user:
 
 ```shell-session
-$ ssh oliver@ubuntu-target
+$ ssh oliver@ubuntu-host
 oliver@hst_hi2n8ghvx8's password:
-oliver@boundary-target$
+oliver@boundary-host$
 ```
 
-Or you can access the northwind database on the ubuntu-target with `psql`:
+Or you can access the northwind database on the ubuntu-host with `psql`:
 
 ```shell-session
-$ psql -h ubuntu-target -d northwind -p 5432 -U postgres
+$ psql -h ubuntu-host -d northwind -p 5432 -U postgres
 psql (16.8 (Ubuntu 16.8-0ubuntu0.24.04.1))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
 Type "help" for help.
@@ -400,7 +407,7 @@ establishing a session. Targets need to be associated with a host to establish a
 
 For example, in the sandbox the following host exists:
 
-- `ubuntu-target-host`
+- `ubuntu-host`
 
 The host is configured with a hostname (address) of `ubuntu-target`. This is the address 
 of the host in the lab environment that Boundary will use to start a connection. Functionally, 
@@ -424,7 +431,7 @@ The following Boundary users are preconfigured for SSH access on the `ubuntu-tar
 
 - Khalid:
    - username: `khalid`
-   - The password for this user is contained in a Vault credential (hidden to help with the raffle)
+   - password: `khalid_password`
 
 A postgres database is also configured on the `ubuntu-target` host and is available on port `5432`:
 
@@ -459,7 +466,7 @@ Within Boundary the following resources are configured:
 - Project: `sandbox project`
 
 - Host Catalogs:
-  - `ubuntu-target-host-catalog`
+  - `ubuntu-host-catalog`
   - `controller-host-catalog`
 
 - Credential Store:
@@ -467,9 +474,9 @@ Within Boundary the following resources are configured:
 
 - Targets:
   - `boundary-db` (Boundary's local database)
-  - `northwind-db` (on ubuntu-target-tcp host)
-  - `ubuntu-target-tcp` (on ubuntu-target-tcp host)
-  - `ssh-recording-target-priya` (on ubuntu-target-tcp host)
+  - `northwind-db` (on ubuntu-host host)
+  - `ubuntu-target-tcp` (on ubuntu-host host)
+  - `ssh-recording-target-priya` (on ubuntu-host host)
 
 - Aliases:
   - `priya`
@@ -933,8 +940,7 @@ SSH targets in Boundary Enterprise enable the following features:
 
 ### Exercise
 
-Completing this exercise allows you to enter the raffle for a free pro exam voucher 
-for Terraform or Vault.
+You may complete this exercise use the Admin UI, CLI, or Terraform.
 
 1. Create a new ssh target called `khalid-target`
    - Set a target type of `ssh`
@@ -963,11 +969,7 @@ for Terraform or Vault.
      or, use a target alias to connect to the target
    - `boundary connect ssh sandbox.khalid`
 
-1. After connecting to the target, take a screenshot or a picture of what you find.
-   Show the instructor the picture to enter the raffle for a free certification exam voucher!
-
 </Tab>
-
 <Tab heading="4: Configure storage policies">
 
 ### Enforce compliance standards with storage policies
@@ -1047,14 +1049,16 @@ This includes the following components:
 - MinIO storage backend
 - Ubuntu target
 
-What are the requirements of these components? How must they be configured to create a
-functional and secure Boundary deployment? How do the ingress and egress workers fuction in
-a multi-hop sessions deployment, and how can this provide enhanced security for your network?
+Examine these components and answer the following questions:
+
+- What are the requirements for these components?
+- How must they be configured to create a functional and secure Boundary deployment?
+- How do the ingress and egress workers function in a multi-hop sessions deployment, and how can this provide enhanced security for your network?
 
 You can check the controller or worker configurations by examining `/etc/boundary.d/boundary.hcl` 
 file on the those hosts.
 
-Use the following documentatation to deepen your understanding:
+Use the following documentation to deepen your understanding:
 
 - [Boundary Enterprise reference architecture](/boundary/tutorials/enterprise/ent-reference-architecture)
 - [Boundary Enterprise deployment guide](/boundary/tutorials/enterprise/ent-deployment-guide)
@@ -1080,281 +1084,259 @@ Some possibilities include:
 - A cloud providers, like AWS, GCP, or Microsoft Azure
 - Local VMs or containers on your own machine
 
-You must set up a Boundary worker with access to the targets you want
-to connect to. You need at least one worker (an egress worker to connect to the targer), but if you only configure a single worker then you may have to expose
+You must set up a Boundary worker with access to the targets you want to connect to. You need at least one worker (an egress worker to connect to the target), but if you only configure a single worker then you may have to expose
 the worker's public address for Boundary to connect to it.
 
-Boundary Enterprise allows for multi-hop session worker configurations, where an ingress 
-worker handles the initial connection from Boundary, then continues to "hop" to the next
-worker in the chain until it reaches the egress worker. Both the ingress an egress workers
-must be configured on the target, while any intermediate workers are set up as part of
-the worker configuration file as upstreams.
+Boundary Enterprise allows for multi-hop session worker configurations, where an ingress worker handles the initial connection from Boundary, then continues to "hop" to the next worker in the chain until it reaches the egress worker. Both the ingress an egress workers must be configured on the target, while any intermediate workers are set up as part of the worker configuration file as upstreams.
 
 A single egress worker is recommended for a proof-of-concept. You can learn more about
 multi-hop sessions here:
 
 [Deploy workers](/boundary/docs/deploy/self-managed/deploy-workers)
 
-### Getting started with Docker
+### Set up a target with Docker
 
 As an example, you can create docker containers on your local machine.
 
-Docker can be used to deploy an
-[openssh-server](https://hub.docker.com/r/linuxserver/openssh-server) target.
+Docker can be used to deploy an [openssh-server](https://hub.docker.com/r/linuxserver/openssh-server) target.
 
 1. Ensure Docker is running, and then deploy an openssh container to use as a target.
 
-```
-$ docker run -d \
-  --name openssh-server \
-  -e USER_NAME=admin \
-  -e PASSWORD_ACCESS=true \
-  -e USER_PASSWORD=password \
-  -p 2222:2222 \
-  lscr.io/linuxserver/openssh-server:latest
-```
-
-Note that the username for the openssh server is `admin`, the password is `password`, 
-and the target is available on your localhost at port `2222` (`127.0.0.1:2222`).
-
-Check that the container is running.
-
-```
-$ docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}"
-CONTAINER ID   NAMES            IMAGE                                       STATUS
-6e63f8178576   openssh-server   lscr.io/linuxserver/openssh-server:latest   Up 20 seconds
-```
-
-2. Configure a worker.
-
-You can deploy a Boundary worker with Docker to provide access to the openssh target container.
-
-When using this image as a worker with HCP Boundary or Boundary Enterprise, you do not need 
-to provide the license using an environment variable or config, but the worker must connect 
-with a licensed controller.
-
-**Note:**
-
-  If your cluster is configured for [multi-hop sessions](/boundary/docs/concepts/connection-workflows/multi-hop), 
-  add an upstream worker for `initial_upstreams` instead.
-
-Create a new file in your working directory called `config.hcl`. 
-
-Supply the controller DNS for the `initial_upstreams`, which is the 
-[a resolvable address for the Boundary Enterprise cluster](/boundary/docs/configuration/worker#initial_upstreams). 
-If your cluster is listening on a port other than 9201, then change that value too.
-
-```
-listener "tcp" {
-  address = "127.0.0.1:9202"
-  purpose = "proxy"
-}
-
-worker {
-  initial_upstreams = ["<YOUR_CONTROLLER_ADDRESS>:9201"]
-  public_addr = "openssh-worker"
-  auth_storage_path = "/tmp/openssh-worker"
-  recording_storage_path = "/tmp/boundary"
-  tags {
-    type = ["worker", "openssh"]
-  }
-}
-```
-
-Save the config.hcl file.
-
-3. Deploy the worker. 
-
-Open a new terminal and switch to the directory with the `config.hcl` file, then deploy 
-the `boundary-enterprise` Docker container. It will automatically source the config file
-if you deploy it where the file is located.
-
-```
-$ docker run \
-  --network host \
-  --hostname=openssh-worker \
-  -v "$(pwd)":/boundary/ \
-  hashicorp/boundary-enterprise
-```
-
-The worker will start attempting to connect to the controller.
-
-In this example, the worker is connecting with a worker-led auth token. A controller-led 
-workflow instead uses a shared KMS so the worker can register itself.
-
-Scroll to the top of the output and copy the **Worker Auth Registration Request** value.
-
-Export the Worker Auth Request Token value as an environment variable.
-
-```
-$ export WORKER_TOKEN="<Worker Auth Registration Request Value>"
-```
-
-4. Register the worker.
-
-You can register the worker using the Admin Console Web UI or the CLI.
-
-Log into the CLI as the admin user, providing the admin login name and password 
-when prompted.
-
-```
-$ boundary authenticate
-Please enter the login name (it will be hidden):
-Please enter the password (it will be hidden):
-Authentication information:
-  Account ID:      acctpw_VOeNSFX8pQ
-  Auth Method ID:  ampw_ZbB6UXpW3B
-  Expiration Time: Thu, 15 Aug 2025 12:35:32 MST
-  User ID:         u_ogz79sV4sT
-The token was successfully stored in the chosen keyring and is not displayed here.
-```
-
-<Tip>
-
-If you get the following error:
-
-`Error looking up primary auth method ID for the global scope. Try setting a primary auth method for the global scope, or use an auth method subcommand (see 'boundary authenticate -h' for available sub command usage).`
-
-then you may have a provisioning issue with the sandbox. Relaunch the sandbox and try again.
-
-</Tip>
-
-The token is used to issue a create worker request that authorizes the
-worker to Boundary and make it available.
-
-Create a new worker:
-
-```
-$ boundary workers create worker-led -worker-generated-auth-token=$WORKER_TOKEN
-
-Worker information:
-  Active Connection Count:   0
-  Created Time:              Mon, 12 Aug 2025 19:54:57 MDT
-  ID:                        w_IPfR7jBVri
-  Local Storage State:       unknown
-  Type:                      pki
-  Updated Time:              Mon, 12 Aug 2025 19:54:57 MDT
-  Version:                   1
-
-  Scope:
-    ID:                      global
-    Name:                    global
-    Type:                    global
-
-  Authorized Actions:
-    update
-    delete
-    add-worker-tags
-    set-worker-tags
-    remove-worker-tags
-    no-op
-    read
-```
-
-5. Create credentials for the openssh-target.
-
-If you want to enable session recording, credential injection must be set up. This requires
-you to create a new credential for the target.
-
-Locate the `sandbox project` scope id. 
-
-Create a new static credential store:
-
-```
-$ boundary credential-stores create static \
-  -name "SSH Credentials" \
-  -scope-id $PROJECT_ID
-```
-
-Copy the credential store ID from the output, such as `csst_xNlFeo0sIb`.
-
-The openssh `password` attribute must be passed as an environment variable, or from a file. Export it
-as an env var:
-
-```
-$ export OPENSSH_PASSWORD=password
-```
-
-Create a new credential of type `username-password`. Pass in the credential store ID
-you copied in the last step.
-
-```
-$ boundary credentials create username-password \
-  -name "openssh credentials" \
-  -credential-store-id $BOUNDARY_CRED_STORE_ID \
-  -username admin \
-  -password env://OPENSSH_PASSWORD
-```
-
-Copy the credential ID from the output, such as `credup_d0vdR0XxCw`.
-
-6. Create a new target.
-
-Create a target for the `openssh` host. You can create the target using the CLI or Admin UI.
-
-An egress worker filter specifies which worker has access to the target, such as a worker 
-deployed in the same network as the target. An ingress worker specifies how to route a 
-Boundary client to the target network, and is not used in this example.
-
-Recall the tags associated with the `openssh-worker`, which also provides access to 
-the `openssh` host:
-
-```
-Tags:
-  Configuration:
-    type: ["worker" "openssh"]
-  Canonical:
-    type: ["worker" "openssh"]
-```
-
-The tags for this worker are:
-
-`"type" = ["worker", "openssh"]`
-
-An appropriate filter to select this worker is:
-
-```
-"openssh" in "/tags/type"
-```
-
-Create a new target of type `ssh` named `openssh-target`.
-
-Set the default port to `2222`. To optionally enable session recording, pass the 
-storage bucket ID and egress worker filter. You can get the project ID and storage 
-bucket ID (such as sb_nzFv30oX2E) from the Admin UI or CLI.
-
-```
-$ boundary targets create ssh -scope-id $PROJECT_ID \
-  -name "openssh-target" \
-  -alias "openssh.target" \
-  -session-connection-limit -1 \
-  -address "127.0.0.1" \
-  -default-port 2222 \
-  -egress-worker-filter '"openssh" in "/tags/type"' \
-  -storage-bucket-id=$STORAGE_BUCKET_ID \
-  -enable-session-recording=true
-```
-
-Copy the target ID from the output, such as `tssh_4B5TnVtlbb`.
-
-Now associate `openssh-target` with the credential library. Pass in the target ID and
-credential ID you copied earlier.
-
-```
-$ boundary targets add-credential-sources -id $TARGET_ID -injected-application-credential-source $TARGET_CREDENTIAL_ID
-```
-
-7. Test the target connection.
-
-From the boundary-workstation, test the openssh-target.
-
-Enter `yes` when prompted to establish the connection.
-
-```
-$ boundary connect ssh -target-id $TARGET_ID
-Welcome to OpenSSH Server
-3fe7e57f5505:~$
-```
+   ```
+   $ docker run -d \
+     --name openssh-server \
+     -e USER_NAME=admin \
+     -e PASSWORD_ACCESS=true \
+     -e USER_PASSWORD=password \
+     -p 2222:2222 \
+     lscr.io/linuxserver/openssh-server:latest
+   ```
+   
+   Note that the username for the openssh server is `admin`, the password is `password`, and the target is available on your localhost at port `2222` (`127.0.0.1:2222`).
+   
+   Check that the container is running.
+   
+   ```
+   $ docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}"
+   CONTAINER ID   NAMES            IMAGE                                          STATUS
+   6e63f8178576   openssh-server   lscr.io/linuxserver/openssh-server:latest   Up    20 seconds
+   ```
+   
+1. Configure a worker.
+   
+   You can deploy a Boundary worker with Docker to provide access to the openssh target container.
+   
+   When using this image as a worker with HCP Boundary or Boundary Enterprise, you do not need to provide the license using an environment variable or config, but the worker must connect with a licensed controller.
+   
+   <Note>
+   
+     If your cluster is configured for [multi-hop sessions](/boundary/docs/concepts/connection-workflows/multi-hop), add an upstream worker for `initial_upstreams` instead.
+
+   </Note>
+   
+   Create a new file in your working directory called `config.hcl`. 
+   
+   Supply the controller DNS for the `initial_upstreams`, which is the 
+   [a resolvable address for the Boundary Enterprise cluster](/boundary/docs/configuration/worker#initial_upstreams). If your cluster is listening on a port other than 9201, then change that value too.
+   
+   ```
+   listener "tcp" {
+     address = "127.0.0.1:9202"
+     purpose = "proxy"
+   }
+   
+   worker {
+     initial_upstreams = ["<YOUR_CONTROLLER_ADDRESS>:9201"]
+     public_addr = "openssh-worker"
+     auth_storage_path = "/tmp/openssh-worker"
+     recording_storage_path = "/tmp/boundary"
+     tags {
+       type = ["worker", "openssh"]
+     }
+   }
+   ```
+   
+   Save the config.hcl file.
+   
+1. Deploy the worker. 
+   
+   Open a new terminal and switch to the directory with the `config.hcl` file, then deploy the `boundary-enterprise` Docker container. It will automatically source the config file if you deploy it where the file is located.
+   
+   ```
+   $ docker run \
+     --network host \
+     --hostname=openssh-worker \
+     -v "$(pwd)":/boundary/ \
+     hashicorp/boundary-enterprise
+   ```
+   
+   The worker will start attempting to connect to the controller.
+   
+   In this example, the worker is connecting with a worker-led auth token. A controller-led workflow instead uses a shared KMS so the worker can register itself.
+   
+   Scroll to the top of the output and copy the **Worker Auth Registration Request** value.
+   
+   Export the Worker Auth Request Token value as an environment variable.
+   
+   ```
+   $ export WORKER_TOKEN="<Worker Auth Registration Request Value>"
+   ```
+   
+1. Register the worker.
+   
+   You can register the worker using the Admin Console Web UI or the CLI.
+   
+   Log into the CLI as the admin user, providing the admin login name and password when prompted.
+   
+   ```
+   $ boundary authenticate
+   Please enter the login name (it will be hidden):
+   Please enter the password (it will be hidden):
+   Authentication information:
+     Account ID:      acctpw_VOeNSFX8pQ
+     Auth Method ID:  ampw_ZbB6UXpW3B
+     Expiration Time: Thu, 15 Aug 2025 12:35:32 MST
+     User ID:         u_ogz79sV4sT
+   The token was successfully stored in the chosen keyring and is not displayed here.
+   ```
+   
+   <Tip>
+   
+   If you get the following error:
+   
+   `Error looking up primary auth method ID for the global scope. Try setting a primary auth method for the global scope, or use an auth method subcomma (see 'boundary authenticate -h' for available sub command usage).`
+   
+   then you may have a provisioning issue with the sandbox. Relaunch the sandbox and try again.
+   
+   </Tip>
+   
+   The token is used to issue a create worker request that authorizes the
+   worker to Boundary and make it available.
+   
+   Create a new worker:
+   
+   ```
+   $ boundary workers create worker-led -worker-generated-auth-token=$WORKER_TOKEN
+   
+   Worker information:
+     Active Connection Count:   0
+     Created Time:              Mon, 12 Aug 2025 19:54:57 MDT
+     ID:                        w_IPfR7jBVri
+     Local Storage State:       unknown
+     Type:                      pki
+     Updated Time:              Mon, 12 Aug 2025 19:54:57 MDT
+     Version:                   1
+   
+     Scope:
+       ID:                      global
+       Name:                    global
+       Type:                    global
+   
+     Authorized Actions:
+       update
+       delete
+       add-worker-tags
+       set-worker-tags
+       remove-worker-tags
+       no-op
+       read
+   ```
+   
+1. Create credentials for the openssh-target.
+   
+   If you want to enable session recording, credential injection must be set up. This requires you to create a new credential for the target.
+   
+   Locate the `sandbox project` scope id. 
+   
+   Create a new static credential store:
+   
+   ```
+   $ boundary credential-stores create static \
+     -name "SSH Credentials" \
+     -scope-id $PROJECT_ID
+   ```
+   
+   Copy the credential store ID from the output, such as `csst_xNlFeo0sIb`.
+   
+   The openssh `password` attribute must be passed as an environment variable, or from a file. Export it as an env var:
+   
+   ```
+   $ export OPENSSH_PASSWORD=password
+   ```
+   
+   Create a new credential of type `username-password`. Pass in the credential store ID you copied in the last step.
+   
+   ```
+   $ boundary credentials create username-password \
+     -name "openssh credentials" \
+     -credential-store-id $BOUNDARY_CRED_STORE_ID \
+     -username admin \
+     -password env://OPENSSH_PASSWORD
+   ```
+   
+   Copy the credential ID from the output, such as `credup_d0vdR0XxCw`.
+   
+1. Create a new target.
+   
+   Create a target for the `openssh` host. You can create the target using the CLI or Admin UI.
+   
+   An egress worker filter specifies which worker has access to the target, such as a worker deployed in the same network as the target. An ingress worker specifies how to route a Boundary client to the target network, and is not used in this example.
+   
+   Recall the tags associated with the `openssh-worker`, which also provides access to the `openssh` host:
+   
+   ```
+   Tags:
+     Configuration:
+       type: ["worker" "openssh"]
+     Canonical:
+       type: ["worker" "openssh"]
+   ```
+   
+   The tags for this worker are:
+   
+   `"type" = ["worker", "openssh"]`
+   
+   An appropriate filter to select this worker is:
+   
+   ```
+   "openssh" in "/tags/type"
+   ```
+   
+   Create a new target of type `ssh` named `openssh-target`.
+   
+   Set the default port to `2222`. To optionally enable session recording, pass the storage bucket ID and egress worker filter. You can get the project ID and storage bucket ID (such as sb_nzFv30oX2E) from the Admin UI or CLI.
+   
+   ```
+   $ boundary targets create ssh -scope-id $PROJECT_ID \
+     -name "openssh-target" \
+     -alias "openssh.target" \
+     -session-connection-limit -1 \
+     -address "127.0.0.1" \
+     -default-port 2222 \
+     -egress-worker-filter '"openssh" in "/tags/type"' \
+     -storage-bucket-id=$STORAGE_BUCKET_ID \
+     -enable-session-recording=true
+   ```
+   
+   Copy the target ID from the output, such as `tssh_4B5TnVtlbb`.
+   
+   Now associate `openssh-target` with the credential library. Pass in the target ID and credential ID you copied earlier.
+   
+   ```
+   $ boundary targets add-credential-sources -id $TARGET_ID -injected-application-credential-source $TARGET_CREDENTIAL_ID
+   ```
+   
+1. Test the target connection.
+   
+   From the boundary-workstation, test the openssh-target.
+   
+   Enter `yes` when prompted to establish the connection.
+   
+   ```
+   $ boundary connect ssh -target-id $TARGET_ID
+   Welcome to OpenSSH Server
+   3fe7e57f5505:~$
+   ```
 
 </Tab>
 </Tabs>

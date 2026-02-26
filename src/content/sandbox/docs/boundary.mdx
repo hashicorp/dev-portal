@@ -14,29 +14,32 @@ The Boundary cluster contains one controller server and one worker, each with Bo
 
 The Boundary target is an Ubuntu 24.04 server with the openssh-server and postgresql-server packages installed. SSH is configured to allow for password access for the following users:
 
-- Danielle:
-  - username: `danielle`
-  - password: `danielle_password`
-- Oliver:
-  - username: `oliver`
-  - password: `oliver_password`
-- Steve:
-  - username: `steve`
-  - password: `steve_password`
+Priya:
+ - username: `priya`
+ - password: `priya_password`
 
-This sandbox also configures a postgres database that is available on port `5432`:
+Oliver:
+ - username: `oliver`
+ - password: `oliver_password`
 
-- name: `northwind`
-  - username: `postgres`
-  - password: `postgres`
+Khalid:
+ - username: `khalid`
+ - password: `khalid_password`
 
-**Access the Boundary Admin UI**
+A postgres database is also configured on the `ubuntu-host` host and is available on port `5432`:
 
-You can log in to the Boundary Admin UI in the tab named `Boundary Admin UI`. You can switch to the `Boundary Admin UI` tab.
+Database:
+ - name: `northwind`
+ - username: `postgres`
+ - password: `postgres`
+
+### Access the Boundary Admin UI
+
+You can log in to the Boundary Admin UI in the tab named `Boundary Admin UI`.
 
 To log into the Boundary Admin UI, use the following credentials for the admin user:
 
-- Username: `global-admin`
+- Username: `admin`
 - Password: `password`
 
 Or log in as the unprivileged user:
@@ -44,24 +47,35 @@ Or log in as the unprivileged user:
 - Username: `user`
 - Password: `password`
 
-**Within Boundary, the following resources are configured:**
+The following resources are configured within Boundary:
 
-- Org: `sandbox org`
-- Project: `sandbox project`
-- Host Catalogs:
- - `ubuntu-target-host-catalog`
+Orgs: `sandbox org`
+
+Projects: `sandbox project`
+
+Host Catalogs:
+ - `ubuntu-host-catalog`
  - `controller-host-catalog`
-- Credential Store:
- - `ubuntu-target-creds`
-- Targets:
+
+Credential Stores:
+ - `ubuntu-host-creds`
+
+Targets:
+ - `boundary-db`
  - `northwind-db`
  - `ubuntu-target-ssh`
- - `boundary-db`
+ - `priya-target-ssh`
 
+Aliases:
+ - `northwind`
+ - `boundary-db`
+ - `ubuntu-target`
+ - `priya`
 
 You can access these targets from the Boundary workstation by configuring the CLI.
 
-**CLI Access**
+### CLI access
+
 The shell in the [`boundary-workstation` tab](tab-0) has the Boundary, Vault, and Terraform CLI tools installed.
 
 The sandbox automatically sets the following environment variables:
@@ -70,7 +84,7 @@ The sandbox automatically sets the following environment variables:
 
 You can log into Boundary from the CLI using the admin credentials:
 
-- Username: `global-admin`
+- Username: `admin`
 - Password: `password`
 
 ```shell-session
@@ -85,6 +99,16 @@ Authentication information:
 The token name "default" was successfully stored in the chosen keyring and is not displayed here.
 ```
 
+<Tip>
+
+If you get the following error:
+
+`Error looking up primary auth method ID for the global scope. Try setting a primary auth method for the global scope, or use an auth method subcommand (see 'boundary authenticate -h' for available sub command usage).`
+
+then you may have a provisioning issue with the sandbox. Relaunch the sandbox and try again.
+
+</Tip>
+
 After authentication, you can connect to targets using the `boundary connect` command.
 To connect to the `northwind` database on the `ubuntu-target` host:
 
@@ -97,7 +121,7 @@ Type "help" for help.
 postgres=#
 ```
 
-When you connect to the `ubuntu-target` host it will display the available brokered credentials for the `oliver` and `danielle` users, and automatically select one of them to log you in as. Copy and paste or type the user's password to connect:
+When you connect to the `ubuntu-target` host it will display the available brokered credentials for the `oliver` and `priya` users, and automatically select one of them to log you in as. Copy and paste or type the user's password to connect:
 
 ```shell-session
 $ boundary connect ssh ubuntu-target
@@ -111,15 +135,15 @@ Credentials:
   Secret:
         password:   oliver_password
         username:   oliver
-  Credential Source Description: Credentials for danielle user on ubuntu-target host
+  Credential Source Description: Credentials for priya user on ubuntu-target host
   Credential Source ID:          credup_po69wMQRNN
-  Credential Source Name:        danielle-creds
+  Credential Source Name:        priya-creds
   Credential Store ID:           csst_iHuwhwzstA
   Credential Store Type:         static
   Credential Type:               username_password
   Secret:
-        password:   danielle_password
-        username:   danielle
+        password:   priya_password
+        username:   priya
 The authenticity of host 'hst_hi2n8ghvx8 ([127.0.0.1]:45223)' can't be established.
 ED25519 key fingerprint is SHA256:kCPyzCG/O2ckQ5zvoxT1O9NTgNz+KNnTf+fDildd0QI.
 This key is not known by any other names.
@@ -133,7 +157,7 @@ You can also select a user to authenticate as by passing additional login
 parameters to `boundary connect ssh`:
 
 ```shell-session
-$ boundary connect ssh ubuntu-target -username danielle
+$ boundary connect ssh ubuntu-target -username priya
 Credentials:
   Credential Source Description: Credentials for oliver user on ubuntu-target host
   Credential Source ID:          credup_XuqoTfBGrj
@@ -144,40 +168,71 @@ Credentials:
   Secret:
         password:   oliver_password
         username:   oliver
-  Credential Source Description: Credentials for danielle user on ubuntu-target host
+  Credential Source Description: Credentials for priya user on ubuntu-target host
   Credential Source ID:          credup_po69wMQRNN
-  Credential Source Name:        danielle-creds
+  Credential Source Name:        priya-creds
   Credential Store ID:           csst_iHuwhwzstA
   Credential Store Type:         static
   Credential Type:               username_password
   Secret:
-        password:   danielle_password
-        username:   danielle
-danielle@hst_hi2n8ghvx8's password:
-danielle@ubuntu-target$
+        password:   priya_password
+        username:   priya
+priya@hst_hi2n8ghvx8's password:
+priya@ubuntu-target$
 ```
 
-**Vault integration**
+### Vault integration
 
 You can optionally set up Vault to act as a credential broker for Boundary. You can access the Vault server from the Boundary workstation, where the `VAULT_ADDR=https://vault-server:8200` environment variable is set.
 
-To learn more about setting up a Vault credential library, check out the [Vault credential brokering quickstart](/boundary/tutorials/credential-management/community-vault-cred-brokering-quickstart) tutorial.
+You can access vault from the boundary-workstation terminal using the root token in the /home/learner/vault directory, which is also available as an env var in /home/learner/.bashrc
 
-**Troubleshooting and experimenting**
-
-You can access the targets and databases directly without using Boundary.
-For example, you can SSH into the ubuntu-target as the Oliver user:
-
-```shell-session
-$ ssh oliver@ubuntu-target
-oliver@hst_hi2n8ghvx8's password:
-oliver@boundary-target$
+```
+$ source .bashrc
+$ vault login $VAULT_ROOT_TOKEN
 ```
 
-Or you can access the northwind database on the ubuntu-target with `psql`:
+To learn more about setting up a Vault credential library, check out the [Vault credential brokering quickstart](/boundary/tutorials/credential-management/community-vault-cred-brokering-quickstart) tutorial.
+
+### Target Aliases
+
+Aliases can be used in the `global` scope to easily refer to resources.
+Target aliases simplify the process of connecting to a target, and can 
+specify which host to use when requesting a session. Target aliases also 
+make it simple to connect to a host:
+
+```
+$ boundary connect ssh priya
+Credentials:
+  Credential Source Description: Credentials for priya user on ubuntu-host host
+  Credential Source ID:          credup_1mAHYNb151
+  Credential Source Name:        priya-creds
+  Credential Store ID:           csst_UNyJUFBSct
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   priya_password
+        username:   priya
+
+priya@hst_nvhzci8fak's password: 
+priya@ubuntu-host$
+```
+
+### Troubleshooting and experimenting
+
+You can access the targets and databases directly without using Boundary.
+For example, you can SSH into the ubuntu-host as the Oliver user:
 
 ```shell-session
-$ psql -h ubuntu-target -d northwind -p 5432 -U postgres
+$ ssh oliver@ubuntu-host
+oliver@hst_hi2n8ghvx8's password:
+oliver@boundary-host$
+```
+
+Or you can access the northwind database on the ubuntu-host with `psql`:
+
+```shell-session
+$ psql -h ubuntu-host -d northwind -p 5432 -U postgres
 psql (16.8 (Ubuntu 16.8-0ubuntu0.24.04.1))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
 Type "help" for help.
@@ -263,6 +318,771 @@ Because of the limitations of this platform:
    or Vault servers in this lab.
 1. All servers can be accessed directly by SSH using their hostnames, bypassing Boundary.
 1. The workstation and other servers do not allow root-level access.
+
+</Tab>
+<Tab heading="Exercises">
+You can try the following exercises to explore the Boundary Community Edition sandbox, and to learn about features and workflows.
+
+These exercises are also available in the sandbox's `/home/learner/get-started/exercises/` directory.
+
+Select an exercise tab to view each exercise.
+
+<Tabs>
+
+<Tab heading="1: Connect to a target">
+
+### What is a Boundary target?
+
+Targets are a Boundary resource that represent a networked service or host that a user 
+can connect to. Targets provide an endpoint with an associated set of permissions for 
+establishing a session. Targets need to be associated with a host to establish a connection.
+
+For example, in the sandbox the following host exists:
+
+- `ubuntu-host`
+
+The host is configured with a hostname (address) of `ubuntu-host`. This is the address 
+of the host in the lab environment that Boundary will use to start a connection. Functionally, 
+a host provides the address where a session should be attempted.
+
+Targets provide further connection details, such as the protocol and port the connection should use. 
+In this sandbox, two examples of targets are `ubuntu-target-tcp` and `northwind-db`. Both these targets 
+are for services running on the `ubuntu-target` vm, at address `boundary-target`. The database target
+should connect to the host on port 5432, while `ubuntu-target-tcp` sets port 22 as the default port 
+to enable SSH connections. TCP targets are the only target types available in Boundary Community Edition.
+
+The following Boundary users are preconfigured for SSH access on the `ubuntu-target` host:
+
+- Priya:
+   - username: `priya`
+   - password: `priya_password`
+
+- Oliver:
+   - username: `oliver`
+   - password: `oliver_password`
+
+- Khalid:
+   - username: `khalid`
+   - password: `khalid_password`
+
+A postgres database is also configured on the `ubuntu-target` host and is available on port `5432`:
+
+- Database:
+   - name: `northwind`
+   - username: `postgres`
+   - password: `postgres`
+
+### Access the Boundary Admin UI
+
+You can log in to the Boundary Admin UI in the **Boundary Admin UI** tab.
+
+To log into the Boundary Admin UI, use the following credentials for the admin user:
+
+- Username: `admin`
+- Password: `password`
+
+Or log in as the unprivileged user:
+
+- Username: `user`
+- Password: `password`
+
+Within Boundary the following resources are configured:
+
+- Org: `sandbox org`
+- Project: `sandbox project`
+
+- Host Catalogs:
+  - `ubuntu-host-catalog`
+  - `controller-host-catalog`
+
+- Credential Store:
+  - `ubuntu-target-creds`
+
+- Targets:
+  - `boundary-db` (Boundary's local database)
+  - `northwind-db` (on ubuntu-host host)
+  - `ubuntu-target-ssh` (on ubuntu-host host)
+  - `priya-target-ssh` (on ubuntu-host host)
+
+- Aliases:
+  - `priya`
+
+You can access these targets from the Boundary workstation by configuring the CLI. 
+Targets can also be accessed using the Boundary Desktop client on your local machine.
+
+### CLI Access
+
+The shell in the **Boundary workstation** tab has the Boundary, Vault,
+and Terraform CLI tools installed.
+
+The following environment variables have been set:
+
+- `BOUNDARY_ADDR=http://controller:9200`
+- `VAULT_ADDR=http://vault-server:8200`
+
+You can log into Boundary from the CLI: using the admin credentials:
+
+- Username: `admin`
+- Password: `password`
+
+```
+$ boundary authenticate
+Please enter the login name (it will be hidden):
+Please enter the password (it will be hidden):
+
+Authentication information:
+  Account ID:      acctpw_sC5a4GP9JA
+  Auth Method ID:  ampw_CzkwJb5RRR
+  Expiration Time: Thu, 03 Apr 2025 01:36:55 UTC
+  User ID:         u_UURrzGLCik
+
+The token name "default" was successfully stored in the chosen keyring and is not displayed here.
+```
+
+<Tip>
+
+If you get the following error:
+
+`Error looking up primary auth method ID for the global scope. Try setting a primary auth method for the global scope, or use an auth method subcommand (see 'boundary authenticate -h' for available sub command usage).`
+
+then you may have a provisioning issue with the sandbox. Relaunch the sandbox and try again.
+
+</Tip>
+
+### Exercise:
+
+#### Connect to a target using the CLI
+
+After authentication, you can connect to targets using the `boundary connect` command.
+
+Connect to the `northwind` database on the `ubuntu-target` host:
+
+```
+$ boundary connect postgres northwind
+Credentials are being brokered but no -dbname parameter provided. psql may misinterpret another parameter as the database name.
+psql (16.8 (Ubuntu 16.8-0ubuntu0.24.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+Type "help" for help.
+
+postgres=#
+```
+
+When you connect to the `ubuntu-target` host it will display the available
+brokered credentials for the `oliver` and `priya` users, and automatically
+select one of them to log you in as. Copy and paste or type the user's password
+to connect:
+
+```
+$ boundary connect ssh ubuntu-target
+Credentials:
+  Credential Source Description: Credentials for oliver user on ubuntu-target host
+  Credential Source ID:          credup_XuqoTfBGrj
+  Credential Source Name:        oliver-creds
+  Credential Store ID:           csst_iHuwhwzstA
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   oliver_password
+        username:   oliver
+
+  Credential Source Description: Credentials for priya user on ubuntu-target host
+  Credential Source ID:          credup_po69wMQRNN
+  Credential Source Name:        priya-creds
+  Credential Store ID:           csst_iHuwhwzstA
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   priya_password
+        username:   priya
+
+The authenticity of host 'hst_hi2n8ghvx8 ([127.0.0.1]:45223)' can't be established.
+ED25519 key fingerprint is SHA256:kCPyzCG/O2ckQ5zvoxT1O9NTgNz+KNnTf+fDildd0QI.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'hst_hi2n8ghvx8' (ED25519) to the list of known hosts.
+oliver@hst_hi2n8ghvx8's password:
+oliver@ubuntu-target$
+```
+
+Select a user to authenticate as by passing additional login parameters to 
+`boundary connect ssh`:
+
+```
+$ boundary connect ssh ubuntu-target -username priya
+Credentials:
+  Credential Source Description: Credentials for oliver user on ubuntu-target host
+  Credential Source ID:          credup_XuqoTfBGrj
+  Credential Source Name:        oliver-creds
+  Credential Store ID:           csst_iHuwhwzstA
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   oliver_password
+        username:   oliver
+
+  Credential Source Description: Credentials for priya user on ubuntu-target host
+  Credential Source ID:          credup_po69wMQRNN
+  Credential Source Name:        priya-creds
+  Credential Store ID:           csst_iHuwhwzstA
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   priya_password
+        username:   priya
+
+priya@hst_hi2n8ghvx8's password:
+priya@ubuntu-target$
+```
+
+#### Bonus: Connect using the Boundary Desktop Client
+
+On your local machine, you can use the Boundary Desktop Client to establish sessions.
+
+HashiCorp recommends Windows and macOS users install the Boundary client components 
+using the Boundary Installer:
+
+- [Boundary Installer](/boundary/install#installer)
+
+You can also install the Boundary Desktop Client directly instead:
+
+- [Boundary Desktop Client](/boundary/install#desktop-client)
+
+After installing, open the Boundary Desktop Client. 
+
+Locate your Boundary Controller's public URL in the `/home/learner/get-started/public-controller-url` file.
+
+Copy this and paste it into the Boundary Desktop Client when prompted.
+
+Authenticate to Boundary using the `admin` user credentials:
+
+- Username: `admin`
+- Password: `password`
+
+Click the **Connect** button next to a target, such as `priya-target-ssh`.
+
+From the sessions page, click the **Shell** tab. This will automatically launch the built-in
+terminal and attempt to open a session.
+
+You should find a running session on the **Sessions** page. Try terminating the session from here. 
+If session recording is enabled for your test target, verify that a recording was created.
+
+Now, log out of the Boundary Desktop Client by clicking on the `admin` user dropdown and clicking "Sign Out".
+
+On the **Sign In** page, click the **Choose a different scope** dropdown and
+select **sandbox org**.
+
+Log back in as the unprivileged user:
+
+- Org: `sandbox org`
+- Username: `user`
+- Password: `password`
+
+What do you notice about this user's permissions? Do you have access to the 
+same set of targets and hosts?
+
+You can learn more about grants and permissions in Boundary in the [Permissions in Boundary](/boundary/docs/rbac) docs.
+
+</Tab>
+
+<Tab heading="2: Add target credentials">
+
+### Introduction to credential handling
+
+Two types of credential handling are available in Boundary:
+
+1. Credential brokering
+2. Credential injection (Boundary Enterprise or HCP Boundary)
+
+Credential brokering occurs when target credentials are sent directly back to the client
+for use in their shell. This type of credential handling is available in Boundary Community Edition.
+
+The `ubuntu-target-tcp` target is configured using credential brokering.
+
+If you request a session using `boundary connect`:
+
+```
+$ boundary connect -target-name ubuntu-target-tcp -target-scope-name "sandbox project"
+Proxy listening information:
+  Address:             127.0.0.1
+  Connection Limit:    -1
+  Expiration:          Thu, 11 Sep 2025 05:50:32 MDT
+  Port:                50708
+  Protocol:            tcp
+  Session ID:          s_V1VU9SRtpS
+
+  Credentials:
+    Credential Source Description: Credentials for oliver user on ubuntu-target host
+    Credential Source ID:          credup_3GaWPZ3mEj
+    Credential Source Name:        oliver-creds
+    Credential Store ID:           csst_0CQp4Oo4kx
+    Credential Store Type:         static
+    Credential Type:               username_password
+    Secret:
+          password:   oliver_password
+          username:   oliver
+
+    Credential Source Description: Credentials for priya user on ubuntu-target host
+    Credential Source ID:          credup_9BGBG74JRl
+    Credential Source Name:        priya-creds
+    Credential Store ID:           csst_0CQp4Oo4kx
+    Credential Store Type:         static
+    Credential Type:               username_password
+    Secret:
+          password:   priya_password
+          username:   priya
+```
+
+Then a proxy is opened on the specified port, 50708 in this example. Notice that the proxy runs until 
+the connection is manually closed, using `ctrl+c`. The user is then able to connect to the target 
+using their client of choice and the brokered credentials, such as oliver:
+
+```
+$ ssh 127.0.0.1 -p 38769 -l oliver
+The authenticity of host '[127.0.0.1]:38769 ([127.0.0.1]:38769)' can't be established.
+ED25519 key fingerprint is SHA256:fDiCeP2Ou6WZ3Eq8QdESwd6jGVBL0OHa8EbK1uMuGEw.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[127.0.0.1]:38769' (ED25519) to the list of known hosts.
+oliver@127.0.0.1's password: 
+oliver@ubuntu-target$ 
+```
+
+The user must pass these credentials directly, unless you use one of the Boundary connect helpers.
+A connect helper, such as `ssh` or `psql`, attempts to request a session and open it in a
+single command:
+
+```
+$ boundary connect ssh -target-name ubuntu-target-tcp -target-scope-name "sandbox project"
+Credentials:
+  Credential Source Description: Credentials for oliver user on ubuntu-target host
+  Credential Source ID:          credup_LNvXHyngBa
+  Credential Source Name:        oliver-creds
+  Credential Store ID:           csst_gfwRVvu1S7
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   oliver_password
+        username:   oliver
+
+  Credential Source Description: Credentials for priya user on ubuntu-target host
+  Credential Source ID:          credup_sD2MoO0sCd
+  Credential Source Name:        priya-creds
+  Credential Store ID:           csst_gfwRVvu1S7
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   priya_password
+        username:   priya
+
+The authenticity of host 'hst_hdxk4jjo03 ([127.0.0.1]:42837)' can't be established.
+ED25519 key fingerprint is SHA256:fDiCeP2Ou6WZ3Eq8QdESwd6jGVBL0OHa8EbK1uMuGEw.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:1: [hashed name]
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'hst_hdxk4jjo03' (ED25519) to the list of known hosts.
+oliver@hst_hdxk4jjo03's password: 
+oliver@ubuntu-target$
+```
+
+In this example, Boundary understands it should use the SSH protocol to handle any
+credentials available for the target. It uses the first set of credentials it finds,
+in this case, oliver. Boundary then passes the password on your behalf and establishes
+a connection.
+
+Credential brokering is very different from **credential injection**, which is available
+for Enterprise or HCP deployments. Credential injection handles credentials without exposing
+them to end-users, meaning a Boundary client never receives or handles the credential.
+
+Credential injection requires the SSH or RDP target types available in Boundary Enterprise, 
+instead of the TCP targets you are experimenting with in this sandbox.
+
+To experiment with credential injection and other enterprise features, check out the
+Boundary Enterprise Sandbox.
+
+### Exercise:
+
+Set up a new static credential of type username and password for the khalid user:
+
+username: `khalid`
+password: `khalid_password`
+
+Use this credential in the next lesson to set up a new ssh target.
+
+Boundary has built-in static credential management capabilities. If you are familiar with 
+HashiCorp Vault, create a new credential library in the `vault-ubuntu-credentials` credential store 
+for the khalid user.
+
+<Tip>
+
+  If you want to experiment with Vault, you can access vault from the boundary-workstation terminal using the root token in the `/home/learner/vault` directory, which is also available as an env var in `/home/learner/.bashrc`.
+
+</Tip>
+
+```
+$ source .bashrc
+$ vault login $VAULT_ROOT_TOKEN
+Success! You are now authenticated. The token information displayed below
+is already stored in the token helper. You do NOT need to run "vault login"
+again. Future Vault requests will automatically use this token.
+
+Key                  Value
+---                  -----
+token                hvs.n69aVEhtLJM7rtocx7WRMaVa
+token_accessor       DXtAVFy7vv8HUHAsBdtQTF6B
+token_duration       ∞
+token_renewable      false
+token_policies       ["root"]
+identity_policies    []
+policies             ["root"]
+```
+
+After you finish experimenting with creating credentials, move on the Exercise 3.
+
+</Tab>
+
+<Tab heading="3: Create a TCP target">
+
+### Configure a TCP target
+
+TCP targets in Boundary allow clients to connect to any generic target, such as
+databases, SSH or RDP servers, or Kubernetes API servers.
+
+The following targets and target aliases are already set up:
+
+Targets:
+ - `boundary-db`
+ - `northwind-db`
+ - `ubuntu-target-ssh`
+ - `priya-target-ssh`
+
+Aliases:
+ - `northwind`
+ - `boundary-db`
+ - `ubuntu-target`
+ - `priya`
+
+### Exercise
+
+You may complete this exercise use the Admin UI, CLI, or Terraform.
+
+1. Create a new ssh target called `khalid-target`
+   - Set a target type of `tcp`
+   - Set the default port to `22`
+   - Set an egress worker filter (required for session recording):
+     - `"worker" in "/tags/type"`
+   - Set a direct target address of `ubuntu-host` OR
+   - Assign the `ubuntu-host-set` by adding a host source
+
+1. Assign a brokered application credential to the target
+   - Attach a static credential in Boundary OR
+   - Attach the Vault credential library named `ubuntu_khalid`
+
+   - Bonus: assign the target a target alias
+     - Aliases simplify the target connection
+     - Create an alias called `sandbox.khalid`
+
+1. Verify the new target by connecting to it from the workstation
+   - `boundary connect ssh -target-name khalid-target -target-scope-name  "sandbox project"`
+     or, connect by target ID (such as `tssh_vE4VcjEMs7`)
+   - `boundary connect ssh -target-id tssh_vE4VcjEMs7`
+     or, use a target alias to connect to the target
+   - `boundary connect ssh sandbox.khalid`
+
+</Tab>
+<Tab heading="4: Review the sandbox architecture">
+
+### Explore how Boundary Community Edition is deployed
+
+The `/home/learner/get-started/ARCHITECTURE.md` file describes the architecture of this
+sandbox environment.
+
+This includes the following components:
+
+- Boundary controller (self-hosted postgres)
+- Boundary worker
+- Vault server
+- Ubuntu target
+
+Examine these components and answer the following questions:
+
+- What are the requirements for these components?
+- How must they be configured to create a functional and secure Boundary deployment?
+- How does the worker provide access to the target network? Boundary Community Edition
+only allows for egress workers, which provide access to targets. How can the ingress workers
+provided in HCP Boundary and Boundary Enterprise improve an organization's security posture?
+
+You can check the controller or worker configurations by examining `/etc/boundary.d/boundary.hcl` 
+file on the those hosts.
+
+Use the following documentation to deepen your understanding:
+
+- [Boundary Enterprise reference architecture](/boundary/tutorials/enterprise/ent-reference-architecture)
+- [Boundary Enterprise deployment guide](/boundary/tutorials/enterprise/ent-deployment-guide)
+- [System requirements](/boundary/docs/architecture/system-requirements)
+- [Recommended architecure](/boundary/docs/architecture/recommended-architecture)
+- [controller stanza](/boundary/docs/configuration/controller)
+- [worker stanza](/boundary/docs/configuration/worker)
+- [Configure workers](/boundary/docs/workers)
+- [Vault integration](/boundary/docs/vault)
+
+</Tab>
+
+<Tab heading="5: Add external targets">
+
+### Bring your own targets
+
+Configure your own targets with your Boundary environment.
+
+This exercise requires that you spin up hosts in an external environment. 
+
+Some possibilities include:
+
+- A cloud providers, like AWS, GCP, or Microsoft Azure
+- Local VMs or containers on your own machine
+
+You must set up a Boundary worker with access to the targets you want to connect to. You need at least one worker (an egress worker to connect to the target), but if you only configure a single worker then you may have to expose the worker's public address for Boundary to connect to it.
+
+Boundary workers provide access to the targets you want to connect to. Deploying a worker is required for this exercise. You can learn more about setting up a worker here:
+
+[Deploy workers](/boundary/docs/deploy/self-managed/deploy-workers)
+
+### Set up a target with Docker
+
+As an example, you can create docker containers on your local machine.
+
+Docker can be used to deploy an [openssh-server](https://hub.docker.com/r/linuxserver/openssh-server) target.
+
+1. Ensure Docker is running, and then deploy an openssh container to use as a target.
+
+   ```
+   $ docker run -d \
+     --name openssh-server \
+     -e USER_NAME=admin \
+     -e PASSWORD_ACCESS=true \
+     -e USER_PASSWORD=password \
+     -p 2222:2222 \
+     lscr.io/linuxserver/openssh-server:latest
+   ```
+   
+   Note that the username for the openssh server is `admin`, the password is `password`, and the target is available on your localhost at port `2222` (`127.0.0.1:2222`).
+   
+   Check that the container is running.
+   
+   ```
+   $ docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}"
+   CONTAINER ID   NAMES            IMAGE                                          STATUS
+   6e63f8178576   openssh-server   lscr.io/linuxserver/openssh-server:latest   Up    20 seconds
+   ```
+
+1. Configure a worker.
+
+   You can deploy a Boundary worker with Docker to provide access to the openssh target container.
+   
+   When using this image as a worker with HCP Boundary or Boundary Enterprise, you do not need  to provide the license using an environment variable or config, but the worker must connect with a licensed controller.
+   
+   Create a new file in your working directory called `config.hcl`. 
+   
+   Supply the controller DNS for the `initial_upstreams`, which is the 
+   [a resolvable address for the Boundary cluster](/boundary/docs/configuration/worker#initial_upstreams). If your cluster is listening on a port other than 9201, then change that value too.
+   
+   ```
+   listener "tcp" {
+     address = "127.0.0.1:9202"
+     purpose = "proxy"
+   }
+   
+   worker {
+     initial_upstreams = ["<YOUR_CONTROLLER_ADDRESS>:9201"]
+     public_addr = "openssh-worker"
+     auth_storage_path = "/tmp/openssh-worker"
+     tags {
+       type = ["worker", "openssh"]
+     }
+   }
+   ```
+   
+   Save the config.hcl file.
+
+1. Deploy the worker. 
+
+   Open a new terminal and switch to the directory with the `config.hcl` file, then deploy the `boundary` Docker container. It will automatically source the config file if you deploy it where the file is located.
+   
+   ```
+   $ docker run \
+     --network host \
+     --hostname=openssh-worker \
+     -v "$(pwd)":/boundary/ \
+     hashicorp/boundary
+   ```
+   
+   The worker will start attempting to connect to the controller.
+   
+   In this example, the worker is connecting with a worker-led auth token. A controller-led 
+   workflow instead uses a shared KMS so the worker can register itself.
+   
+   Scroll to the top of the output and copy the **Worker Auth Registration Request** value.
+   
+   Export the Worker Auth Request Token value as an environment variable.
+   
+   ```
+   $ export WORKER_TOKEN="<Worker Auth Registration Request Value>"
+   ```
+
+1. Register the worker.
+
+   You can register the worker using the Admin Console Web UI or the CLI.
+   
+   Log into the CLI as the admin user, providing the admin login name and password 
+   when prompted.
+   
+   ```
+   $ boundary authenticate
+   Please enter the login name (it will be hidden):
+   Please enter the password (it will be hidden):
+   Authentication information:
+     Account ID:      acctpw_VOeNSFX8pQ
+     Auth Method ID:  ampw_ZbB6UXpW3B
+     Expiration Time: Thu, 15 Aug 2025 12:35:32 MST
+     User ID:         u_ogz79sV4sT
+   The token was successfully stored in the chosen keyring and is not displayed here.
+   ```
+   
+   <Tip>
+   
+   If you get the following error:
+   
+   `Error looking up primary auth method ID for the global scope. Try setting a primary auth method for the global scope, or use an auth method subcommand (see 'boundary authenticate -h' for available sub command usage).`
+   
+   then you may have a provisioning issue with the sandbox. Relaunch the sandbox and try again.
+   
+   </Tip>
+   
+   The token is used to issue a create worker request that authorizes the
+   worker to Boundary and make it available.
+   
+   Create a new worker:
+   
+   ```
+   $ boundary workers create worker-led -worker-generated-auth-token=$WORKER_TOKEN
+   
+   Worker information:
+     Active Connection Count:   0
+     Created Time:              Mon, 12 Aug 2025 19:54:57 MDT
+     ID:                        w_IPfR7jBVri
+     Local Storage State:       unknown
+     Type:                      pki
+     Updated Time:              Mon, 12 Aug 2025 19:54:57 MDT
+     Version:                   1
+   
+     Scope:
+       ID:                      global
+       Name:                    global
+       Type:                    global
+   
+     Authorized Actions:
+       update
+       delete
+       add-worker-tags
+       set-worker-tags
+       remove-worker-tags
+       no-op
+       read
+   ```
+
+1. Create credentials for the openssh-target.
+
+   Locate the `sandbox project` scope id. 
+   
+   Create a new static credential store:
+   
+   ```
+   $ boundary credential-stores create static \
+     -name "SSH Credentials" \
+     -scope-id $PROJECT_ID
+   ```
+   
+   Copy the credential store ID from the output, such as `csst_xNlFeo0sIb`.
+   
+   The openssh `password` attribute must be passed as an environment variable, or from a file. Export it as an env var:
+   
+   ```
+   $ export OPENSSH_PASSWORD=password
+   ```
+   
+   Create a new credential of type `username-password`. Pass in the credential store ID you copied in the last step.
+   
+   ```
+   $ boundary credentials create username-password \
+     -name "openssh credentials" \
+     -credential-store-id $BOUNDARY_CRED_STORE_ID \
+     -username admin \
+     -password env://OPENSSH_PASSWORD
+   ```
+   
+   Copy the credential ID from the output, such as `credup_d0vdR0XxCw`.
+
+1. Create a new target.
+
+   Create a target for the `openssh` host. You can create the target using the CLI or Admin UI.
+   
+   An egress worker filter specifies which worker has access to the target, such as a worker deployed in the same network as the target.
+   
+   Recall the tags associated with the `openssh-worker`, which also provides access to the `openssh` host:
+   
+   ```
+   Tags:
+     Configuration:
+       type: ["worker" "openssh"]
+     Canonical:
+       type: ["worker" "openssh"]
+   ```
+   
+   The tags for this worker are:
+   
+   `"type" = ["worker", "openssh"]`
+   
+   An appropriate filter to select this worker is:
+   
+   ```
+   "openssh" in "/tags/type"
+   ```
+   
+   Create a new target of type `tcp` named `openssh-target`.
+   
+   Set the default port to `2222`, and set the egress worker filter. You can get the project ID from the Admin UI or CLI.
+   
+   ```
+   $ boundary targets create tcp -scope-id $PROJECT_ID \
+     -name "openssh-target" \
+     -alias "openssh.target" \
+     -session-connection-limit -1 \
+     -address "127.0.0.1" \
+     -default-port 2222 \
+     -egress-worker-filter '"openssh" in "/tags/type"'
+   ```
+   
+   Copy the target ID from the output, such as `tssh_4B5TnVtlbb`.
+   
+   Now associate `openssh-target` with the credential library. Pass in the target ID and credential ID you copied earlier.
+   
+   ```
+   $ boundary targets add-credential-sources -id $TARGET_ID -brokered-application-credential-source $TARGET_CREDENTIAL_ID
+   ```
+
+1. Test the target connection.
+
+   From the boundary-workstation, test the openssh-target.
+   
+   Enter `yes` when prompted to establish the connection.
+   
+   ```
+   $ boundary connect ssh -target-id $TARGET_ID
+   Welcome to OpenSSH Server
+   3fe7e57f5505:~$
+   ```
+
+</Tab>
+</Tabs>
 
 </Tab>
 </Tabs>

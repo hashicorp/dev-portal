@@ -248,16 +248,6 @@ function InstruqtProvider({
 		}
 	}, [active, labId, labSource, isClient, hasConfigError])
 
-	// Track sandbox open only once when lab becomes active avoid infinite loops
-	useEffect(() => {
-		if (active && labId && !hasConfigError) {
-			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-				labId,
-				page: router.asPath,
-			})
-		}
-	}, [active, labId, hasConfigError, router.asPath])
-
 	useEffect(() => {
 		if (previousPathRef.current !== router.asPath) {
 			if (!isOpeningLabRef.current && labSource === 'tutorial' && active) {
