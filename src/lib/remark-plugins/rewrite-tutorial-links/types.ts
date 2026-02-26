@@ -14,7 +14,7 @@ type SplitLearnPath = [
 
 interface RewriteTutorialLinksPluginOptions {
 	contentType?: 'docs' | 'tutorials'
-	tutorialMap?: Record<string, string>
+	tutorialMap?: Record<string, Record<string, string>>
 }
 
 export type { RewriteTutorialLinksPluginOptions, SplitLearnPath }

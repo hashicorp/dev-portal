@@ -121,10 +121,27 @@ export async function getValidatedPatternsTutorialViewProps(
 	}
 	const outlineItems = outlineItemsFromHeadings(headings)
 
+	const structuredData = {
+		'@context': 'https://schema.org',
+		'@type': 'TechArticle',
+		name: fullTutorialData.name,
+		description: fullTutorialData.description,
+		totalTime: fullTutorialData.readTime,
+		tool: {
+			'@type': 'SoftwareApplication',
+			name: fullTutorialData.collectionCtx.default.shortName,
+		},
+		author: {
+			'@type': 'Organization',
+			name: 'HashiCorp',
+		},
+	}
+
 	return {
 		props: stripUndefinedProperties<ValidatedPatternsTutorialViewProps>({
 			metadata: {
 				title: fullTutorialData.name,
+				structuredData,
 			},
 			tutorial: {
 				...fullTutorialData,

@@ -37,11 +37,11 @@ export async function allDocsFields(config: typeof __config) {
 		const { result: udrDocsResult } = await getUDRDocsPaths.json()
 
 		const allDocsData = [...contentAPIDocsResult, ...udrDocsResult]
-		return allDocsData.map((page: { path: string; created_at: string }) =>
+		return allDocsData.map((page: { path: string; last_modified: string; created_at: string }) =>
 			makeSitemapField(
 				{
 					slug: `${page.path}`,
-					lastmodDate: page.created_at,
+					lastmodDate: page.last_modified ?? page.created_at,
 				},
 				config
 			)

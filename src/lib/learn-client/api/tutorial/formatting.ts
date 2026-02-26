@@ -49,6 +49,7 @@ export function formatTutorialData(
 		edition,
 		products_used,
 		variants,
+		updated_at,
 	} = tutorial
 	const productsUsed = products_used.map(formatProductUsed)
 	const video = formatVideo(tutorial)
@@ -77,6 +78,7 @@ export function formatTutorialData(
 		handsOnLab,
 		edition: edition,
 		variant: formattedVariant,
+		updated_at,
 	}
 }
 

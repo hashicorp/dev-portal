@@ -12,7 +12,7 @@ import {
 
 const rewriteExternalLearnLink = (
 	urlObject: URL,
-	tutorialMap: Record<string, string>
+	tutorialMap: Record<string, Record<string, string>>
 ) => {
 	let newUrl
 

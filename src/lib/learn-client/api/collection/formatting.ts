@@ -31,6 +31,7 @@ export function formatCollection(collection: ApiCollection): Collection {
 		category,
 		tutorials,
 		next_collection,
+		updated_at
 	} = collection
 
 	return {
@@ -48,6 +49,7 @@ export function formatCollection(collection: ApiCollection): Collection {
 		nextCollection: next_collection
 			? formatToCollectionLite(next_collection)
 			: undefined,
+		updated_at,
 	}
 }
 

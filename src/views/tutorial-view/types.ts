@@ -67,6 +67,21 @@ interface TutorialViewProps {
 		description: string
 		slug?: string
 		variant?: TutorialVariant
+		structuredData?: {
+			'@context': string
+			'@type': string
+			name: string
+			description: string
+			totalTime: number
+			tool: {
+				'@type': string
+				name: string
+			}
+			author: {
+				'@type': string
+				name: string
+			}
+		}
 	}
 }
 

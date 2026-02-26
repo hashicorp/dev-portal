@@ -17,7 +17,7 @@ process.env.NEXT_PUBLIC_LEARN_API_BASE_URL =
 /**
  * This function creates a map of 'database-slug': 'dev-dot/path'
  */
-async function generateTutorialMap(): Promise<Record<string, string>> {
+async function generateTutorialMap(): Promise<Record<string, Record<string, string>>> {
 	const allTutorials = await getAllTutorials({
 		fullContent: false,
 		slugsOnly: true,
@@ -26,7 +26,11 @@ async function generateTutorialMap(): Promise<Record<string, string>> {
 	const mapItems = allTutorials.map((t) => {
 		const oldPath = t.slug
 		const newPath = getTutorialSlug(t.slug, t.collection_slug)
-		return [oldPath, newPath]
+		const entry = {
+			path: newPath,
+			last_modified: t.updated_at,
+		}
+		return [oldPath, entry]
 	})
 
 	return Object.fromEntries(mapItems)

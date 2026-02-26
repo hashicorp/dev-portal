@@ -14,7 +14,38 @@ export interface DocsViewProps {
 	/**
 	 * Frontmatter parsed from the MDX document
 	 */
-	metadata?: { title?: string, description?: string, layout?: { name: string, subtitle?: unknown } }
+	metadata?: {
+		title?: string
+		description?: string
+		layout?: { name: string; subtitle?: unknown }
+		structuredData?: {
+			'@context': string
+			'@type': string
+			headline: string
+			description: string
+			url: string
+			datePublished: string
+			dateModified: string
+			author: {
+				'@type': string
+				name: string
+				url: string
+			}
+			publisher: {
+				'@type': string
+				name: string
+			}
+			isPartOf: {
+				'@type': string
+				name: string
+				url: string
+			}
+			about: {
+				'@type': string
+				name: string
+			}
+		}
+	}
 
 	/**
 	 * Represents the return value of a call to `serialize()`. The properties

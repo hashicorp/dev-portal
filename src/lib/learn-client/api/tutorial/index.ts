@@ -93,9 +93,10 @@ export async function getAllTutorials(
 	})) as ApiTutorial[]
 
 	if (options?.slugsOnly) {
-		result = allTutorials.map(({ slug, default_collection }) => ({
+		result = allTutorials.map(({ slug, default_collection, updated_at }) => ({
 			slug,
 			collection_slug: default_collection.slug,
+			updated_at,
 		}))
 	} else {
 		return allTutorials.map(formatTutorialData)
