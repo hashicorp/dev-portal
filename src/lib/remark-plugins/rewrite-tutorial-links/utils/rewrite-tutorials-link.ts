@@ -23,7 +23,7 @@ const getIsRelativeUrl = (url) => {
 
 export function rewriteTutorialsLink(
 	url: string,
-	tutorialMap: Record<string, string>,
+	tutorialMap: Record<string, Record<string, string>>,
 	contentType: RewriteTutorialLinksPluginOptions['contentType'] = DEFAULT_CONTENT_TYPE
 ): string {
 	let newUrl

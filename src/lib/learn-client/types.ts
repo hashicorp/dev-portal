@@ -40,6 +40,7 @@ export interface Tutorial {
 	handsOnLab?: TutorialHandsOnLab
 	repo?: string
 	variant?: TutorialVariant
+	updated_at?: string
 }
 
 export interface CollectionCtxLite {
@@ -105,6 +106,7 @@ export interface Collection {
 	tutorials: TutorialLite[]
 	category?: CollectionCategoryOption
 	nextCollection?: CollectionLite
+	updated_at?: string
 }
 
 export interface Product {

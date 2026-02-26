@@ -133,11 +133,31 @@ export async function getCollectionPageProps(
 		isCertificationPrep: isCertificationSlug(collection.slug),
 	}
 
+	const structuredData = {
+		'@context': 'https://schema.org',
+		'@type': 'Course',
+		name: collection.shortName,
+		description: collection.description,
+		provider: {
+			'@type': 'Organization',
+			name: 'HashiCorp',
+		},
+		hasCourseInstance: {
+			'@type': 'CourseInstance',
+			courseMode: 'online',
+		},
+		hasPart: collection.tutorials.map((tutorial) => ({
+			'@type': 'LearningResource',
+			name: tutorial.shortName,
+		})),
+	}
+
 	return {
 		props: stripUndefinedProperties<$TSFixMe>({
 			metadata: {
 				title: collection.shortName,
 				description: collection.description,
+				structuredData,
 			},
 			collection: collection,
 			product,
