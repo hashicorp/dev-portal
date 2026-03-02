@@ -226,6 +226,7 @@
 		"@hashicorp/react-components": {
 			"next": "^14.2.1"
 		},
+		"serialize-javascript": "^7.0.3",
 		"trim": "^0.0.3",
 		"trim-newlines": "^3.0.1",
 		"prismjs": "^1.30.0"
