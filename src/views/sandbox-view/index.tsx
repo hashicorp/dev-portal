@@ -310,6 +310,7 @@ export const SandboxView = ({
 							compact={true}
 							gridGap="8px"
 							fixedColumns={2}
+							enableUserState={false}
 							tutorials={otherSandboxes.map((lab) => {
 								const isSameProduct = lab.products[0] === product.slug
 								const url = isSameProduct
