@@ -9,17 +9,20 @@ import {
 	TutorialCardPropsWithId,
 	TutorialCardWithAuthElements,
 } from 'components/tutorial-card'
+import TutorialCard from 'components/tutorial-card'
 import s from './tutorial-cards.module.css'
 import compactStyles from 'components/tutorial-card/tutorial-card-compact.module.css'
 
 interface TutorialCardsGridListProps extends CardsGridListProps {
 	tutorials: TutorialCardPropsWithId[]
 	compact?: boolean
+	enableUserState?: boolean
 }
 
 const TutorialCardsGridList = ({
 	tutorials,
 	compact = false,
+	enableUserState = true,
 	...restProps
 }) => {
 	const tutorialIds = []
@@ -33,7 +36,11 @@ const TutorialCardsGridList = ({
 				}`}
 				key={tutorial.id}
 			>
-				<TutorialCardWithAuthElements {...tutorial} hasBookmark={false} />
+				{enableUserState ? (
+					<TutorialCardWithAuthElements {...tutorial} hasBookmark={false} />
+				) : (
+					<TutorialCard {...tutorial} />
+				)}
 			</div>
 		)
 	})
@@ -43,6 +50,7 @@ const TutorialCardsGridList = ({
 	// const { isFetching, isRefetching } = useBookmarksByTutorialIds({
 	useBookmarksByTutorialIds({
 		tutorialIds,
+		...(enableUserState ? {} : { enabled: false }),
 	})
 
 	/**
@@ -55,8 +63,8 @@ const TutorialCardsGridList = ({
 	 * The bookmark queries are disabled
 	 * when is auth is disabled or no user is authenticated. When queries are
 	 * `disabled`, `isLoading` is `true` forever.
-	 * 
-	 * However, we want to at least render the tutorial cards even if bookmarks 
+	 *
+	 * However, we want to at least render the tutorial cards even if bookmarks
 	 * are loading or failed, so commenting this out for now
 	 */
 	// const isFirstLoad = isFetching && !isRefetching
