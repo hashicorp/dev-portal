@@ -213,7 +213,8 @@ for further details.
 .tooltiptext {
 	visibility: hidden;
 	font-size: 12px;
-	width: 150px;
+	width: max-content;
+	border: 1px solid white;
 	background: black;
 	color: white;
 	padding: 5px;
