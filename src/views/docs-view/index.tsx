@@ -45,6 +45,7 @@ const DocsView = ({
 	layoutProps,
 	outlineItems,
 	pageHeading,
+	docHeaders,
 }: DocsViewProps) => {
 	const pathname = usePathname()
 	const currentProduct = useCurrentProduct()
@@ -105,6 +106,7 @@ const DocsView = ({
 			{...layoutProps}
 			outlineItems={outlineItems}
 			versions={versions}
+			docMetadata={docHeaders}
 		>
 			{renderPageHeadingOutsideMdx ? (
 				<DocsPageHeading

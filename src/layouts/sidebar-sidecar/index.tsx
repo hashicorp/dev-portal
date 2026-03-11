@@ -53,6 +53,7 @@ const SidebarSidecarLayoutContent = ({
 	sidebarNavDataLevels,
 	mainWidth = 'wide',
 	alertBannerSlot,
+	docMetadata,
 }: SidebarSidecarLayoutProps) => {
 	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
 		useMobileMenu()
@@ -95,6 +96,38 @@ const SidebarSidecarLayoutContent = ({
 		sidebarContent = <Sidebar {...sidebarProps} />
 	}
 
+	let servedFromBadge = null
+	if (docMetadata && process.env.HASHI_ENV === 'unified-docs-sandbox') {
+		const servedFrom = docMetadata['Served-From']
+		if (servedFrom === 'production') {
+			servedFromBadge = (
+				<div
+					className={classNames(
+						s.servedFromBadge,
+						s.servedFromBadgeProd,
+						s.tooltip
+					)}
+					aria-label={'Served from production'}
+				>
+					<span className={s.tooltiptext}>Served from production</span>
+				</div>
+			)
+		} else if (servedFrom === 'current build') {
+			servedFromBadge = (
+				<div
+					className={classNames(
+						s.servedFromBadge,
+						s.servedFromBadgeCurrent,
+						s.tooltip
+					)}
+					aria-label="Served from current build"
+				>
+					<span className={s.tooltiptext}>Served from current build</span>
+				</div>
+			)
+		}
+	}
+
 	const shouldNotHaveSidePadding =
 		sidebarContent.props.title === 'Main Menu' ||
 		(AlternateSidebar && !sidebarProps?.menuItems)
@@ -122,15 +155,18 @@ const SidebarSidecarLayoutContent = ({
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
 				{alertBannerSlot}
-				<div className={classNames(s.paddedAreaWrapper, {
-					[s.withSandboxPadding]: sandboxIsActive
-				})}>
+				<div
+					className={classNames(s.paddedAreaWrapper, {
+						[s.withSandboxPadding]: sandboxIsActive,
+					})}
+				>
 					<div className={s.breadcrumbContainer}>
 						<div>
 							{breadcrumbLinks ? (
 								<BreadcrumbBar links={breadcrumbLinks} />
 							) : null}
 						</div>
+						{servedFromBadge}
 					</div>
 					<div className={s.mainAndSidecar}>
 						<main id={MAIN_ELEMENT_ID} className={s.main}>

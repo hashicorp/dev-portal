@@ -187,3 +187,42 @@ for further details.
 	padding-left: 16px;
 	padding-right: 16px;
 }
+
+.servedFromBadge {
+	align-self: anchor-center;
+	margin-left: 8px;
+	width: 15px;
+	height: 15px;
+	border-radius: 7.5px;
+}
+
+.servedFromBadgeProd {
+	background-color: green;
+}
+
+.servedFromBadgeCurrent {
+	background-color: blue;
+}
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.tooltiptext {
+	visibility: hidden;
+	font-size: 12px;
+	width: 150px;
+	background: black;
+	color: white;
+	padding: 5px;
+	margin: 1em;
+	border-radius: 5px;
+	position: absolute;
+	z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
