@@ -90,10 +90,7 @@ export async function fetchDocument(product: string, fullPath: string) {
 		}
 
 		const { result } = await response.json()
-		// const docHeaders = Object.fromEntries(response.headers)
-		const docHeaders: Record<string, string> = {
-			'Served-From': 'production',
-		}
+		const docHeaders = Object.fromEntries(response.headers)
 		return { result, docHeaders }
 	})
 }
