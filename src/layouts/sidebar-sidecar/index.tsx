@@ -97,10 +97,10 @@ const SidebarSidecarLayoutContent = ({
 	}
 
 	let servedFromBadge = null
-	console.warn('docMetadata', docMetadata) // For debugging purposes, to see the structure of docMetadata in the console
-	console.warn('HASHI_ENV', process.env.HASHI_ENV) // To verify the value of HASHI_ENV in the console
 	if (docMetadata && process.env.HASHI_ENV === 'unified-docs-sandbox') {
 		const servedFrom = docMetadata['served-from']
+		console.warn('served-from', servedFrom) // To check the value of 'served-from' in the console
+		console.warn('docMetadata type', typeof docMetadata) // To check the value of 'served-from' in the console
 		if (servedFrom === 'production') {
 			servedFromBadge = (
 				<div
