@@ -127,7 +127,7 @@ function Image({
 }: ImageProps): ReactElement {
 	const [servedFrom, setServedFrom] = useState<string | null>(null)
 
-	// In order to display the "Served from" badge, we need to fetch the headers for the image, which re-requesting the image as the html tag <img> loading is handled by the browser and we don't have access to the response headers. This useEffect will fetch the headers and set the "servedFrom" state which will determine if we show the badge and what it says.
+	// In order to display the "Served from" badge, we need to fetch the headers for the image, which re-requesting the image as the html tag <img> loading is handled by the browser and we don't have access to the response headers.
 	useEffect(() => {
 		if (process.env.HASHI_ENV !== 'unified-docs-sandbox') return
 
