@@ -21,19 +21,25 @@ async function fetchImageServedFromHeaders(
 		}
 	}
 
-	const requestPromise = fetch(
-		`/api/image-served-from?src=${encodeURIComponent(src)}`
-	)
-		.then((response) => {
+	const fetchServedFrom = async () => {
+		try {
+			const response = await fetch(
+				`/api/image-served-from?src=${encodeURIComponent(src)}`
+			)
+
 			if (!response.ok) {
 				return null
 			}
 
-			return response.json() as Promise<{ servedFrom: string | null }>
-		})
-		.then((payload) => payload?.servedFrom ?? null)
-		.catch(() => null)
+			const payload = (await response.json()) as { servedFrom: string | null }
+			return payload?.servedFrom ?? null
+		} catch {
+			return null
+		}
+	}
 
+	// we want to cache the promise to avoid multiple requests
+	const requestPromise = fetchServedFrom()
 	servedFromRequestCache.set(src, requestPromise)
 
 	return requestPromise
