@@ -187,3 +187,15 @@ for further details.
 	padding-left: 16px;
 	padding-right: 16px;
 }
+
+.servedFromBadge {
+	composes: hds-typography-body-100 from global;
+	padding: 2px 6px;
+	border-radius: 999px;
+	border: 1px solid white;
+	background-color: black;
+	color: white;
+	margin-left: 8px;
+	flex: none;
+	align-self: flex-start;
+}

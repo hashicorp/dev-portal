@@ -79,6 +79,7 @@ interface LoadStaticPropsReturn {
 	githubFileUrl: string
 	mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>
 	navData: unknown[]
+	docHeaders?: Record<string, string>
 }
 
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
@@ -234,7 +235,7 @@ export default class RemoteContentLoader implements DataLoader {
 			versionToFetch
 		)
 
-		const [document, navData] = await Promise.all([
+		const [{ result: document, docHeaders }, navData] = await Promise.all([
 			documentPromise,
 			navDataPromise,
 		])
@@ -309,6 +310,7 @@ export default class RemoteContentLoader implements DataLoader {
 			githubFileUrl,
 			mdxSource,
 			navData: navData.navData,
+			docHeaders,
 		}
 	}
 }

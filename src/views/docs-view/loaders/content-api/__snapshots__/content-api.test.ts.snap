@@ -2,10 +2,14 @@
 
 exports[`contentApi > fetchDocument > should return the requested document 1`] = `
 {
-  "created_at": "Sat Oct 02 2021 23:52:13 GMT+0000 (Coordinated Universal Time)",
-  "fullPath": "doc/v0.5.x/commands",
-  "githubFile": "website/content/commands/index.mdx",
-  "markdownSource": "# Waypoint Commands (CLI)
+  "docHeaders": {
+    "content-type": "application/json",
+  },
+  "result": {
+    "created_at": "Sat Oct 02 2021 23:52:13 GMT+0000 (Coordinated Universal Time)",
+    "fullPath": "doc/v0.5.x/commands",
+    "githubFile": "website/content/commands/index.mdx",
+    "markdownSource": "# Waypoint Commands (CLI)
 
 Waypoint is controlled via a very easy to use command-line interface (CLI). Waypoint
 is only a single command-line application: \`waypoint\`. This application then takes a
@@ -84,19 +88,20 @@ so you can do \`waypoint <tab>\` on commands. Running \`waypoint -autocomplete-u
 will remove it. Please note that this will modify your shell init script, so you will
 need to reload your shell.
 ",
-  "mdxTransforms": [
-    "extract-frontmatter",
-    "include-partials",
-    "paragraph-custom-alerts",
-  ],
-  "metadata": {
-    "layout": "commands",
-    "page_title": "Waypoint Commands (CLI)",
+    "mdxTransforms": [
+      "extract-frontmatter",
+      "include-partials",
+      "paragraph-custom-alerts",
+    ],
+    "metadata": {
+      "layout": "commands",
+      "page_title": "Waypoint Commands (CLI)",
+    },
+    "product": "waypoint",
+    "sha": "f441834f6a78b94c9108f1bf348c793b3bba08a6",
+    "subpath": "commands",
+    "version": "v0.5.x",
   },
-  "product": "waypoint",
-  "sha": "f441834f6a78b94c9108f1bf348c793b3bba08a6",
-  "subpath": "commands",
-  "version": "v0.5.x",
 }
 `;
 

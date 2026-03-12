@@ -7,6 +7,7 @@
 	background-color: var(--mds-color-surface-strong);
 	padding: 12px;
 	border-radius: 6px;
+	position: relative;
 	display: flex;
 	flex-wrap: wrap;
 	overflow: hidden;
@@ -49,4 +50,18 @@
 	@nest html[data-theme='dark'] & {
 		color: var(--mds-color-surface-primary);
 	}
+}
+
+.servedFromBadge {
+	composes: hds-typography-body-100 from global;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	padding: 2px 6px;
+	border-radius: 999px;
+	border: 1px solid white;
+	background-color: black;
+	color: white;
+	z-index: 1;
+	pointer-events: none;
 }
