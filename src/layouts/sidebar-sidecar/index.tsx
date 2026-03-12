@@ -99,31 +99,12 @@ const SidebarSidecarLayoutContent = ({
 	let servedFromBadge = null
 	if (docMetadata && process.env.HASHI_ENV === 'unified-docs-sandbox') {
 		const servedFrom = docMetadata['served-from']
-		if (servedFrom === 'production') {
+		if (servedFrom === 'current build' || servedFrom === 'production') {
+			const icon = servedFrom === 'production' ? '🟢' : '🟡'
 			servedFromBadge = (
-				<div
-					className={classNames(
-						s.servedFromBadge,
-						s.servedFromBadgeProd,
-						s.tooltip
-					)}
-					aria-label={'Served from production'}
-				>
-					<span className={s.tooltiptext}>Served from production</span>
-				</div>
-			)
-		} else if (servedFrom === 'current build') {
-			servedFromBadge = (
-				<div
-					className={classNames(
-						s.servedFromBadge,
-						s.servedFromBadgeCurrent,
-						s.tooltip
-					)}
-					aria-label="Served from current build"
-				>
-					<span className={s.tooltiptext}>Served from current build</span>
-				</div>
+				<span className={s.servedFromBadge}>
+					{icon} {servedFrom.toUpperCase()}
+				</span>
 			)
 		}
 	}

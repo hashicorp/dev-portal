@@ -189,41 +189,13 @@ for further details.
 }
 
 .servedFromBadge {
-	align-self: anchor-center;
-	margin-left: 8px;
-	width: 15px;
-	height: 15px;
-	border-radius: 7.5px;
-}
-
-.servedFromBadgeProd {
-	background-color: green;
-}
-
-.servedFromBadgeCurrent {
-	background-color: yellow;
-}
-
-.tooltip {
-	position: relative;
-	display: inline-block;
-	cursor: pointer;
-}
-
-.tooltiptext {
-	visibility: hidden;
-	font-size: 12px;
-	width: max-content;
+	composes: hds-typography-body-100 from global;
+	padding: 2px 6px;
+	border-radius: 999px;
 	border: 1px solid white;
-	background: black;
+	background-color: black;
 	color: white;
-	padding: 5px;
-	margin: 1em;
-	border-radius: 5px;
-	position: absolute;
-	z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-	visibility: visible;
+	margin-left: 8px;
+	flex: none;
+	align-self: flex-start;
 }

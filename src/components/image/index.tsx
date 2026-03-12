@@ -3,12 +3,41 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { CSSProperties, ReactElement } from 'react'
+import { CSSProperties, ReactElement, useEffect, useState } from 'react'
 import NextImage from 'next/image'
 import { GlobalThemeOption } from 'styles/themes/types'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
+
+const servedFromRequestCache = new Map<string, Promise<string | null>>()
+async function fetchImageServedFromHeaders(
+	src: string
+): Promise<string | null> {
+	if (servedFromRequestCache.has(src)) {
+		const existingRequest = servedFromRequestCache.get(src)
+		if (existingRequest) {
+			return existingRequest
+		}
+	}
+
+	const requestPromise = fetch(
+		`/api/image-served-from?src=${encodeURIComponent(src)}`
+	)
+		.then((response) => {
+			if (!response.ok) {
+				return null
+			}
+
+			return response.json() as Promise<{ servedFrom: string | null }>
+		})
+		.then((payload) => payload?.servedFrom ?? null)
+		.catch(() => null)
+
+	servedFromRequestCache.set(src, requestPromise)
+
+	return requestPromise
+}
 
 /**
  * Create an object to be passed as a style prop to the underlying img element
@@ -90,6 +119,25 @@ function Image({
 	width,
 	inline = false,
 }: ImageProps): ReactElement {
+	const [servedFrom, setServedFrom] = useState<string | null>(null)
+
+	// In order to display the "Served from" badge, we need to fetch the headers for the image, which re-requesting the image as the html tag <img> loading is handled by the browser and we don't have access to the response headers. This useEffect will fetch the headers and set the "servedFrom" state which will determine if we show the badge and what it says.
+	useEffect(() => {
+		if (process.env.HASHI_ENV !== 'unified-docs-sandbox') return
+
+		let isCancelled = false
+
+		fetchImageServedFromHeaders(src).then((value) => {
+			if (!isCancelled) {
+				setServedFrom(value)
+			}
+		})
+
+		return () => {
+			isCancelled = true
+		}
+	}, [src])
+
 	/**
 	 * Warn if there's no intentional alt prop.
 	 *
@@ -116,6 +164,18 @@ function Image({
 
 	const theme = getTheme(src)
 
+	let servedFromBadge = null
+	if (process.env.HASHI_ENV === 'unified-docs-sandbox') {
+		if (servedFrom === 'current build' || servedFrom === 'production') {
+			const icon = servedFrom === 'production' ? '🟢' : '🟡'
+			servedFromBadge = (
+				<span className={s.servedFromBadge}>
+					{icon} {servedFrom.toUpperCase()}
+				</span>
+			)
+		}
+	}
+
 	return (
 		<span
 			className={classNames(s.root, {
@@ -125,6 +185,7 @@ function Image({
 			})}
 			data-show-on-theme={theme ? theme : null}
 		>
+			{servedFromBadge}
 			{dimensions ? (
 				<NextImage
 					src={src}
