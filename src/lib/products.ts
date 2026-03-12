@@ -161,7 +161,7 @@ const navigationData: ProductNavData = [
 				description: 'Secure remote access',
 			},
 			{
-				product: 'HCP Vault Radar',
+				product: 'Vault Radar',
 				url: '/hcp/docs/vault-radar',
 				description: 'Scan for embedded secrets',
 			},
