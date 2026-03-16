@@ -170,59 +170,60 @@ describe('RemoteContentLoader', () => {
 				},
 
 				navData: expect.any(Array),
-			},
-			`
-      {
-        "currentPath": "v0.5.x",
-        "frontMatter": {
-          "layout": "commands",
-          "page_title": "Waypoint Commands (CLI)",
-        },
-        "githubFileUrl": "https://github.com/hashicorp/waypoint/blob/main/website/content/commands/index.mdx",
-        "mdxSource": {
-          "compiledSource": Any<String>,
-          "scope": {
-            "version": "latest",
-          },
-        },
-        "navData": Any<Array>,
-        "versions": [
-          {
-            "found": true,
-            "isLatest": false,
-            "label": "v0.6.2 (alpha)",
-            "name": "v0.6.x",
-            "releaseStage": "alpha",
-            "version": "v0.6.x",
-          },
-          {
-            "found": true,
-            "isLatest": true,
-            "label": "v0.5.2 (latest)",
-            "name": "latest",
-            "releaseStage": "stable",
-            "version": "v0.5.x",
-          },
-          {
-            "found": true,
-            "isLatest": false,
-            "label": "v0.4.x",
-            "name": "v0.4.x",
-            "releaseStage": "stable",
-            "version": "v0.4.x",
-          },
-          {
-            "found": true,
-            "isLatest": false,
-            "label": "v0.3.x",
-            "name": "v0.3.x",
-            "releaseStage": "stable",
-            "version": "v0.3.x",
-          },
-        ],
-      }
-    `
-		)
+			}, `
+			{
+			  "currentPath": "v0.5.x",
+			  "docHeaders": {
+			    "content-type": "application/json",
+			  },
+			  "frontMatter": {
+			    "layout": "commands",
+			    "page_title": "Waypoint Commands (CLI)",
+			  },
+			  "githubFileUrl": "https://github.com/hashicorp/waypoint/blob/main/website/content/commands/index.mdx",
+			  "mdxSource": {
+			    "compiledSource": Any<String>,
+			    "scope": {
+			      "version": "latest",
+			    },
+			  },
+			  "navData": Any<Array>,
+			  "versions": [
+			    {
+			      "found": true,
+			      "isLatest": false,
+			      "label": "v0.6.2 (alpha)",
+			      "name": "v0.6.x",
+			      "releaseStage": "alpha",
+			      "version": "v0.6.x",
+			    },
+			    {
+			      "found": true,
+			      "isLatest": true,
+			      "label": "v0.5.2 (latest)",
+			      "name": "latest",
+			      "releaseStage": "stable",
+			      "version": "v0.5.x",
+			    },
+			    {
+			      "found": true,
+			      "isLatest": false,
+			      "label": "v0.4.x",
+			      "name": "v0.4.x",
+			      "releaseStage": "stable",
+			      "version": "v0.4.x",
+			    },
+			    {
+			      "found": true,
+			      "isLatest": false,
+			      "label": "v0.3.x",
+			      "name": "v0.3.x",
+			      "releaseStage": "stable",
+			      "version": "v0.3.x",
+			    },
+			  ],
+			}
+		`)
 	})
 
 	test('should return a null github file url for non-latest versions', async () => {

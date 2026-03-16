@@ -310,8 +310,14 @@ export function getStaticGenerationFunctions({
 				throw error
 			}
 
-			const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
-				loadStaticPropsResult
+			const {
+				navData,
+				mdxSource,
+				githubFileUrl,
+				versions,
+				frontMatter,
+				docHeaders,
+			} = loadStaticPropsResult
 
 			/**
 			 * Construct a page heading object from outline data.
@@ -492,8 +498,10 @@ export function getStaticGenerationFunctions({
 
 			const context = docsBasePathFullPath.includes('/api-docs')
 				? 'APIReference'
-				: 'TechArticle'		
-			const url = `https://developer.hashicorp.com${breadcrumbLinks[breadcrumbLinks.length - 1].url}`
+				: 'TechArticle'
+			const url = `https://developer.hashicorp.com${
+				breadcrumbLinks[breadcrumbLinks.length - 1].url
+			}`
 
 			const structuredData = {
 				'@context': 'https://schema.org',
@@ -551,6 +559,7 @@ export function getStaticGenerationFunctions({
 				projectName: projectName || null,
 				versions:
 					!hideVersionSelector && hasMeaningfulVersions ? validVersions : null,
+				docHeaders
 			}
 
 			return {

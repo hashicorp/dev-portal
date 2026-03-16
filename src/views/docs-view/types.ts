@@ -56,6 +56,8 @@ export interface DocsViewProps {
 
 	versions?: VersionSelectItem[]
 
+	docHeaders?: Record<string, string>
+
 	/**
 	 * An optional, human-readable name to be rendered where the section is referenced as a versioned project
 	 */

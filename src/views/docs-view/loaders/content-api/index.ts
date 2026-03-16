@@ -19,10 +19,10 @@ const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
 
 /**
  * Retries an async operation with exponential backoff for transient 404 errors.
- * 
+ *
  * This helps handle temporary backend unavailability (cold starts, network blips, etc.)
  * without caching 404 pages during ISR revalidation.
- * 
+ *
  * @param fn - The async function to retry
  * @param retries - Number of retry attempts (default: 3)
  * @returns The result of the function call
@@ -33,13 +33,13 @@ async function retryOn404<T>(
 	retries = 3
 ): Promise<T> {
 	let lastError: Error
-	
+
 	for (let attempt = 0; attempt < retries; attempt++) {
 		try {
 			return await fn()
 		} catch (error) {
 			lastError = error as Error
-			
+
 			// Only retry on 404 errors (transient backend failures)
 			// Other errors (500, network errors, etc.) should be thrown immediately
 			if ('status' in error && error.status === 404) {
@@ -90,7 +90,8 @@ export async function fetchDocument(product: string, fullPath: string) {
 		}
 
 		const { result } = await response.json()
-		return result
+		const docHeaders = Object.fromEntries(response.headers)
+		return { result, docHeaders }
 	})
 }
 
