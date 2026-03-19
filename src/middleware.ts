@@ -10,6 +10,7 @@ import variantRewrites from '.generated/tutorial-variant-map.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getVariantParam } from 'views/tutorial-view/utils/variants'
+import { setPosthogFeatureFlagCookies } from 'lib/posthog'
 
 function determineProductSlug(req: NextRequest): string {
 	// .io production deploy
@@ -60,7 +61,8 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			)
 		}
 		if (destination.startsWith('http')) {
-			return NextResponse.redirect(destination, permanent ? 308 : 307)
+			const res = NextResponse.redirect(destination, permanent ? 308 : 307)
+			return await setPosthogFeatureFlagCookies(req, res)
 		}
 
 		// Next.js doesn't support redirecting to a pathname, so we clone the
@@ -74,7 +76,8 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			url.hash = hash
 		}
 
-		return NextResponse.redirect(url, permanent ? 308 : 307)
+		const res = NextResponse.redirect(url, permanent ? 308 : 307)
+		return await setPosthogFeatureFlagCookies(req, res)
 	}
 
 	// Check if this path is associated with a tutorial variant
@@ -141,7 +144,10 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	}
 
 	// Continue request processing
-	return setGeoCookie(req, response)
+	return await setPosthogFeatureFlagCookies(
+		req,
+		setGeoCookie(req, response),
+	)
 }
 
 export const config = {
