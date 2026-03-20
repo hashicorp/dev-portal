@@ -35,6 +35,55 @@ const POSTHOG_COOKIE_KEY = `ph_${process.env.POSTHOG_PROJECT_API_KEY}_posthog`
 
 //#region Consent Utils
 
+const parseGeoCookie = (rawGeo: string | null) => {
+    if (!rawGeo) return { country: null, region: null }
+
+    const [countryPart, regionPart] = rawGeo.split(',')
+    const country = countryPart?.split('=')[1]?.toUpperCase() ?? null
+    const region = regionPart?.split('=')[1]?.toUpperCase() ?? null
+
+    return { country, region }
+}
+
+const normalizeHeader = (value: string | string[] | undefined) => {
+    if (Array.isArray(value)) return value[0] ?? null
+    return value ?? null
+}
+
+const getGeo = (req: PosthogRequest) => {
+    let rawGeo: string | null = null
+
+    if (isMiddlewareRequest(req)) {
+        rawGeo = req.cookies.get('hc_geo')?.value ?? null
+    } else if (isGetServerSidePropsRequest(req)) {
+        rawGeo = (req.cookies['hc_geo'] as string | undefined) ?? null
+    }
+
+    const cookieGeo = parseGeoCookie(rawGeo)
+    if (cookieGeo.country && cookieGeo.region) return cookieGeo
+
+    // First request in preview may not have hc_geo yet; use request geo headers.
+    if (isMiddlewareRequest(req)) {
+        return {
+            country: req.headers.get('x-vercel-ip-country')?.toUpperCase() ?? null,
+            region:
+                req.headers.get('x-vercel-ip-country-region')?.toUpperCase() ?? null,
+        }
+    }
+
+    if (isGetServerSidePropsRequest(req)) {
+        const country =
+            normalizeHeader(req.headers['x-vercel-ip-country'])?.toUpperCase() ??
+            null
+        const region =
+            normalizeHeader(req.headers['x-vercel-ip-country-region'])?.toUpperCase() ??
+            null
+        return { country, region }
+    }
+
+    return { country: null, region: null }
+}
+
 /**
  * Determines if a user can be made to opt-out by default. (ie can we set cookies without explicit consent and then allow the user to opt-out later)
  * If null is passed, we rely on the middleware to set the `hc_geo` cookie via {@link https://github.com/hashicorp/web-platform-packages/blob/27b748c6d2769c417aeb7aa48485c0ebd4dcbc26/packages/edge-utils/lib/set-geo-cookie.ts#L22 setGeoCookie},
@@ -44,36 +93,21 @@ const POSTHOG_COOKIE_KEY = `ph_${process.env.POSTHOG_PROJECT_API_KEY}_posthog`
  * @returns boolean indicating if the user can be made to opt-out by default
  */
 const canUseOptOutPolicy = (req: PosthogRequest): boolean => {
-	// The `hc_geo` cookie will not have a value in dev environments. To ensure
-	// that this functionality can be tested locally, we return true for the
-	// development environment.
-	const isDev = process.env.NODE_ENV === 'development'
-	if (isDev) {
-		return true
-	}
-	let geoCookie = null
-	if (isMiddlewareRequest(req)) {
-		geoCookie = req.cookies.get('hc_geo')
-	} else if (isGetServerSidePropsRequest(req)) {
-		geoCookie = req.cookies['hc_geo']
-	}
+    const isDev = process.env.NODE_ENV === 'development'
+    if (isDev) {
+        return true
+    }
 
-	const validGeoCookie = geoCookie
-	if (!validGeoCookie) return false
+    const { country, region } = getGeo(req)
 
-	const [countryPart, regionPart] =
-		geoCookie.value.split(',') ?? geoCookie.split(',')
-	const country = countryPart?.split('=')[1]
-	const region = regionPart?.split('=')[1]
+    // If we can't determine country or it's not US, require explicit opt-in
+    if (!country || country !== 'US') return false
 
-	// If we can't determine country or it's not US, require explicit opt-in
-	if (!country || country !== 'US') return false
+    // If we can't determine region, require explicit opt-in
+    if (!region) return false
 
-	// If we can't determine region, require explicit opt-in
-	if (!region) return false
-
-	const isOptInState = OPT_IN_STATES.includes(region)
-	return !isOptInState
+    const isOptInState = OPT_IN_STATES.includes(region)
+    return !isOptInState
 }
 
 /**

@@ -62,7 +62,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		}
 		if (destination.startsWith('http')) {
 			const res = NextResponse.redirect(destination, permanent ? 308 : 307)
-			return await setPosthogFeatureFlagCookies(req, res)
+			return await setPosthogFeatureFlagCookies(req, setGeoCookie(req, res))
 		}
 
 		// Next.js doesn't support redirecting to a pathname, so we clone the
@@ -77,7 +77,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		}
 
 		const res = NextResponse.redirect(url, permanent ? 308 : 307)
-		return await setPosthogFeatureFlagCookies(req, res)
+		return await setPosthogFeatureFlagCookies(req, setGeoCookie(req, res))
 	}
 
 	// Check if this path is associated with a tutorial variant
