@@ -18,6 +18,7 @@ import { DocsVersionAlertBanner } from './components'
 const DocsViewLayout = ({
 	outlineItems,
 	versions,
+	docMetadata,
 	...layoutProps
 }: SidebarSidecarLayoutProps & {
 	outlineItems: OutlineLinkItem[]
@@ -26,6 +27,7 @@ const DocsViewLayout = ({
 	return (
 		<SidebarSidecarLayout
 			{...layoutProps}
+			docMetadata={docMetadata}
 			/**
 			 * Note: this slice() ensures that if the layout re-renders, then
 			 * OutlineNavWithActive re-renders.
