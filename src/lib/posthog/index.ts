@@ -261,7 +261,7 @@ async function getBootstrapData(req: PosthogRequest) {
 
 /**
  * Retrieves the value of a specific feature flag for the given request.
- * Used this function in getServerSideProps for a page. This function also logs the feature flag call to PostHog.
+ * Used this function in getServerSideProps for a page.
  * 
  * @param flag - The name of the feature flag to retrieve
  * @param req - The request object from getServerSideProps
@@ -278,19 +278,6 @@ export const getFeatureFlag = async (
 
 	const isObj = typeof featureFlags === 'object'
 	if (!isObj) return null
-
-	const client = new PostHog(process.env.POSTHOG_PROJECT_API_KEY, {
-		host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-	})
-
-	client.capture({
-		distinctId: bootstrapData.distinctID,
-		event: '$feature_flag_called',
-		properties: {
-			$feature_flag: flag,
-			$feature_flag_response: featureFlags[flag],
-		},
-	})
 
 	return featureFlags ? featureFlags[flag] : null
 }
