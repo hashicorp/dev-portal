@@ -35,6 +35,12 @@ const POSTHOG_COOKIE_KEY = `ph_${process.env.POSTHOG_PROJECT_API_KEY}_posthog`
 
 //#region Consent Utils
 
+/**
+ * Parses the `hc_geo` cookie value into a country and region.
+ *
+ * @param rawGeo - The raw value of the `hc_geo` cookie.
+ * @returns An object containing the country and region, or null if not available.
+ */
 const parseGeoCookie = (rawGeo: string | null) => {
     if (!rawGeo) return { country: null, region: null }
 
@@ -45,11 +51,24 @@ const parseGeoCookie = (rawGeo: string | null) => {
     return { country, region }
 }
 
+/**
+ * Normalizes a header value to a single string.
+ *
+ * @param value - The value of the header, which can be a string, an array of strings, or undefined.
+ * @returns The first header value if it's an array, the value itself if it's a string, or null if undefined.
+ */
 const normalizeHeader = (value: string | string[] | undefined) => {
     if (Array.isArray(value)) return value[0] ?? null
     return value ?? null
 }
 
+/**
+ * Retrieves the geographic information (country and region) of the user from the request.
+ * This works for both middleware requests and getServerSideProps requests.
+ *
+ * @param req - The request object from middleware or getServerSideProps
+ * @returns An object containing the country and region, or null if not available.
+ */
 const getGeo = (req: PosthogRequest) => {
     let rawGeo: string | null = null
 
