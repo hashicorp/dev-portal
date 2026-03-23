@@ -334,7 +334,7 @@ export const setPosthogFeatureFlagCookies = async (
 const parseBootstrapData = (jsonData: string) => {
 	try {
 		return JSON.parse(jsonData)
-	} catch (e) {
+	} catch {
 		return null
 	}
 }
