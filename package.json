@@ -191,6 +191,7 @@
 		"p-map": "^4.0.0",
 		"pkg-dir": "^5.0.0",
 		"posthog-js": "^1.249.1",
+		"posthog-node": "4.3.0",
 		"probe-image-size": "^7.2.3",
 		"promise-polyfill": "^8.2.1",
 		"query-string": "^7.1.1",
