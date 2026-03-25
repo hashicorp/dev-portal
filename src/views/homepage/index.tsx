@@ -5,7 +5,6 @@
 
 // Third-party imports
 import { ReactElement } from 'react'
-import { useActiveFeatureFlags } from 'posthog-js/react'
 
 // Global imports
 import BaseLayout from 'layouts/base-layout'
@@ -20,16 +19,9 @@ import {
 } from './components'
 import s from './homepage.module.css'
 
-function HomePageView({ bootstrapData }): ReactElement {
-	const clientFlag = useActiveFeatureFlags()
-
-	const serverFlag = JSON.stringify(bootstrapData)
-
+function HomePageView(): ReactElement {
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
-			<div>Feature flags</div>
-			<div>Client flags: {clientFlag}</div>
-			<div>Server flag: {serverFlag}</div>
 			<div className={s.root}>
 				<div className={s.background} />
 				<div className={s.limitedWidthContainer}>
