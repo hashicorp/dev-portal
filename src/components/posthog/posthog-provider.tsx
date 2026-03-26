@@ -8,6 +8,7 @@ import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
 import { Router } from 'next/router'
 import useDatagrailPerformanceConsent from 'hooks/use-datagrail-performance-consent'
+import { getBootstrapDataClient } from 'lib/posthog'
 
 // Due to PostHog being a performance tool, we can only initialize if the user provides consent
 // for performance cookies. Using the Datagrail event listeners, we check the user's consent
@@ -21,6 +22,7 @@ export function ConditionalPostHogProvider({
 
 	useEffect(() => {
 		if (categoryPerformanceConsent) {
+			const bootstrap = getBootstrapDataClient()
 			// This initialization code came from the PostHog documentation
 			// https://posthog.com/docs/libraries/next-js#router-specific-instructions
 			posthog.init(process.env.POSTHOG_PROJECT_API_KEY, {
@@ -30,6 +32,7 @@ export function ConditionalPostHogProvider({
 				loaded: (posthog) => {
 					if (process.env.NODE_ENV === 'development') posthog.debug()
 				},
+				bootstrap,
 			})
 
 			const handleRouteChange = () => posthog?.capture('$pageview')
