@@ -55,7 +55,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		},
 		{
 			title: 'Support',
-			href: 'https://www.hashicorp.com/customer-success',
+			href: 'https://www.ibm.com/mysupport',
 		},
 	],
 	/**

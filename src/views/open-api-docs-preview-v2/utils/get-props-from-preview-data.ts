@@ -80,7 +80,7 @@ export default async function getPropsFromPreviewData(
 			},
 			{
 				text: 'Support',
-				href: 'https://www.hashicorp.com/customer-success',
+				href: 'https://www.ibm.com/mysupport',
 			},
 		],
 		// Status indicator for HCP Services generally, to demo this feature
