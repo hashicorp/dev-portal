@@ -71,7 +71,7 @@ const PAGE_CONFIG: OpenApiDocsViewV2Config = {
 		},
 		{
 			text: 'Support',
-			href: 'https://www.hashicorp.com/customer-success',
+			href: 'https://www.ibm.com/mysupport',
 		},
 	],
 	schemaTransforms: [

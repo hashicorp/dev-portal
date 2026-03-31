@@ -43,7 +43,7 @@ const GENERIC_PAGE_CONFIG = {
 		},
 		{
 			title: 'Support',
-			href: 'https://www.hashicorp.com/customer-success',
+			href: 'https://www.ibm.com/mysupport',
 		},
 	],
 }
