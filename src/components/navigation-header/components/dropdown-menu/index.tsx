@@ -220,7 +220,7 @@ const NavigationHeaderDropdownMenu = ({
 					<ProductPanel
 						productCategories={productPanelData.navigationData}
 						promo={productPanelData.navPromo}
-						sidePanel={productPanelData.sidePanelContent}
+						// sidePanel={productPanelData.sidePanelContent}
 						isPromoOnTop={true}
 					/>
 				) : (

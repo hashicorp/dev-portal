@@ -19,7 +19,7 @@
 	padding-left: 12px;
 	padding-right: 12px;
 	padding-top: 8px;
-	width: fit-content;
+	width: 320px;
 
 	/* Show icon-only starting at 1071px and narrower */
 	@media only screen and (max-width: 1071px) {

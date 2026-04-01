@@ -169,6 +169,27 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		})
 	}
 
+	if (
+		getIsEnabledProductIntegrations(currentProduct.slug) &&
+		currentProduct.slug !== 'terraform'
+	) {
+		items.push({
+			label: 'Integrations',
+			url: `/${currentProduct.slug}/integrations`,
+		})
+	}
+
+	/**
+	 * Return the items
+	 */
+	return items
+}
+
+export const getRightSideNavButtons = (
+	currentProduct: ProductData
+): NavItem[] => {
+	const items: NavItem[] = []
+
 	/**
 	 * For Terraform, add a "Registry" item
 	 */
@@ -178,28 +199,22 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 			url: 'https://registry.terraform.io/',
 			opensInNewTab: true,
 		})
-	} else if (getIsEnabledProductIntegrations(currentProduct.slug)) {
-		items.push({
-			label: 'Integrations',
-			url: `/${currentProduct.slug}/integrations`,
-		})
 	}
 
 	/**
 	 * For cloud products, add a "Try Cloud" item
 	 */
 	if (TRY_CLOUD_ITEM_PRODUCT_SLUGS.includes(currentProduct.slug)) {
+		const label = currentProduct.slug === 'hcp' ? 'Try Cloud' : `Try HCP ${currentProduct.name}`
 		items.push({
-			label: 'Try Cloud',
+			label,
 			url:
 				TRY_CLOUD_PRODUCT_LINKS[currentProduct.slug] ??
 				TRY_CLOUD_PRODUCT_LINKS['default'],
 			opensInNewTab: true,
+			isPrimary: true,
 		})
 	}
 
-	/**
-	 * Return the items
-	 */
 	return items
 }

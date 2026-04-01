@@ -6,7 +6,6 @@
 .root {
 	width: fit-content;
 	position: relative;
-	z-index: 200;
 
 	@media (max-width: 1024px) {
 		display: none;
