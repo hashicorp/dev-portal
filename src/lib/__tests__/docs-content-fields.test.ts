@@ -54,4 +54,55 @@ describe('allDocsFields', () => {
 			}))
 		)
 	})
+
+	it('omits restricted docs from sitemap fields', async () => {
+		process.env.MKTG_CONTENT_DOCS_API = 'https://content-api.example.com'
+		process.env.UNIFIED_DOCS_API = 'https://udr-api.example.com'
+		__config.flags = {
+			enable_datadog: false,
+			enable_io_beta_cta: false,
+			unified_docs_migrated_repos: ['repo1'],
+		}
+
+		const mockContentAPIDocsResult = [
+			{ path: 'doc1', created_at: '2025-01-07T18:44:51.431Z' },
+			{
+				path: 'vault/docs/restricted/secrets',
+				created_at: '2025-01-07T18:44:51.431Z',
+			},
+		]
+		const mockUDRDocsResult = [
+			{
+				path: 'vault/docs/v1.21.x/restricted/secrets',
+				created_at: '2025-01-07T18:44:51.431Z',
+			},
+			{ path: 'vault/docs/v1.21.x/secrets', created_at: '2025-01-07T18:44:51.431Z' },
+		]
+
+		global.fetch = vi
+			.fn()
+			.mockResolvedValueOnce({
+				json: vi.fn().mockResolvedValue({ result: mockContentAPIDocsResult }),
+			})
+			.mockResolvedValueOnce({
+				json: vi.fn().mockResolvedValue({ result: mockUDRDocsResult }),
+			})
+
+		const result = await allDocsFields(__config)
+
+		expect(result).toEqual([
+			{
+				loc: 'https://developer.hashicorp.com/doc1',
+				lastmod: '2025-01-07T18:44:51.431Z',
+				priority: 1,
+				changefreq: 'daily',
+			},
+			{
+				loc: 'https://developer.hashicorp.com/vault/docs/v1.21.x/secrets',
+				lastmod: '2025-01-07T18:44:51.431Z',
+				priority: 0.7,
+				changefreq: 'daily',
+			},
+		])
+	})
 })
