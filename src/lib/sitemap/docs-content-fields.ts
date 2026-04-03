@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { isRestrictedDocsPath } from 'lib/is-restricted-docs-path'
 import { makeSitemapField } from './helpers'
 
 const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
@@ -36,7 +37,9 @@ export async function allDocsFields(config: typeof __config) {
 		)
 		const { result: udrDocsResult } = await getUDRDocsPaths.json()
 
-		const allDocsData = [...contentAPIDocsResult, ...udrDocsResult]
+		const allDocsData = [...contentAPIDocsResult, ...udrDocsResult].filter(
+			(page: { path: string }) => !isRestrictedDocsPath(page.path)
+		)
 		return allDocsData.map((page: { path: string; last_modified: string; created_at: string }) =>
 			makeSitemapField(
 				{
@@ -53,7 +56,9 @@ export async function allDocsFields(config: typeof __config) {
 	)
 	const { result: contentAPIDocsResult } = await getContentAPIDocsPaths.json()
 
-	return contentAPIDocsResult.map(
+	return contentAPIDocsResult
+		.filter((page: { path: string }) => !isRestrictedDocsPath(page.path))
+		.map(
 		(page: { path: string; created_at: string }) =>
 			makeSitemapField(
 				{
@@ -62,5 +67,5 @@ export async function allDocsFields(config: typeof __config) {
 				},
 				config
 			)
-	)
+		)
 }
