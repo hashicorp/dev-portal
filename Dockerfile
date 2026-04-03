@@ -1,7 +1,7 @@
 # Copyright IBM Corp. 2021, 2025
 # SPDX-License-Identifier: MPL-2.0
 
-FROM docker.mirror.hashicorp.services/node:22-bookworm AS deps
+FROM docker.mirror.hashicorp.services/node:24-bookworm AS deps
 
 RUN apt-get update
 
@@ -23,7 +23,7 @@ COPY package.json package-lock.json ./
 # - see https://github.com/imagemin/optipng-bin/issues/118
 RUN CPPFLAGS="-DPNG_ARM_NEON_OPT=0" npm install
 
-FROM docker.mirror.hashicorp.services/node:22-bookworm AS builder
+FROM docker.mirror.hashicorp.services/node:24-bookworm AS builder
 
 WORKDIR /app
 COPY . ./website-preview
