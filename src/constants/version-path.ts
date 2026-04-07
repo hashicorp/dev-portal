@@ -13,3 +13,6 @@ export const NO_V_VERSION_IN_PATH_REGEX = /\d+\.\d+\.(\d+|\w+)/i
 export const TFE_VERSION_IN_PATH_REGEXP = /v[0-9]{6}-\d+/i
 
 export const SHORT_VERSION_REGEX = /v\d+\.(\d+|\w+)/i
+
+/** This REGEX is used to parse a product version with the format vN.x.x where N is a number */
+export const DOUBLE_X_VERSION_REGEX = /v\d+\.(\w+)\.(\w+)/i
