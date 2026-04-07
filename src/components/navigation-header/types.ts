@@ -11,6 +11,7 @@ import type {
 	ProductNavPromo,
 	ProductSidePanel,
 } from 'types/products'
+import { NavItem } from '@hashicorp/react-components/src/components/nav-panel/standard-panel'
 
 type SupportedIcon =
 	| 'api'
@@ -66,6 +67,9 @@ interface NavigationHeaderDropdownMenuProps {
 		navigationData: ProductNavData
 		navPromo: ProductNavPromo
 		sidePanelContent?: ProductSidePanel
+	}
+	standardPanelData?: {
+		navData: NavItem[]
 	}
 	label?: string
 	leadingIcon?: ReactElement

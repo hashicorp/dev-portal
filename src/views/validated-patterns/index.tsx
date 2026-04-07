@@ -33,6 +33,7 @@ export default function ValidatedPatternsLandingView(
 					layoutProps.sidebarSections
 				),
 			]}
+			className={s.vpOffset}
 		>
 			<div className={s.hero}>
 				<HeroHeadingVisual {...hero} />

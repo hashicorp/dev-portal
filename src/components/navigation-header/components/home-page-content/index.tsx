@@ -34,6 +34,49 @@ const HomePageHeaderContent = () => {
 						label="Products"
 					/>
 				</li>
+				<li>
+					<NavigationHeaderDropdownMenu
+						// dropdownClassName={s.homepageDropdownPane}
+						standardPanelData={{
+							navData: [
+								{
+									navItems: [
+										{
+											title: 'Certifications',
+											url: '/certifications',
+											description: 'Get HashiCorp certified',
+											icon: 'award',
+											iconGradient: 'Black'
+										},
+										{
+											title: 'Tutorials',
+											url: '/tutorials',
+											description: 'Learn HashiCorp products',
+											icon: 'learn',
+											iconGradient: 'Black'
+										},
+										{
+											title: 'Validated Patterns',
+											url: '/validated-patterns',
+											description:
+												'Field-tested patterns for using HashiCorp products',
+											icon: 'learn',
+											iconGradient: 'Black'
+										},
+										{
+											title: 'Well-Architected Framework',
+											url: '/well-architected-framework',
+											description: 'Adopt HashiCorp best practices',
+											icon: 'layers',
+											iconGradient: 'Black'
+										},
+									],
+								},
+							],
+						}}
+						label="Learn"
+					/>
+				</li>
 			</NavBarListContainer>
 		</>
 	)

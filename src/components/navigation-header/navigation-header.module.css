@@ -123,6 +123,7 @@
 	z-index: 150;
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+	border-bottom: 1px solid var(--mds-color-border-primary);
 
 	@media (--dev-dot-show-mobile-menu) {
 		padding-bottom: 14px;
@@ -144,7 +145,6 @@
 	padding-right: var(--header-padding-left-right);
 	position: relative;
 	width: 100%;
-	border-top: 1px solid var(--mds-color-border-primary);
 	border-bottom: 1px solid var(--mds-color-border-primary);
 
 	@media (--dev-dot-show-mobile-menu) {

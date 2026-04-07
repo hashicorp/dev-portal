@@ -33,8 +33,9 @@ import s from './sidebar-sidecar-layout.module.css'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
 	const navDataLevels = props.sidebarNavDataLevels
+	const className = props.className
 	return (
-		<BaseLayout showFooterTopBorder>
+		<BaseLayout showFooterTopBorder className={className}>
 			<SidebarNavDataProvider navDataLevels={navDataLevels}>
 				<SidebarSidecarLayoutContent {...props} />
 			</SidebarNavDataProvider>

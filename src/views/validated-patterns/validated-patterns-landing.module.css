@@ -9,3 +9,6 @@
 .overview {
 	margin-bottom: 48px;
 }
+.vpOffset {
+	--sticky-bars-height: 70px;
+}
