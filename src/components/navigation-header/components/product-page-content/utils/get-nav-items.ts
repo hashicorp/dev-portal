@@ -5,6 +5,7 @@
 
 import { NavigationHeaderIcon } from 'components/navigation-header/types'
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
+import { isInstallable } from 'lib/has-install-page'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
 import { NavItem } from './types'
@@ -19,6 +20,7 @@ const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'vagrant',
 	'vault',
 	'waypoint',
+	'vault-radar',
 ]
 
 enum TRY_CLOUD_PRODUCT_LINKS {
@@ -104,7 +106,8 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	/**
 	 * Install
 	 */
-	if (currentProduct.slug !== 'hcp' && currentProduct.slug !== 'waypoint') {
+
+	if (isInstallable(currentProduct.slug)) {
 		items.push({
 			label: 'Install',
 			url: `/${currentProduct.slug}/install`,

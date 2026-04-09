@@ -7,6 +7,7 @@ import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
+import { isInstallable } from 'lib/has-install-page'
 import { ProductData } from 'types/products'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
@@ -18,7 +19,7 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
 export function getIconCards(product: ProductData) {
 	const iconCards = []
 
-	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
+	if (isInstallable(product.slug)) {
 		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',
