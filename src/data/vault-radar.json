@@ -1,0 +1,54 @@
+{
+	"name": "Vault Radar",
+	"slug": "vault-radar",
+	"algoliaConfig": {
+		"indexName": "product_HCP"
+	},
+	"metadata": {
+		"title": "Vault Radar by HashiCorp",
+		"description": "Vault Radar provides a modern workflow for build, deploy, and release across platforms.",
+		"image": "https://www.vaultradarproject.io/vaultradar-public/img/og-image.png",
+		"icon": [
+			{
+				"href": "/vaultradar-public/_favicon.ico"
+			}
+		]
+	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": "2024-06-14T00:00:00-08:00"
+	},
+	"subnavItems": [
+		{
+			"text": "Documentation",
+			"url": "https://developer.hashicorp.com/vault-radar/docs",
+			"type": "inbound"
+		},
+		{
+			"text": "Tutorials",
+			"url": "https://developer.hashicorp.com/vault-radar/tutorials",
+			"type": "inbound"
+		},
+		{
+			"text": "Try Cloud",
+			"url": "https://developer.hashicorp.com/vault-radar/try-cloud",
+			"type": "inbound"
+		}
+	],
+	"basePaths": ["docs", "tutorials"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs",
+			"includeMDXSource": true
+		}
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Vault Radar Integrations."
+	}
+}

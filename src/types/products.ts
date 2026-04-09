@@ -19,8 +19,9 @@ type ProductName =
 	| 'Vault'
 	| 'Waypoint'
 	| 'HCP Vault Secrets'
+	| 'Vault Radar'
 
-type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'well-architected-framework'
+type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'well-architected-framework' | 'vault-radar'
 
 type TerraformSubProducts = `${Extract<ProductSlug, 'terraform'>}-${
 	| 'cdk'
@@ -51,12 +52,12 @@ type LearnProductName = Exclude<ProductName, 'HashiCorp Cloud Platform'>
 
 type HcpProductName = Exclude<
 	ProductName,
-	'HashiCorp Cloud Platform' | 'Nomad' | 'Sentinel' | 'Terraform' | 'Vagrant'
+	'HashiCorp Cloud Platform' | 'Nomad' | 'Sentinel' | 'Terraform' | 'Vagrant' | 'Vault Radar'
 >
 
 type HcpProductSlug = Exclude<
 	ProductSlug,
-	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant' | 'well-architected-framework'
+	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant' | 'well-architected-framework' | 'vault-radar'
 >
 
 /**
@@ -112,7 +113,7 @@ interface RootDocsPath {
 	 * Optional basePath for our content API. For "sentinel", this differs
 	 * from the basePath used on the client, as sentinel content is served
 	 * on docs.hashicorp.com/sentinel. Now that "sentinel" is served from
-	 * UDR, this is only used for "well-artchitected-framework"
+	 * UDR, this is only used for "well-artchitected-framework" and "vault-radar"
 	 */
 	basePathForLoader?: string
 

@@ -33,7 +33,7 @@ const DEFAULT_SUPPORT_LINK = 'https://www.hashicorp.com/customer-success'
 const COMMUNITY_LINKS_BY_PRODUCT: {
 	[key in Exclude<
 		ProductSlug,
-		'well-architected-framework' | 'validated-patterns'
+		'well-architected-framework' | 'validated-patterns' | 'vault-radar'
 	>]: string
 } = {
 	boundary: 'https://discuss.hashicorp.com/c/boundary/50',
@@ -51,7 +51,7 @@ const COMMUNITY_LINKS_BY_PRODUCT: {
 const GITHUB_LINKS_BY_PRODUCT_SLUG: {
 	[key in Exclude<
 		ProductSlug,
-		'waypoint' | 'well-architected-framework' | 'validated-patterns'
+		'waypoint' | 'well-architected-framework' | 'validated-patterns' | 'vault-radar'
 	>]: string
 } = {
 	boundary: 'https://github.com/hashicorp/boundary',
