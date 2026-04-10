@@ -41,6 +41,7 @@ interface LoadStaticPropsReturn {
 	mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>
 	navData: unknown[]
 	versions: unknown[]
+	docHeaders?: Record<string, string>
 }
 
 export default class FileSystemLoader implements DataLoader {

@@ -11,10 +11,13 @@ import { getCollectionSlug } from 'views/collection-view/helpers'
 import { makeSitemapField } from './helpers'
 import { Collection as ClientCollection } from 'lib/learn-client/types'
 
-function getTutorialLandingPaths(): string[] {
-	return productSlugs.map(
-		(productSlug: ProductSlug) => `${productSlug}/tutorials`
-	)
+function getTutorialLandingPaths(): { path: string; last_modified: string }[] {
+	return productSlugs.map((productSlug: ProductSlug) => {
+		return {
+			path: `${productSlug}/tutorials`,
+			last_modified: new Date().toISOString(),
+		}
+	})
 }
 
 async function getCollectionPaths() {
@@ -22,7 +25,10 @@ async function getCollectionPaths() {
 
 	return allCollections.map((collection: ClientCollection) => {
 		// build collection paths
-		return getCollectionSlug(collection.slug)
+		return {
+			path: getCollectionSlug(collection.slug),
+			last_modified: collection.updated_at,
+		}
 	})
 }
 
@@ -31,6 +37,11 @@ export async function allTutorialsFields(config: typeof __config) {
 	const collectionSlugs = await getCollectionPaths()
 	const tutorialSlugs = Object.values(tutorialMap)
 	return [...landingSlugs, ...collectionSlugs, ...tutorialSlugs].map(
-		(slug: string) => makeSitemapField({ slug }, config)
+		(obj: { path: string, last_modified: string }) => {
+			return makeSitemapField(
+				{ slug: obj.path, lastmodDate: obj.last_modified },
+				config
+			)
+		}
 	)
 }

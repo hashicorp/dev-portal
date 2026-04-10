@@ -36,7 +36,7 @@ function HomePageView(): ReactElement {
 								icon: 'support',
 								heading: 'Support',
 								description: 'Open a support ticket',
-								link: 'https://support.hashicorp.com/hc/en-us',
+								link: 'https://www.ibm.com/mysupport',
 							},
 							{
 								icon: 'help',

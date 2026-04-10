@@ -19,4 +19,53 @@ export interface HeadMetadataProps {
 	 * the `/public/og-image` folder.
 	 */
 	localOgImage?: string
+
+	/**
+	 * Optional structured data object to be added to head for LLM parsing
+	 */
+	structuredData?: {
+		'@type': string
+		'@context': string
+		headline?: string
+		name: string
+		description?: string
+		datePublished?: string
+		dateModified?: string
+		totalTime?: number
+		url?: string
+		provider?: {
+			'@type': string
+			name: string
+		},
+		hasCourseInstance?: {
+			'@type': string
+			courseMode: string
+		},
+		hasPart?: {
+			'@type': string
+			name: string
+		}[],
+		author?: {
+			'@type': string
+			name: string
+			url?: string
+		}
+		tool?: {
+			'@type': string
+			name: string
+		}
+		isPartOf?: {
+			'@type': string
+			name: string
+			url?: string
+		}
+		publisher?: {
+			'@type': string
+			name: string
+		}
+		about?: {
+			'@type': string
+			name: string
+		}
+	}
 }

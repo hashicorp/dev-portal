@@ -32,4 +32,5 @@ export interface SidebarSidecarLayoutProps {
 	 * Optionally render an alert banner before the main content area.
 	 */
 	alertBannerSlot?: ReactNode
+	docMetadata?: Record<string, string>
 }

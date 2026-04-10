@@ -6,8 +6,10 @@ import { usePathname } from 'next/navigation'
 import { useCurrentProduct } from 'contexts'
 import classNames from 'classnames'
 import { getVersionFromPath } from 'lib/get-version-from-path'
+import { isRestrictedDocsPath } from 'lib/is-restricted-docs-path'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
+import NoIndexTagForRestrictedDocs from 'components/no-index-tag-for-restricted-docs'
 import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
 import { DocsViewProps } from './types'
 import DocsPageHeading from './components/docs-page-heading'
@@ -45,11 +47,15 @@ const DocsView = ({
 	layoutProps,
 	outlineItems,
 	pageHeading,
+	docHeaders,
 }: DocsViewProps) => {
 	const pathname = usePathname()
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
+	const isVersionedPath = !!getVersionFromPath(pathname)
+	const shouldNoIndexRestrictedDocs =
+		!isVersionedPath && isRestrictedDocsPath(pathname)
 
 	/**
 	 * Check if we have a `pageHeading` to render. The `DocsPageHeading` element
@@ -105,6 +111,7 @@ const DocsView = ({
 			{...layoutProps}
 			outlineItems={outlineItems}
 			versions={versions}
+			docMetadata={docHeaders}
 		>
 			{renderPageHeadingOutsideMdx ? (
 				<DocsPageHeading
@@ -122,7 +129,10 @@ const DocsView = ({
 					headingSlot={headingSlot}
 				/>
 			) : null}
-			<NoIndexTagIfVersioned isVersioned={!!getVersionFromPath(pathname)} />
+			<NoIndexTagIfVersioned isVersioned={isVersionedPath} />
+			<NoIndexTagForRestrictedDocs
+				shouldNoIndex={shouldNoIndexRestrictedDocs}
+			/>
 			<DevDotContent
 				mdxRemoteProps={{
 					compiledSource,

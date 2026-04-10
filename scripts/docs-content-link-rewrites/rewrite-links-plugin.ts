@@ -21,7 +21,7 @@ const rewriteLinksPlugin: Plugin = ({
 		unrewriteableLinks: string[]
 	}
 	urlAdjustFn: (url: string) => string
-	tutorialMap: Record<string, string>
+	tutorialMap: Record<string, Record<string, string>>
 }) => {
 	return async function transformer(tree) {
 		return visit(tree, ['link', 'definition'], (node: Link | Definition) => {

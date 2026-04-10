@@ -52,12 +52,32 @@ export async function getStaticProps({
 			},
 		]
 
+		const structuredData = {
+			'@context': 'https://schema.org',
+			'@type': 'Course',
+			name: currentCollection.name,
+			description: currentCollection.description,
+			provider: {
+				'@type': 'Organization',
+				name: 'HashiCorp',
+			},
+			hasCourseInstance: {
+				'@type': 'CourseInstance',
+				courseMode: 'online',
+			},
+			hasPart: currentCollection.tutorials.map((tutorial) => ({
+				'@type': 'TechArticle',
+				name: tutorial.name,
+			})),
+		}
+
 		return {
 			props: stripUndefinedProperties({
 				metadata: {
 					title: currentCollection.name,
 					validatedPatternsName: validatedPatternsData.name,
 					validatedPatternsSlug: validatedPatternsData.slug,
+					structuredData,
 				},
 				collection: currentCollection,
 				layoutProps: {

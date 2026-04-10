@@ -18,11 +18,22 @@ describe('rewriteExternalTutorialLink', () => {
 
 	const TEST_TUTORIAL_SLUG = 'vault/tutorial'
 	const MOCK_TUTORIAL_MAP = {
-		'vault/tutorial': '/vault/tutorials/collection/tutorial',
-		'cloud/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
-		'well-architected-framework/tutorial':
-			'/well-architected-framework/collection/tutorial',
-		'validated-patterns/tutorial': '/validated-patterns/collection/tutorial',
+		'vault/tutorial': {
+			path: '/vault/tutorials/collection/tutorial',
+			last_modified: '2024-01-01T00:00:00.000Z',
+		},
+		'cloud/amazon-peering-hcp': {
+			path: '/hcp/tutorials/networking/amazon-peering-hcp',
+			last_modified: '2024-01-01T00:00:00.000Z',
+		},
+		'well-architected-framework/tutorial': {
+			path: '/well-architected-framework/collection/tutorial',
+			last_modified: '2024-01-01T00:00:00.000Z',
+		},
+		'validated-patterns/tutorial': {
+			path: '/validated-patterns/collection/tutorial',
+			last_modified: '2024-01-01T00:00:00.000Z',
+		},
 	}
 
 	const testEachCase = (cases: string[][]) => {
@@ -64,20 +75,25 @@ describe('rewriteExternalTutorialLink', () => {
 		test('throws an error for unknown product slugs', () => {
 			expect(() =>
 				rewriteExternalTutorialLink(
-					new URL('/tutorials/not-a-beta-product/tutorial', 'https://learn.hashicorp.com'),
+					new URL(
+						'/tutorials/not-a-beta-product/tutorial',
+						'https://learn.hashicorp.com'
+					),
 					MOCK_TUTORIAL_MAP
 				)
-			).toThrow('Unrecognized incoming Tutorials slug "not-a-beta-product" in normalizeSlugForDevDot.')
+			).toThrow(
+				'Unrecognized incoming Tutorials slug "not-a-beta-product" in normalizeSlugForDevDot.'
+			)
 		})
 		testEachCase([
-			['/tutorials/vault/tutorial', `${MOCK_TUTORIAL_MAP['vault/tutorial']}`],
+			['/tutorials/vault/tutorial', `${MOCK_TUTORIAL_MAP['vault/tutorial'].path}`],
 			[
 				'/tutorials/well-architected-framework/tutorial',
-				MOCK_TUTORIAL_MAP['well-architected-framework/tutorial'],
+				MOCK_TUTORIAL_MAP['well-architected-framework/tutorial'].path,
 			],
 			[
 				'/tutorials/validated-patterns/tutorial',
-				MOCK_TUTORIAL_MAP['validated-patterns/tutorial'],
+				MOCK_TUTORIAL_MAP['validated-patterns/tutorial'].path,
 			],
 			['/tutorials/vault/tutorial-does-not-exist', undefined],
 			[
@@ -120,7 +136,7 @@ describe('rewriteExternalTutorialLink', () => {
 		testEachCase([
 			[
 				`/tutorials/${TEST_TUTORIAL_SLUG}#test-hash`,
-				`${MOCK_TUTORIAL_MAP[TEST_TUTORIAL_SLUG]}#test-hash`,
+				`${MOCK_TUTORIAL_MAP[TEST_TUTORIAL_SLUG].path}#test-hash`,
 			],
 			['/tutorials/vault/does-not-exist#test-hash', undefined],
 		])
