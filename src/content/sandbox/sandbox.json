@@ -30,7 +30,7 @@
 			"description": "Experiment with Boundary Enterprise. This sandbox contains a Boundary Enterprise cluster (one controller server and two workers) configured with a Boundary target (Ubuntu 24.04), a Postgres database, and Vault.",
 			"products": ["boundary"],
 			"labId": "boundary-enterprise-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/boundary-enterprise-sandbox?token=em_vpMB3GEjiY3i-dif",
+			"instruqtTrack": "hashicorp-learn/tracks/boundary-ent-sandbox?token=em_QHLQu1U-P-CfB0Cc",
 			"documentation": "boundary-ent.mdx"
 		},
 		{
