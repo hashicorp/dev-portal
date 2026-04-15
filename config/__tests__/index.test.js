@@ -26,6 +26,7 @@ describe('loadHashiConfigByEnvironment', () => {
 			  "deeply.nested.property": true,
 			  "extends": "base",
 			  "flags.unified_docs_migrated_repos": [
+			  	"terraform-changelog",
 			    "terraform-mcp-server",
 			    "terraform-migrate",
 			    "terraform-plugin-framework",
