@@ -49,7 +49,7 @@ const HomePageHeaderContent = () => {
 												description: 'Get HashiCorp certified',
 												icon: 'award',
 												iconGradient: 'Learn',
-												isDevPortal: true,
+												// isDevPortal: true,
 											},
 											{
 												title: 'Tutorials',
@@ -57,7 +57,7 @@ const HomePageHeaderContent = () => {
 												description: 'Learn HashiCorp products',
 												icon: 'learn',
 												iconGradient: 'Learn',
-												isDevPortal: true,
+												// isDevPortal: true,
 											},
 											{
 												title: 'Validated Patterns',
@@ -66,7 +66,7 @@ const HomePageHeaderContent = () => {
 													'Field-tested patterns for using HashiCorp products',
 												icon: 'learn',
 												iconGradient: 'Learn',
-												isDevPortal: true,
+												// isDevPortal: true,
 											},
 											{
 												title: 'Well-Architected Framework',
@@ -74,7 +74,7 @@ const HomePageHeaderContent = () => {
 												description: 'Adopt HashiCorp best practices',
 												icon: 'layers',
 												iconGradient: 'Learn',
-												isDevPortal: true,
+												// isDevPortal: true,
 											},
 										],
 									},
