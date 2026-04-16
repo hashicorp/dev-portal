@@ -25,8 +25,9 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 	const { label, url, opensInNewTab, isPrimary } = navItem
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
-	if (opensInNewTab) {
+	if (opensInNewTab && iaPosthogVariant) {
 		return (
 			<ButtonLink
 				aria-current={isCurrentPage ? 'page' : undefined}

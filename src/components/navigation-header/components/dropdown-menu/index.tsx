@@ -59,6 +59,7 @@ const NavigationHeaderDropdownMenu = ({
 	const [isOpen, setIsOpen] = useState(false)
 	const menuId = `navigation-header-menu-${uniqueId}`
 	const hasLeadingIcon = !!leadingIcon
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
 	// Handles closing the menu if there is a click outside of it and it is open.
 	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
@@ -89,7 +90,7 @@ const NavigationHeaderDropdownMenu = ({
 		shouldListen: isOpen,
 	})
 
-	// Check for an accesible label if there is a leading icon
+	// Check for an accessible label if there is a leading icon
 	const accessibleLabel = ariaLabel || label
 	if (leadingIcon && !accessibleLabel) {
 		throw new Error(
@@ -201,7 +202,7 @@ const NavigationHeaderDropdownMenu = ({
 			<ProductPanel
 				productCategories={productPanelData.navigationData}
 				promo={productPanelData.navPromo}
-				// sidePanel={productPanelData.sidePanelContent}
+				sidePanel={!iaPosthogVariant && productPanelData.sidePanelContent}
 				isPromoOnTop={true}
 			/>
 		)

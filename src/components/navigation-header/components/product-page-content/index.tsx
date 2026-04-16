@@ -3,23 +3,42 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// HashiCorp Imports
+import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
+
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 // Local imports
-import { NavBarListContainer, PrimaryNavLink, PrimaryNavSubmenu } from '..'
+import {
+	NavBarListContainer,
+	NavigationHeaderDropdownMenu,
+	PrimaryNavLink,
+	PrimaryNavSubmenu,
+} from '..'
 import { ProductIconTextLink } from './components'
-import { getNavItems, getRightSideNavButtons, NavItem } from './utils'
+import {
+	getAllNavItems,
+	getRightSideNavButtons,
+	getProductsDropdownItems,
+	NavItem,
+	getLeftSideNavButtons,
+} from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
+import { navigationData, navPromo, sidePanelContent } from 'lib/products'
 import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
+import classNames from 'classnames'
 
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
-	const productNavItems = getNavItems(currentProduct)
+	const allProductsItems = getProductsDropdownItems()
+	const productNavItems = getAllNavItems(currentProduct)
+	const leftSideNavItems = getLeftSideNavButtons(currentProduct)
 	const rightSideNavItems = getRightSideNavButtons(currentProduct)
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
 	// Check if the current product has sandbox support
 	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
@@ -27,16 +46,84 @@ const ProductPageHeaderContent = () => {
 		SANDBOX_CONFIG.labs?.length > 0 &&
 		supportedSandboxProducts.includes(currentProduct.slug)
 
+	const ExperimentContent = () => {
+		return (
+			<>
+				<div className={s.left}>
+					{leftSideNavItems.map((navItem: NavItem) => {
+						const ariaLabel = `${currentProduct.name} ${navItem.label}`
+						const isSubmenu = 'items' in navItem
+						const isSandbox = navItem.label === 'Sandbox'
+
+						if (isSandbox && hasSandbox) {
+							return (
+								<li key={navItem.label}>
+									<div className={s.navDropdown}>
+										<NavigationMenu.Root>
+											<SandboxDropdown ariaLabel={ariaLabel} label="Sandbox" />
+										</NavigationMenu.Root>
+									</div>
+								</li>
+							)
+						}
+
+						return (
+							<li key={navItem.label}>
+								{isSubmenu ? (
+									<PrimaryNavSubmenu ariaLabel={ariaLabel} navItem={navItem} />
+								) : (
+									<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
+								)}
+							</li>
+						)
+					})}
+				</div>
+				<div className={s.right}>
+					{rightSideNavItems.map((navItem: PrimaryNavLinkProps['navItem']) => {
+						const ariaLabel = `${currentProduct.name} ${navItem.label}`
+
+						return (
+							<li key={navItem.label}>
+								<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
+							</li>
+						)
+					})}
+				</div>
+			</>
+		)
+	}
+
 	return (
 		<>
-			<div className={s.productLinkAndNav}>
+			{!iaPosthogVariant && (
+				<div className={s.productsDropdown}>
+					<NavigationMenu.Root className={s.mobileMenuNavList}>
+						<NavigationHeaderDropdownMenu
+							ariaLabel="Main menu"
+							buttonClassName={s.productsDropdownButton}
+							itemGroups={allProductsItems}
+							leadingIcon={
+								<IconHashicorp24 className={s.productsDropdownIcon} />
+							}
+							productPanelData={{
+								navigationData,
+								navPromo,
+								sidePanelContent,
+							}}
+						/>
+					</NavigationMenu.Root>
+				</div>
+			)}
+			<div className={classNames(s.productLinkAndNav, { [s.iaPosthogVariant]: iaPosthogVariant })}>
 				<ProductIconTextLink
 					name={currentProduct.name}
 					slug={currentProduct.slug}
 				/>
 				<NavBarListContainer>
-					<div className={s.left}>
-						{productNavItems.map((navItem: NavItem) => {
+					{iaPosthogVariant ? (
+						<ExperimentContent />
+					) : (
+						productNavItems.map((navItem: NavItem) => {
 							const ariaLabel = `${currentProduct.name} ${navItem.label}`
 							const isSubmenu = 'items' in navItem
 							const isSandbox = navItem.label === 'Sandbox'
@@ -68,21 +155,8 @@ const ProductPageHeaderContent = () => {
 									)}
 								</li>
 							)
-						})}
-					</div>
-					<div className={s.right}>
-						{rightSideNavItems.map(
-							(navItem: PrimaryNavLinkProps['navItem']) => {
-								const ariaLabel = `${currentProduct.name} ${navItem.label}`
-
-								return (
-									<li key={navItem.label}>
-										<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
-									</li>
-								)
-							}
-						)}
-					</div>
+						})
+					)}
 				</NavBarListContainer>
 			</div>
 		</>

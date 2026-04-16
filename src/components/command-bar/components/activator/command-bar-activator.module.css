@@ -19,7 +19,7 @@
 	padding-left: 12px;
 	padding-right: 12px;
 	padding-top: 8px;
-	width: 320px;
+	width: fit-content;
 
 	/* Show icon-only starting at 1071px and narrower */
 	@media only screen and (max-width: 1071px) {
@@ -37,6 +37,10 @@
 			display: none;
 		}
 	}
+}
+
+.wideWidth {
+	width: 320px;
 }
 
 .left {

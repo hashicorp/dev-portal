@@ -10,7 +10,9 @@
 	@media (--dev-dot-show-mobile-menu) {
 		display: none;
 	}
+}
 
+.iaPosthogVariantNav {
 	flex: 1;
 	min-width: 0;
 }
@@ -21,6 +23,9 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+.iaPosthogVariantUl {
 	width: 100%;
 	justify-content: space-between;
 }

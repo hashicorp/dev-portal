@@ -33,5 +33,4 @@ export interface SidebarSidecarLayoutProps {
 	 */
 	alertBannerSlot?: ReactNode
 	docMetadata?: Record<string, string>
-	className?: string
 }

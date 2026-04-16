@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 import { ReactElement } from 'react'
+import classNames from 'classnames'
 import { Badge } from '@hashicorp/mds-react/components'
 import { useCommandBar } from 'components/command-bar'
 import Text from 'components/text'
@@ -18,11 +19,12 @@ const CommandBarActivator = ({
 	visualLabel,
 }: CommandBarActivatorProps) => {
 	const { toggleIsOpen } = useCommandBar()
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
 	return (
 		<button
 			aria-label={visualLabel}
-			className={s.root}
+			className={classNames(s.root, { [s.wideWidth]: iaPosthogVariant })}
 			onClick={() => toggleIsOpen()}
 		>
 			<span className={s.left}>
