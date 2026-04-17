@@ -322,7 +322,12 @@ const NavigationHeaderDropdownMenu = ({
 
 	return (
 		<div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
-			<div className={s.activatorWrapper}>
+			<div
+				className={classNames({
+					[s.activatorWrapper]: !iaPosthogVariant,
+					[s.iaActivatorWrapper]: iaPosthogVariant,
+				})}
+			>
 				<button
 					aria-controls={menuId}
 					aria-expanded={isOpen}

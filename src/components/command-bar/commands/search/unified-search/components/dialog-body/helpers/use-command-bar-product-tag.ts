@@ -37,27 +37,28 @@ type CommandBarProductTag = {
 export function useCommandBarProductTag(): CommandBarProductTag | null {
 	const currentProduct = useCurrentProduct()
 	const { addTag, currentTags, removeTag } = useCommandBar()
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
 	/**
 	 * Create callback for setting up this command's state.
 	 */
 	const setUpCommandState = useCallback(() => {
-		if (currentProduct) {
+		if (currentProduct && !iaPosthogVariant) {
 			addTag({
 				id: currentProduct.slug,
 				text: currentProduct.slug === 'hcp' ? 'HCP' : currentProduct.name,
 			})
 		}
-	}, [addTag, currentProduct])
+	}, [addTag, currentProduct, iaPosthogVariant])
 
 	/**
 	 * Create callback for cleaning up this command's state.
 	 */
 	const cleanUpCommandState = useCallback(() => {
-		if (currentProduct) {
+		if (currentProduct && !iaPosthogVariant) {
 			removeTag(currentProduct.slug)
 		}
-	}, [currentProduct, removeTag])
+	}, [currentProduct, removeTag, iaPosthogVariant])
 
 	/**
 	 * Leveraging the set up + clean up hook exposed by CommandBarDialog.

@@ -17,6 +17,11 @@
 	padding-top: 16px;
 }
 
+.iaActivatorWrapper {
+	padding-bottom: 13px;
+	padding-top: 13px;
+}
+
 .activator {
 	/* Composition */
 	composes: g-focus-ring-from-box-shadow-dark from global;

@@ -28,7 +28,7 @@ Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
 }
 
 .tallStickyBars {
-	--sticky-bars-height: 140px;
+	--sticky-bars-height: calc(var(--navigation-header-height) * 2);
 }
 
 .header {

@@ -6,7 +6,7 @@
 import InlineSvg from '@hashicorp/react-inline-svg'
 import Link from 'components/link'
 import { NavBarListContainer, NavigationHeaderDropdownMenu } from '..'
-import { navigationData, navPromo, sidePanelContent } from 'lib/products'
+import { navigationData, navPromo, iaExperimentNavPromo, sidePanelContent } from 'lib/products'
 import s from './home-page-content.module.css'
 
 const HomePageHeaderContent = () => {
@@ -29,7 +29,7 @@ const HomePageHeaderContent = () => {
 						dropdownClassName={s.homepageDropdownPane}
 						productPanelData={{
 							navigationData,
-							navPromo,
+							navPromo: iaPosthogVariant ? iaExperimentNavPromo : navPromo,
 							sidePanelContent,
 						}}
 						label="Products"
@@ -49,7 +49,7 @@ const HomePageHeaderContent = () => {
 												description: 'Get HashiCorp certified',
 												icon: 'award',
 												iconGradient: 'Learn',
-												// isDevPortal: true,
+												isDevPortal: true,
 											},
 											{
 												title: 'Tutorials',
@@ -57,7 +57,7 @@ const HomePageHeaderContent = () => {
 												description: 'Learn HashiCorp products',
 												icon: 'learn',
 												iconGradient: 'Learn',
-												// isDevPortal: true,
+												isDevPortal: true,
 											},
 											{
 												title: 'Validated Patterns',
@@ -66,7 +66,7 @@ const HomePageHeaderContent = () => {
 													'Field-tested patterns for using HashiCorp products',
 												icon: 'learn',
 												iconGradient: 'Learn',
-												// isDevPortal: true,
+												isDevPortal: true,
 											},
 											{
 												title: 'Well-Architected Framework',
@@ -74,7 +74,7 @@ const HomePageHeaderContent = () => {
 												description: 'Adopt HashiCorp best practices',
 												icon: 'layers',
 												iconGradient: 'Learn',
-												// isDevPortal: true,
+												isDevPortal: true,
 											},
 										],
 									},
