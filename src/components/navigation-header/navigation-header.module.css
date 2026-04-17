@@ -142,6 +142,10 @@
 		padding-bottom: 14px;
 		padding-top: 14px;
 	}
+
+	@media only screen and (max-width: 1190px) {
+		grid-template-columns: 1fr min-content min-content;
+	}
 }
 
 .subNav {
