@@ -18,7 +18,7 @@ import type { AppProps } from 'next/app'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 // HashiCorp imports
-import { NextImageAdapter, NextLinkAdapter } from '@hashicorp/mds-next'
+import { NextImageAdapter, NextLinkAdapter } from '@hashicorp/mds-next/adapters'
 import { MDSProvider } from '@hashicorp/mds-react/utils'
 import {
 	initializeUTMParamsCapture,
