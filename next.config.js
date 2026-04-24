@@ -116,10 +116,12 @@ module.exports = async () => {
 			MKTG_CONTENT_DOCS_API: process.env.MKTG_CONTENT_DOCS_API,
 			// TODO: determine if DevDot needs this or not
 			SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
+			// PostHog project API keys are safe to be public
+			// https://posthog.com/docs/privacy#is-it-ok-for-my-api-key-to-be-exposed-and-public
 			POSTHOG_PROJECT_API_KEY:
 				process.env.VERCEL_ENV !== 'production'
-					? process.env.POSTHOG_PROJECT_API_KEY_DEV
-					: process.env.POSTHOG_PROJECT_API_KEY_PROD,
+					? 'phc_pRGNydYDY8FoITb4x6f26rhfVSBWjauc30dPwoDun7u' // Dev
+					: 'phc_WyEB0tt2Cd9QMWvT2tbWhDcR3yP1AJS4INRpYKbrovj', // Prod
 		},
 		images: {
 			formats: ['image/avif', 'image/webp'],

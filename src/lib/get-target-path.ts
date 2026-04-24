@@ -7,7 +7,8 @@ import {
 	TFE_VERSION_IN_PATH_REGEXP,
 	VERSION_IN_PATH_REGEX,
 	NO_V_VERSION_IN_PATH_REGEX,
-	SHORT_VERSION_REGEX
+	SHORT_VERSION_REGEX,
+	DOUBLE_X_VERSION_REGEX,
 } from 'constants/version-path'
 
 const LEADING_TRAILING_SLASHES_REGEXP = /^\/+|\/+$/g
@@ -55,6 +56,7 @@ export function getTargetPath({
 		const tfeMatch = el.match(TFE_VERSION_IN_PATH_REGEXP)
 		const versionMatch = el.match(VERSION_IN_PATH_REGEX)
 		const noVMatch = el.match(NO_V_VERSION_IN_PATH_REGEX)
+		const doubleXMatch = el.match(DOUBLE_X_VERSION_REGEX)
 		const shortMatch = el.match(SHORT_VERSION_REGEX)
 		
 		// A version segment must match the entire segment, not just part of it
@@ -62,6 +64,7 @@ export function getTargetPath({
 			(tfeMatch && el === tfeMatch[0]) ||
 			(versionMatch && el === versionMatch[0]) ||
 			(noVMatch && el === noVMatch[0]) ||
+			(doubleXMatch && el === doubleXMatch[0]) ||
 			(shortMatch && el === shortMatch[0])
 		)
 	})
@@ -78,6 +81,7 @@ export function getTargetPath({
 			.replace(TFE_VERSION_IN_PATH_REGEXP, '')
 			.replace(VERSION_IN_PATH_REGEX, '')
 			.replace(NO_V_VERSION_IN_PATH_REGEX, '')
+			.replace(DOUBLE_X_VERSION_REGEX, '')
 			.replace(SHORT_VERSION_REGEX, '')
 			.replace(LEADING_TRAILING_SLASHES_REGEXP, ''))
 

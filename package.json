@@ -39,7 +39,7 @@
 		]
 	},
 	"engines": {
-		"node": ">=22.0.0 <23.0.0"
+		"node": ">=24.0.0 <25.0.0"
 	},
 	"devDependencies": {
 		"@axe-core/react": "^4.3.1",
@@ -101,8 +101,8 @@
 		"@hashicorp/design-system-tokens": "^2.3.0",
 		"@hashicorp/flight-icons": "^3.7.0",
 		"@hashicorp/localstorage-polyfill": "^1.0.14",
-		"@hashicorp/mds-next": "^0.9.3",
-		"@hashicorp/mds-react": "^0.9.13",
+		"@hashicorp/mds-next": "^1.0.1",
+		"@hashicorp/mds-react": "^1.0.3",
 		"@hashicorp/mds-tokens": "^0.9.6",
 		"@hashicorp/mktg-global-styles": "^4.5.0",
 		"@hashicorp/platform-analytics": "^0.12.0",
@@ -121,13 +121,11 @@
 		"@hashicorp/react-docs-sidenav": "^9.1.0",
 		"@hashicorp/react-enterprise-alert": "^7.0.1",
 		"@hashicorp/react-error-view": "^0.2.0",
-		"@hashicorp/react-hashi-stack-menu": "^3.0.0",
 		"@hashicorp/react-head": "^3.3.2",
 		"@hashicorp/react-inline-svg": "^6.1.0",
 		"@hashicorp/react-marketo-form": "^0.9.0",
 		"@hashicorp/react-product-downloads-page": "^2.9.1",
 		"@hashicorp/react-search": "^6.6.0",
-		"@hashicorp/react-subnav": "^9.6.0",
 		"@hashicorp/react-tabs": "^8.2.0",
 		"@hashicorp/remark-plugins": "^4.1.1",
 		"@hashicorp/sentinel-embedded": "^1.0.1",
@@ -242,7 +240,8 @@
 		"tmp": "^0.2.4",
 		"trim": "^0.0.3",
 		"trim-newlines": "^3.0.1",
-		"prismjs": "^1.30.0"
+		"prismjs": "^1.30.0",
+		"axios": "^1.15.0"
 	},
 	"nextBundleAnalysis": {
 		"budget": null,
