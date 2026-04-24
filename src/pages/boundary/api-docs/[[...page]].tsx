@@ -45,7 +45,7 @@ function getVersionData(): ApiDocsVersionData[] {
 				owner: 'hashicorp',
 				repo: 'boundary',
 				path: 'internal/gen/controller.swagger.json',
-				ref: 'stable-website',
+				ref: 'main',
 		  }
 	return [
 		{
