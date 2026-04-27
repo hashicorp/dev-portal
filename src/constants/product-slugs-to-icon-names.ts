@@ -15,4 +15,5 @@ export const PRODUCT_SLUGS_TO_ICON_NAMES: Record<ProductSlug | 'hcp-vault-secret
 	waypoint: 'waypoint-color',
 	sentinel: 'hcp',
 	'well-architected-framework': 'hcp',
+	'vault-radar': 'vault-radar-square-color'
 }

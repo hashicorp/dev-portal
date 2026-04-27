@@ -5,6 +5,7 @@
 
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
+import { isInstallable } from 'lib/has-install-page'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
 import { EnrichedNavItem, SidebarProps } from '../types'
@@ -46,7 +47,7 @@ export const generateProductLandingSidebarMenuItems = (
 	 * We should refactor to drive this via global config https://app.asana.com/0/1204807665183200/1205002760871766/f
 	 */
 
-	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
+	if (isInstallable(product.slug)) {
 		menuItems.push({
 			title: 'Install',
 			fullPath: `/${product.slug}/install`,

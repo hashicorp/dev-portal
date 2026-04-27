@@ -1,0 +1,99 @@
+
+{
+	"hero": {
+		"heading": "Manage Secrets & Protect Sensitive Data",
+		"image": "https://www.datocms-assets.com/2885/1662767802-dev-dot-vault-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is Vault Radar?",
+		"body": "Vault Radar lets platform teams define golden patterns and workflows for developers to manage applications at scale.",
+		"cta": {
+			"text": "Learn more about Vault Radar",
+			"url": "/hcp/docs/vault-radar"
+		},
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095239-devdot-vault_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087583-devdot-vault_dm.png"
+		}
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Learn how to get started with Vault Radar.",
+		"ctas": [
+			{
+				"text": "Vault Radar Quick Start",
+				"url": "/vault-radar/tutorials/vault-radar/get-started-hcp"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Vault Radar Concepts",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Templates",
+					"body": "Learn about templates and how to use them to create projects from a reusable configuration.",
+					"url": "/hcp/docs/vault-radar/concepts/application-templates"
+				},
+				{
+					"heading": "Add-ons",
+					"body": "Learn about add-ons and how to use them to add additional functionality to your applications.",
+					"url": "/hcp/docs/vault-radar/concepts/add-ons"
+				},
+				{
+					"heading": "Role-based access control",
+					"body": "Learn how to control access to Vault Radar functionality with user roles.",
+					"url": "/hcp/docs/vault-radar/concepts/rbac"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Platform Team",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Managing templates",
+					"body": "Learn how to create and manage templates in Vault Radar.",
+					"url": "/hcp/docs/vault-radar/template-create"
+				},
+				{
+					"heading": "Managing add-ons",
+					"body": "Learn how to create and manage add-ons in Vault Radar.",
+					"url": "/hcp/docs/vault-radar/addon-definition-create"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Application Developers",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Using templates",
+					"body": "Learn how to create projects from templates.",
+					"url": "/hcp/docs/vault-radar/template-use"
+				},
+				{
+					"heading": "Using add-ons",
+					"body": "Learn how to install add-ons to Vault Radar projects.",
+					"url": "/hcp/docs/vault-radar/addon-use"
+				}
+			]
+		}
+	]
+}
