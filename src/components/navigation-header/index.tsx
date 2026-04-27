@@ -84,27 +84,61 @@ const AuthenticationControls = () => {
 const NavigationHeader = () => {
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
-	const shouldRenderGenericHeaderContent =
+	const shouldOnlyRenderHomeHeader =
 		!currentProduct || router.route === '/_error'
-	const LeftSideHeaderContent = shouldRenderGenericHeaderContent
+	const LeftSideHeaderContent = shouldOnlyRenderHomeHeader
 		? HomePageHeaderContent
 		: ProductPageHeaderContent
 
+	const iaPosthogExperimentComponent = () => {
+		return (
+			<>
+				<header className={s.mainHeader}>
+					<div className={s.leftSideIAExperiment}>
+						<HomePageHeaderContent />
+					</div>
+					<div className={s.middle}>
+						<CommandBarActivator
+							leadingIcon={<IconSearch16 />}
+							visualLabel={'Search'}
+						/>
+					</div>
+					<div className={s.rightSideIAExperiment}>
+						<AuthenticationControls />
+						<MobileMenuButton />
+					</div>
+				</header>
+				{!shouldOnlyRenderHomeHeader ? (
+					<header className={s.subNav}>
+						<ProductPageHeaderContent />
+					</header>
+				) : null}
+			</>
+		)
+	}
+
+	const defaultContent = () => {
+		return (
+			<header className={s.root}>
+				<div className={s.leftSide}>
+					<LeftSideHeaderContent />
+				</div>
+				<div className={s.rightSide}>
+					<CommandBarActivator
+						leadingIcon={<IconSearch16 />}
+						visualLabel={'Search'}
+					/>
+					<AuthenticationControls />
+					<MobileMenuButton />
+				</div>
+			</header>
+		)
+	}
+
 	return (
-		<header className={s.root}>
-			<div className={s.leftSide}>
-				<LeftSideHeaderContent />
-			</div>
-			<div className={s.rightSide}>
-				<CommandBarActivator
-					leadingIcon={<IconSearch16 />}
-					visualLabel={'Search'}
-				/>
-				<AuthenticationControls />
-				<MobileMenuButton />
-			</div>
-		</header>
+		iaPosthogVariant ? iaPosthogExperimentComponent() : defaultContent()
 	)
 }
 

@@ -7,6 +7,11 @@
 	display: flex;
 	align-items: center;
 	gap: 6px;
+
+	& img {
+		max-height: 30px;
+		width: auto;
+	}
 }
 
 .text {
@@ -17,6 +22,10 @@
 	&:hover {
 		color: var(--mds-color-foreground-strong);
 	}
+}
+
+.iaExperimentText {
+	font-weight: var(--token-typography-font-weight-bold);
 }
 
 /* Note: rather than setting size here, we could create a separate

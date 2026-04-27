@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { getNavItems } from '../get-nav-items'
+import { getAllNavItems } from '../get-nav-items'
 import { ProductData } from 'types/products'
 
-describe('getNavItems', () => {
+describe('getAllNavItems', () => {
 	it('for most products, returns the standard set of items', () => {
 		const testNomadData = {
 			slug: 'nomad',
@@ -25,7 +25,7 @@ describe('getNavItems', () => {
 				},
 			],
 		} as ProductData
-		expect(getNavItems(testNomadData)).toMatchInlineSnapshot(`
+		expect(getAllNavItems(testNomadData)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Install",
@@ -172,7 +172,7 @@ describe('getNavItems', () => {
 				},
 			],
 		} as ProductData
-		expect(getNavItems(testTerraformData)).toMatchInlineSnapshot(`
+		expect(getAllNavItems(testTerraformData)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Install",
@@ -269,7 +269,7 @@ describe('getNavItems', () => {
 				},
 			],
 		} as ProductData
-		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
+		expect(getAllNavItems(testHCPData)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Tutorials",

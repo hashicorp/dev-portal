@@ -4,10 +4,12 @@
  */
 
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconCloud16 } from '@hashicorp/flight-icons/svg-react/cloud-16'
 import useCurrentPath from 'hooks/use-current-path'
 import Link from 'components/link'
 import Text from 'components/text'
 import s from './primary-nav-link.module.css'
+import ButtonLink from '@components/button-link'
 
 export interface PrimaryNavLinkProps {
 	ariaLabel: string
@@ -15,13 +17,29 @@ export interface PrimaryNavLinkProps {
 		label: string
 		url: string
 		opensInNewTab?: boolean
+		isPrimary?: boolean
 	}
 }
 
 const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
-	const { label, url, opensInNewTab } = navItem
+	const { label, url, opensInNewTab, isPrimary } = navItem
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+
+	if (opensInNewTab && iaPosthogVariant) {
+		return (
+			<ButtonLink
+				aria-current={isCurrentPage ? 'page' : undefined}
+				aria-label={ariaLabel}
+				color={isPrimary ? 'primary' : 'secondary'}
+				href={url}
+				opensInNewTab={opensInNewTab}
+				icon={isPrimary ? <IconCloud16 /> : <IconExternalLink16 />}
+				text={label}
+			/>
+		)
+	}
 
 	return (
 		<Link

@@ -4,6 +4,7 @@
  */
 
 import { ReactNode } from 'react'
+import classNames from 'classnames'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import s from './nav-bar-list-container.module.css'
 
@@ -22,9 +23,20 @@ export default function NavBarListContainer({
 	 */
 	children: ReactNode
 }) {
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 	return (
-		<NavigationMenu.Root className={s.nav}>
-			<NavigationMenu.List className={s.ul}>{children}</NavigationMenu.List>
+		<NavigationMenu.Root
+			className={classNames(s.nav, {
+				[s.iaPosthogVariantNav]: iaPosthogVariant,
+			})}
+		>
+			<NavigationMenu.List
+				className={classNames(s.ul, {
+					[s.iaPosthogVariantUl]: iaPosthogVariant,
+				})}
+			>
+				{children}
+			</NavigationMenu.List>
 		</NavigationMenu.Root>
 	)
 }

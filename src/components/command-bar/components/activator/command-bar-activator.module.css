@@ -39,6 +39,29 @@
 	}
 }
 
+.wideWidth {
+	width: 320px;
+
+	/* Show icon-only starting at 1190px and narrower */
+	@media only screen and (max-width: 1190px) {
+		width: fit-content;
+		padding: 10px;
+		margin-right: 12px;
+
+		& .leadingIcon {
+			color: var(--mds-color-foreground-faint);
+		}
+
+		& .text {
+			display: none;
+		}
+
+		& .right {
+			display: none;
+		}
+	}
+}
+
 .left {
 	align-items: center;
 	display: flex;

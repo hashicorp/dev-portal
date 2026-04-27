@@ -7,6 +7,7 @@
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import { HTMLAttributes, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -19,7 +20,7 @@ import { createConsentManager } from 'lib/consent-manager'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import alertBannerData from 'data/alert-banner.json'
-import { SkipLinkContext } from 'contexts'
+import { SkipLinkContext, useCurrentProduct } from 'contexts'
 import SkipToMainContent from 'components/skip-to-main-content'
 import usePostHogPageAnalytics from 'hooks/use-posthog-analytics'
 
@@ -57,6 +58,10 @@ const BaseLayout = ({
 	usePostHogPageAnalytics()
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
+	const currentProduct = useCurrentProduct()
+	const router = useRouter()
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+	const shouldHaveTallerStickyBars = iaPosthogVariant && currentProduct && router.route !== '/_error'
 
 	useEffect(() => {
 		if (
@@ -104,7 +109,7 @@ const BaseLayout = ({
 					<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
 				)}
 				<CoreDevDotLayoutWithTheme>
-					<div className={classNames(s.root, className)} data-layout="base-new">
+					<div className={classNames(s.root, className, { [s.tallStickyBars]: shouldHaveTallerStickyBars })} data-layout="base-new">
 						<div className={s.header}>
 							<NavigationHeader />
 						</div>

@@ -241,6 +241,15 @@ const navPromo: ProductNavPromo = {
 	theme: 'default',
 }
 
+const iaExperimentNavPromo: ProductNavPromo = {
+	title: 'HashiCorp Cloud Platform',
+	description: 'Get started in minutes with our cloud products',
+	linkUrl: '/hcp',
+	linkTitle: 'Learn more',
+	icon: 'hashicorp',
+	theme: 'default',
+}
+
 const sidePanelContent: ProductSidePanel = {
 	label: 'Learn',
 	navItems: [
@@ -302,5 +311,6 @@ export {
 	navigationData,
 	mobileNavigationData,
 	navPromo,
+	iaExperimentNavPromo,
 	sidePanelContent,
 }

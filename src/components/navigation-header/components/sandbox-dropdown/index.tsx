@@ -9,6 +9,7 @@ import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
+import classNames from 'classnames'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
@@ -46,6 +47,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const [mounted, setMounted] = useState(false)
 	const [isNavigating, setIsNavigating] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
+	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
 	useEffect(() => {
 		setMounted(true)
@@ -79,7 +81,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 				typeof rect.left === 'number'
 			) {
 				setDropdownPosition({
-					top: rect.bottom + 16,
+					top: rect.bottom + 13,
 					left: rect.left,
 				})
 			}
@@ -282,7 +284,10 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			onMouseLeave={handleMouseLeave}
 			ref={rootRef}
 		>
-			<div className={s.activatorWrapper}>
+			<div className={classNames({
+				[s.activatorWrapper]: !iaPosthogVariant,
+				[s.iaActivatorWrapper]: iaPosthogVariant,
+			})}>
 				<button
 					aria-controls={menuId}
 					aria-expanded={isOpen}

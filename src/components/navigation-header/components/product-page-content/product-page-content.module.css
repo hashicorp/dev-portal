@@ -39,3 +39,20 @@
 	display: flex;
 	gap: 24px;
 }
+
+.iaPosthogVariant {
+	width: 100%;
+	min-width: 0;
+}
+
+.left {
+	display: flex;
+	align-items: center;
+}
+
+.right {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	gap: 16px;
+}
