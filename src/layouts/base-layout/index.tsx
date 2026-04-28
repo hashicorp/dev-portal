@@ -61,7 +61,7 @@ const BaseLayout = ({
 	const currentProduct = useCurrentProduct()
 	const router = useRouter()
 	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
-	const shouldHaveTallerStickyBars = iaPosthogVariant && currentProduct && router.route !== '/_error'
+	const shouldHaveTallerStickyBars = iaPosthogVariant && currentProduct && router.route !== '/_error' && currentProduct.slug !== 'well-architected-framework'	
 
 	useEffect(() => {
 		if (

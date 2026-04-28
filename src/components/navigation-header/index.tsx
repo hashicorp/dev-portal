@@ -87,7 +87,7 @@ const NavigationHeader = () => {
 	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
 	const shouldOnlyRenderHomeHeader =
-		!currentProduct || router.route === '/_error'
+		!currentProduct || router.route === '/_error' || currentProduct.slug === 'well-architected-framework'
 	const LeftSideHeaderContent = shouldOnlyRenderHomeHeader
 		? HomePageHeaderContent
 		: ProductPageHeaderContent
