@@ -10,6 +10,7 @@ import Link from 'components/link'
 import Text from 'components/text'
 import s from './primary-nav-link.module.css'
 import ButtonLink from '@components/button-link'
+import classNames from 'classnames'
 
 export interface PrimaryNavLinkProps {
 	ariaLabel: string
@@ -25,6 +26,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 	const { label, url, opensInNewTab, isPrimary } = navItem
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
+	const isCurrentPageInPath = currentPath.startsWith(url) && url !== '/'
 	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
 	if (opensInNewTab && iaPosthogVariant) {
@@ -45,7 +47,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 		<Link
 			aria-current={isCurrentPage ? 'page' : undefined}
 			aria-label={ariaLabel}
-			className={s.root}
+			className={classNames(s.root, { [s.underline]: isCurrentPageInPath && iaPosthogVariant, [s.iaLink]: iaPosthogVariant })}
 			href={url}
 			opensInNewTab={opensInNewTab}
 		>

@@ -24,6 +24,16 @@
 	}
 }
 
+.iaLink {
+	height: 63px;
+}
+
+.underline {
+	border-bottom: 2px solid var(--mds-color-foreground-strong);
+	border-radius: 0;
+	margin-bottom: -2px;
+}
+
 .linkText {
 	display: block;
 }
