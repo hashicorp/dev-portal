@@ -9,7 +9,7 @@
 		"body": "Vault Radar lets platform teams define golden patterns and workflows for developers to manage applications at scale.",
 		"cta": {
 			"text": "Learn more about Vault Radar",
-			"url": "/hcp/docs/vault-radar"
+			"url": "/vault-radar/cloud"
 		},
 		"image": {
 			"light": "https://www.datocms-assets.com/2885/1679095239-devdot-vault_lm.png",
@@ -39,17 +39,17 @@
 				{
 					"heading": "Templates",
 					"body": "Learn about templates and how to use them to create projects from a reusable configuration.",
-					"url": "/hcp/docs/vault-radar/concepts/application-templates"
+					"url": "/vault-radar/cloud/concepts/application-templates"
 				},
 				{
 					"heading": "Add-ons",
 					"body": "Learn about add-ons and how to use them to add additional functionality to your applications.",
-					"url": "/hcp/docs/vault-radar/concepts/add-ons"
+					"url": "/vault-radar/cloud/concepts/add-ons"
 				},
 				{
 					"heading": "Role-based access control",
 					"body": "Learn how to control access to Vault Radar functionality with user roles.",
-					"url": "/hcp/docs/vault-radar/concepts/rbac"
+					"url": "/vault-radar/cloud/concepts/rbac"
 				}
 			]
 		},
@@ -65,12 +65,12 @@
 				{
 					"heading": "Managing templates",
 					"body": "Learn how to create and manage templates in Vault Radar.",
-					"url": "/hcp/docs/vault-radar/template-create"
+					"url": "/vault-radar/cloud/template-create"
 				},
 				{
 					"heading": "Managing add-ons",
 					"body": "Learn how to create and manage add-ons in Vault Radar.",
-					"url": "/hcp/docs/vault-radar/addon-definition-create"
+					"url": "/vault-radar/cloud/addon-definition-create"
 				}
 			]
 		},
@@ -86,12 +86,12 @@
 				{
 					"heading": "Using templates",
 					"body": "Learn how to create projects from templates.",
-					"url": "/hcp/docs/vault-radar/template-use"
+					"url": "/vault-radar/cloud/template-use"
 				},
 				{
 					"heading": "Using add-ons",
 					"body": "Learn how to install add-ons to Vault Radar projects.",
-					"url": "/hcp/docs/vault-radar/addon-use"
+					"url": "/vault-radar/cloud/addon-use"
 				}
 			]
 		}

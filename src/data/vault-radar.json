@@ -25,7 +25,7 @@
 	"subnavItems": [
 		{
 			"text": "Documentation",
-			"url": "https://developer.hashicorp.com/vault-radar/docs",
+			"url": "https://developer.hashicorp.com/vault-radar/cloud",
 			"type": "inbound"
 		},
 		{
@@ -39,13 +39,16 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "tutorials"],
+	"basePaths": ["cloud", "tutorials"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
 			"name": "Documentation",
-			"path": "docs",
-			"includeMDXSource": true
+			"path": "cloud",
+			"basePathForLoader": "",
+			"includeMDXSource": true,
+			"navDataPrefix": "docs",
+			"productSlugForLoader": "vault-radar-hcp"
 		}
 	],
 	"integrationsConfig": {

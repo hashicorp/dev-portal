@@ -8,17 +8,17 @@
 				{
 					"title": "What is Vault Radar?",
 					"description": "Vault Radar lets platform teams define patterns to let developers deploy application infrastructure.",
-					"url": "/hcp/docs/vault-radar/overview"
+					"url": "/vault-radar/cloud/overview"
 				},
 				{
 					"title": "Templates",
 					"description": "Templates define the infrastructure and configurations that developers need to create new projects.",
-					"url": "/hcp/docs/vault-radar/concepts/application-templates"
+					"url": "/vault-radar/cloud/concepts/application-templates"
 				},
 				{
 					"title": "Add-ons",
 					"description": "Add-ons define infrastructure that developers can add to existing projects.",
-					"url": "/hcp/docs/vault-radar/concepts/add-ons"
+					"url": "/vault-radar/cloud/concepts/add-ons"
 				}
 			]
 		},
