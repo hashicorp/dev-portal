@@ -11,6 +11,7 @@ import Text from 'components/text'
 import s from './primary-nav-link.module.css'
 import ButtonLink from '@components/button-link'
 import classNames from 'classnames'
+import { useCurrentProduct } from 'contexts'
 
 export interface PrimaryNavLinkProps {
 	ariaLabel: string
@@ -24,9 +25,24 @@ export interface PrimaryNavLinkProps {
 
 const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 	const { label, url, opensInNewTab, isPrimary } = navItem
+	const currentProduct = useCurrentProduct()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
 	const isCurrentPageInPath = currentPath.startsWith(url) && url !== '/'
+	// There is an edge case where the 'Documentation' tab was highlighted incorrectly
+	// for vault and boundary since some of the docs sub-paths have their own nav link.
+	// These two edge case conditions check for these paths. If future nav links are added 
+	// that run into this scenario, an edge case will need to be added here.
+	const vaultEdgeCase =
+		currentProduct.name === 'Vault' &&
+		currentPath.startsWith('/vault/docs/commands') &&
+		url === '/vault/docs'
+	const boundaryEdgeCase =
+		currentProduct.name === 'Boundary' &&
+		(currentPath.startsWith('/boundary/docs/commands') ||
+			currentPath.startsWith('/boundary/docs/domain-model')) &&
+		url === '/boundary/docs'
+	const shouldLinkBeUnderlined = isCurrentPageInPath && !vaultEdgeCase && !boundaryEdgeCase
 	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
 
 	if (opensInNewTab && iaPosthogVariant) {
@@ -47,7 +63,10 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 		<Link
 			aria-current={isCurrentPage ? 'page' : undefined}
 			aria-label={ariaLabel}
-			className={classNames(s.root, { [s.underline]: isCurrentPageInPath && iaPosthogVariant, [s.iaLink]: iaPosthogVariant })}
+			className={classNames(s.root, {
+				[s.underline]: shouldLinkBeUnderlined && iaPosthogVariant,
+				[s.iaLink]: iaPosthogVariant,
+			})}
 			href={url}
 			opensInNewTab={opensInNewTab}
 		>
