@@ -204,12 +204,15 @@ const NavigationHeaderDropdownMenu = ({
 				promo={productPanelData.navPromo}
 				sidePanel={!iaPosthogVariant && productPanelData.sidePanelContent}
 				isPromoOnTop={true}
+				isDevPortal={true}
 			/>
 		)
 	}
 
 	const StandardDropdown = () => {
-		return <StandardPanel navData={standardPanelData.navData} />
+		return (
+			<StandardPanel navData={standardPanelData.navData} isDevPortal={true} />
+		)
 	}
 
 	const MobileDropdown = () => {
