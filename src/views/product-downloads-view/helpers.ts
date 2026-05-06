@@ -60,16 +60,7 @@ export const generateDefaultPackageManagers = (
 			os: 'linux',
 		},
 		{
-			label: 'Fedora 41',
-			commands: [
-				`sudo dnf install -y dnf-plugins-core`,
-				`sudo dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
-				`sudo dnf -y install ${productSlug}`,
-			],
-			os: 'linux',
-		},
-		{
-			label: 'Fedora 42',
+			label: 'Fedora',
 			commands: [
 				`wget -O- https://rpm.releases.hashicorp.com/fedora/hashicorp.repo | sudo tee /etc/yum.repos.d/hashicorp.repo`,
 				`sudo yum list available | grep hashicorp`,
