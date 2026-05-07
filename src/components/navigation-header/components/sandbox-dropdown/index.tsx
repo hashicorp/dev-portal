@@ -83,8 +83,9 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 				typeof rect.bottom === 'number' &&
 				typeof rect.left === 'number'
 			) {
+				const rectOffset = iaPosthogVariant ? 13 : 16
 				setDropdownPosition({
-					top: rect.bottom + 13,
+					top: rect.bottom + rectOffset,
 					left: rect.left,
 				})
 			}
@@ -92,7 +93,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			// Reset to null to ensure clean state
 			setDropdownPosition(null)
 		}
-	}, [isOpen])
+	}, [iaPosthogVariant, isOpen])
 
 	// Item data from sandbox config
 	const labs = SANDBOX_CONFIG.labs as unknown as SandboxLab[]

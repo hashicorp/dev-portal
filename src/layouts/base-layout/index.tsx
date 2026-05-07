@@ -119,6 +119,7 @@ const BaseLayout = ({
 					<div
 						className={classNames(s.root, className, {
 							[s.tallStickyBars]: shouldHaveTallerStickyBars,
+							[s.iaStickyBars]: iaPosthogVariant && !shouldHaveTallerStickyBars,
 						})}
 						data-layout="base-new"
 					>

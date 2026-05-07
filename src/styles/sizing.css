@@ -10,5 +10,6 @@
 	/* NOTE: The --navigation-header-height may be brittle & inaccurate.
     See layouts/base-new/base-new-layout.module.css
     comments for details */
-	--navigation-header-height: 64px;
+	--navigation-header-height: 68px;
+	--ia-navigation-header-height: 64px;
 }

@@ -92,7 +92,7 @@ const NavigationHeader = () => {
 	const shouldOnlyRenderHomeHeader =
 		!currentProduct ||
 		router.route === '/_error' ||
-		currentProduct.slug === 'well-architected-framework'
+		(currentProduct.slug === 'well-architected-framework' && iaPosthogVariant)
 	const LeftSideHeaderContent = shouldOnlyRenderHomeHeader
 		? HomePageHeaderContent
 		: ProductPageHeaderContent
