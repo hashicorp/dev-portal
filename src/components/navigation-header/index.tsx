@@ -22,6 +22,7 @@ import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 import { NavigationHeaderItem } from './types'
 import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
+import { useExperiments } from 'contexts/experiments'
 
 /**
  * The header content displayed to the far right of the window. This content is
@@ -84,10 +85,14 @@ const AuthenticationControls = () => {
 const NavigationHeader = () => {
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 
 	const shouldOnlyRenderHomeHeader =
-		!currentProduct || router.route === '/_error' || currentProduct.slug === 'well-architected-framework'
+		!currentProduct ||
+		router.route === '/_error' ||
+		currentProduct.slug === 'well-architected-framework'
 	const LeftSideHeaderContent = shouldOnlyRenderHomeHeader
 		? HomePageHeaderContent
 		: ProductPageHeaderContent
@@ -137,9 +142,7 @@ const NavigationHeader = () => {
 		)
 	}
 
-	return (
-		iaPosthogVariant ? iaPosthogExperimentComponent() : defaultContent()
-	)
+	return iaPosthogVariant ? iaPosthogExperimentComponent() : defaultContent()
 }
 
 export type { NavigationHeaderItem }

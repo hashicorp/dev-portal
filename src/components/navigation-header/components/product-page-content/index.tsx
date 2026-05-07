@@ -31,6 +31,7 @@ import { navigationData, navPromo, sidePanelContent } from 'lib/products'
 import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
 import classNames from 'classnames'
+import { useExperiments } from 'contexts/experiments'
 
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
@@ -38,8 +39,10 @@ const ProductPageHeaderContent = () => {
 	const productNavItems = getAllNavItems(currentProduct)
 	const leftSideNavItems = getLeftSideNavButtons(currentProduct)
 	const rightSideNavItems = getRightSideNavButtons(currentProduct)
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
-
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
+	
 	// Check if the current product has sandbox support
 	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
 	const hasSandbox =
@@ -114,7 +117,11 @@ const ProductPageHeaderContent = () => {
 					</NavigationMenu.Root>
 				</div>
 			)}
-			<div className={classNames(s.productLinkAndNav, { [s.iaPosthogVariant]: iaPosthogVariant })}>
+			<div
+				className={classNames(s.productLinkAndNav, {
+					[s.iaPosthogVariant]: iaPosthogVariant,
+				})}
+			>
 				<ProductIconTextLink
 					name={currentProduct.name}
 					slug={currentProduct.slug}

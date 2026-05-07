@@ -6,11 +6,19 @@
 import InlineSvg from '@hashicorp/react-inline-svg'
 import Link from 'components/link'
 import { NavBarListContainer, NavigationHeaderDropdownMenu } from '..'
-import { navigationData, navPromo, iaExperimentNavPromo, sidePanelContent } from 'lib/products'
+import {
+	navigationData,
+	navPromo,
+	iaExperimentNavPromo,
+	sidePanelContent,
+} from 'lib/products'
 import s from './home-page-content.module.css'
+import { useExperiments } from 'contexts/experiments'
 
 const HomePageHeaderContent = () => {
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 	return (
 		<>
 			<Link

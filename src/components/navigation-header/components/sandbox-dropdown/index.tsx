@@ -25,6 +25,7 @@ import { ProductSlug } from 'types/products'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 import { useTheme } from 'next-themes'
 import { trackSandboxInteraction } from 'views/sandbox-view/utils'
+import { useExperiments } from 'contexts/experiments'
 
 interface SandboxDropdownProps {
 	ariaLabel: string
@@ -47,7 +48,9 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const [mounted, setMounted] = useState(false)
 	const [isNavigating, setIsNavigating] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 
 	useEffect(() => {
 		setMounted(true)
@@ -284,10 +287,12 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			onMouseLeave={handleMouseLeave}
 			ref={rootRef}
 		>
-			<div className={classNames({
-				[s.activatorWrapper]: !iaPosthogVariant,
-				[s.iaActivatorWrapper]: iaPosthogVariant,
-			})}>
+			<div
+				className={classNames({
+					[s.activatorWrapper]: !iaPosthogVariant,
+					[s.iaActivatorWrapper]: iaPosthogVariant,
+				})}
+			>
 				<button
 					aria-controls={menuId}
 					aria-expanded={isOpen}

@@ -12,6 +12,7 @@ import s from './primary-nav-link.module.css'
 import ButtonLink from '@components/button-link'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
+import { useExperiments } from 'contexts/experiments'
 
 export interface PrimaryNavLinkProps {
 	ariaLabel: string
@@ -31,7 +32,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 	const isCurrentPageInPath = currentPath.startsWith(url) && url !== '/'
 	// There is an edge case where the 'Documentation' tab was highlighted incorrectly
 	// for vault and boundary since some of the docs sub-paths have their own nav link.
-	// These two edge case conditions check for these paths. If future nav links are added 
+	// These two edge case conditions check for these paths. If future nav links are added
 	// that run into this scenario, an edge case will need to be added here.
 	const vaultEdgeCase =
 		currentProduct.name === 'Vault' &&
@@ -42,8 +43,11 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 		(currentPath.startsWith('/boundary/docs/commands') ||
 			currentPath.startsWith('/boundary/docs/domain-model')) &&
 		url === '/boundary/docs'
-	const shouldLinkBeUnderlined = isCurrentPageInPath && !vaultEdgeCase && !boundaryEdgeCase
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+	const shouldLinkBeUnderlined =
+		isCurrentPageInPath && !vaultEdgeCase && !boundaryEdgeCase
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 
 	if (opensInNewTab && iaPosthogVariant) {
 		return (

@@ -8,6 +8,7 @@ import { Badge } from '@hashicorp/mds-react/components'
 import { useCommandBar } from 'components/command-bar'
 import Text from 'components/text'
 import s from './command-bar-activator.module.css'
+import { useExperiments } from 'contexts/experiments'
 
 interface CommandBarActivatorProps {
 	leadingIcon: ReactElement
@@ -19,7 +20,9 @@ const CommandBarActivator = ({
 	visualLabel,
 }: CommandBarActivatorProps) => {
 	const { toggleIsOpen } = useCommandBar()
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 
 	return (
 		<button

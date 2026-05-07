@@ -31,6 +31,7 @@ import type {
 	NavigationHeaderDropdownMenuProps,
 	NavigationHeaderItemGroup,
 } from 'components/navigation-header/types'
+import { useExperiments } from 'contexts/experiments'
 
 // Local imports
 import s from './dropdown-menu.module.css'
@@ -59,8 +60,9 @@ const NavigationHeaderDropdownMenu = ({
 	const [isOpen, setIsOpen] = useState(false)
 	const menuId = `navigation-header-menu-${uniqueId}`
 	const hasLeadingIcon = !!leadingIcon
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
-
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 	// Handles closing the menu if there is a click outside of it and it is open.
 	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
 

@@ -10,6 +10,7 @@ import s from './product-icon-text-lockup.module.css'
 import { getProductLogo } from '../../utils'
 import { useTheme } from 'next-themes'
 import classNames from 'classnames'
+import { useExperiments } from 'contexts/experiments'
 
 export interface ProductIconTextLockupProps {
 	slug: string
@@ -26,7 +27,9 @@ export function ProductIconTextLockup({
 	const { theme, systemTheme } = useTheme()
 	const imageTheme = theme === 'system' ? systemTheme : theme
 	const productLogo = getProductLogo(slug, imageTheme)
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 
 	const logoImage = () => {
 		return <Image src={productLogo} alt={`${name} Logo`} unoptimized />
@@ -39,7 +42,13 @@ export function ProductIconTextLockup({
 				{isProductSlug(slug) && slug !== 'hcp' ? (
 					<ProductIcon productSlug={slug} className={s.icon} />
 				) : null}
-				<span className={classNames(s.text, {[s.iaExperimentText]: iaPosthogVariant})}>{name}</span>
+				<span
+					className={classNames(s.text, {
+						[s.iaExperimentText]: iaPosthogVariant,
+					})}
+				>
+					{name}
+				</span>
 			</>
 		)
 	}

@@ -27,6 +27,7 @@ import usePostHogPageAnalytics from 'hooks/use-posthog-analytics'
 // Local imports
 import { BaseLayoutProps, AlertBannerProps } from './types'
 import s from './base-layout.module.css'
+import { useExperiments } from 'contexts/experiments'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	gtmId: process.env.NEXT_PUBLIC_GTM_CONTAINER_ID,
@@ -60,8 +61,14 @@ const BaseLayout = ({
 	const [showSkipLink, setShowSkipLink] = useState(false)
 	const currentProduct = useCurrentProduct()
 	const router = useRouter()
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
-	const shouldHaveTallerStickyBars = iaPosthogVariant && currentProduct && router.route !== '/_error' && currentProduct.slug !== 'well-architected-framework'	
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
+	const shouldHaveTallerStickyBars =
+		iaPosthogVariant &&
+		currentProduct &&
+		router.route !== '/_error' &&
+		currentProduct.slug !== 'well-architected-framework'
 
 	useEffect(() => {
 		if (
@@ -109,7 +116,12 @@ const BaseLayout = ({
 					<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
 				)}
 				<CoreDevDotLayoutWithTheme>
-					<div className={classNames(s.root, className, { [s.tallStickyBars]: shouldHaveTallerStickyBars })} data-layout="base-new">
+					<div
+						className={classNames(s.root, className, {
+							[s.tallStickyBars]: shouldHaveTallerStickyBars,
+						})}
+						data-layout="base-new"
+					>
 						<div className={s.header}>
 							<NavigationHeader />
 						</div>

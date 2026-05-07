@@ -10,6 +10,7 @@ import { getCurrentProductTag } from '../../../../helpers'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import { ProductSlug } from 'types/products'
 import { isProductSlug } from 'lib/products'
+import { useExperiments } from 'contexts/experiments'
 
 type CommandBarProductTag = {
 	id: ProductSlug
@@ -37,7 +38,9 @@ type CommandBarProductTag = {
 export function useCommandBarProductTag(): CommandBarProductTag | null {
 	const currentProduct = useCurrentProduct()
 	const { addTag, currentTags, removeTag } = useCommandBar()
-	const iaPosthogVariant = true // TODO: Replace with actual PostHog experiment variant check when available
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 
 	/**
 	 * Create callback for setting up this command's state.
