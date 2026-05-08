@@ -96,6 +96,16 @@ describe('getTargetPath', () => {
 		expect(target).toEqual('/vault/docs/v2.x/secrets/kv')
 	})
 
+	it('should handle double-x versions', () => {
+		const input = {
+			basePath: 'vault/docs',
+			asPath: '/vault/docs/secrets/kv',
+			version: 'v2.x.x',
+		}
+		const target = getTargetPath(input)
+		expect(target).toEqual('/vault/docs/v2.x.x/secrets/kv')
+	})
+
 	describe('with 3-segment basePath (terraform/plugin/framework)', () => {
 		it('should return a target path while on "latest"', () => {
 			const input = {

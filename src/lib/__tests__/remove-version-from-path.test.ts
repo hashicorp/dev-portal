@@ -44,6 +44,15 @@ describe('removeVersionFromPath', () => {
 				'https://developer.hashicorp.com/vault/docs/platform'
 			)
 		}
+
+		{
+			const path = 'https://developer.hashicorp.com/vault/docs/v2.x.x/platform'
+
+			const cleanedPath = removeVersionFromPath(path)
+			expect(cleanedPath).toEqual(
+				'https://developer.hashicorp.com/vault/docs/platform'
+			)
+		}
 	})
 
 	it('should return the original path if no version is present', () => {
