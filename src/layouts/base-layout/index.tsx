@@ -23,11 +23,12 @@ import alertBannerData from 'data/alert-banner.json'
 import { SkipLinkContext, useCurrentProduct } from 'contexts'
 import SkipToMainContent from 'components/skip-to-main-content'
 import usePostHogPageAnalytics from 'hooks/use-posthog-analytics'
+import { useExperiments } from 'contexts/experiments'
+import { useExperimentExposure } from 'hooks/use-experiment-exposure'
 
 // Local imports
 import { BaseLayoutProps, AlertBannerProps } from './types'
 import s from './base-layout.module.css'
-import { useExperiments } from 'contexts/experiments'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	gtmId: process.env.NEXT_PUBLIC_GTM_CONTAINER_ID,
@@ -58,6 +59,7 @@ const BaseLayout = ({
 	})
 	usePostHogPageAnalytics()
 	useScrollPercentageAnalytics()
+	useExperimentExposure('ia-subnav-bar')
 	const [showSkipLink, setShowSkipLink] = useState(false)
 	const currentProduct = useCurrentProduct()
 	const router = useRouter()

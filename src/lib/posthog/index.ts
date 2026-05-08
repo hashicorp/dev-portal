@@ -309,6 +309,10 @@ export const setBootstrapCookieOnResponse = (
     bootstrapData: BootstrapData,
     res: NextResponse
 ): NextResponse => {
+	const isDev = process.env.NODE_ENV === 'development'
+	if (isDev) {
+		console.log(`bootstrapped feature flag data: ${JSON.stringify(bootstrapData)}`)
+	}
     res.cookies.set(POSTHOG_BOOTSTRAP_COOKIE_KEY, JSON.stringify(bootstrapData), {
         expires: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000), // 45 days
         sameSite: 'lax',
