@@ -41,7 +41,11 @@ import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
 import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 import { ExperimentsProvider } from 'contexts/experiments'
-import { getBootstrapDataClient, getFeatureFlagsFromRequest } from 'lib/posthog'
+import {
+	getBootstrapDataClient,
+	getFeatureFlagsFromRequest,
+	type FeatureFlags,
+} from 'lib/posthog'
 
 // Local imports
 import './style.css'
@@ -68,16 +72,8 @@ const Adapter: QueryParamAdapterComponent = (props) => (
 )
 
 App.getInitialProps = ({ ctx }) => {
-	let flags = {}
-    if (ctx.req) {
-        // Server-side: read from the x-posthog-flags header injected by middleware
-        flags = getFeatureFlagsFromRequest(ctx.req)
-    } else {
-        // Client-side navigation: read from the bootstrap cookie in the browser
-        const bootstrapData = getBootstrapDataClient()
-        flags = bootstrapData?.featureFlags ?? {}
-    }
-    return { pageProps: { experiments: flags } }
+    const flags = ctx.req ? getFeatureFlagsFromRequest(ctx.req) : {}
+	return { pageProps: { experiments: flags } }
 }
 
 export default function App({
@@ -103,11 +99,27 @@ export default function App({
 				},
 			})
 	)
+	const [experimentFlags, setExperimentFlags] = useState<FeatureFlags>(
+		pageProps.experiments ?? {}
+	)
+
+	useEffect(() => {
+		// Sync from the bootstrap cookie on mount. This handles cases where
+		// App.getInitialProps wasn't called (e.g., client-side navigation to
+		// statically-generated pages), which would leave experimentFlags as {}.
+		const bootstrapData = getBootstrapDataClient()
+		const cookieFlags = bootstrapData?.featureFlags ?? {}
+		if (Object.keys(cookieFlags).length > 0) {
+			setExperimentFlags((prev) =>
+				Object.keys(prev).length === 0 ? cookieFlags : prev
+			)
+		}
+	}, [])
 
 	const currentProduct = pageProps.product || null
 
 	return (
-		<ExperimentsProvider flags={pageProps.experiments ?? {}}>
+		<ExperimentsProvider flags={experimentFlags}>
 			<ConditionalPostHogProvider>
 				<MDSProvider
 					imageComponent={NextImageAdapter}
