@@ -41,7 +41,7 @@ import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
 import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 import { ExperimentsProvider } from 'contexts/experiments'
-import { getFeatureFlagsFromRequest } from 'lib/posthog'
+import { getBootstrapDataClient, getFeatureFlagsFromRequest } from 'lib/posthog'
 
 // Local imports
 import './style.css'
@@ -68,10 +68,16 @@ const Adapter: QueryParamAdapterComponent = (props) => (
 )
 
 App.getInitialProps = ({ ctx }) => {
-	const flags = ctx.req
-		? getFeatureFlagsFromRequest(ctx.req)
-		: {}
-	return { pageProps: { experiments: flags } }
+	let flags = {}
+    if (ctx.req) {
+        // Server-side: read from the x-posthog-flags header injected by middleware
+        flags = getFeatureFlagsFromRequest(ctx.req)
+    } else {
+        // Client-side navigation: read from the bootstrap cookie in the browser
+        const bootstrapData = getBootstrapDataClient()
+        flags = bootstrapData?.featureFlags ?? {}
+    }
+    return { pageProps: { experiments: flags } }
 }
 
 export default function App({
