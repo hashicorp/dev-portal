@@ -13,6 +13,7 @@ import ButtonLink from '@components/button-link'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import { useExperiments } from 'contexts/experiments'
+import { trackNavClickEvent } from 'lib/posthog-events'
 
 export interface PrimaryNavLinkProps {
 	ariaLabel: string
@@ -59,6 +60,9 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				opensInNewTab={opensInNewTab}
 				icon={isPrimary ? <IconCloud16 /> : <IconExternalLink16 />}
 				text={label}
+				onClickCapture={() => {
+					trackNavClickEvent(label, url)
+				}}
 			/>
 		)
 	}
@@ -73,6 +77,9 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 			})}
 			href={url}
 			opensInNewTab={opensInNewTab}
+			onClickCapture={() => {
+				trackNavClickEvent(label, url)
+			}}
 		>
 			<Text asElement="span" className={s.linkText} size={200} weight="medium">
 				{label}

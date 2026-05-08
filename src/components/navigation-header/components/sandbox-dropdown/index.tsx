@@ -26,6 +26,7 @@ import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 import { useTheme } from 'next-themes'
 import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 import { useExperiments } from 'contexts/experiments'
+import { trackNavClickEvent } from 'lib/posthog-events'
 
 interface SandboxDropdownProps {
 	ariaLabel: string
@@ -337,6 +338,13 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 								onKeyDown={handleKeyDown}
 								aria-label={`Go to ${currentProduct.name} Sandboxes`}
 								aria-current={isOnSandboxPage ? 'page' : undefined}
+								onClickCapture={() => {
+									trackNavClickEvent(
+										`${currentProduct.name} Sandboxes`,
+										`/${currentProduct.slug}/sandbox`,
+										'Sandbox'
+									)
+								}}
 							>
 								<div className={s.introSandboxRow}>
 									<ProductIcon
@@ -387,6 +395,9 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 												})
 											}}
 											onKeyDown={handleKeyDown}
+											onClickCapture={() => {
+												trackNavClickEvent(lab.title, router.pathname, 'Sandbox')
+											}}
 										>
 											<div className={s.content}>
 												<div className={s.titleRow}>

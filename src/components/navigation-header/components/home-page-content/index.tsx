@@ -14,6 +14,7 @@ import {
 } from 'lib/products'
 import s from './home-page-content.module.css'
 import { useExperiments } from 'contexts/experiments'
+import { trackNavClickEvent } from 'lib/posthog-events'
 
 const HomePageHeaderContent = () => {
 	const { flags } = useExperiments()
@@ -25,6 +26,9 @@ const HomePageHeaderContent = () => {
 				href="/"
 				aria-label="HashiCorp Developer Home"
 				className={s.siteLogoLink}
+				onClickCapture={() => {
+					trackNavClickEvent('HashiCorp Developer Home', '/')
+				}}
 			>
 				<InlineSvg
 					className={s.siteLogo}
@@ -46,7 +50,6 @@ const HomePageHeaderContent = () => {
 				{iaPosthogVariant && (
 					<li>
 						<NavigationHeaderDropdownMenu
-							// dropdownClassName={s.homepageDropdownPane}
 							standardPanelData={{
 								navData: [
 									{

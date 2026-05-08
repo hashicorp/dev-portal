@@ -35,6 +35,7 @@ import { useExperiments } from 'contexts/experiments'
 
 // Local imports
 import s from './dropdown-menu.module.css'
+import { trackNavClickEvent } from 'lib/posthog-events'
 
 /**
  * A dropdown navigation menu consisiting of an activator button and a dropdown
@@ -298,6 +299,13 @@ const NavigationHeaderDropdownMenu = ({
 															className={s.itemLink}
 															href={linkHref}
 															onKeyDown={handleKeyDown}
+															onClickCapture={() => {
+																trackNavClickEvent(
+																	item.label,
+																	linkHref,
+																	label
+																)
+															}}
 														>
 															{anchorContent}
 														</Link>
