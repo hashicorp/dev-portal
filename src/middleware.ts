@@ -11,6 +11,7 @@ import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getVariantParam } from 'views/tutorial-view/utils/variants'
 import { setPosthogFeatureFlagCookies } from 'lib/posthog'
+import { MARKDOWN_DOCS_PREFIXES } from 'lib/content-negotiation'
 
 function determineProductSlug(req: NextRequest): string {
 	// .io production deploy
@@ -44,6 +45,29 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		)
 	}
 	// ----------------------
+
+	// Content negotiation: when the Accept header contains text/markdown,
+	// rewrite documentation page requests to return raw markdown instead of
+	// HTML. This allows AI agents and CLI tools to fetch structured text
+	// content from the same URL that serves HTML to browsers.
+	//
+	// NOTE on CDN caching (Vercel edge): the Vary: Accept header is set both
+	// in next.config.js (for HTML responses) and in the markdown route handler
+	// (for markdown responses). This ensures the edge cache maintains separate
+	// entries for HTML vs markdown requests to the same URL and does not serve
+	// a cached markdown response to a browser or vice versa.
+	const acceptHeader = req.headers.get('accept') || ''
+	if (acceptHeader.includes('text/markdown')) {
+		const pathname = req.nextUrl.pathname
+		const isDocsPath = MARKDOWN_DOCS_PREFIXES.some(
+			(prefix) => pathname === prefix || pathname.startsWith(prefix + '/')
+		)
+		if (isDocsPath) {
+			const url = req.nextUrl.clone()
+			url.pathname = `/api/content-markdown${pathname}`
+			return NextResponse.rewrite(url)
+		}
+	}
 
 	let response: NextResponse
 

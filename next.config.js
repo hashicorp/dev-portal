@@ -20,6 +20,29 @@ const { loadHashiConfigForEnvironment } = require('./config/index')
 /**
  * @type {import('next/dist/lib/load-custom-routes').Header}
  *
+ * Adds `Vary: Accept` to all documentation page responses so that edge
+ * caches (Vercel CDN) maintain separate cache entries for HTML vs markdown
+ * responses. Without this header, a cached markdown response (served when
+ * the client sends `Accept: text/markdown`) could be returned to a browser
+ * that expects HTML, or vice versa.
+ *
+ * This works together with the middleware content negotiation logic that
+ * rewrites markdown-requesting clients to /api/content-markdown/... and
+ * the Vary header set by the markdown route handler itself.
+ */
+const varyAcceptOnDocs = {
+	source: '/:product(boundary|consul|hcp|nomad|packer|sentinel|terraform|vagrant|vault|waypoint|well-architected-framework)/:path*',
+	headers: [
+		{
+			key: 'Vary',
+			value: 'Accept',
+		},
+	],
+}
+
+/**
+ * @type {import('next/dist/lib/load-custom-routes').Header}
+ *
  * Adds a `noindex` directive to all pages on `tip.waypointproject.io`.
  * We don't want content on that domain to be indexed.
  */
@@ -93,7 +116,7 @@ module.exports = async () => {
 			return config
 		},
 		async headers() {
-			return [hideWaypointTipContent]
+			return [varyAcceptOnDocs, hideWaypointTipContent]
 		},
 		async redirects() {
 			const { simpleRedirects, complexRedirects } = await redirectsConfig()
