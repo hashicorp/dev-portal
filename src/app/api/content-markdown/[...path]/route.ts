@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { resolveDocsRoute } from 'lib/content-negotiation'
+import { resolveMarkdownContentRoute } from 'lib/content-negotiation'
 import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 
 /**
@@ -41,7 +41,7 @@ export async function GET(
 	const pathname = '/' + pathSegments.join('/')
 
 	// Resolve the URL pathname to unified-docs API parameters
-	const route = resolveDocsRoute(pathname)
+	const route = resolveMarkdownContentRoute(pathname)
 	if (!route) {
 		return new Response('Not found', { status: 404 })
 	}
@@ -132,6 +132,10 @@ export async function GET(
 			// Vary: Accept ensures edge caches (Vercel CDN) maintain separate
 			// cache entries for HTML vs markdown responses to the same URL.
 			'Vary': 'Accept',
+			// TODO: Determine appropriate Cache-Control headers for markdown
+			// responses. HTML pages inherit caching from Next.js/Vercel defaults,
+			// but this API route does not. Consider aligning with the HTML page
+			// caching strategy.
 		},
 	})
 }

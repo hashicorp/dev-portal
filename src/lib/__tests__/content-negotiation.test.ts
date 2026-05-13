@@ -4,17 +4,20 @@
  */
 
 import {
-	resolveDocsRoute,
+	resolveMarkdownContentRoute,
 	MARKDOWN_DOCS_PREFIXES,
 	DOCS_ROUTE_OVERRIDES,
 } from 'lib/content-negotiation'
 
 describe('content-negotiation', () => {
-	describe('resolveDocsRoute', () => {
+	describe('resolveMarkdownContentRoute', () => {
 		it('returns null for non-docs paths', () => {
-			expect(resolveDocsRoute('/sign-up')).toBeNull()
-			expect(resolveDocsRoute('/')).toBeNull()
-			expect(resolveDocsRoute('/terraform/tutorials/intro')).toEqual({
+			expect(resolveMarkdownContentRoute('/sign-up')).toBeNull()
+			expect(resolveMarkdownContentRoute('/')).toBeNull()
+		})
+
+		it('resolves tutorial paths via default convention', () => {
+			expect(resolveMarkdownContentRoute('/terraform/tutorials/intro')).toEqual({
 				apiProductSlug: 'terraform',
 				apiBasePath: 'tutorials',
 				remainingPath: 'intro',
@@ -23,7 +26,7 @@ describe('content-negotiation', () => {
 		})
 
 		it('resolves default (non-overridden) paths', () => {
-			expect(resolveDocsRoute('/consul/commands/agent')).toEqual({
+			expect(resolveMarkdownContentRoute('/consul/commands/agent')).toEqual({
 				apiProductSlug: 'consul',
 				apiBasePath: 'commands',
 				remainingPath: 'agent',
@@ -32,7 +35,7 @@ describe('content-negotiation', () => {
 		})
 
 		it('resolves default paths with nested segments', () => {
-			expect(resolveDocsRoute('/vault/docs/auth/token')).toEqual({
+			expect(resolveMarkdownContentRoute('/vault/docs/auth/token')).toEqual({
 				apiProductSlug: 'vault',
 				apiBasePath: 'docs',
 				remainingPath: 'auth/token',
@@ -41,7 +44,7 @@ describe('content-negotiation', () => {
 		})
 
 		it('resolves default path with no remaining path', () => {
-			expect(resolveDocsRoute('/consul/docs')).toEqual({
+			expect(resolveMarkdownContentRoute('/consul/docs')).toEqual({
 				apiProductSlug: 'consul',
 				apiBasePath: 'docs',
 				remainingPath: '',
@@ -50,28 +53,28 @@ describe('content-negotiation', () => {
 		})
 
 		it('resolves terraform overrides to correct API product slug', () => {
-			expect(resolveDocsRoute('/terraform/cli/commands/init')).toEqual({
+			expect(resolveMarkdownContentRoute('/terraform/cli/commands/init')).toEqual({
 				apiProductSlug: 'terraform',
 				apiBasePath: 'cli',
 				remainingPath: 'commands/init',
 				urlProductSlug: 'terraform',
 			})
 
-			expect(resolveDocsRoute('/terraform/cdktf/concepts')).toEqual({
+			expect(resolveMarkdownContentRoute('/terraform/cdktf/concepts')).toEqual({
 				apiProductSlug: 'terraform-cdk',
 				apiBasePath: 'cdktf',
 				remainingPath: 'concepts',
 				urlProductSlug: 'terraform',
 			})
 
-			expect(resolveDocsRoute('/terraform/enterprise/install')).toEqual({
+			expect(resolveMarkdownContentRoute('/terraform/enterprise/install')).toEqual({
 				apiProductSlug: 'terraform-enterprise',
 				apiBasePath: 'enterprise',
 				remainingPath: 'install',
 				urlProductSlug: 'terraform',
 			})
 
-			expect(resolveDocsRoute('/terraform/docs/intro')).toEqual({
+			expect(resolveMarkdownContentRoute('/terraform/docs/intro')).toEqual({
 				apiProductSlug: 'terraform-docs-common',
 				apiBasePath: 'docs',
 				remainingPath: 'intro',
@@ -80,7 +83,7 @@ describe('content-negotiation', () => {
 		})
 
 		it('resolves terraform/cloud-docs/agents before terraform/cloud-docs', () => {
-			expect(resolveDocsRoute('/terraform/cloud-docs/agents/setup')).toEqual({
+			expect(resolveMarkdownContentRoute('/terraform/cloud-docs/agents/setup')).toEqual({
 				apiProductSlug: 'terraform-docs-agents',
 				apiBasePath: 'cloud-docs/agents',
 				remainingPath: 'setup',
@@ -88,7 +91,7 @@ describe('content-negotiation', () => {
 			})
 
 			expect(
-				resolveDocsRoute('/terraform/cloud-docs/workspaces')
+				resolveMarkdownContentRoute('/terraform/cloud-docs/workspaces')
 			).toEqual({
 				apiProductSlug: 'terraform-docs-common',
 				apiBasePath: 'cloud-docs',
@@ -99,7 +102,7 @@ describe('content-negotiation', () => {
 
 		it('resolves terraform/plugin sub-paths before terraform/plugin', () => {
 			expect(
-				resolveDocsRoute('/terraform/plugin/framework/resources')
+				resolveMarkdownContentRoute('/terraform/plugin/framework/resources')
 			).toEqual({
 				apiProductSlug: 'terraform-plugin-framework',
 				apiBasePath: 'plugin/framework',
@@ -107,14 +110,14 @@ describe('content-negotiation', () => {
 				urlProductSlug: 'terraform',
 			})
 
-			expect(resolveDocsRoute('/terraform/plugin/sdkv2/guides')).toEqual({
+			expect(resolveMarkdownContentRoute('/terraform/plugin/sdkv2/guides')).toEqual({
 				apiProductSlug: 'terraform-plugin-sdk',
 				apiBasePath: 'plugin/sdkv2',
 				remainingPath: 'guides',
 				urlProductSlug: 'terraform',
 			})
 
-			expect(resolveDocsRoute('/terraform/plugin/best-practices')).toEqual({
+			expect(resolveMarkdownContentRoute('/terraform/plugin/best-practices')).toEqual({
 				apiProductSlug: 'terraform-docs-common',
 				apiBasePath: 'plugin',
 				remainingPath: 'best-practices',
@@ -123,7 +126,7 @@ describe('content-negotiation', () => {
 		})
 
 		it('resolves HCP override', () => {
-			expect(resolveDocsRoute('/hcp/docs/get-started')).toEqual({
+			expect(resolveMarkdownContentRoute('/hcp/docs/get-started')).toEqual({
 				apiProductSlug: 'hcp-docs',
 				apiBasePath: 'docs',
 				remainingPath: 'get-started',
@@ -133,7 +136,7 @@ describe('content-negotiation', () => {
 
 		it('resolves well-architected-framework with basePath override', () => {
 			expect(
-				resolveDocsRoute('/well-architected-framework/security')
+				resolveMarkdownContentRoute('/well-architected-framework/security')
 			).toEqual({
 				apiProductSlug: 'well-architected-framework',
 				apiBasePath: 'docs',
@@ -143,7 +146,7 @@ describe('content-negotiation', () => {
 		})
 
 		it('resolves well-architected-framework exact match (index page)', () => {
-			expect(resolveDocsRoute('/well-architected-framework')).toEqual({
+			expect(resolveMarkdownContentRoute('/well-architected-framework')).toEqual({
 				apiProductSlug: 'well-architected-framework',
 				apiBasePath: 'docs',
 				remainingPath: '',

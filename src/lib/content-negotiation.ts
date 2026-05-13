@@ -190,12 +190,14 @@ export const DOCS_ROUTE_OVERRIDES: DocsRouteMapping[] = [
 ]
 
 /**
- * Resolve a URL pathname to the unified-docs API parameters.
+ * Resolve a URL pathname to the unified-docs API parameters for markdown
+ * content delivery. This function does not gate on MARKDOWN_DOCS_PREFIXES —
+ * callers (middleware) are expected to check the prefix list before calling.
  *
  * @returns { apiProductSlug, apiBasePath, remainingPath } or null if the
  *          pathname does not match any known docs route.
  */
-export function resolveDocsRoute(pathname: string): {
+export function resolveMarkdownContentRoute(pathname: string): {
 	apiProductSlug: string
 	apiBasePath: string
 	remainingPath: string
