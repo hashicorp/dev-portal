@@ -1,0 +1,49 @@
+{
+	"landingPage": {
+		"hero": {
+			"heading": "HashiCorp Validated Designs",
+			"subtitle": "Prescriptive reference architectures for deploying and operating HashiCorp tools at scale.",
+			"image": "/img/validated-designs/landing-hero-graphic.png"
+		},
+		"overview": {
+			"heading": "Validated Designs",
+			"body": "Validated Designs provide opinionated, end-to-end guidance for deploying HashiCorp products. Each design covers a specific product and use case, and is structured to help you adopt best practices from day one.",
+			"cta": {
+				"text": "Browse all designs",
+				"url": "/validated-designs"
+			},
+			"image": {
+				"light": "https://www.datocms-assets.com/2885/1679095265-devdot-waf_lm.png",
+				"dark": "https://www.datocms-assets.com/2885/1679087810-devdot-waf_dm.png"
+			}
+		},
+		"marketingContentBlocks": [
+			{
+				"type": "card-grid",
+				"title": "Designs by product",
+				"cards": [
+					{
+						"title": "Boundary",
+						"description": "Reference architectures for deploying and operating HCP Boundary in your organization.",
+						"url": "/validated-designs/boundary"
+					},
+					{
+						"title": "Consul",
+						"description": "Reference architectures for deploying and operating Consul for service mesh and networking.",
+						"url": "/validated-designs/consul"
+					},
+					{
+						"title": "Terraform",
+						"description": "Reference architectures for structuring and scaling your Terraform estate.",
+						"url": "/validated-designs/terraform"
+					},
+					{
+						"title": "Vault",
+						"description": "Reference architectures for deploying and operating Vault for secrets management.",
+						"url": "/validated-designs/vault"
+					}
+				]
+			}
+		]
+	}
+}
