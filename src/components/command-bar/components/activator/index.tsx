@@ -9,6 +9,8 @@ import { useCommandBar } from 'components/command-bar'
 import Text from 'components/text'
 import s from './command-bar-activator.module.css'
 import { useExperiments } from 'contexts/experiments'
+import { isIOS, isMacOs } from 'react-device-detect'
+import dynamic from 'next/dynamic'
 
 interface CommandBarActivatorProps {
 	leadingIcon: ReactElement
@@ -23,7 +25,7 @@ const CommandBarActivator = ({
 	const { flags } = useExperiments()
 	const iaPosthogKey = flags['ia-subnav-bar']
 	const iaPosthogVariant = iaPosthogKey === 'test'
-
+	const isCommandButton = isMacOs || isIOS
 	return (
 		<button
 			aria-label={visualLabel}
@@ -38,10 +40,10 @@ const CommandBarActivator = ({
 			</span>
 			<span className={s.right}>
 				<Badge
-					accessibleText="Command or control key"
+					accessibleText={isCommandButton ? "Command key" : "Control key"}
 					color="neutral"
 					type="inverted"
-					text="⌘/ctrl"
+					text={isCommandButton ? '⌘' : 'ctrl'}
 					size="small"
 				/>
 				<Badge
@@ -56,4 +58,4 @@ const CommandBarActivator = ({
 	)
 }
 
-export { CommandBarActivator }
+export default dynamic(() => Promise.resolve(CommandBarActivator), { ssr: false })
