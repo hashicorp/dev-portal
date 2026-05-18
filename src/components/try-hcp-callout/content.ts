@@ -21,7 +21,7 @@ export function hasHcpCalloutContent(s: string): s is ProductSlugWithContent {
 export const tryHcpCalloutContent: Record<
 	Exclude<
 		ProductSlugWithContent,
-		'well-architected-framework' | 'validated-patterns'
+		'well-architected-framework' | 'validated-patterns' | 'vault-radar'
 	>,
 	HcpCalloutContent
 > = {

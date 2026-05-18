@@ -89,7 +89,7 @@ const generateBasicSuggestedPages = (productSlug: ProductSlug) => {
 const EXTRA_PAGES: Record<
 	Exclude<
 		ProductSlug,
-		'sentinel' | 'well-architected-framework' | 'validated-patterns'
+		'sentinel' | 'well-architected-framework' | 'validated-patterns' | 'vault-radar'
 	>,
 	SuggestedPageProps[]
 > = {

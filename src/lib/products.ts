@@ -80,7 +80,7 @@ import {
 const productSlugsToNames: {
 	[slug in Exclude<
 		ProductSlug,
-		'well-architected-framework' | 'validated-patterns'
+		'well-architected-framework' | 'validated-patterns' | 'vault-radar'
 	>]: ProductName
 } = {
 	hcp: 'HashiCorp Cloud Platform',
@@ -101,7 +101,7 @@ const productSlugsToNames: {
 const productSlugsToHostNames: {
 	[slug in Exclude<
 		ProductSlug,
-		'well-architected-framework' | 'validated-patterns'
+		'well-architected-framework' | 'validated-patterns' | 'vault-radar'
 	>]: string
 } = {
 	boundary: 'boundaryproject.io',

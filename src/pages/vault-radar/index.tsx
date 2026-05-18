@@ -1,0 +1,14 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+import vaultRadarData from 'data/vault-radar.json'
+import { ProductData } from 'types/products'
+import ProductLandingView from 'views/product-landing'
+import { generateGetStaticProps } from 'views/product-landing/server'
+
+const getStaticProps = generateGetStaticProps(vaultRadarData as ProductData)
+
+export { getStaticProps }
+export default ProductLandingView
