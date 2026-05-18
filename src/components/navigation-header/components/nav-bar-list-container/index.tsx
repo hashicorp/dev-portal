@@ -4,8 +4,10 @@
  */
 
 import { ReactNode } from 'react'
+import classNames from 'classnames'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import s from './nav-bar-list-container.module.css'
+import { useExperiments } from 'contexts/experiments'
 
 /**
  * Renders a <ul /> flex container reset list-styles, within a <nav /> element
@@ -22,9 +24,22 @@ export default function NavBarListContainer({
 	 */
 	children: ReactNode
 }) {
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 	return (
-		<NavigationMenu.Root className={s.nav}>
-			<NavigationMenu.List className={s.ul}>{children}</NavigationMenu.List>
+		<NavigationMenu.Root
+			className={classNames(s.nav, {
+				[s.iaPosthogVariantNav]: iaPosthogVariant,
+			})}
+		>
+			<NavigationMenu.List
+				className={classNames(s.ul, {
+					[s.iaPosthogVariantUl]: iaPosthogVariant,
+				})}
+			>
+				{children}
+			</NavigationMenu.List>
 		</NavigationMenu.Root>
 	)
 }

@@ -15,7 +15,7 @@ type InheritedButtonProps = Pick<
 >
 type InheritedLinkProps = Pick<
 	LinkProps,
-	'aria-label' | 'className' | 'href' | 'onClick' | 'opensInNewTab'
+	'aria-label' | 'className' | 'href' | 'onClick' | 'opensInNewTab' | 'onClickCapture'
 >
 
 /**

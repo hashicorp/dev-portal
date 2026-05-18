@@ -32,6 +32,11 @@
 	}
 }
 
+.iaSidebarArea {
+	max-height: calc(100vh - var(--ia-navigation-header-height));
+	top: var(--ia-navigation-header-height);
+}
+
 .mainArea {
 	flex-grow: 1;
 	flex-shrink: 1;

@@ -214,7 +214,7 @@ const mobileNavigationData: ProductNavData = [
 				description: 'Centrally manage secrets',
 			},
 			{
-				product: 'HCP Vault Radar',
+				product: 'Vault Radar',
 				url: '/hcp/docs/vault-radar',
 				description: 'Scan for embedded secrets',
 			},
@@ -237,6 +237,15 @@ const navPromo: ProductNavPromo = {
 	description: 'Get started in minutes with our cloud products',
 	linkUrl: '/hcp',
 	linkTitle: 'All HCP Products',
+	icon: 'hashicorp',
+	theme: 'default',
+}
+
+const iaExperimentNavPromo: ProductNavPromo = {
+	title: 'HashiCorp Cloud Platform',
+	description: 'Get started in minutes with our cloud products',
+	linkUrl: '/hcp',
+	linkTitle: 'Learn more',
 	icon: 'hashicorp',
 	theme: 'default',
 }
@@ -302,5 +311,6 @@ export {
 	navigationData,
 	mobileNavigationData,
 	navPromo,
+	iaExperimentNavPromo,
 	sidePanelContent,
 }
