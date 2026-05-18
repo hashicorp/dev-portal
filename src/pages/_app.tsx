@@ -99,22 +99,25 @@ export default function App({
 				},
 			})
 	)
-	const [experimentFlags, setExperimentFlags] = useState<FeatureFlags>(
-		pageProps.experiments ?? {}
-	)
-
-	useEffect(() => {
-		// Sync from the bootstrap cookie on mount. This handles cases where
-		// App.getInitialProps wasn't called (e.g., client-side navigation to
-		// statically-generated pages), which would leave experimentFlags as {}.
-		const bootstrapData = getBootstrapDataClient()
-		const cookieFlags = bootstrapData?.featureFlags ?? {}
-		if (Object.keys(cookieFlags).length > 0) {
-			setExperimentFlags((prev) =>
-				Object.keys(prev).length === 0 ? cookieFlags : prev
-			)
+	const [experimentFlags] = useState<FeatureFlags>(() => {
+		// Server-provided flags take priority (SSR / getServerSideProps pages).
+		const serverFlags = pageProps.experiments ?? {}
+		if (Object.keys(serverFlags).length > 0) {
+			return serverFlags
 		}
-	}, [])
+		// On the client, read from the bootstrap cookie synchronously so the
+		// correct variant is available on the very first render. Using a lazy
+		// initializer avoids the useEffect-driven re-render that caused the
+		// control → test flicker on ISR / statically-generated pages.
+		if (typeof window !== 'undefined') {
+			const bootstrapData = getBootstrapDataClient()
+			const cookieFlags = bootstrapData?.featureFlags ?? {}
+			if (Object.keys(cookieFlags).length > 0) {
+				return cookieFlags
+			}
+		}
+		return {}
+	})
 
 	const currentProduct = pageProps.product || null
 
