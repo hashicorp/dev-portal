@@ -10,6 +10,7 @@ import { getCurrentProductTag } from '../../../../helpers'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import { ProductSlug } from 'types/products'
 import { isProductSlug } from 'lib/products'
+import { useExperiments } from 'contexts/experiments'
 
 type CommandBarProductTag = {
 	id: ProductSlug
@@ -37,27 +38,30 @@ type CommandBarProductTag = {
 export function useCommandBarProductTag(): CommandBarProductTag | null {
 	const currentProduct = useCurrentProduct()
 	const { addTag, currentTags, removeTag } = useCommandBar()
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 
 	/**
 	 * Create callback for setting up this command's state.
 	 */
 	const setUpCommandState = useCallback(() => {
-		if (currentProduct) {
+		if (currentProduct && !iaPosthogVariant) {
 			addTag({
 				id: currentProduct.slug,
 				text: currentProduct.slug === 'hcp' ? 'HCP' : currentProduct.name,
 			})
 		}
-	}, [addTag, currentProduct])
+	}, [addTag, currentProduct, iaPosthogVariant])
 
 	/**
 	 * Create callback for cleaning up this command's state.
 	 */
 	const cleanUpCommandState = useCallback(() => {
-		if (currentProduct) {
+		if (currentProduct && !iaPosthogVariant) {
 			removeTag(currentProduct.slug)
 		}
-	}, [currentProduct, removeTag])
+	}, [currentProduct, removeTag, iaPosthogVariant])
 
 	/**
 	 * Leveraging the set up + clean up hook exposed by CommandBarDialog.

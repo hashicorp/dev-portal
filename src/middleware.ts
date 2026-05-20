@@ -10,7 +10,10 @@ import variantRewrites from '.generated/tutorial-variant-map.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getVariantParam } from 'views/tutorial-view/utils/variants'
-import { setPosthogFeatureFlagCookies } from 'lib/posthog'
+import {
+	computePosthogBootstrapData,
+	setBootstrapCookieOnResponse
+} from 'lib/posthog'
 
 function determineProductSlug(req: NextRequest): string {
 	// .io production deploy
@@ -50,6 +53,18 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// Handle redirects
 	const product = determineProductSlug(req)
 
+	// Compute bootstrap data before building the response so we can inject
+	// flags into the forwarded request headers — this makes them available
+	// to getInitialProps on the very first visit, eliminating client-side flicker.
+	const bootstrapData = await computePosthogBootstrapData(req)
+	const requestHeaders = new Headers(req.headers)
+	if (bootstrapData) {
+		requestHeaders.set(
+			'x-posthog-flags',
+			JSON.stringify(bootstrapData.featureFlags)
+		)
+	}
+
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
 	}
@@ -62,7 +77,12 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		}
 		if (destination.startsWith('http')) {
 			const res = NextResponse.redirect(destination, permanent ? 308 : 307)
-			return await setPosthogFeatureFlagCookies(req, setGeoCookie(req, res))
+			// Apply geo cookie + posthog bootstrap cookie to the response
+			const finalResponse = setGeoCookie(req, res)
+			if (bootstrapData) {
+				setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+			}
+			return finalResponse
 		}
 
 		// Next.js doesn't support redirecting to a pathname, so we clone the
@@ -77,7 +97,12 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		}
 
 		const res = NextResponse.redirect(url, permanent ? 308 : 307)
-		return await setPosthogFeatureFlagCookies(req, setGeoCookie(req, res))
+		// Apply geo cookie + posthog bootstrap cookie to the response
+		const finalResponse = setGeoCookie(req, res)
+		if (bootstrapData) {
+			setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+		}
+		return finalResponse
 	}
 
 	// Check if this path is associated with a tutorial variant
@@ -136,18 +161,21 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			}
 		}
 
-		response = NextResponse.rewrite(url)
+		response = NextResponse.rewrite(url, {
+			request: { headers: requestHeaders },
+		})
 	}
 
 	if (!response) {
-		response = NextResponse.next()
+		response = NextResponse.next({ request: { headers: requestHeaders } })
 	}
 
-	// Continue request processing
-	return await setPosthogFeatureFlagCookies(
-		req,
-		setGeoCookie(req, response),
-	)
+	// Apply geo cookie + posthog bootstrap cookie to the response
+	const finalResponse = setGeoCookie(req, response)
+	if (bootstrapData) {
+		setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+	}
+	return finalResponse
 }
 
 export const config = {

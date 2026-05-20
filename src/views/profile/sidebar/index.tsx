@@ -70,6 +70,7 @@ export function ProfileSidebar() {
 					promo={navPromo}
 					sidePanel={sidePanelContent}
 					isPromoOnTop={true}
+					isDevPortal={true}
 				/>
 			</NavigationMenu.Root>
 		</>

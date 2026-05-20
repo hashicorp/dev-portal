@@ -4,47 +4,84 @@
  */
 
 import React from 'react'
-import Badge, { BadgeTheme } from 'components/author-primitives/shared/badge'
-import svgRibbonIcon from './ribbon-icon.svg?include'
-import svgPartnerIcon from './partner-icon.svg?include'
+import {
+	Badge,
+	type BadgeProps,
+	type FlightIconName,
+} from '@hashicorp/mds-react/components'
+import LegacyBadge, {
+	type BadgeTheme,
+} from 'components/author-primitives/shared/badge'
 
-const badgeTypes = {
+const hdsBadgeTypes = {
 	official: {
-		label: 'Official',
-		theme: 'gold',
-		iconSvg: svgRibbonIcon,
+		text: 'Official',
+		type: 'outlined',
+		color: 'neutral',
+		icon: 'award',
 	},
 	partnerpremier: {
-		label: 'Partner Premier',
-		theme: 'light-purple',
-		iconSvg: svgPartnerIcon,
+		text: 'Partner Premier',
+		type: 'outlined',
+		color: 'highlight',
+		icon: 'handshake',
 	},
 	partner: {
-		label: 'Partner',
-		theme: 'light-blue',
-		iconSvg: svgPartnerIcon,
+		text: 'Partner',
+		type: 'filled',
+		color: 'highlight',
+		icon: 'handshake',
 	},
+
+} satisfies Record<
+	string,
+	{
+		text: string
+		type: BadgeProps['type']
+		color: BadgeProps['color']
+		icon?: FlightIconName
+	}
+>
+
+const legacyBadgeTypes = {
 	community: {
 		label: 'Community',
 		theme: 'gray',
-		iconSvg: false,
 	},
 	archived: {
 		label: 'Archived',
 		theme: 'light-gray',
-		iconSvg: false,
 	},
-}
+} satisfies Record<
+	string,
+	{
+		label: string
+		theme: BadgeTheme
+	}
+>
 
-type ProviderLabelType = keyof typeof badgeTypes
+type ProviderLabelType = keyof typeof hdsBadgeTypes | keyof typeof legacyBadgeTypes
 
 function ProviderBadge({
 	type,
 }: {
 	type: ProviderLabelType
 }): React.ReactElement {
-	const { label, theme, iconSvg } = badgeTypes[type]
-	return <Badge label={label} theme={theme as BadgeTheme} iconSvg={iconSvg} />
+	if (type in hdsBadgeTypes) {
+		const { text, color, icon, type: badgeType } = hdsBadgeTypes[type]
+		return (
+			<Badge
+				text={text}
+				size="medium"
+				type={badgeType}
+				color={color}
+				icon={icon}
+			/>
+		)
+	}
+
+	const { label, theme } = legacyBadgeTypes[type]
+	return <LegacyBadge label={label} theme={theme} />
 }
 
 export default ProviderBadge

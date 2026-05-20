@@ -27,6 +27,14 @@ Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
 	min-height: 100vh;
 }
 
+.iaStickyBars {
+	--sticky-bars-height: var(--ia-navigation-header-height);
+}
+
+.tallStickyBars {
+	--sticky-bars-height: calc(var(--ia-navigation-header-height) * 2);
+}
+
 .header {
 	position: sticky;
 	top: 0;
