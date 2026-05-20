@@ -4,18 +4,41 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-import {
-	GoogleSpreadsheet,
-	GoogleSpreadsheetRow,
-	GoogleSpreadsheetWorksheet,
-} from 'google-spreadsheet'
-import { JWT } from 'google-auth-library'
+import { Client } from '@microsoft/microsoft-graph-client'
+import { ConfidentialClientApplication } from '@azure/msal-node'
 import Bowser from 'bowser'
 
 const FEEDBACK_SHEET_ID = process.env.TUTORIAL_FEEDBACK_SHEET_ID
-const FEEDBACK_SERVICE_EMAIL = process.env.FEEDBACK_SERVICE_EMAIL
-const FEEDBACK_PRIVATE_KEY = process.env.FEEDBACK_PRIVATE_KEY
+const CLIENT_ID = process.env.MS_GRAPH_CLIENT_ID
+const CLIENT_SECRET = process.env.MS_GRAPH_CLIENT_SECRET
+const MS_GRAPH_TENANT_ID = process.env.MS_GRAPH_TENANT_ID
+
+// Cache the CCA instance in module scope to reuse between requests. No need to create
+// a new one each time.
+const cca = new ConfidentialClientApplication({
+	auth: {
+		clientId: CLIENT_ID,
+		authority: `https://login.microsoftonline.com/${MS_GRAPH_TENANT_ID}`,
+		clientSecret: CLIENT_SECRET,
+	},
+});
+
+
+/**
+ * Create a Microsoft Graph client using the client credentials flow for authentication.
+ * This allows the server to authenticate and interact with Microsoft Graph on behalf of the application.
+ * The client can then be used to perform operations such as appending rows to an Excel worksheet.
+ *
+ * @param scopes - An array of permission scopes required for the Microsoft Graph API. Defaults to `['https://graph.microsoft.com/.default']` which uses the permissions assigned to the app in Azure AD.
+ */
+const createClient = async (scopes: string[] = ['https://graph.microsoft.com/.default']): Promise<Client> => {
+	const { accessToken } = await cca.acquireTokenByClientCredential({scopes})
+	return Client.init({
+		authProvider: done => done(null, accessToken),
+	})
+}
+
+
 const HASHI_ENV = process.env.HASHI_ENV
 
 interface SurveyResponse {
@@ -44,19 +67,6 @@ interface StatusError extends Error {
 	status?: number
 }
 
-async function setupDocument(): Promise<GoogleSpreadsheetWorksheet> {
-	const private_key = FEEDBACK_PRIVATE_KEY.replace(/\\n/g, '\n')
-	const serviceAccountAuth = new JWT({
-		email: FEEDBACK_SERVICE_EMAIL,
-		key: private_key,
-		scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-	})
-	const doc = new GoogleSpreadsheet(FEEDBACK_SHEET_ID, serviceAccountAuth)
-	await doc.loadInfo()
-
-	const sheet = doc.sheetsByIndex[0]
-	return sheet
-}
 
 async function validateRequest({
 	body,
@@ -91,30 +101,43 @@ async function validateRequest({
 	return body
 }
 
-async function findAndUpdate(
-	sheet: GoogleSpreadsheetWorksheet,
-	newRow: Row
-): Promise<GoogleSpreadsheetRow | false> {
-	const { sessionId } = newRow
-	const rows = await sheet.getRows()
-	let existingRowIndex = null
-	rows.some((row: GoogleSpreadsheetRow, index: number) => {
-		if (row.get('sessionId') === sessionId) {
-			existingRowIndex = index
-			return true
-		}
-	})
+const upsertRow = async (row: Row) => {
+	const client = await createClient();
+	const values: (string | undefined)[] = Object.values(row);
+	const endCol = String.fromCharCode(64 + values.length); // e.g. 9 cols → 'I'
 
-	if (existingRowIndex) {
-		//  we have to assign individual properties this way bc the column properties are getter/setters
-		Object.keys(newRow).forEach((key: string) => {
-			rows[existingRowIndex].set(key, newRow[key])
-		})
-		return rows[existingRowIndex]
+	// Dynamically get the first worksheet name
+	const sheets = await client
+		.api(`/me/drive/items/${FEEDBACK_SHEET_ID}/workbook/worksheets`)
+		.get();
+	const firstSheetName = sheets.value[0]?.name;
+
+	const BASE_PATH = `/me/drive/items/${FEEDBACK_SHEET_ID}/workbook/worksheets('${firstSheetName}')/`;
+
+	// Fetch all existing data in the sheet
+	const usedRange = await client
+		.api(`${BASE_PATH}usedRange`)
+		.get();
+
+	const existingRows: (string | undefined)[][] = usedRange.values ?? [];
+
+	const existingRowIndex = existingRows
+		.findIndex(([sessionId]) => sessionId === row.sessionId);
+
+	if (existingRowIndex !== -1) {
+		// Row already exists — update it in place (1-based Excel row number)
+		const excelRow = existingRowIndex + 1;
+		await client
+			.api(`${BASE_PATH}range(address='A${excelRow}:${endCol}${excelRow}')`)
+			.patch({ values: [values] });
 	} else {
-		return false
+		// No existing row — append after the last used row
+		const nextRow = existingRows.length + 1;
+		await client
+			.api(`${BASE_PATH}range(address='A${nextRow}:${endCol}${nextRow}')`)
+			.patch({ values: [values] });
 	}
-}
+};
 
 const submitFeedback = async (
 	req: NextApiRequest,
@@ -122,7 +145,6 @@ const submitFeedback = async (
 ): Promise<void> => {
 	try {
 		const requestBody = await validateRequest(req)
-		const sheet = await setupDocument()
 		const { responses, sessionId, ...rest } = requestBody
 		const { helpful, ...otherResponses } = responses
 		const { browser, os, platform } = Bowser.parse(req.headers['user-agent'])
@@ -137,13 +159,7 @@ const submitFeedback = async (
 			platform: platform.type,
 		}
 
-		const updatedRow = await findAndUpdate(sheet, newRow)
-
-		if (updatedRow) {
-			await updatedRow.save()
-		} else {
-			await sheet.addRow({ ...newRow })
-		}
+		await upsertRow(newRow)
 
 		res.status(204).end()
 	} catch (error) {
