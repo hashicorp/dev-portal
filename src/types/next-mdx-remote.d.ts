@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2022, 2026
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 declare module 'next-mdx-remote' {
   export interface MDXRemoteSerializeResult {
     compiledSource: string
