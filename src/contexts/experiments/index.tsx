@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2022, 2026
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { createContext, useContext, ReactNode } from 'react'
 import type { FeatureFlags } from 'lib/posthog' // export this type too
 
