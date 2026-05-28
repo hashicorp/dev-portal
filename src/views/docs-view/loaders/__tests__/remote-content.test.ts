@@ -461,6 +461,76 @@ describe('RemoteContentLoader', () => {
 		expect((props.navData[0] as { path?: string; title?: string }).path).not.toBeDefined()
 		expect((props.navData[0] as { path?: string; title?: string }).title).toEqual('Item with no path')
 	})
+
+	test('uses import path from nav node when navNode has import property', async () => {
+		const navDataWithImport = {
+			meta: { status_code: 200, status_text: 'OK' },
+			result: {
+				navData: [
+					{ title: 'Build', path: 'build', import: 'commands/build/index.mdx' },
+				],
+			},
+		}
+
+		scope
+			.get('/api/content/waypoint/version-metadata')
+			.query({ partial: 'true' })
+			.reply(200, versionMetadata_200)
+		scope
+			.get('/api/content/waypoint/nav-data/latest/commands')
+			.reply(200, navDataWithImport)
+		// Only register the import-derived path. If the default path is used instead,
+		// nock will throw because disableNetConnect is active.
+		scope
+			.get('/api/content/waypoint/doc/latest/commands/build/index.mdx')
+			.reply(200, document_200)
+
+		const loaderNoVersionRef = new RemoteContentLoader({
+			basePath: 'commands',
+			product: 'waypoint',
+		})
+
+		const props = await loaderNoVersionRef.loadStaticProps({
+			params: { page: ['build'] },
+		})
+
+		expect(props).toBeDefined()
+		expect(props.frontMatter).toEqual(document_200.result.metadata)
+	})
+
+	test('falls back to default fullPath when nav node is not found', async () => {
+		const navDataNoMatch = {
+			meta: { status_code: 200, status_text: 'OK' },
+			result: {
+				navData: [{ title: 'Other', path: 'other' }],
+			},
+		}
+
+		scope
+			.get('/api/content/waypoint/version-metadata')
+			.query({ partial: 'true' })
+			.reply(200, versionMetadata_200)
+		scope
+			.get('/api/content/waypoint/nav-data/latest/commands')
+			.reply(200, navDataNoMatch)
+		// Only register the default path. If an import path is erroneously used,
+		// nock will throw.
+		scope
+			.get('/api/content/waypoint/doc/latest/commands/build')
+			.reply(200, document_200)
+
+		const loaderNoVersionRef = new RemoteContentLoader({
+			basePath: 'commands',
+			product: 'waypoint',
+		})
+
+		const props = await loaderNoVersionRef.loadStaticProps({
+			params: { page: ['build'] },
+		})
+
+		expect(props).toBeDefined()
+		expect(props.frontMatter).toEqual(document_200.result.metadata)
+	})
 })
 
 describe('mapVersionList', () => {
