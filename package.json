@@ -51,7 +51,6 @@
 		"@hashicorp/platform-postcss-config": "^0.2.0",
 		"@hashicorp/platform-tools": "^0.10.0",
 		"@hashicorp/platform-types": "^0.4.0",
-		"@microsoft/microsoft-graph-types": "^2.43.1",
 		"@octokit/rest": "^19.0.5",
 		"@playwright/test": "^1.55.1",
 		"@testing-library/jest-dom": "^6.4.2",
@@ -99,7 +98,6 @@
 	"dependencies": {
 		"@actions/core": "^1.9.1",
 		"@apidevtools/json-schema-ref-parser": "^9.0.9",
-		"@azure/msal-node": "^5.2.1",
 		"@hashicorp/design-system-tokens": "^2.3.0",
 		"@hashicorp/flight-icons": "^3.7.0",
 		"@hashicorp/localstorage-polyfill": "^1.0.14",
@@ -133,7 +131,6 @@
 		"@hashicorp/sentinel-embedded": "^1.0.1",
 		"@mdx-js/mdx": "^1.6.22",
 		"@mdx-js/react": "^1.6.22",
-		"@microsoft/microsoft-graph-client": "^3.0.7",
 		"@next/env": "^15.3.4",
 		"@next/third-parties": "^14.2.15",
 		"@octokit/core": "^3.5.1",
