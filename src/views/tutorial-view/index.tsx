@@ -304,7 +304,7 @@ function TutorialView({
 								mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
 							/>
 							<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
-							<FeedbackPanel />
+							<FeedbackPanel tutorialId={id} />
 							<NextPrevious {...nextPreviousData} />
 							<FeaturedInCollections
 								className={s.featuredInCollections}

@@ -4,18 +4,9 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-
-import {
-	GoogleSpreadsheet,
-	GoogleSpreadsheetRow,
-	GoogleSpreadsheetWorksheet,
-} from 'google-spreadsheet'
-import { JWT } from 'google-auth-library'
 import Bowser from 'bowser'
+import { post, toError } from 'lib/learn-client'
 
-const FEEDBACK_SHEET_ID = process.env.TUTORIAL_FEEDBACK_SHEET_ID
-const FEEDBACK_SERVICE_EMAIL = process.env.FEEDBACK_SERVICE_EMAIL
-const FEEDBACK_PRIVATE_KEY = process.env.FEEDBACK_PRIVATE_KEY
 const HASHI_ENV = process.env.HASHI_ENV
 
 interface SurveyResponse {
@@ -26,15 +17,15 @@ interface SurveyResponse {
 
 interface UserRequest {
 	sessionId: string
-	page: string
-	timestamp: string
+	tutorialId: string
 }
 
 interface RequestBody extends UserRequest {
 	responses: SurveyResponse
 }
 
-interface Row extends SurveyResponse, UserRequest {
+interface RequestPayload extends UserRequest {
+	responses: SurveyResponse
 	browser: string
 	os: string
 	platform: string
@@ -44,19 +35,6 @@ interface StatusError extends Error {
 	status?: number
 }
 
-async function setupDocument(): Promise<GoogleSpreadsheetWorksheet> {
-	const private_key = FEEDBACK_PRIVATE_KEY.replace(/\\n/g, '\n')
-	const serviceAccountAuth = new JWT({
-		email: FEEDBACK_SERVICE_EMAIL,
-		key: private_key,
-		scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-	})
-	const doc = new GoogleSpreadsheet(FEEDBACK_SHEET_ID, serviceAccountAuth)
-	await doc.loadInfo()
-
-	const sheet = doc.sheetsByIndex[0]
-	return sheet
-}
 
 async function validateRequest({
 	body,
@@ -71,7 +49,7 @@ async function validateRequest({
 		throw error
 	}
 
-	const requiredKeys = ['sessionId', 'page', 'responses', 'timestamp']
+	const requiredKeys = ['sessionId', 'tutorialId', 'responses']
 	const missing = []
 
 	requiredKeys.forEach((key: string) => {
@@ -91,71 +69,38 @@ async function validateRequest({
 	return body
 }
 
-async function findAndUpdate(
-	sheet: GoogleSpreadsheetWorksheet,
-	newRow: Row
-): Promise<GoogleSpreadsheetRow | false> {
-	const { sessionId } = newRow
-	const rows = await sheet.getRows()
-	let existingRowIndex = null
-	rows.some((row: GoogleSpreadsheetRow, index: number) => {
-		if (row.get('sessionId') === sessionId) {
-			existingRowIndex = index
-			return true
-		}
-	})
-
-	if (existingRowIndex) {
-		//  we have to assign individual properties this way bc the column properties are getter/setters
-		Object.keys(newRow).forEach((key: string) => {
-			rows[existingRowIndex].set(key, newRow[key])
-		})
-		return rows[existingRowIndex]
-	} else {
-		return false
-	}
-}
-
 const submitFeedback = async (
 	req: NextApiRequest,
 	res: NextApiResponse
 ): Promise<void> => {
 	try {
 		const requestBody = await validateRequest(req)
-		const sheet = await setupDocument()
-		const { responses, sessionId, ...rest } = requestBody
-		const { helpful, ...otherResponses } = responses
 		const { browser, os, platform } = Bowser.parse(req.headers['user-agent'])
 
-		const newRow: Row = {
-			sessionId,
-			helpful,
-			...otherResponses,
-			...rest,
+		const payload: RequestPayload = {
+			...requestBody,
 			browser: `${browser.name} ${browser.version}`,
 			os: `${os.name} ${os.version}`,
 			platform: platform.type,
 		}
 
-		const updatedRow = await findAndUpdate(sheet, newRow)
-
-		if (updatedRow) {
-			await updatedRow.save()
-		} else {
-			await sheet.addRow({ ...newRow })
+		const response = await post('/tutorial-feedback', process.env.ADMIN_TOKEN, payload)
+		if (!response.ok) {
+			throw await toError(response)
 		}
 
 		res.status(204).end()
 	} catch (error) {
+		const statusError = error as StatusError
 		console.error('Error occurred. ', error)
 
 		let errorMessage = 'An unexpected error occurred.'
 
-		if (error.response?.status === 404 || error.response?.status === 400) {
-			errorMessage = `An error occurred: ${error.message}`
+		if (statusError.status === 404 || statusError.status === 400) {
+			errorMessage = `An error occurred: ${statusError.message}`
 		}
 
-		res.status(error.response?.status || 500).json({
+		res.status(statusError.status || 500).json({
 			body: { error: errorMessage },
 		})
 	}
