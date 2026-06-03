@@ -18,12 +18,12 @@
 			"documentation": "vault.mdx"
 		},
 		{
-			"title": "Boundary Sandbox",
-			"description": "Experiment with Boundary. This sandbox contains a Boundary cluster (one controller server and one worker) configured with a Boundary target (Ubuntu 24.04) and a Postgres database.",
+			"title": "HCP Boundary Sandbox",
+			"description": "Experiment with HCP Boundary. This sandbox contains a workstation with the Boundary Desktop Client, two Boundary workers, a HashiCorp Vault server, an Ubuntu SSH target, a PostgreSQL database target, and a Windows Server Active Directory domain controller target.",
 			"products": ["boundary"],
-			"labId": "boundary-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/boundary-sandbox?token=em_YHsmJu4K1Wk3hwht",
-			"documentation": "boundary.mdx"
+			"labId": "hcp-boundary-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/hcp-boundary-sandbox?token=em_sZouip2EASzTopis",
+			"documentation": "hcp-boundary.mdx"
 		},
 		{
 			"title": "Boundary Enterprise Sandbox",
@@ -32,6 +32,14 @@
 			"labId": "boundary-enterprise-sandbox",
 			"instruqtTrack": "hashicorp-learn/tracks/boundary-ent-sandbox?token=em_QHLQu1U-P-CfB0Cc",
 			"documentation": "boundary-ent.mdx"
+		},
+		{
+			"title": "Boundary Community Edition Sandbox",
+			"description": "Experiment with Boundary. This sandbox contains a Boundary Community Edition cluster (one controller server and one worker) configured with a Boundary target (Ubuntu 24.04) and a Postgres database.",
+			"products": ["boundary"],
+			"labId": "boundary-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/boundary-sandbox?token=em_YHsmJu4K1Wk3hwht",
+			"documentation": "boundary.mdx"
 		},
 		{
 			"title": "Consul Sandbox (Service discovery)",

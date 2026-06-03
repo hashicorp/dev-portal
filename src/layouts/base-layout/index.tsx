@@ -7,6 +7,7 @@
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import { HTMLAttributes, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -19,9 +20,11 @@ import { createConsentManager } from 'lib/consent-manager'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import alertBannerData from 'data/alert-banner.json'
-import { SkipLinkContext } from 'contexts'
+import { SkipLinkContext, useCurrentProduct } from 'contexts'
 import SkipToMainContent from 'components/skip-to-main-content'
 import usePostHogPageAnalytics from 'hooks/use-posthog-analytics'
+import { useExperiments } from 'contexts/experiments'
+import { useExperimentExposure } from 'hooks/use-experiment-exposure'
 
 // Local imports
 import { BaseLayoutProps, AlertBannerProps } from './types'
@@ -56,7 +59,18 @@ const BaseLayout = ({
 	})
 	usePostHogPageAnalytics()
 	useScrollPercentageAnalytics()
+	useExperimentExposure('ia-subnav-bar')
 	const [showSkipLink, setShowSkipLink] = useState(false)
+	const currentProduct = useCurrentProduct()
+	const router = useRouter()
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
+	const shouldHaveTallerStickyBars =
+		iaPosthogVariant &&
+		currentProduct &&
+		router.route !== '/_error' &&
+		currentProduct.slug !== 'well-architected-framework'
 
 	useEffect(() => {
 		if (
@@ -104,7 +118,13 @@ const BaseLayout = ({
 					<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
 				)}
 				<CoreDevDotLayoutWithTheme>
-					<div className={classNames(s.root, className)} data-layout="base-new">
+					<div
+						className={classNames(s.root, className, {
+							[s.tallStickyBars]: shouldHaveTallerStickyBars,
+							[s.iaStickyBars]: iaPosthogVariant && !shouldHaveTallerStickyBars,
+						})}
+						data-layout="base-new"
+					>
 						<div className={s.header}>
 							<NavigationHeader />
 						</div>

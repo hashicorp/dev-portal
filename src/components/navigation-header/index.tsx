@@ -22,6 +22,7 @@ import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 import { NavigationHeaderItem } from './types'
 import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
+import { useExperiments } from 'contexts/experiments'
 
 /**
  * The header content displayed to the far right of the window. This content is
@@ -84,28 +85,64 @@ const AuthenticationControls = () => {
 const NavigationHeader = () => {
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
+	const { flags } = useExperiments()
+	const iaPosthogKey = flags['ia-subnav-bar']
+	const iaPosthogVariant = iaPosthogKey === 'test'
 
-	const shouldRenderGenericHeaderContent =
-		!currentProduct || router.route === '/_error'
-	const LeftSideHeaderContent = shouldRenderGenericHeaderContent
+	const shouldOnlyRenderHomeHeader =
+		!currentProduct ||
+		router.route === '/_error' ||
+		(currentProduct.slug === 'well-architected-framework' && iaPosthogVariant)
+	const LeftSideHeaderContent = shouldOnlyRenderHomeHeader
 		? HomePageHeaderContent
 		: ProductPageHeaderContent
 
-	return (
-		<header className={s.root}>
-			<div className={s.leftSide}>
-				<LeftSideHeaderContent />
-			</div>
-			<div className={s.rightSide}>
-				<CommandBarActivator
-					leadingIcon={<IconSearch16 />}
-					visualLabel={'Search'}
-				/>
-				<AuthenticationControls />
-				<MobileMenuButton />
-			</div>
-		</header>
-	)
+	const iaPosthogExperimentComponent = () => {
+		return (
+			<>
+				<header className={s.mainHeader}>
+					<div className={s.leftSideIAExperiment}>
+						<HomePageHeaderContent />
+					</div>
+					<div className={s.middle}>
+						<CommandBarActivator
+							leadingIcon={<IconSearch16 />}
+							visualLabel={'Search'}
+						/>
+					</div>
+					<div className={s.rightSideIAExperiment}>
+						<AuthenticationControls />
+						<MobileMenuButton />
+					</div>
+				</header>
+				{!shouldOnlyRenderHomeHeader ? (
+					<header className={s.subNav}>
+						<ProductPageHeaderContent />
+					</header>
+				) : null}
+			</>
+		)
+	}
+
+	const defaultContent = () => {
+		return (
+			<header className={s.root}>
+				<div className={s.leftSide}>
+					<LeftSideHeaderContent />
+				</div>
+				<div className={s.rightSide}>
+					<CommandBarActivator
+						leadingIcon={<IconSearch16 />}
+						visualLabel={'Search'}
+					/>
+					<AuthenticationControls />
+					<MobileMenuButton />
+				</div>
+			</header>
+		)
+	}
+
+	return iaPosthogVariant ? iaPosthogExperimentComponent() : defaultContent()
 }
 
 export type { NavigationHeaderItem }
