@@ -24,8 +24,7 @@ interface SurveyResponse {
 
 async function recordFeedback(
 	responses: FeedbackResponse[],
-	sessionId: string,
-	tutorialId: string
+	sessionId: string
 ) {
 	const body = {
 		responses: responses.reduce(
@@ -43,7 +42,7 @@ async function recordFeedback(
 	try {
 		const payload = {
 			...body,
-			tutorialId,
+			page: document.location.pathname,
 		}
 
 		const apiRequest = async () => {
@@ -102,14 +101,12 @@ const questions: FeedbackFormProps['questions'] = [
 	},
 ]
 
-export function FeedbackPanel({ tutorialId }: { tutorialId: string }) {
+export function FeedbackPanel() {
 	return (
 		<div className={s.root}>
 			<FeedbackForm
 				questions={questions}
-				onQuestionSubmit={(responses, sessionId) =>
-					recordFeedback(responses, sessionId, tutorialId)
-				}
+				onQuestionSubmit={recordFeedback}
 				finishedText={
 					<>Thank you! Your feedback will help us improve our websites.</>
 				}
