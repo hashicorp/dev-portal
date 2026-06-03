@@ -1,6 +1,9 @@
 name: Warm Developer Cache
 on: [deployment_status]
 
+permissions:
+  contents: read
+
 jobs:
   cache:
     if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'production' && github.event.sender.id == 35613825
