@@ -10,6 +10,7 @@ import { Badge } from '@hashicorp/mds-react/components'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
 import Tag from 'components/tag'
 import s from './command-bar-dialog.module.css'
+import { isIOS, isMacOs } from 'react-device-detect'
 
 const CommandBarDialogHeader = () => {
 	const currentProduct = useCurrentProduct()
@@ -27,7 +28,7 @@ const CommandBarDialogHeader = () => {
 		commandBarState,
 		currentProduct,
 	})
-
+	const isCommandButton = isMacOs || isIOS
 	return (
 		<div className={s.header}>
 			<div className={s.icon}>{currentCommand.icon}</div>
@@ -73,9 +74,9 @@ const CommandBarDialogHeader = () => {
 				) : (
 					<div className={s.badges}>
 						<Badge
-							accessibleText="Command or control key"
+							accessibleText={isCommandButton ? "Command key" : "Control key"}
 							color="neutral"
-							text="⌘/ctrl"
+							text={isCommandButton ? '⌘' : 'ctrl'}
 							size="small"
 							type="outlined"
 						/>

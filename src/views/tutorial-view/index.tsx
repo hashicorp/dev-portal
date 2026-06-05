@@ -51,7 +51,6 @@ import {
 	FeaturedInCollections,
 	NextPrevious,
 	getNextPrevious,
-	FeedbackPanel,
 	VariantDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
@@ -304,7 +303,7 @@ function TutorialView({
 								mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
 							/>
 							<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
-							<FeedbackPanel />
+
 							<NextPrevious {...nextPreviousData} />
 							<FeaturedInCollections
 								className={s.featuredInCollections}

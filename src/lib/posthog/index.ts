@@ -8,7 +8,7 @@ import { GetServerSidePropsContext } from 'next'
 
 type GetServerSidePropsRequest = GetServerSidePropsContext['req']
 type PosthogRequest = NextRequest | GetServerSidePropsRequest | null
-type FeatureFlags = Record<string, string | boolean>
+export type FeatureFlags = Record<string, string | boolean>
 type BootstrapData = {
 	distinctID: string
 	featureFlags: FeatureFlags
@@ -260,56 +260,65 @@ async function getBootstrapData(req: PosthogRequest) {
 }
 
 /**
- * Retrieves the value of a specific feature flag for the given request.
- * Used this function in getServerSideProps for a page.
+ * Retrieves the value of all feature flags for the given request.
+ * This function is used in App.getInitialProps to get the feature flags on the server side 
+ * and pass them as props to the app using experiment context.
  * 
- * @param flag - The name of the feature flag to retrieve
- * @param req - The request object from getServerSideProps
- * @returns The value of the feature flag, or null if the flag is not available or PostHog cannot be used
+ * @param req - The request object from getInitialProps
+ * @returns The value of the feature flags, or {} if the flags are not available or PostHog cannot be used
  */
-export const getFeatureFlag = async (
-	flag: string,
-	req: GetServerSidePropsRequest
-) => {
-	if (!canUsePosthog(req)) return null
-	const bootstrapData = await getBootstrapData(req)
-	if (!bootstrapData) return null
-	const { featureFlags } = bootstrapData
+export const getFeatureFlagsFromRequest = (
+    req: GetServerSidePropsRequest
+): FeatureFlags => {
+	if (!canUsePosthog(req)) return {}
+    // Available on first visit (injected by middleware) AND subsequent visits
+    const fromHeader = req.headers['x-posthog-flags']
+    if (fromHeader) {
+        try {
+            return JSON.parse(fromHeader as string)
+        } catch { /* fall through */ }
+    }
 
-	const isObj = typeof featureFlags === 'object'
-	if (!isObj) return null
-
-	return featureFlags ? featureFlags[flag] : null
+    // Fallback: read bootstrap cookie (subsequent visits, no middleware injection)
+    const raw = req.cookies[POSTHOG_BOOTSTRAP_COOKIE_KEY]
+    if (!raw) return {}
+    try {
+        return JSON.parse(raw)?.featureFlags ?? {}
+    } catch {
+        return {}
+    }
 }
 
 /**
- * Sets the PostHog feature flag cookies on the response object. This function is called in the middleware.
- * 
- * @param req The request object from middleware
- * @param res The response object from middleware
- * @returns The response object with bootstrap cookie set if posthog can be used
+ * Computes PostHog bootstrap data for a middleware request.
+ * Handles the consent check. Returns null if PostHog cannot be used.
+ * Used in middleware to inject flags into request headers before the response is built.
  */
-export const setPosthogFeatureFlagCookies = async (
-	req: NextRequest,
-	res: NextResponse
-) => {
-	if (!canUsePosthog(req)) return res
+export const computePosthogBootstrapData = async (
+    req: NextRequest
+): Promise<BootstrapData | null> => {
+    if (!canUsePosthog(req)) return null
+    return await getBootstrapData(req)
+}
 
-	const bootstrapData = await getBootstrapData(req)
-	const jsonData = JSON.stringify(bootstrapData)
+/**
+ * Sets the PostHog bootstrap cookie on an already-constructed response.
+ * Used in middleware for the render path (next/rewrite), after headers are injected.
+ */
+export const setBootstrapCookieOnResponse = (
+    bootstrapData: BootstrapData,
+    res: NextResponse
+): NextResponse => {
 	const isDev = process.env.NODE_ENV === 'development'
 	if (isDev) {
-		console.log(`bootstrapped feature flag data: ${jsonData}`)
+		console.log(`bootstrapped feature flag data: ${JSON.stringify(bootstrapData)}`)
 	}
-	// The cookie needs to expire at some point otherwise users will never get
-	// updated bootstrap data and therefore never be included in future experiments.
-	const expires = new Date(Date.now() + 45 * 24 * 60 * 60 * 1000) // 45 days
-	res.cookies.set(POSTHOG_BOOTSTRAP_COOKIE_KEY, jsonData, {
-		expires,
-		sameSite: 'lax',
-		secure: process.env.NODE_ENV === 'production',
-	})
-	return res
+    res.cookies.set(POSTHOG_BOOTSTRAP_COOKIE_KEY, JSON.stringify(bootstrapData), {
+        expires: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000), // 45 days
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+    })
+    return res
 }
 
 /**

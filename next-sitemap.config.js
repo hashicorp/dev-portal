@@ -11,7 +11,6 @@ module.exports = {
 	generateRobotsTxt: true,
 	robotsTxtOptions: {
 		additionalSitemaps: [
-			`${siteUrl}/hcp-sitemap.xml`,
 			// sitemap generated from ./pages/server-sitemap.xml/index.tsx
 			`${siteUrl}/server-sitemap.xml`,
 		],
