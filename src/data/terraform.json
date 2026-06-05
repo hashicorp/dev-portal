@@ -164,11 +164,7 @@
 			"iconName": "docs",
 			"name": "Terraform MCP Server",
 			"path": "mcp-server",
-			"productSlugForLoader": "terraform-mcp-server",
-			"badge": {
-				"text": "BETA",
-				"color": "highlight"
-			}
+			"productSlugForLoader": "terraform-mcp-server"
 		}
 	]
 }
