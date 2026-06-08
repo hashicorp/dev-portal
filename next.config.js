@@ -127,16 +127,21 @@ module.exports = async () => {
 		},
 		images: {
 			formats: ['image/avif', 'image/webp'],
-			domains: [
-				'www.datocms-assets.com',
-				'mktg-content-api-hashicorp.vercel.app',
-				'content.hashicorp.com',
+			remotePatterns: [
+				{ protocol: 'https', hostname: 'www.datocms-assets.com' },
+				{
+					protocol: 'https',
+					hostname: 'mktg-content-api-hashicorp.vercel.app',
+				},
+				{ protocol: 'https', hostname: 'content.hashicorp.com' },
 				// remove the http protocol from the URL
-				process.env.UNIFIED_DOCS_API.replace(/^https?:\/\//, ''),
+				{
+					hostname: process.env.UNIFIED_DOCS_API.replace(/^https?:\/\//, ''),
+				},
 				// only allow localhost in development mode
 				...(process.env.NODE_ENV === 'development' &&
 				process.env.HASHI_ENV !== 'preview'
-					? ['localhost']
+					? [{ protocol: 'http', hostname: 'localhost' }]
 					: []),
 			],
 			dangerouslyAllowSVG: true,

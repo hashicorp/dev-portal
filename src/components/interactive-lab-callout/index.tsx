@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import Button from 'components/button'
 import { MDSCard } from '@components/mds-card'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -68,7 +68,6 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 					width={133}
 					height={100}
 					alt=""
-					layout="responsive"
 				/>
 			</div>
 		</MDSCard>
