@@ -95,7 +95,7 @@ const getGeo = (req: PosthogRequest) => {
 			normalizeHeader(req.headers['x-vercel-ip-country'])?.toUpperCase() ?? null
 		const region =
 			normalizeHeader(
-				req.headers['x-vercel-ip-country-region']
+				req.headers['x-vercel-ip-country-region'],
 			)?.toUpperCase() ?? null
 		return { country, region }
 	}
@@ -241,7 +241,7 @@ async function getBootstrapData(req: PosthogRequest) {
 
 	if (hasExistingBootstrapData) {
 		const bootstrapData = parseBootstrapData(
-			bootstrapCookie.value ?? bootstrapCookie
+			bootstrapCookie.value ?? bootstrapCookie,
 		)
 		return bootstrapData
 	}
@@ -269,7 +269,7 @@ async function getBootstrapData(req: PosthogRequest) {
  * @returns The value of the feature flags, or {} if the flags are not available or PostHog cannot be used
  */
 export const getFeatureFlagsFromRequest = (
-	req: GetServerSidePropsRequest
+	req: GetServerSidePropsRequest,
 ): FeatureFlags => {
 	if (!canUsePosthog(req)) return {}
 	// Available on first visit (injected by middleware) AND subsequent visits
@@ -298,7 +298,7 @@ export const getFeatureFlagsFromRequest = (
  * Used in middleware to inject flags into request headers before the response is built.
  */
 export const computePosthogBootstrapData = async (
-	req: NextRequest
+	req: NextRequest,
 ): Promise<BootstrapData | null> => {
 	if (!canUsePosthog(req)) return null
 	return await getBootstrapData(req)
@@ -310,12 +310,12 @@ export const computePosthogBootstrapData = async (
  */
 export const setBootstrapCookieOnResponse = (
 	bootstrapData: BootstrapData,
-	res: NextResponse
+	res: NextResponse,
 ): NextResponse => {
 	const isDev = process.env.NODE_ENV === 'development'
 	if (isDev) {
 		console.log(
-			`bootstrapped feature flag data: ${JSON.stringify(bootstrapData)}`
+			`bootstrapped feature flag data: ${JSON.stringify(bootstrapData)}`,
 		)
 	}
 	res.cookies.set(POSTHOG_BOOTSTRAP_COOKIE_KEY, JSON.stringify(bootstrapData), {
@@ -369,7 +369,7 @@ function isMiddlewareRequest(req: PosthogRequest): req is NextRequest {
  * @returns True if the request is a Next.js getServerSideProps request, false otherwise
  */
 function isGetServerSidePropsRequest(
-	req: PosthogRequest
+	req: PosthogRequest,
 ): req is GetServerSidePropsRequest {
 	// Node.js IncomingMessage has .cookies as an object, not a function
 	return (

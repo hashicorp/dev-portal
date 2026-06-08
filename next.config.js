@@ -60,8 +60,8 @@ module.exports = async () => {
 			`⚠️ Loading UDR Products: ${JSON.stringify(
 				appConfig['flags.unified_docs_migrated_repos'],
 				null,
-				2
-			)}\n`
+				2,
+			)}\n`,
 		)
 	}
 
@@ -102,7 +102,7 @@ module.exports = async () => {
 			await fs.promises.writeFile(
 				path.join('src', 'data', '_redirects.generated.json'),
 				JSON.stringify(simpleRedirects, null, 2),
-				'utf-8'
+				'utf-8',
 			)
 			return complexRedirects
 		},

@@ -26,7 +26,7 @@ import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' with { type: 'json' }
 function trackInstruqtError(
 	_errorType: string,
 	errorMessage: string,
-	context?: Record<string, unknown>
+	context?: Record<string, unknown>,
 ) {
 	if (process.env.NODE_ENV === 'development') {
 		if (_errorType.includes('warning') || _errorType.includes('storage')) {
@@ -114,7 +114,7 @@ function InstruqtProvider({
 				{
 					errors: validation.errors,
 					error_count: validation.errors.length,
-				}
+				},
 			)
 		} else if (validation.warnings.length > 0) {
 			trackInstruqtError(
@@ -123,7 +123,7 @@ function InstruqtProvider({
 				{
 					warnings: validation.warnings,
 					warning_count: validation.warnings.length,
-				}
+				},
 			)
 		}
 	}, [])
@@ -151,7 +151,7 @@ function InstruqtProvider({
 					'Failed to restore Instruqt lab state',
 					{
 						error: e instanceof Error ? e.message : String(e),
-					}
+					},
 				)
 				try {
 					storage.removeItem(STORAGE_KEY)
@@ -164,7 +164,7 @@ function InstruqtProvider({
 								clearError instanceof Error
 									? clearError.message
 									: String(clearError),
-						}
+						},
 					)
 				}
 			}
@@ -205,7 +205,7 @@ function InstruqtProvider({
 							active,
 							storedLabId: labId,
 							source: labSource,
-						})
+						}),
 					)
 				} catch (e) {
 					trackInstruqtError(
@@ -215,7 +215,7 @@ function InstruqtProvider({
 							error: e instanceof Error ? e.message : String(e),
 							active,
 							labId,
-						}
+						},
 					)
 				}
 			} else {
@@ -227,7 +227,7 @@ function InstruqtProvider({
 						'Failed to remove Instruqt lab state',
 						{
 							error: e instanceof Error ? e.message : String(e),
-						}
+						},
 					)
 				}
 			}
@@ -241,7 +241,7 @@ function InstruqtProvider({
 						'Failed to remove sandbox state when tutorial lab opened',
 						{
 							error: e instanceof Error ? e.message : String(e),
-						}
+						},
 					)
 				}
 			}
@@ -268,7 +268,7 @@ function InstruqtProvider({
 				isOpeningLabRef.current = false
 			}, 100)
 		},
-		[]
+		[],
 	)
 
 	const closeLab = useCallback(() => {

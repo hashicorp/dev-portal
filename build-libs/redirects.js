@@ -69,19 +69,19 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 			? new Headers({
 					'x-vercel-protection-bypass':
 						process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-			  })
+				})
 			: new Headers()
 
 		const getUDRRedirects = await fetch(
 			`${process.env.UNIFIED_DOCS_API}/api/content/${repoName}/redirects`,
-			{ headers }
+			{ headers },
 		)
 		if (getUDRRedirects.ok) {
 			const udrRedirects = await getUDRRedirects.json()
 			return udrRedirects
 		}
 		console.error(
-			`Error fetching redirects from the unified docs repo for ${repoName}`
+			`Error fetching redirects from the unified docs repo for ${repoName}`,
 		)
 		return []
 	}
@@ -167,8 +167,8 @@ async function buildProductRedirects() {
 	const productRedirects = (
 		await Promise.all(
 			PRODUCT_REDIRECT_ENTRIES.map((entry) =>
-				getRedirectsFromContentRepo(entry.repo, entry.path, config)
-			)
+				getRedirectsFromContentRepo(entry.repo, entry.path, config),
+			),
 		)
 	).flat()
 
@@ -287,7 +287,7 @@ function splitRedirectsByType(redirects) {
 
 	redirects.forEach((redirect) => {
 		const isGlobRedirect = ['(', ')', '{', '}', ':', '*', '+', '?'].some(
-			(char) => redirect.source.includes(char)
+			(char) => redirect.source.includes(char),
 		)
 		const hasCondition = redirect.has?.length > 0
 		if (isGlobRedirect || hasCondition) {
@@ -378,7 +378,7 @@ function normalizeRedirectSource(source) {
 	// e.g. `((?!get$)):slug` → `:slug((?!get$)[^/]+)`
 	return source.replace(
 		/\(([^/]+?)\):([a-zA-Z_][a-zA-Z0-9_]*)/g,
-		(_, regex, name) => `:${name}(${regex}[^/]+)`
+		(_, regex, name) => `:${name}(${regex}[^/]+)`,
 	)
 }
 
@@ -464,7 +464,7 @@ async function redirectsConfig() {
 				simpleRedirects,
 				groupedSimpleRedirects,
 				complexRedirects,
-			})
+			}),
 		)
 	}
 	return {

@@ -24,7 +24,7 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 
 	if (!effectiveLabId && ctx && ctx.productSlug) {
 		const fallbackLab = SANDBOX_CONFIG?.labs?.find((lab) =>
-			lab.products?.includes(ctx.productSlug)
+			lab.products?.includes(ctx.productSlug),
 		)
 		if (fallbackLab) {
 			effectiveLabId = fallbackLab.instruqtTrack

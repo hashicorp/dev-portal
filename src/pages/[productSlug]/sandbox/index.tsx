@@ -33,7 +33,7 @@ if (typeof window !== 'undefined') {
 const trackSandboxPageError = (
 	errorType: string,
 	errorMessage: string,
-	context?: Record<string, unknown>
+	context?: Record<string, unknown>,
 ) => {
 	if (typeof window !== 'undefined' && posthog?.capture) {
 		posthog.capture('sandbox_page_error', {
@@ -63,7 +63,7 @@ interface SandboxPageProps {
 // Helper function to read and serialize MDX content
 async function getMdxContent(
 	filePath: string | undefined,
-	productSlug: ProductSlug
+	productSlug: ProductSlug,
 ) {
 	if (!filePath) return null
 
@@ -71,7 +71,7 @@ async function getMdxContent(
 		const fullPath = path.join(
 			process.cwd(),
 			'src/content/sandbox/docs',
-			filePath
+			filePath,
 		)
 
 		try {
@@ -169,7 +169,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 							try {
 								result.documentation = await getMdxContent(
 									documentation,
-									productSlug as ProductSlug
+									productSlug as ProductSlug,
 								)
 							} catch (mdxError) {
 								trackSandboxPageError(
@@ -183,13 +183,13 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 											mdxError instanceof Error
 												? mdxError.message
 												: String(mdxError),
-									}
+									},
 								)
 
 								if (process.env.NODE_ENV === 'development') {
 									console.warn(
 										`Failed to load documentation for ${labId}:`,
-										mdxError
+										mdxError,
 									)
 								}
 								// Continue without documentation rather than failing the whole page
@@ -209,7 +209,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 									labError instanceof Error
 										? labError.message
 										: String(labError),
-							}
+							},
 						)
 
 						if (process.env.NODE_ENV === 'development') {
@@ -225,7 +225,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 							fullLabId: lab?.labId || 'unknown',
 						} as SandboxLab
 					}
-				})
+				}),
 		)
 
 		const otherSandboxes = labs
@@ -266,7 +266,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 							product_slug: productSlug,
 							error_message:
 								labError instanceof Error ? labError.message : String(labError),
-						}
+						},
 					)
 
 					if (process.env.NODE_ENV === 'development') {
@@ -343,7 +343,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 			{
 				product_slug: params?.productSlug as string,
 				error_message: error instanceof Error ? error.message : String(error),
-			}
+			},
 		)
 
 		if (process.env.NODE_ENV === 'development') {

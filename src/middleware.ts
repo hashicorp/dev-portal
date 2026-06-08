@@ -38,7 +38,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				error:
 					'Please reach out to support@hashicorp.com so we can learn more about your use case.',
 			},
-			{ status: 429 }
+			{ status: 429 },
 		)
 	}
 	// ----------------------
@@ -54,10 +54,10 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// const bootstrapData = await computePosthogBootstrapData(req)
 	const requestHeaders = new Headers(req.headers)
 	// if (bootstrapData) {
-		// requestHeaders.set(
-			// 'x-posthog-flags',
-			// JSON.stringify(bootstrapData.featureFlags)
-		// )
+	// 	requestHeaders.set(
+	// 		'x-posthog-flags',
+	// 		JSON.stringify(bootstrapData.featureFlags)
+	// 	)
 	// }
 
 	if (process.env.DEBUG_REDIRECTS) {
@@ -67,7 +67,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		const { destination, permanent } = redirects[product][req.nextUrl.pathname]
 		if (process.env.DEBUG_REDIRECTS) {
 			console.log(
-				`[DEBUG_REDIRECTS] redirecting ${req.nextUrl.pathname} to ${destination}`
+				`[DEBUG_REDIRECTS] redirecting ${req.nextUrl.pathname} to ${destination}`,
 			)
 		}
 		if (destination.startsWith('http')) {
@@ -116,7 +116,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			 */
 			const variantParam = url.searchParams.get('variants')
 			const isValidVariantOption = tutorialVariant.options.find(
-				(option: string) => variantParam.endsWith(option)
+				(option: string) => variantParam.endsWith(option),
 			)
 
 			if (isValidVariantOption) {
@@ -151,7 +151,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			) {
 				url.pathname = `${url.pathname}/${getVariantParam(
 					tutorialVariant.slug,
-					variantOptionValue
+					variantOptionValue,
 				)}`
 			}
 		}
