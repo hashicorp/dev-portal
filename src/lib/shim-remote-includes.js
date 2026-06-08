@@ -24,7 +24,7 @@ async function shimRemoteIncludes(
 			})
 			return `${includeFileString}\n`
 		}
-	);
+	)
 }
 
 /**

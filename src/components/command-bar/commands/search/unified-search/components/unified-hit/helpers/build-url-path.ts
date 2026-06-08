@@ -16,7 +16,7 @@ import { SearchContentTypes } from '../../../types'
 export function buildUrlPath(searchHit: Hit): string {
 	if (searchHit.type === SearchContentTypes.DOCS) {
 		const objectIdWithoutType = searchHit.objectID.replace('docs_', '')
-		return `/${objectIdWithoutType}`.replace(/\/index$/, '');
+		return `/${objectIdWithoutType}`.replace(/\/index$/, '')
 	} else if (searchHit.type === SearchContentTypes.TUTORIAL) {
 		const { slug, defaultContext } = searchHit
 		return getTutorialSlug(slug, defaultContext.slug)

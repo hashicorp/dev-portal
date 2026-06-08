@@ -52,7 +52,7 @@ function SentinelEmbedded({
       height={height}
       dangerouslySetInnerHTML={{ __html: template(s, height) }}
     />
-  );
+  )
 }
 
 export default SentinelEmbedded

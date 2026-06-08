@@ -53,12 +53,12 @@ interface TutorialsLibraryPageProps {
 
 function TutorialLibrarySidebar() {
 	return (
-        // TODO: we should consider using Sidebar here to make the markup consistent across pages. We aren't for now due to duplicate "Resources" headings and Tutorial Library being a semi-special case.
-        <>
-            <div className="g-hide-with-mobile-menu">
+		// TODO: we should consider using Sidebar here to make the markup consistent across pages. We aren't for now due to duplicate "Resources" headings and Tutorial Library being a semi-special case.
+		<>
+			<div className="g-hide-with-mobile-menu">
 				<ConnectedTutorialLibraryFilters />
 			</div>
-            <div className="g-show-with-mobile-menu">
+			<div className="g-show-with-mobile-menu">
 				<SidebarNavList>
 					<NavigationMenu.Root>
 						<ProductPanel
@@ -71,8 +71,8 @@ function TutorialLibrarySidebar() {
 					</NavigationMenu.Root>
 				</SidebarNavList>
 			</div>
-        </>
-    );
+		</>
+	)
 }
 
 export default function TutorialsLibraryPage({

@@ -17,7 +17,7 @@ export function getIntegrationUrl(
 	version?: string
 ): string {
 	if (external_only) {
-		return external_url.replace(/^https:\/\/developer.hashicorp.com/, '');
+		return external_url.replace(/^https:\/\/developer.hashicorp.com/, '')
 	} else {
 		const baseUrl = `/${product.slug}/integrations/${organization.slug}/${slug}`
 		const isLatest = !version || version === 'latest'

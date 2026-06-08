@@ -31,7 +31,7 @@ function outlineItemsFromHeadings(
 				url: `#${heading.slug}`,
 			}
 		}
-	);
+	)
 }
 
 export default outlineItemsFromHeadings

@@ -78,14 +78,14 @@ function Footer({
 	const shouldRenderThemeSwitcher = isThemedPath(pathname)
 
 	return (
-        <footer
+		<footer
 			className={classNames(
 				s.root,
 				className,
 				!shouldRenderThemeSwitcher && s.row
 			)}
 		>
-            <span className={s.logoAndSwitcher}>
+			<span className={s.logoAndSwitcher}>
 				<a
 					href="https://www.hashicorp.com/"
 					aria-label="Go to HashiCorp home page"
@@ -99,7 +99,7 @@ function Footer({
 					</span>
 				) : null}
 			</span>
-            <ul className={s.links}>
+			<ul className={s.links}>
 				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
 					/**
 					 * Ignore the consent-manager footer item if the `openConsentManager`
@@ -144,9 +144,9 @@ function Footer({
 					}
 
 					return (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <li key={index}>{innerElement}</li>
-                    );
+						// eslint-disable-next-line react/no-array-index-key
+						<li key={index}>{innerElement}</li>
+					)
 				})}
 				<li>
 					<Text asElement="span" size={200} weight="regular" className={s.hiddenText}>
@@ -154,8 +154,8 @@ function Footer({
 					</Text>
 				</li>
 			</ul>
-        </footer>
-    );
+		</footer>
+	)
 }
 
 export default Footer

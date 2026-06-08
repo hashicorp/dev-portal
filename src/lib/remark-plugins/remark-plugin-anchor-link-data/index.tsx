@@ -60,7 +60,7 @@ const remarkPluginAnchorLinkData: Plugin<
 			const anchorLink = { id, level, title }
 			anchorLinks.push(anchorLink)
 		})
-	};
+	}
 }
 
 export default remarkPluginAnchorLinkData

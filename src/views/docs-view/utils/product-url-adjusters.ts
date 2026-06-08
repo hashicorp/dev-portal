@@ -81,7 +81,7 @@ export function getProductUrlAdjuster(
 function rewriteApiToApiDocs(inputUrl: string): string {
 	const isBadApiUrl = inputUrl == '/api' || inputUrl.startsWith('/api/')
 	if (isBadApiUrl) {
-		return inputUrl.replace(/^\/api/, '/api-docs');
+		return inputUrl.replace(/^\/api/, '/api-docs')
 	}
 	return inputUrl
 }

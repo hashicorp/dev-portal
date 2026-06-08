@@ -147,7 +147,7 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 		const shouldRenderPermalink = id && permalinkAriaLabel && level !== 1
 
 		return (
-            <Heading
+			<Heading
 				{...restProps}
 				id={id}
 				level={level}
@@ -155,17 +155,17 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 				size={size}
 				weight={weight}
 			>
-                {shouldRenderPermalink ? (
+				{shouldRenderPermalink ? (
 					<MdxHeadingPermalink
 						ariaLabel={permalinkAriaLabel}
 						href={`#${id.replace(/^user-content-/, '')}`}
 						level={level}
 					/>
 				) : null}
-                {normalizedChildren}
-            </Heading>
-        );
-	};
+				{normalizedChildren}
+			</Heading>
+		)
+	}
 }
 
 const MdxH1 = makeMdxHeadingElement(1)

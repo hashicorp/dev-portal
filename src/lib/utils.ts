@@ -15,5 +15,5 @@ export const chunk = <T>(arr: T[], chunkSize = 1, cache: T[][] = []): T[][] => {
 }
 
 export const isCertificationSlug = (slug: string): boolean => {
-	return /certifications|cert/.test(slug);
+	return /certifications|cert/.test(slug)
 }
