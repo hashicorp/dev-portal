@@ -22,20 +22,20 @@ function OpenApiDocsPreviewView() {
 		useState<OpenApiDocsViewProps>()
 
 	return (
-        <>
-            <div style={{ isolation: 'isolate' }}>
+		<>
+			<div style={{ isolation: 'isolate' }}>
 				{apiDocsViewProps ? (
 					<OpenApiDocsView {...apiDocsViewProps} />
 				) : (
 					// Render an empty sidebar layout if we don't have valid props yet
-					(<SidebarLayout sidebarSlot="" mobileMenuSlot={null}>
-                        <div style={{ padding: '24px' }} />
-                    </SidebarLayout>)
+					<SidebarLayout sidebarSlot="" mobileMenuSlot={null}>
+						<div style={{ padding: '24px' }} />
+					</SidebarLayout>
 				)}
 			</div>
-            <OpenApiPreviewInputs setStaticProps={setApiDocsViewProps} />
-        </>
-    );
+			<OpenApiPreviewInputs setStaticProps={setApiDocsViewProps} />
+		</>
+	)
 }
 
 export default OpenApiDocsPreviewView

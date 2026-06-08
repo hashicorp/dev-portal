@@ -56,13 +56,13 @@ export function ProductResourceNavItems({ slug }: { slug: ProductSlug }) {
 	const menuItems = generateResourcesNavItems(slug)
 
 	return (
-        <ul className={s.listResetStyles}>
-            {menuItems.map((item: MenuItem, index: number) => (
+		<ul className={s.listResetStyles}>
+			{menuItems.map((item: MenuItem, index: number) => (
 				// eslint-disable-next-line react/no-array-index-key
-				(<SidebarNavMenuItem item={item} key={index} />)
+				<SidebarNavMenuItem item={item} key={index} />
 			))}
-        </ul>
-    );
+		</ul>
+	)
 }
 
 /**
@@ -85,12 +85,12 @@ export function mobileMenuLevelMain(): MobileMenuLevelData {
 				<ul className={s.listResetStyles}>
 					{menuItems.map((item: MenuItem, index: number) => (
 						// eslint-disable-next-line react/no-array-index-key
-						(<SidebarNavMenuItem item={item} key={index} />)
+						<SidebarNavMenuItem item={item} key={index} />
 					))}
 				</ul>
 			</>
 		),
-	};
+	}
 }
 
 /**
@@ -120,11 +120,11 @@ export function mobileMenuLevelProduct(
 			<ul className={s.listResetStyles}>
 				{menuItems.map((item: MenuItem, index: number) => (
 					// eslint-disable-next-line react/no-array-index-key
-					(<SidebarNavMenuItem item={item} key={index} />)
+					<SidebarNavMenuItem item={item} key={index} />
 				))}
 				<SidebarHorizontalRule />
 				<ProductResourceNavItems slug={productData.slug} />
 			</ul>
 		),
-	};
+	}
 }

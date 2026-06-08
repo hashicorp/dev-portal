@@ -116,7 +116,7 @@ const Sidebar = ({
 			<SidebarNavList>
 				{navResourceItems.map((item, index) => (
 					// eslint-disable-next-line react/no-array-index-key
-					(<SidebarNavMenuItem item={item} key={index} />)
+					<SidebarNavMenuItem item={item} key={index} />
 				))}
 			</SidebarNavList>
 		</>
@@ -152,7 +152,7 @@ const Sidebar = ({
 					<SidebarNavList className={s.mainMenuResources}>
 						{navResourceItems.map((item, index) => (
 							// eslint-disable-next-line react/no-array-index-key
-							(<SidebarNavMenuItem item={item} key={index} />)
+							<SidebarNavMenuItem item={item} key={index} />
 						))}
 					</SidebarNavList>
 				)}
