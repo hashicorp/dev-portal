@@ -364,6 +364,25 @@ function filterInvalidRedirects(redirects, repoSlug) {
 }
 
 /**
+ * Transforms legacy path-to-regexp patterns to be compatible with Next.js 16+.
+ *
+ * Next.js 16 uses a stricter path-to-regexp that rejects two adjacent parameters
+ * without text between them. This normalizes patterns like `(regex):name`
+ * (unnamed capture immediately followed by named param) to `:name(regex[^/]+)`.
+ *
+ * @param {string} source
+ * @returns {string}
+ */
+function normalizeRedirectSource(source) {
+	// Match an unnamed capture group followed immediately by a named parameter,
+	// e.g. `((?!get$)):slug` → `:slug((?!get$)[^/]+)`
+	return source.replace(
+		/\(([^/]+?)\):([a-zA-Z_][a-zA-Z0-9_]*)/g,
+		(_, regex, name) => `:${name}(${regex}[^/]+)`
+	)
+}
+
+/**
  * Groups simple redirects into an object keyed by the product slug they apply
  * to (as determined by the `host` property).
  * @param {Redirect[]} redirects
@@ -425,12 +444,17 @@ async function redirectsConfig() {
 	const tutorialRedirects = await getTutorialRedirects()
 	const docsDotHashiCorpRedirects = getDocsDotHashiCorpRedirects()
 
-	const { simpleRedirects, complexRedirects } = splitRedirectsByType([
+	const allRedirects = [
 		...productRedirects,
 		...devPortalRedirects,
 		...tutorialRedirects,
 		...docsDotHashiCorpRedirects,
-	])
+	].map((redirect) => ({
+		...redirect,
+		source: normalizeRedirectSource(redirect.source),
+	}))
+
+	const { simpleRedirects, complexRedirects } = splitRedirectsByType(allRedirects)
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(

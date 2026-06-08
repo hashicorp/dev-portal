@@ -78,7 +78,7 @@ const getScriptArgumentsForCommandLine = () => {
 	const changedMdxFiles = []
 	const changedNavDataJsonFiles = []
 
-	const cliArgs = yargs
+	const cliArgs = yargs(process.argv.slice(2))
 		.option('repo', {
 			description: 'the name of the repo under `hashicorp` to check',
 		})

@@ -41,7 +41,7 @@ const getRelevantFileNamePrefixes = (repo: string) => {
  * Handles describing, requiring, and parsing the arguments for the main script.
  */
 const getScriptArguments = (): { repo: string } => {
-	const args = yargs
+	const args = yargs(process.argv.slice(2))
 		.option('repo', {
 			description: 'the name of the repo under `hashicorp` to check',
 		})
