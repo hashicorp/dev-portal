@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server'
 
 interface ResponseBody {
 	servedFrom: string | null

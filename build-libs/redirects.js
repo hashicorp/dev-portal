@@ -454,7 +454,8 @@ async function redirectsConfig() {
 		source: normalizeRedirectSource(redirect.source),
 	}))
 
-	const { simpleRedirects, complexRedirects } = splitRedirectsByType(allRedirects)
+	const { simpleRedirects, complexRedirects } =
+		splitRedirectsByType(allRedirects)
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(

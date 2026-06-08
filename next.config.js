@@ -54,13 +54,15 @@ module.exports = async () => {
 	// - > next build
 	// So we also check if we've already logged it with "alreadyLoggedUDRInfo"
 	if (process.argv[1].includes('.bin/next') && !alreadyLoggedUDRInfo) {
-		alreadyLoggedUDRInfo = true;
-		console.log(`⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`);
-		console.log(`⚠️ Loading UDR Products: ${JSON.stringify(
-			appConfig["flags.unified_docs_migrated_repos"],
-			null,
-			2)}\n`
-		);
+		alreadyLoggedUDRInfo = true
+		console.log(`⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`)
+		console.log(
+			`⚠️ Loading UDR Products: ${JSON.stringify(
+				appConfig['flags.unified_docs_migrated_repos'],
+				null,
+				2
+			)}\n`
+		)
 	}
 
 	return withHashicorp({
@@ -69,11 +71,11 @@ module.exports = async () => {
 		transpilePackages: [
 			'@hashicorp/flight-icons',
 			/**
-		 * TODO: once Sentinel has been migrated into the dev-portal repository,
-		 * we should consider localizing the sentinel-embedded component. Should
-		 * first confirm with Cam Stitt that this component is not being used
-		 * elsewhere.
-		 */
+			 * TODO: once Sentinel has been migrated into the dev-portal repository,
+			 * we should consider localizing the sentinel-embedded component. Should
+			 * first confirm with Cam Stitt that this component is not being used
+			 * elsewhere.
+			 */
 			'@hashicorp/sentinel-embedded',
 			'unist-util-is',
 			'unist-util-visit',
@@ -133,7 +135,7 @@ module.exports = async () => {
 				process.env.UNIFIED_DOCS_API.replace(/^https?:\/\//, ''),
 				// only allow localhost in development mode
 				...(process.env.NODE_ENV === 'development' &&
-					process.env.HASHI_ENV !== 'preview'
+				process.env.HASHI_ENV !== 'preview'
 					? ['localhost']
 					: []),
 			],

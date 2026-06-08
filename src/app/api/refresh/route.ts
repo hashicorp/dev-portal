@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server'
 
 type ClientRes = {
 	write: (message: string) => void

@@ -1,59 +1,41 @@
 {
-  "compilerOptions": {
-    "strict": false,
-    "target": "es2015",
-    "incremental": true,
-    "module": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "jsx": "react-jsx",
-    "sourceMap": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-    "baseUrl": "src",
-    "paths": {
-      "@scripts/*": [
-        "../scripts/*"
-      ],
-      "@test/*": [
-        "../.test/*"
-      ],
-      "@build-libs/*": [
-        "../build-libs/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ]
-    },
-    "types": [
-      "vitest/globals",
-      "@testing-library/jest-dom"
-    ],
-    "strictNullChecks": false,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "scripts/migrate-io/templates"
-  ]
+	"compilerOptions": {
+		"strict": false,
+		"target": "es2015",
+		"incremental": true,
+		"module": "esnext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"jsx": "react-jsx",
+		"sourceMap": true,
+		"allowJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"noEmit": true,
+		"baseUrl": "src",
+		"paths": {
+			"@scripts/*": ["../scripts/*"],
+			"@test/*": ["../.test/*"],
+			"@build-libs/*": ["../build-libs/*"],
+			"@components/*": ["components/*"]
+		},
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
+		"strictNullChecks": false,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		".next/dev/types/**/*.ts"
+	],
+	"exclude": ["node_modules", "scripts/migrate-io/templates"]
 }
