@@ -54,8 +54,8 @@ const SignUpView = () => {
 	}
 
 	return (
-		<ThemeProvider forcedTheme="light">
-			<div className={s.root}>
+        <ThemeProvider forcedTheme="light">
+            <div className={s.root}>
 				<main className={s.main}>
 					<div>
 						<Link aria-label="HashiCorp Developer" href="/">
@@ -70,14 +70,14 @@ const SignUpView = () => {
 						<ul className={s.list}>
 							{DETAILS.map((detail: string, index: number) => {
 								return (
-									// eslint-disable-next-line react/no-array-index-key
-									<li key={index} className={s.listItem}>
-										<IconCheckCircle16 className={s.detailIcon} />
-										<Text asElement="span" size={200} weight="regular">
+                                    // eslint-disable-next-line react/no-array-index-key
+                                    <li key={index} className={s.listItem}>
+                                        <IconCheckCircle16 className={s.detailIcon} />
+                                        <Text asElement="span" size={200} weight="regular">
 											{detail}
 										</Text>
-									</li>
-								)
+                                    </li>
+                                );
 							})}
 						</ul>
 						<Button
@@ -112,8 +112,8 @@ const SignUpView = () => {
 					</div>
 				</aside>
 			</div>
-		</ThemeProvider>
-	)
+        </ThemeProvider>
+    );
 }
 
 export default SignUpView

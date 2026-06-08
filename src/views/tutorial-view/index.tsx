@@ -54,7 +54,7 @@ import {
 	VariantDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' with { type: 'json' }
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the

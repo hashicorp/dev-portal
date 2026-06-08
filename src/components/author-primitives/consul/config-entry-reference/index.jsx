@@ -194,7 +194,7 @@ function markdownToHtml(markdown) {
 
 	// Replace links, e.g. [link text](http://link-url),
 	// with <a href="http://link-url">link text</a>.
-	return html.replace(/\[(.*?)]\((.*?)\)/g, '<a href="$2">$1</a>')
+	return html.replace(/\[(.*?)]\((.*?)\)/g, '<a href="$2">$1</a>');
 }
 
 /**

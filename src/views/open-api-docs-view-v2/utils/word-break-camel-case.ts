@@ -13,5 +13,5 @@
  * to break at the casing-based word boundaries.
  */
 export function wordBreakCamelCase(s: string) {
-	return s.replace(/([a-z])([A-Z])/g, '$1\u200B$2')
+	return s.replace(/([a-z])([A-Z])/g, '$1\u200B$2');
 }

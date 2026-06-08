@@ -60,14 +60,14 @@ function BreadcrumbBar({
 	const stringifiedStructuredData = JSON.stringify(structuredData)
 
 	return (
-		<nav aria-label="Breadcrumb" className={s.root}>
-			<Head>
+        <nav aria-label="Breadcrumb" className={s.root}>
+            <Head>
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: stringifiedStructuredData }}
 				/>
 			</Head>
-			<ol className={s.listRoot}>
+            <ol className={s.listRoot}>
 				{filteredLinks.map(({ title, url, isCurrentPage }) => {
 					const cleanTitle = title.replace(/<[^>]+>/g, '')
 					const Elem = url && !isCurrentPage ? InternalLink : 'span'
@@ -91,8 +91,8 @@ function BreadcrumbBar({
 					)
 				})}
 			</ol>
-		</nav>
-	)
+        </nav>
+    );
 }
 
 function InternalLink(props: LinkProps) {

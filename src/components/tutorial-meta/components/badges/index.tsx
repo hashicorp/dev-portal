@@ -33,17 +33,17 @@ export function Badges({ options }: BadgesProps): React.ReactElement {
 	})
 
 	return (
-		<ul className={s.list}>
-			<li className={s.listItem}>{getReadableTime(readTime)}</li>
-			{badges.length > 0 ? (
+        <ul className={s.list}>
+            <li className={s.listItem}>{getReadableTime(readTime)}</li>
+            {badges.length > 0 ? (
 				<li className={classNames(s.listItem, s.seperator)}>|</li>
 			) : null}
-			{badges.map((badge: ReactElement, index: number) => (
+            {badges.map((badge: ReactElement, index: number) => (
 				// eslint-disable-next-line react/no-array-index-key
-				<li className={s.listItem} key={index}>
-					{badge}
-				</li>
+				(<li className={s.listItem} key={index}>
+                    {badge}
+                </li>)
 			))}
-		</ul>
-	)
+        </ul>
+    );
 }

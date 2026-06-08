@@ -32,9 +32,9 @@ describe('<Tabs />', () => {
 					<Tabs>
 						{testData.map(({ heading, content }, index) => (
 							// eslint-disable-next-line react/no-array-index-key
-							<Tab heading={heading} key={index}>
-								{content}
-							</Tab>
+							(<Tab heading={heading} key={index}>
+                                {content}
+                            </Tab>)
 						))}
 					</Tabs>
 				</TabProvider>
@@ -253,9 +253,9 @@ describe('<Tabs />', () => {
 				<Tabs initialActiveIndex={testInitialActiveIndex}>
 					{testData.map(({ heading, content }, index) => (
 						// eslint-disable-next-line react/no-array-index-key
-						<Tab heading={heading} key={index}>
-							{content}
-						</Tab>
+						(<Tab heading={heading} key={index}>
+                            {content}
+                        </Tab>)
 					))}
 				</Tabs>
 			</TabProvider>
@@ -282,9 +282,9 @@ describe('<Tabs />', () => {
 				<Tabs ariaLabel={testAriaLabel}>
 					{testData.map(({ heading, content }, index) => (
 						// eslint-disable-next-line react/no-array-index-key
-						<Tab heading={heading} key={index}>
-							{content}
-						</Tab>
+						(<Tab heading={heading} key={index}>
+                            {content}
+                        </Tab>)
 					))}
 				</Tabs>
 			</TabProvider>
@@ -304,9 +304,9 @@ describe('<Tabs />', () => {
 				<Tabs ariaLabelledBy={testAriaLabelledById}>
 					{testData.map(({ heading, content }, index) => (
 						// eslint-disable-next-line react/no-array-index-key
-						<Tab heading={heading} key={index}>
-							{content}
-						</Tab>
+						(<Tab heading={heading} key={index}>
+                            {content}
+                        </Tab>)
 					))}
 				</Tabs>
 			</TabProvider>
@@ -323,9 +323,9 @@ describe('<Tabs />', () => {
 				<Tabs>
 					{testData.map(({ heading, content }, index) => (
 						// eslint-disable-next-line react/no-array-index-key
-						<Tab heading={heading} key={index}>
-							{content}
-						</Tab>
+						(<Tab heading={heading} key={index}>
+                            {content}
+                        </Tab>)
 					))}
 				</Tabs>
 			</TabProvider>

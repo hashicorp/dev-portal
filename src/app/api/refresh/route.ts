@@ -1,9 +1,4 @@
-/**
- * Copyright IBM Corp. 2021, 2025
- * SPDX-License-Identifier: MPL-2.0
- */
-
-import { NextRequest } from 'next/server'
+import { NextRequest } from "next/server";
 
 type ClientRes = {
 	write: (message: string) => void

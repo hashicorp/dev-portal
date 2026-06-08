@@ -12,18 +12,18 @@ const Errors = ({ className, messages = [] }: ErrorsProps) => {
 	const classes = classNames(s.root, className)
 
 	return (
-		<div className={classes}>
-			<IconAlertDiamondFill16 className={s.icon} />
-			<ul className={s.list}>
+        <div className={classes}>
+            <IconAlertDiamondFill16 className={s.icon} />
+            <ul className={s.list}>
 				{messages.map((error: string, index: number) => (
 					// eslint-disable-next-line react/no-array-index-key
-					<li className={s.message} key={index}>
-						{error}
-					</li>
+					(<li className={s.message} key={index}>
+                        {error}
+                    </li>)
 				))}
 			</ul>
-		</div>
-	)
+        </div>
+    );
 }
 
 export type { ErrorsProps }

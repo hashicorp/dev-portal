@@ -68,13 +68,13 @@ function OpenApiSidebarContents({
  */
 function SidebarNavMenuItemsList({ items }: { items: OpenApiNavItem[] }) {
 	return (
-		<ul className={s.listResetStyles}>
-			{items.map((item: OpenApiNavItem, index: number) => (
+        <ul className={s.listResetStyles}>
+            {items.map((item: OpenApiNavItem, index: number) => (
 				// eslint-disable-next-line react/no-array-index-key
-				<SidebarNavMenuItem item={item} key={index} />
+				(<SidebarNavMenuItem item={item} key={index} />)
 			))}
-		</ul>
-	)
+        </ul>
+    );
 }
 
 export default OpenApiSidebarContents

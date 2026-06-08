@@ -1,10 +1,5 @@
-/**
- * Copyright IBM Corp. 2021, 2025
- * SPDX-License-Identifier: MPL-2.0
- */
-
-import { NextResponse } from 'next/server'
-import { type NextFetchEvent, type NextRequest, userAgent } from 'next/server'
+import { NextResponse } from "next/server";
+import { type NextFetchEvent, type NextRequest, userAgent } from "next/server";
 import redirects from 'data/_redirects.generated.json'
 import variantRewrites from '.generated/tutorial-variant-map.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'

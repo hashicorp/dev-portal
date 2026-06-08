@@ -292,7 +292,7 @@ test.describe('Sandbox Interactive Functionality', () => {
 		const sidebarSandboxLink = sidebar.getByRole('link', { name: /sandbox/i })
 
 		// Check if sidebar sandbox link exists
-		const hasSidebarLink = await sidebarSandboxLink.count() > 0
+		const hasSidebarLink = (await sidebarSandboxLink.count()) > 0
 
 		if (!hasSidebarLink) {
 			// If there's no sidebar sandbox link, skip this test

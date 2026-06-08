@@ -1,6 +1,6 @@
 import { PostHog } from 'posthog-node'
 import { v4 as uuidv4 } from 'uuid'
-import type { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from "next/server";
 import Cookies from 'js-cookie'
 import { GetServerSidePropsContext } from 'next'
 

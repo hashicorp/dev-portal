@@ -191,7 +191,7 @@ export const remarkTfeContentExclusion: unified.Pluggable<
 					`</div>`
 			}
 		})
-	}
+	};
 }
 
 const DIRECTIVE_RE =

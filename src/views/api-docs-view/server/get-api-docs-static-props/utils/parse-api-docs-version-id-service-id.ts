@@ -43,7 +43,7 @@ function parseApiDocsVersionIdServiceId(pathParts: string[] | undefined): {
  * or `false` otherwise.
  */
 export function isDateVersion(maybeVersion: string) {
-	return /^\d\d\d\d-\d\d-\d\d$/.test(maybeVersion)
+	return /^\d\d\d\d-\d\d-\d\d$/.test(maybeVersion);
 }
 
 export { parseApiDocsVersionIdServiceId }

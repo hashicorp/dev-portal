@@ -21,7 +21,7 @@ import Resizable from 'components/lab-embed/resizable'
 import SandboxErrorBoundary from 'components/sandbox-error-boundary'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import { validateSandboxConfigWithDetailedErrors } from 'lib/validate-sandbox-config'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' with { type: 'json' }
 
 function trackInstruqtError(
 	_errorType: string,

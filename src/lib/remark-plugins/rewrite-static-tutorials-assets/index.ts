@@ -107,6 +107,6 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 			node.url = newUrl.toString()
 
 			return [node]
-		})
-	}
+		});
+	};
 }

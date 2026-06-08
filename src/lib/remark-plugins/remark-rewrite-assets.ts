@@ -94,8 +94,8 @@ If this is a net-new asset, you'll need to commit and push it to GitHub.\n`
 					}
 				}
 			)
-		}
-	}
+		};
+	};
 }
 
 // A simple cache & util to prevent logging the same message multiple times

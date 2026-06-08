@@ -10,7 +10,7 @@ import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { useTutorialContext } from 'contexts/tutorial-context'
 import { FC } from 'react'
 import s from './interactive-lab-callout.module.css'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' with { type: 'json' }
 import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 
 interface InteractiveLabCalloutProps {

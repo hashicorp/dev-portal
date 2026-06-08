@@ -121,5 +121,5 @@ export function getDeployPreviewLoader({
 				...remarkPluginsFromExtraOptions,
 			]
 		},
-	})
+	});
 }

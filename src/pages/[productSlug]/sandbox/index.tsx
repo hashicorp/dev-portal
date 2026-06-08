@@ -16,7 +16,7 @@ import { SandboxLab } from 'types/sandbox'
 import { serialize } from 'lib/next-mdx-remote/serialize'
 import { SidebarProps } from 'components/sidebar'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' with { type: 'json' }
 import { SandboxView } from 'views/sandbox-view'
 
 // SSR-safe dynamic import

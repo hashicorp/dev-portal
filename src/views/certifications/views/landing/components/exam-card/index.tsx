@@ -66,9 +66,9 @@ function ExamCard({
 	examTier,
 }: ExamCardProps) {
 	return (
-		// @TODO consider using "StandaloneLinkContents" text for aria-label?
-		<CardLink className={s.examCard} href={url} ariaLabel={title}>
-			<ExamCardContents>
+        // @TODO consider using "StandaloneLinkContents" text for aria-label?
+        <CardLink className={s.examCard} href={url} ariaLabel={title}>
+            <ExamCardContents>
 				<ExamBadgeAndTitle
 					title={title}
 					eyebrow="HashiCorp Certified:"
@@ -80,8 +80,8 @@ function ExamCard({
 					<StandaloneLinkContents text="Prepare for the exam" />
 				</CtaGroup>
 			</ExamCardContents>
-		</CardLink>
-	)
+        </CardLink>
+    );
 }
 
 export { ExamCard, ExamCardUnlinked }
