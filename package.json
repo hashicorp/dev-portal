@@ -130,8 +130,8 @@
 		"@hashicorp/sentinel-embedded": "^1.0.1",
 		"@mdx-js/mdx": "^1.6.22",
 		"@mdx-js/react": "^1.6.22",
-		"@next/env": "^15.3.4",
-		"@next/third-parties": "^14.2.15",
+		"@next/env": "^16.2.7",
+		"@next/third-parties": "^16.2.7",
 		"@octokit/core": "^3.5.1",
 		"@octokit/openapi-types": "^11.2.0",
 		"@opentelemetry/api": "^1.7.0",
@@ -175,8 +175,8 @@
 		"mdast-util-to-string": "^2.0.0",
 		"moize": "^6.1.0",
 		"ms": "^2.1.3",
-		"next": "^14.2.35",
-		"next-auth": "^4.23.1",
+		"next": "^16.2.7",
+		"next-auth": "^4.24.12",
 		"next-query-params": "^4.1.0",
 		"next-sitemap": "^3.1.21",
 		"next-themes": "^0.2.1",
@@ -230,7 +230,7 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"@hashicorp/react-components": {
-			"next": "^14.2.1"
+			"next": "$next"
 		},
 		"semver-regex": "^3.1.3",
 		"serialize-javascript": "^7.0.3",
