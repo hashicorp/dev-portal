@@ -480,4 +480,5 @@ module.exports = {
 	groupSimpleRedirects,
 	filterInvalidRedirects,
 	getRedirectsFromContentRepo,
+	normalizeRedirectSource,
 }
