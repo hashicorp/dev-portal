@@ -21,11 +21,11 @@ function determineProductSlug(req: NextRequest): string {
 }
 
 /**
- * Root-level middleware that will process all middleware-capable requests.
+ * Root-level proxy that will process all proxy-capable requests.
  * Currently used to support:
  * - Handling simple one-to-one redirects for .io routes
  */
-export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+export async function proxy(req: NextRequest, ev: NextFetchEvent) {
 	// UA checks to prevent misuse
 	const { ua } = userAgent(req)
 	if (/(bytespider|bytedance)/i.test(ua)) {
@@ -141,7 +141,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				// grab the specific variant slug from the cookie object
 				variantOptionValue = allVariantsCookie[tutorialVariant.slug]
 			} catch (e) {
-				console.log('[middleware] Variant cookie could not be parsed.', e)
+				console.log('[proxy] Variant cookie could not be parsed.', e)
 			}
 
 			// If the cookie is set with a non-default variant option preference, rewrite
