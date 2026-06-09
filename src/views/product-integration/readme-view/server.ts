@@ -155,7 +155,10 @@ async function getStaticProps({
 		targetVersion
 	)
 	if (activeReleaseResponse.meta.status_code != 200) {
-		console.warn('Could not fetch Release', activeReleaseResponse)
+		console.warn(
+			`Could not fetch Release for product="${productData.slug}" integration="${organizationSlug}/${integrationSlug}" version="${targetVersion}" (status=${activeReleaseResponse.meta.status_code})`,
+			activeReleaseResponse
+		)
 		return { notFound: true }
 	}
 	const activeRelease = activeReleaseResponse.result
