@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { NextResponse } from 'next/server'
 import { type NextFetchEvent, type NextRequest, userAgent } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
