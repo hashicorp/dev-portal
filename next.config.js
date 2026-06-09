@@ -65,7 +65,8 @@ module.exports = async () => {
 		)
 	}
 
-	return withHashicorp({
+	// eslint config is no longer supported in next.config.js (Next.js 16+)
+	const { eslint: _eslint, ...nextConfig } = withHashicorp({
 		css: false,
 	})({
 		transpilePackages: [
@@ -151,4 +152,6 @@ module.exports = async () => {
 			largePageDataBytes: 512 * 1000, // 512KB
 		},
 	})
+
+	return nextConfig
 }
