@@ -122,7 +122,7 @@ async function getStaticProps({
 	const integrationResponse = await fetchIntegration(
 		productSlug,
 		organizationSlug,
-		integrationSlug
+		integrationSlug,
 	)
 	if (integrationResponse.meta.status_code != 200) {
 		console.warn('Could not fetch Integration', integrationResponse)
@@ -152,17 +152,12 @@ async function getStaticProps({
 		productData.slug,
 		organizationSlug,
 		integrationSlug,
-		targetVersion
+		targetVersion,
 	)
 	if (activeReleaseResponse.meta.status_code != 200) {
 		console.warn(
-			'Could not fetch Release for product="%s" integration="%s/%s" version="%s" (status=%d)',
-			productData.slug,
-			organizationSlug,
-			integrationSlug,
-			targetVersion,
-			activeReleaseResponse.meta.status_code,
-			activeReleaseResponse
+			`Could not fetch Release for product="${productData.slug}" integration="${organizationSlug}/${integrationSlug}" version="${targetVersion}" (status=${activeReleaseResponse.meta.status_code})`,
+			activeReleaseResponse,
 		)
 		return { notFound: true }
 	}
@@ -177,8 +172,8 @@ async function getStaticProps({
 				productData,
 				integration,
 				activeRelease,
-				true
-		  )
+				true,
+			)
 
 	/**
 	 * Serialize the README, extracting anchor links as we do
