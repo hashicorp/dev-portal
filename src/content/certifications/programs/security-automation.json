@@ -38,7 +38,7 @@
 			"examCode": "003",
 			"productSlug": "consul",
 			"versionTested": "Consul 1.15",
-			"description": "Prove your foundational Consul knowledge and skills in an hour-long multiple-choice exam. The Consul Associate 003 exam will be retired on July 15, 2026. More details below.",
+			"description": "Prove your foundational Consul knowledge and skills in an hour-long multiple-choice exam. The Consul Associate exam will be retired on July 15, 2026. More details below.",
 			"links": {
 				"prepare": "/consul/tutorials/certification-003",
 				"register": "/certifications/signin"
