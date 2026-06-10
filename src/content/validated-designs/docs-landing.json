@@ -1,29 +1,141 @@
 {
-	"pageSubtitle": "Prescriptive reference architectures for deploying and operating HashiCorp tools at scale.",
+	"hero": {
+		"heading": "HashiCorp Validated Designs",
+		"subtitle": "Prescriptive reference architectures for deploying and operating HashiCorp tools at scale.",
+		"image": "/img/well-architected-framework/landing-hero-graphic.png"
+	},
+	"overview": {
+		"heading": "Validated Designs",
+		"body": "Prescriptive reference architectures and operational guidance for deploying and operating HashiCorp tools at scale, validated by HashiCorp.",
+		"image": {
+			"light": "/img/validated-designs/overview-light.png",
+			"dark": "/img/validated-designs/overview-dark.png"
+		}
+	},
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Designs by product",
+			"title": "Boundary",
 			"cards": [
 				{
-					"title": "Boundary",
-					"description": "Reference architectures for deploying and operating HCP Boundary in your organization.",
-					"url": "/validated-designs/boundary"
+					"title": "Operating Guide for Adoption",
+					"description": "Onboard and operate Boundary in an enterprise environment.",
+					"url": "/validated-designs/boundary/operating-guides/adoption/0000-introduction"
 				},
 				{
-					"title": "Consul",
-					"description": "Reference architectures for deploying and operating Consul for service mesh and networking.",
-					"url": "/validated-designs/consul"
+					"title": "Operating Guide for Standardization",
+					"description": "Standardize Boundary operations across your enterprise.",
+					"url": "/validated-designs/boundary/operating-guides/standardization/0000-introduction"
 				},
 				{
-					"title": "Terraform",
-					"description": "Reference architectures for structuring and scaling your Terraform estate.",
-					"url": "/validated-designs/terraform"
+					"title": "Solution Design Guide",
+					"description": "Implement Boundary in an enterprise environment.",
+					"url": "/validated-designs/boundary/solution-design-guides/boundary-enterprise/0000-introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Consul",
+			"cards": [
+				{
+					"title": "Operating Guide for Adoption",
+					"description": "Onboard and operate Consul in an enterprise environment.",
+					"url": "/validated-designs/consul/operating-guides/adoption/0000-Introduction"
 				},
 				{
-					"title": "Vault",
-					"description": "Reference architectures for deploying and operating Vault for secrets management.",
-					"url": "/validated-designs/vault"
+					"title": "Operating Guide for Scaling (Beta)",
+					"description": "Scale Consul operations in an enterprise environment.",
+					"url": "/validated-designs/consul/operating-guides/scaling/0000-introduction"
+				},
+				{
+					"title": "Operating Guide for Standardization (Beta)",
+					"description": "Standardize Consul operations across your enterprise.",
+					"url": "/validated-designs/consul/operating-guides/standardization/0000-Introduction"
+				},
+				{
+					"title": "Solution Design Guide",
+					"description": "Implement Consul in an enterprise environment.",
+					"url": "/validated-designs/consul/solution-design-guides/consul-enterprise-self-hosted/0000-Introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Nomad",
+			"cards": [
+				{
+					"title": "Operating Guide",
+					"description": "Onboard and operate Nomad in an enterprise environment.",
+					"url": "/validated-designs/nomad/operating-guides/nomad-enterprise/0000-introduction"
+				},
+				{
+					"title": "Solution Design Guide",
+					"description": "Implement Nomad in an enterprise environment.",
+					"url": "/validated-designs/nomad/solution-design-guides/nomad-enterprise/0000-introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Terraform",
+			"cards": [
+				{
+					"title": "Operating Guide for Adoption",
+					"description": "Onboard and operate Terraform in an enterprise environment.",
+					"url": "/validated-designs/terraform/operating-guides/adoption/0000-introduction"
+				},
+				{
+					"title": "Operating Guide for Scaling (Beta)",
+					"description": "Scale Terraform operations in an enterprise environment.",
+					"url": "/validated-designs/terraform/operating-guides/scaling/0000-introduction"
+				},
+				{
+					"title": "Operating Guide for Standardization",
+					"description": "Standardize Terraform operations across your enterprise.",
+					"url": "/validated-designs/terraform/operating-guides/standardization/0000-introduction"
+				},
+				{
+					"title": "Solution Design Guide",
+					"description": "Implement Terraform in an enterprise environment.",
+					"url": "/validated-designs/terraform/solution-design-guides/terraform-enterprise/0000-introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Vault",
+			"cards": [
+				{
+					"title": "Operating Guide for Adoption",
+					"description": "Onboard and operate Vault in an enterprise environment.",
+					"url": "/validated-designs/vault/operating-guides/adoption/0000-Introduction"
+				},
+				{
+					"title": "Operating Guide for Scaling",
+					"description": "Scale Vault operations in an enterprise environment.",
+					"url": "/validated-designs/vault/operating-guides/scaling/0000-introduction"
+				},
+				{
+					"title": "Operating Guide for Standardization",
+					"description": "Standardize Vault operations across your enterprise.",
+					"url": "/validated-designs/vault/operating-guides/standardization/0000-introduction"
+				},
+				{
+					"title": "Solution Design Guide",
+					"description": "Implement Vault in an enterprise environment.",
+					"url": "/validated-designs/vault/solution-design-guides/vault-enterprise/0000-introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Vault Radar",
+			"cards": [
+				{
+					"title": "HCP Vault Radar: Operating Guide",
+					"description": "Onboard and operate HCP Vault Radar in an enterprise environment.",
+					"url": "/validated-designs/vault-radar/operating-guides/hcp-vault-radar/0000-introduction"
 				}
 			]
 		}
