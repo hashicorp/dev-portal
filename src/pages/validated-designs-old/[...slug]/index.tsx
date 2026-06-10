@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import ValidatedDesignGuideView from 'views/validated-designs/guide'
+import ValidatedDesignGuideView from 'views/validated-designs-old/guide'
 import {
 	getHvdCategoryGroups,
 	getHvdCategoryGroupsPaths,
 	getHvdGuidePropsFromSlug,
-} from 'views/validated-designs/server'
+} from 'views/validated-designs-old/server'
 
 export async function getStaticPaths() {
 	const categoryGroups = getHvdCategoryGroups()
