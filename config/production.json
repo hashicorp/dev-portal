@@ -10,6 +10,9 @@
 			"clientToken": "pub750ceadc5a9c79a6d3da59b534eb5108",
 			"service": "developer.hashicorp.com"
 		},
+		"instana_config": {
+			"key": "kxsrKTwVS0Kjpzqw4s_UUg"
+		},
 		"auth": {
 			"idp_url": "https://auth.idp.hashicorp.com"
 		},
