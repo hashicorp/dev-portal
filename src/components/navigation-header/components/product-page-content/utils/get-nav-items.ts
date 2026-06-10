@@ -49,7 +49,10 @@ export function getAllNavItems(currentProduct: ProductData): NavItem[] {
 	let docsNavItems: NavItem[]
 
 	// Well-Architected Framework has no header nav items
-	if (currentProduct.slug === 'well-architected-framework') {
+	if (
+		currentProduct.slug === 'well-architected-framework' ||
+		currentProduct.slug === 'validated-designs'
+	) {
 		return []
 	}
 
@@ -219,7 +222,10 @@ export const getLeftSideNavButtons = (
 	let docsNavItems: NavItem[]
 
 	// Well-Architected Framework has no header nav items
-	if (currentProduct.slug === 'well-architected-framework') {
+	if (
+		currentProduct.slug === 'well-architected-framework' ||
+		currentProduct.slug === 'validated-designs'
+	) {
 		return []
 	}
 

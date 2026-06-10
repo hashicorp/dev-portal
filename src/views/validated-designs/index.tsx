@@ -3,109 +3,33 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Head from 'next/head'
-import BaseLayout from 'layouts/base-layout'
-import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
-import { HvdCategoryGroup, HvdGuide } from './types'
-import LandingHero from 'components/landing-hero'
-import { MDSCard } from '@components/mds-card'
-import CardLink from 'components/card-link'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
-import { StandaloneLinkContents } from 'components/standalone-link'
-import s from './style.module.css'
+import slugify from 'slugify'
+import DocsViewLayout from 'layouts/docs-view-layout'
+import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
+import OverviewCta from 'views/product-landing/components/overview-cta'
+import { ProductRootDocsPathLandingMarketingContent } from 'views/product-root-docs-path-landing/components'
+import { ProductRootDocsPathLandingProps } from './types'
 
-import Heading from 'components/heading'
-import Text from 'components/text'
-import IconTileLogo from 'components/icon-tile-logo'
+export default function ValidatedDesignsLandingView(
+	props: ProductRootDocsPathLandingProps
+) {
+	const { pageContent, layoutProps, outlineItems } = props
+	const { marketingContentBlocks, hero, overview } = pageContent
 
-/**
- * Stub interfaces for how we may model the data for this view
- * Can be updated and adjusted as anyone sees fit based on the needs of the view
- */
-export interface ValidatedDesignsLandingProps {
-	meta: {
-		title: string
-		description: string
-	}
-	categoryGroups: HvdCategoryGroup[]
-}
-
-export default function ValidatedDesignsLandingView({
-	categoryGroups,
-}: ValidatedDesignsLandingProps) {
 	return (
-		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />} className={s.root}>
-			<Head>
-				<meta name="robots" content="noindex, nofollow" key="robots" />
-			</Head>
-			<LandingHero
-				heading="HashiCorp Validated Designs"
-				noImage={true}
-				className={s.hvdHero}
+		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
+			{hero ? <HeroHeadingVisual {...hero} /> : null}
+			{overview ? (
+				<OverviewCta
+					{...overview}
+					headingSlug={slugify(overview.heading, { lower: true })}
+				/>
+			) : null}
+			<ProductRootDocsPathLandingMarketingContent
+				blocks={marketingContentBlocks}
 			/>
-			<div className={s.categoryGroupsContainer}>
-				{categoryGroups.map((category: HvdCategoryGroup) => (
-					<MDSCard
-						key={category.slug}
-						className={s.categoryGroupContainer}
-					>
-						<section className={s.categoryGroupHeader}>
-							<IconTileLogo size="large" productSlug={category.productSlug} />
-							<Heading
-								level={2}
-								size={400}
-								weight="bold"
-								className={s.categoryGroupHeading}
-							>
-								{category.title}
-							</Heading>
-						</section>
-						<Text
-							asElement="p"
-							weight="medium"
-							size={200}
-							className={s.categoryGroupDescription}
-						>
-							{category.description}
-						</Text>
-						<ul className={s.categoryGuidesContainer}>
-							{category.guides.map((guide: HvdGuide) => (
-								<li key={guide.slug}>
-									<CardLink
-										href={guide.href}
-										ariaLabel={guide.title}
-										className={s.guideCard}
-									>
-										<Heading
-											level={3}
-											size={200}
-											weight="semibold"
-											className={s.smallHeading}
-										>
-											{guide.title}
-										</Heading>
-										<StandaloneLinkContents
-											className={s.standaloneLinkContents}
-											icon={
-												<>
-													<IconArrowRight24 className={s.mobileOnly} />
-													<IconArrowRight16 className={s.tabletUp} />
-												</>
-											}
-											iconPosition="trailing"
-											inheritColor
-											size="medium"
-											text="View"
-											textClassName={s.tabletUp}
-										/>
-									</CardLink>
-								</li>
-							))}
-						</ul>
-					</MDSCard>
-				))}
-			</div>
-		</BaseLayout>
+		</DocsViewLayout>
 	)
 }
+
+export type { ProductRootDocsPathLandingProps }
