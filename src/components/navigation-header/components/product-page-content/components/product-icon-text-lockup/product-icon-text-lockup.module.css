@@ -16,16 +16,12 @@
 
 .text {
 	composes: hds-typography-body-200 from global;
-	font-weight: var(--token-typography-font-weight-medium);
+	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--mds-color-foreground-primary);
 
 	&:hover {
 		color: var(--mds-color-foreground-strong);
 	}
-}
-
-.iaExperimentText {
-	font-weight: var(--token-typography-font-weight-bold);
 }
 
 /* Note: rather than setting size here, we could create a separate

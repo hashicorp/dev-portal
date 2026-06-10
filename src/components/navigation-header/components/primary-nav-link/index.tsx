@@ -12,7 +12,6 @@ import s from './primary-nav-link.module.css'
 import ButtonLink from '@components/button-link'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
-import { useExperiments } from 'contexts/experiments'
 import { trackNavClickEvent } from 'lib/posthog-events'
 
 export interface PrimaryNavLinkProps {
@@ -46,11 +45,8 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 		url === '/boundary/docs'
 	const shouldLinkBeUnderlined =
 		isCurrentPageInPath && !vaultEdgeCase && !boundaryEdgeCase
-	const { flags } = useExperiments()
-	const iaPosthogKey = flags['ia-subnav-bar']
-	const iaPosthogVariant = iaPosthogKey === 'test'
 
-	if (opensInNewTab && iaPosthogVariant) {
+	if (opensInNewTab) {
 		return (
 			<ButtonLink
 				aria-current={isCurrentPage ? 'page' : undefined}
@@ -72,8 +68,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 			aria-current={isCurrentPage ? 'page' : undefined}
 			aria-label={ariaLabel}
 			className={classNames(s.root, {
-				[s.underline]: shouldLinkBeUnderlined && iaPosthogVariant,
-				[s.iaLink]: iaPosthogVariant,
+				[s.underline]: shouldLinkBeUnderlined,
 			})}
 			href={url}
 			opensInNewTab={opensInNewTab}

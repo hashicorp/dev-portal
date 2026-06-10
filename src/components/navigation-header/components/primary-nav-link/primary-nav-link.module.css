@@ -17,15 +17,12 @@
 	padding-left: var(--header-menu-item-padding-left-right);
 	padding-right: var(--header-menu-item-padding-left-right);
 	padding-top: 8px;
+	height: 63px;
 
 	&:hover {
 		color: var(--mds-color-foreground-strong);
 		cursor: pointer;
 	}
-}
-
-.iaLink {
-	height: 63px;
 }
 
 .underline {
