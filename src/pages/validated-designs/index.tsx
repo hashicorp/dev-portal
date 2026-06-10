@@ -4,7 +4,7 @@
  */
 
 import { getStaticProps } from 'views/product-root-docs-path-landing/server'
-import ValidatedDesignsLanding from 'views/validated-designs'
+import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
 
 // Pre-configured getStaticProps for validated-designs/docs
 const getStaticPropsWrapped = async (context) => {
@@ -18,4 +18,4 @@ const getStaticPropsWrapped = async (context) => {
 }
 
 export { getStaticPropsWrapped as getStaticProps }
-export default ValidatedDesignsLanding
+export default ProductRootDocsPathLanding
