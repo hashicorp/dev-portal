@@ -29,9 +29,12 @@ export function ProductIconTextLockup({
 	useEffect(() => {
 		setMounted(true)
 	}, [])
-	const imageTheme = theme === 'system' ? systemTheme : theme
-	// Only resolve a logo after mount, so server and first client render match
-	const productLogo = mounted ? getProductLogo(slug, imageTheme) : undefined
+	// Before mount, default to the light theme so the server and first client
+	// render match. Resolving a logo on every render (rather than waiting for
+	// mount) keeps the rendered element stable and avoids the flicker caused by
+	// swapping between the fallback icon and the logo image on navigation.
+	const imageTheme = mounted ? (theme === 'system' ? systemTheme : theme) : 'light'
+	const productLogo = getProductLogo(slug, imageTheme)
 
 	const logoImage = () => {
 		return <Image src={productLogo} alt={`${name} Logo`} unoptimized />
