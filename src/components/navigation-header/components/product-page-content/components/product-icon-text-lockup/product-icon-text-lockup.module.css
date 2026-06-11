@@ -7,9 +7,17 @@
 	display: flex;
 	align-items: center;
 	gap: 6px;
+}
 
-	& img {
-		max-height: 30px;
+.logo {
+	display: inline-flex;
+	align-items: center;
+
+	/* The logo SVGs only declare a viewBox (no width/height), so an explicit
+	   height is required for the inline <svg> to size correctly. width:auto
+	   then derives the width from the viewBox aspect ratio. */
+	& svg {
+		height: 30px;
 		width: auto;
 	}
 }

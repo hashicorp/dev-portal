@@ -4,12 +4,10 @@
  */
 
 import ProductIcon from 'components/product-icon'
-import Image from 'next/image'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import { isProductSlug } from 'lib/products'
 import s from './product-icon-text-lockup.module.css'
 import { getProductLogo } from '../../utils'
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 
 export interface ProductIconTextLockupProps {
 	slug: string
@@ -23,21 +21,35 @@ export function ProductIconTextLockup({
 	name,
 	slug,
 }: ProductIconTextLockupProps) {
-	const [mounted, setMounted] = useState(false)
-	const { theme, systemTheme } = useTheme()
-
-	useEffect(() => {
-		setMounted(true)
-	}, [])
-	// Before mount, default to the light theme so the server and first client
-	// render match. Resolving a logo on every render (rather than waiting for
-	// mount) keeps the rendered element stable and avoids the flicker caused by
-	// swapping between the fallback icon and the logo image on navigation.
-	const imageTheme = mounted ? (theme === 'system' ? systemTheme : theme) : 'light'
-	const productLogo = getProductLogo(slug, imageTheme)
+	const lightLogo = getProductLogo(slug, 'light')
+	const darkLogo = getProductLogo(slug, 'dark')
+	const hasLogo = lightLogo && darkLogo
 
 	const logoImage = () => {
-		return <Image src={productLogo} alt={`${name} Logo`} unoptimized />
+		// Render both theme variants and toggle them with CSS via the
+		// `data-hide-on-theme` attribute (see styles/themes/global.css). The
+		// active variant is determined by the `data-theme` attribute on <html>,
+		// which is set before paint, so the correct logo shows immediately.
+		//
+		// The logos are inlined as SVG markup (rather than an <img> src) so they
+		// are part of the React tree and aren't re-fetched or re-decoded on
+		// client-side navigation, which avoids flickering on navigation.
+		return (
+			<>
+				<InlineSvg
+					className={s.logo}
+					data-hide-on-theme="dark"
+					aria-label={`${name} Logo`}
+					src={lightLogo}
+				/>
+				<InlineSvg
+					className={s.logo}
+					data-hide-on-theme="light"
+					aria-label={`${name} Logo`}
+					src={darkLogo}
+				/>
+			</>
+		)
 	}
 
 	const titleWithoutLogoImage = () => {
@@ -53,7 +65,7 @@ export function ProductIconTextLockup({
 	}
 	return (
 		<div className={s.root}>
-			{productLogo ? logoImage() : titleWithoutLogoImage()}
+			{hasLogo ? logoImage() : titleWithoutLogoImage()}
 		</div>
 	)
 }
