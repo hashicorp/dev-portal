@@ -30,7 +30,6 @@ export function ProductIconTextLockup({
 		// `data-hide-on-theme` attribute (see styles/themes/global.css). The
 		// active variant is determined by the `data-theme` attribute on <html>,
 		// which is set before paint, so the correct logo shows immediately.
-		//
 		// The logos are inlined as SVG markup (rather than an <img> src) so they
 		// are part of the React tree and aren't re-fetched or re-decoded on
 		// client-side navigation, which avoids flickering on navigation.
