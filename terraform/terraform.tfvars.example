@@ -1,0 +1,10 @@
+# Option 1: Prefer environment variables for provider auth
+# export INSTANA_API_TOKEN="..."
+# export INSTANA_ENDPOINT="<tenant>-<org>.instana.io"
+
+# Option 2: Or set directly here (not recommended for real secrets)
+# instana_api_token = ""
+# instana_endpoint  = ""
+
+# Greenfield resources managed by Terraform
+website_name = "developer.hashicorp.com"

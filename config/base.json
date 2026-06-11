@@ -32,7 +32,7 @@
 			"scriptUrl": "https://eum.instana.io/1.8.1/eum.min.js",
 			"scriptIntegrity": "sha384-qFzHZ5BC7HOPEBSYkbYSv+DBWrG34P1QW9mIaCR41db6yOJNYmH4antW6KLkc6v1",
 			"reportingUrl": "https://eum-red-saas.instana.io",
-			"key": "kxsrKTwVS0Kjpzqw4s_UUg"
+			"key": "e3_PMv4XTqyyxeDo5_58NA"
 		},
 		"product_slugs_with_integrations": ["vault", "nomad", "packer"],
 		"sandbox": {
