@@ -15,7 +15,8 @@ ineum('key','${__config.dev_dot.instana_config.key}');
 ineum('meta','env','${ENV}');
 ${COMMIT_SHA ? `ineum('meta','version','${COMMIT_SHA}');` : ''}
 ineum('trackSessions');
-ineum('autoPageDetection', true);`
+ineum('autoPageDetection', true);
+ineum('ignoreErrorMessages', [/extension/i, /node_modules/i]);`
 
 function InstanaHeadTag() {
 	return (
