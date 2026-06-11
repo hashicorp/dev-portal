@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2022, 2026
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import boundaryLight from '@hashicorp/web-mktg-logos/src/boundary/boundary/boundary_on-light.svg'
 import consulLight from '@hashicorp/web-mktg-logos/src/consul/consul/consul_on-light.svg'
 import nomadLight from '@hashicorp/web-mktg-logos/src/nomad/nomad/nomad_on-light.svg'

@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2022, 2026
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { PostHog } from 'posthog-node'
 import { v4 as uuidv4 } from 'uuid'
 import type { NextRequest, NextResponse } from 'next/server'
