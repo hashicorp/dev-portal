@@ -7,11 +7,12 @@ import Script from 'next/script'
 
 const COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
 const ENV = process.env.HASHI_ENV || 'development'
+const INSTANA_WEBSITE_MONITORING_KEY = process.env.INSTANA_WEBSITE_MONITORING_KEY
 
 const instanaBootstrapScriptBody = `(function(s,t,a,n){s[t]||(s[t]=a,n=s[a]=function(){n.q.push(arguments)},
 	n.q=[],n.v=2,n.l=1*new Date)})(window,"InstanaEumObject","ineum");
 ineum('reportingUrl','${__config.dev_dot.instana_config.reportingUrl}');
-ineum('key','${__config.dev_dot.instana_config.key}');
+ineum('key','${INSTANA_WEBSITE_MONITORING_KEY}');
 ineum('meta','env','${ENV}');
 ${COMMIT_SHA ? `ineum('meta','version','${COMMIT_SHA}');` : ''}
 ineum('trackSessions');
