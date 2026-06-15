@@ -7,7 +7,7 @@ import Script from 'next/script'
 
 const COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
 const ENV = process.env.HASHI_ENV || 'development'
-const INSTANA_WEBSITE_MONITORING_KEY = process.env.INSTANA_WEBSITE_MONITORING_KEY
+const INSTANA_WEBSITE_MONITORING_KEY = process.env.NEXT_PUBLIC_INSTANA_WEBSITE_MONITORING_KEY
 
 const instanaBootstrapScriptBody = `(function(s,t,a,n){s[t]||(s[t]=a,n=s[a]=function(){n.q.push(arguments)},
 	n.q=[],n.v=2,n.l=1*new Date)})(window,"InstanaEumObject","ineum");
