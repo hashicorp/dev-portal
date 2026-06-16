@@ -16,6 +16,7 @@ describe('allDocsFields', () => {
 		process.env.UNIFIED_DOCS_API = 'https://udr-api.example.com'
 		__config.flags = {
 			enable_datadog: false,
+			enable_instana: true,
 			enable_io_beta_cta: false,
 			unified_docs_migrated_repos: ['repo1', 'repo2'],
 		}
@@ -60,6 +61,7 @@ describe('allDocsFields', () => {
 		process.env.UNIFIED_DOCS_API = 'https://udr-api.example.com'
 		__config.flags = {
 			enable_datadog: false,
+			enable_instana: true,
 			enable_io_beta_cta: false,
 			unified_docs_migrated_repos: ['repo1'],
 		}
