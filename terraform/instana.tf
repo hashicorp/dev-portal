@@ -16,31 +16,50 @@ resource "instana_alerting_channel" "slack" {
 
 locals {
   website_monitoring_id = instana_website_monitoring_config.devdot.id
-  alert_channel_ids = [
+  alert_channel_ids = toset([
     instana_alerting_channel.slack.id,
-  ]
+  ])
+
+  status_code_alerts = {
+    not_found_errors = {
+      label       = "404"
+      metric_name = "httpxxx"
+      operator    = "EQUALS"
+      value       = "404"
+    }
+    server_errors = {
+      label       = "5xx"
+      metric_name = "httpxxx"
+      operator    = "STARTS_WITH"
+      value       = "5"
+    },
+  }
+
+  granularity_milliseconds = var.granularity_minutes * 60000
+  time_window_milliseconds = var.time_window_minutes * 60000
 }
 
-resource "instana_website_alert_config" "js_errors" {
-  name        = "${var.website_name} JS error detected"
-  description = "${var.website_name} JS error detected"
+resource "instana_website_alert_config" "status_codes_alerts" {
+  for_each    = local.status_code_alerts
+  name        = "${var.website_name} ${each.value.label} status code detected"
+  description = "${var.website_name} ${each.value.label} status code detected"
   enabled     = true
   triggering  = false
   website_id  = local.website_monitoring_id
-  granularity = var.granularity_minutes * 60000
+  granularity = local.granularity_milliseconds
 
-  alert_channel_ids = toset(local.alert_channel_ids)
+  alert_channel_ids = local.alert_channel_ids
 
   rules = [
     {
-      operator = ">"
+      operator = ">="
       rule = {
-        specific_js_error = {
-          metric_name = "errors"
+        status_code = {
           aggregation = "SUM"
-          operator    = "GREATER_THAN"
-          value       = null
-        }
+          metric_name = each.value.metric_name
+          operator    = each.value.operator
+          value       = each.value.value
+        },
       }
       threshold = {
         warning = {
@@ -58,8 +77,9 @@ resource "instana_website_alert_config" "js_errors" {
   ]
 
   time_threshold = {
-    violations_in_sequence = {
-      time_window = var.time_window_minutes * 60000
+    violations_in_period = {
+      violations  = 1
+      time_window = local.time_window_milliseconds
     }
   }
 }
