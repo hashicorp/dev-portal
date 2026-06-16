@@ -7,25 +7,29 @@
 	display: flex;
 	align-items: center;
 	gap: 6px;
+}
 
-	& img {
-		max-height: 30px;
+.logo {
+	display: inline-flex;
+	align-items: center;
+
+	/* The logo SVGs only declare a viewBox (no width/height), so an explicit
+	   height is required for the inline <svg> to size correctly. width:auto
+	   then derives the width from the viewBox aspect ratio. */
+	& svg {
+		height: 30px;
 		width: auto;
 	}
 }
 
 .text {
 	composes: hds-typography-body-200 from global;
-	font-weight: var(--token-typography-font-weight-medium);
+	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--mds-color-foreground-primary);
 
 	&:hover {
 		color: var(--mds-color-foreground-strong);
 	}
-}
-
-.iaExperimentText {
-	font-weight: var(--token-typography-font-weight-bold);
 }
 
 /* Note: rather than setting size here, we could create a separate

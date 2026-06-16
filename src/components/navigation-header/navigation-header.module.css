@@ -18,8 +18,6 @@
 	--header-padding-left-right: 24px;
 	--header-menu-item-padding-left-right: 12px;
 
-	background-color: var(--mds-color-surface-faint);
-	display: flex;
 	padding-top: 0;
 	padding-bottom: 0;
 	min-height: var(--navigation-header-height);
@@ -28,7 +26,7 @@
 	padding-right: var(--header-padding-left-right);
 	position: relative;
 	width: 100%;
-	z-index: 150;
+	border-bottom: 1px solid var(--mds-color-border-primary);
 
 	@media (--dev-dot-show-mobile-menu) {
 		padding-bottom: 14px;
@@ -37,13 +35,6 @@
 }
 
 .leftSide {
-	align-items: center;
-	display: flex;
-	justify-content: left;
-	gap: 24px;
-}
-
-.leftSideIAExperiment {
 	justify-self: start;
 	display: flex;
 	align-items: center;
@@ -57,13 +48,6 @@
 }
 
 .rightSide {
-	align-items: center;
-	display: flex;
-	justify-content: right;
-	gap: 12px;
-}
-
-.rightSideIAExperiment {
 	justify-self: end;
 	display: flex;
 }
@@ -98,14 +82,6 @@
 	}
 }
 
-.signUpLink {
-	color: var(--mds-color-foreground-high-contrast);
-
-	&:hover {
-		color: var(--mds-color-foreground-high-contrast);
-	}
-}
-
 .userDropdownDisclosureActivator {
 	/* composition */
 	composes: g-focus-ring-from-box-shadow-dark from global;
@@ -121,27 +97,11 @@
 }
 
 .mainHeader {
-	--header-padding-left-right: 24px;
-	--header-menu-item-padding-left-right: 12px;
-
+	composes: root;
 	background-color: var(--mds-color-surface-primary);
-	padding-top: 0;
-	padding-bottom: 0;
-	min-height: var(--ia-navigation-header-height);
-	justify-content: space-between;
-	padding-left: var(--header-padding-left-right);
-	padding-right: var(--header-padding-left-right);
-	position: relative;
-	width: 100%;
 	z-index: 150;
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-	border-bottom: 1px solid var(--mds-color-border-primary);
-
-	@media (--dev-dot-show-mobile-menu) {
-		padding-bottom: 14px;
-		padding-top: 14px;
-	}
 
 	@media only screen and (max-width: 1190px) {
 		grid-template-columns: 1fr min-content min-content;
@@ -149,23 +109,7 @@
 }
 
 .subNav {
-	--header-padding-left-right: 24px;
-	--header-menu-item-padding-left-right: 12px;
-
+	composes: root;
 	background-color: var(--mds-color-surface-faint);
 	display: flex;
-	padding-top: 0;
-	padding-bottom: 0;
-	min-height: var(--ia-navigation-header-height);
-	justify-content: space-between;
-	padding-left: var(--header-padding-left-right);
-	padding-right: var(--header-padding-left-right);
-	position: relative;
-	width: 100%;
-	border-bottom: 1px solid var(--mds-color-border-primary);
-
-	@media (--dev-dot-show-mobile-menu) {
-		padding-bottom: 14px;
-		padding-top: 14px;
-	}
 }
