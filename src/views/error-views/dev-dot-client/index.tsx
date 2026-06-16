@@ -5,6 +5,7 @@
 
 import Head from 'next/head'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
+import { InstanaHeadTag, InstanaScriptTag } from 'lib/instana'
 import { useEffect } from 'react'
 import {
 	ErrorViewContainer,
@@ -27,12 +28,20 @@ export function DevDotClient({ error }: { error: Error }) {
 				window.DD_RUM.addError(error)
 			})
 		}
+
+		if (typeof window.ineum === 'function') {
+			window.ineum('reportEvent', 'ErrorBoundary', {
+				message: error.message,
+				stack: error.stack,
+			})
+		}
 	}, [error])
 
 	return (
 		<>
 			<Head>
 				<DatadogHeadTag />
+				<InstanaHeadTag />
 			</Head>
 			<ErrorViewContainer>
 				<ErrorViewH1>Something went wrong.</ErrorViewH1>
@@ -43,6 +52,7 @@ export function DevDotClient({ error }: { error: Error }) {
 				</ErrorViewParagraph>
 			</ErrorViewContainer>
 			<DatadogScriptTag />
+			<InstanaScriptTag />
 		</>
 	)
 }

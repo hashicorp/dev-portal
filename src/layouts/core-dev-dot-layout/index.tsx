@@ -6,6 +6,7 @@
 import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
+import { InstanaHeadTag, InstanaScriptTag } from 'lib/instana'
 import { MobileMenuProvider } from 'contexts'
 import TabProvider from 'components/tabs/provider'
 import { CoreDevDotLayoutProps } from './types'
@@ -17,9 +18,11 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 			<TabProvider>
 				<Head>
 					<DatadogHeadTag />
+					<InstanaHeadTag />
 				</Head>
 				<div className={s.root}>{children}</div>
 				<DatadogScriptTag />
+				<InstanaScriptTag />
 			</TabProvider>
 		</MobileMenuProvider>
 	)
