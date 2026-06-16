@@ -19,6 +19,7 @@
 		"unified_docs_migrated_repos": [
 			"terraform-mcp-server",
 			"terraform-migrate",
+			"tfctl",
 			"terraform-plugin-framework",
 			"terraform-plugin-log",
 			"terraform-plugin-mux",
