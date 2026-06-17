@@ -7,18 +7,15 @@ variable "website_name" {
 variable "slack_app_id" {
   description = "Slack App ID (starts with A) for the Instana notification bot."
   type        = string
-  default     = "A08AEK9NX41"
 }
 
 variable "slack_channel_name" {
-  description = "The name of the slack channel to send alerts to"
+  description = "The name of the Slack channel to send alerts to."
   type        = string
-  default     = "devdot-instana-digital-alerts"
 }
 
 variable "slack_channel_id" {
-  description = "Slack channel ID"
-  default     = "C0B9Y3JSL58"
+  description = "Slack channel ID."
   type        = string
 }
 
