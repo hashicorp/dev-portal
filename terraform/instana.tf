@@ -20,35 +20,19 @@ locals {
     instana_alerting_channel.slack.id,
   ])
 
-  # Filter out any request where the extension ends with one of these values
-  static_asset_extensions = [
-    ".css",
-    ".js",
-    ".png",
-    ".jpg",
-    ".jpeg",
-    ".gif",
-    ".svg",
-    ".ico",
-  ]
+  tag_filter_clauses = [
+    # Exclude common asset types from alert
+    "beacon.resourceType@na NOT_EQUAL 'stylesheet'",
+    "beacon.resourceType@na NOT_EQUAL 'script'",
+    "beacon.resourceType@na NOT_EQUAL 'image'",
 
-  browser_exclusion_clauses = [
+    # Exclude common bots/crawlers from alert
     "beacon.browser.name@na NOT_CONTAIN 'bot'",
     "beacon.browser.name@na NOT_EQUAL 'Slurp'",
     "beacon.browser.name@na NOT_EQUAL 'DuckDuckGo-Favicons-Bot'",
   ]
 
-  # Generate a tag filter expression to exclude static assets and selected bots.
-  static_asset_tag_filter = "(${join(
-    " AND ",
-    concat(
-      [
-        for ext in local.static_asset_extensions :
-        "beacon.http.url@na NOT_ENDS_WITH '${ext}'"
-      ],
-      local.browser_exclusion_clauses
-    )
-  )})"
+  static_asset_tag_filter = "(${join(" AND ", local.tag_filter_clauses)})"
 }
 
 resource "instana_website_alert_config" "status_codes_alerts" {
