@@ -32,26 +32,26 @@ variable "slack_team_id" {
   type        = string
 }
 
-variable "granularity_minutes" {
-  description = "Evaluation granularity in minutes."
+variable "not_found_granularity_minutes" {
+  description = "Evaluation granularity in minutes for 404 alerts."
   type        = number
   default     = 5
 }
 
-variable "time_window_minutes" {
-  description = "Violation sequence time window in minutes."
+variable "not_found_time_window_minutes" {
+  description = "Violation sequence time window in minutes for 404 alerts. Instana's violations_in_period threshold type caps this at 60 minutes; use a value that is a multiple of not_found_granularity_minutes."
   type        = number
-  default     = 5
+  default     = 60
 }
 
-variable "warning_threshold" {
-  description = "Warning threshold for JS error count. Use 1 to mimic Datadog y > 0 behavior."
+variable "not_found_warning_threshold" {
+  description = "Warning threshold for 404 alerts. Default is scaled for a 60-minute window (8000 / 4 from the original 4h Datadog window)."
   type        = number
-  default     = 1
+  default     = 2000
 }
 
-variable "critical_threshold" {
-  description = "Critical threshold for JS error count."
+variable "not_found_critical_threshold" {
+  description = "Critical threshold for 404 alerts. Default is scaled for a 60-minute window (12000 / 4 from the original 4h Datadog window)."
   type        = number
-  default     = 2
+  default     = 3000
 }

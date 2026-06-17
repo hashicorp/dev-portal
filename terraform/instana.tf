@@ -20,33 +20,44 @@ locals {
     instana_alerting_channel.slack.id,
   ])
 
-  status_code_alerts = {
-    not_found_errors = {
-      label       = "404"
-      metric_name = "httpxxx"
-      operator    = "EQUALS"
-      value       = "404"
-    }
-    server_errors = {
-      label       = "5xx"
-      metric_name = "httpxxx"
-      operator    = "STARTS_WITH"
-      value       = "5"
-    },
-  }
+  # Filter out any request where the extension ends with one of these values
+  static_asset_extensions = [
+    ".css",
+    ".js",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".svg",
+    ".ico",
+  ]
 
-  granularity_milliseconds = var.granularity_minutes * 60000
-  time_window_milliseconds = var.time_window_minutes * 60000
+  browser_exclusion_clauses = [
+    "beacon.browser.name@na NOT_CONTAIN 'bot'",
+    "beacon.browser.name@na NOT_EQUAL 'Slurp'",
+    "beacon.browser.name@na NOT_EQUAL 'DuckDuckGo-Favicons-Bot'",
+  ]
+
+  # Generate a tag filter expression to exclude static assets and selected bots.
+  static_asset_tag_filter = "(${join(
+    " AND ",
+    concat(
+      [
+        for ext in local.static_asset_extensions :
+        "beacon.http.url@na NOT_ENDS_WITH '${ext}'"
+      ],
+      local.browser_exclusion_clauses
+    )
+  )})"
 }
 
 resource "instana_website_alert_config" "status_codes_alerts" {
-  for_each    = local.status_code_alerts
-  name        = "${var.website_name} ${each.value.label} status code detected"
-  description = "${var.website_name} ${each.value.label} status code detected"
+  name        = "[Alert] High Volume of 404 Errors - ${instana_website_monitoring_config.devdot.name}"
+  description = "High volume of 404 responses detected for ${instana_website_monitoring_config.devdot.name}"
   enabled     = true
   triggering  = false
   website_id  = local.website_monitoring_id
-  granularity = local.granularity_milliseconds
+  granularity = var.not_found_granularity_minutes * 60000
 
   alert_channel_ids = local.alert_channel_ids
 
@@ -56,30 +67,33 @@ resource "instana_website_alert_config" "status_codes_alerts" {
       rule = {
         status_code = {
           aggregation = "SUM"
-          metric_name = each.value.metric_name
-          operator    = each.value.operator
-          value       = each.value.value
+          metric_name = "httpxxx"
+          operator    = "EQUALS"
+          value       = "404"
         },
       }
       threshold = {
         warning = {
           static = {
-            value = var.warning_threshold
+            value = var.not_found_warning_threshold
           }
         }
         critical = {
           static = {
-            value = var.critical_threshold
+            value = var.not_found_critical_threshold
           }
         }
       }
     }
   ]
 
+  # Exclude static asset URLs using a generated filter expression.
+  tag_filter = local.static_asset_tag_filter
+
   time_threshold = {
     violations_in_period = {
       violations  = 1
-      time_window = local.time_window_milliseconds
+      time_window = var.not_found_time_window_minutes * 60000
     }
   }
 }
