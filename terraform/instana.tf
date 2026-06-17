@@ -16,10 +16,9 @@ resource "instana_alerting_channel" "slack" {
 
 locals {
   website_monitoring_id = instana_website_monitoring_config.devdot.id
-  alert_channel_ids = toset([
+  alert_channel_ids = [
     instana_alerting_channel.slack.id,
-  ])
-
+  ]
   tag_filter_clauses = [
     # Exclude common asset types from alert
     "beacon.resourceType@na NOT_EQUAL 'stylesheet'",
