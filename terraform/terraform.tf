@@ -18,6 +18,8 @@ terraform {
 }
 
 provider "instana" {
-  api_token = var.instana_production_endpoint_token
-  endpoint  = var.instana_production_endpoint
+# Provider api token and endpoint come from varsets in HCP:
+# INSTANA_API_TOKEN
+# INSTANA_ENDPOINT
+# INSTANA_TLS_SKIP_VERIFY
 }
