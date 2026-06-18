@@ -5,13 +5,13 @@
 		"incremental": true,
 		"module": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext"],
-		"jsx": "preserve",
+		"jsx": "react-jsx",
 		"sourceMap": true,
 		"allowJs": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"noEmit": true,
@@ -30,6 +30,12 @@
 			}
 		]
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		".next/dev/types/**/*.ts"
+	],
 	"exclude": ["node_modules", "scripts/migrate-io/templates"]
 }

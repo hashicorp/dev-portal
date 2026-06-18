@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Text from 'components/text'
@@ -66,7 +66,7 @@ export default function HCPCallout({
 			? HCP_VAULT_SECRETS
 			: productSlugsToNames[product]
 	const solution = Object.keys(SOLUTION_PRODUCTS_MAP).find(
-		(group: SolutionOption) => SOLUTION_PRODUCTS_MAP[group].includes(product)
+		(group: SolutionOption) => SOLUTION_PRODUCTS_MAP[group].includes(product),
 	)
 	const { gradient, image } = SOLUTION_DETAILS[solution]
 
@@ -89,9 +89,8 @@ export default function HCPCallout({
 					src={image}
 					/** Note: pattern image is purely decorative */
 					alt=""
-					layout="fill"
-					objectFit="cover"
-					objectPosition="center"
+					fill
+					style={{ objectFit: 'cover', objectPosition: 'center' }}
 				/>
 			</div>
 		</div>

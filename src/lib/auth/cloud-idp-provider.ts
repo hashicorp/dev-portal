@@ -4,7 +4,7 @@
  */
 
 import { Profile } from 'next-auth'
-import { Provider } from 'next-auth/providers'
+import { Provider } from 'next-auth/providers/index'
 import { ValidAuthProviderId } from 'types/auth'
 
 type CloudIdpProviderConfig = Provider & {
