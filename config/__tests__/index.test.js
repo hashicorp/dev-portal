@@ -40,6 +40,7 @@ describe('loadHashiConfigByEnvironment', () => {
 			    "vault",
 			    "ptfe-releases",
 			    "well-architected-framework",
+				"validated-designs",
 			    "terraform-enterprise",
 			    "sentinel",
 			    "hcp-docs",
