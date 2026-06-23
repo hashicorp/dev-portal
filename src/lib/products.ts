@@ -82,7 +82,7 @@ import { NavItem } from '@hashicorp/react-components/src/components/nav-panel/st
 const productSlugsToNames: {
 	[slug in Exclude<
 		ProductSlug,
-		'well-architected-framework' | 'validated-patterns'
+		'well-architected-framework' | 'validated-patterns' | 'validated-designs'
 	>]: ProductName
 } = {
 	hcp: 'HashiCorp Cloud Platform',
@@ -103,7 +103,7 @@ const productSlugsToNames: {
 const productSlugsToHostNames: {
 	[slug in Exclude<
 		ProductSlug,
-		'well-architected-framework' | 'validated-patterns'
+		'well-architected-framework' | 'validated-patterns' | 'validated-designs'
 	>]: string
 } = {
 	boundary: 'boundaryproject.io',
