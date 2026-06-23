@@ -44,6 +44,7 @@ import { ContentWithPermalink } from 'views/open-api-docs-view/components/conten
 import Heading from 'components/heading'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import { MenuItem, SidebarProps } from 'components/sidebar/types'
+import InstallPageBanner from 'components/install-page-banner'
 
 /**
  * We need certain heading data, such as "Release information" & "Next Steps",
@@ -81,6 +82,7 @@ const ProductDownloadsViewContent = ({
 		sidecarMarketingCard,
 		sidecarHcpCallout,
 		sidebarMenuItems = [],
+		installBanner,
 		installName,
 		additionalDownloadItems = [], // Used for the Boundary Desktop client
 	} = pageContent
@@ -197,6 +199,11 @@ const ProductDownloadsViewContent = ({
 				}}
 				versionSwitcherOptions={versionSwitcherOptions}
 			/>
+			{installBanner ? (
+				<div className={s.installBanner}>
+					<InstallPageBanner {...installBanner} />
+				</div>
+			) : null}
 			{merchandisingSlot?.position === 'above' ? merchandisingSlot.slot : null}
 			<DownloadsSection
 				packageManagers={packageManagers}

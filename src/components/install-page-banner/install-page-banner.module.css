@@ -1,0 +1,56 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	--accent-color: var(--product-color);
+	--background-color: var(--mds-color-surface-faint);
+	--border-color: var(--product-color);
+
+	align-items: flex-start;
+	background: var(--background-color);
+	border: 1px solid var(--border-color);
+	border-radius: 6px;
+	color: var(--mds-color-foreground-primary);
+	composes: hds-typography-body-200 from global;
+	display: flex;
+	gap: 12px;
+	padding: 16px;
+}
+
+.icon {
+	color: var(--accent-color);
+	flex-shrink: 0;
+	padding-top: 1px; /* optical alignment with first line of text */
+
+	& svg {
+		display: block;
+		height: 16px;
+		width: 16px;
+	}
+}
+
+.description {
+	margin: 0;
+}
+
+/* Semantic color overrides — only used when `color` prop is explicitly set */
+
+.warning {
+	--accent-color: var(--mds-color-foreground-warning-on-surface);
+	--background-color: var(--mds-color-palette-amber-50);
+	--border-color: var(--mds-color-border-warning);
+}
+
+.critical {
+	--accent-color: var(--mds-color-foreground-critical-on-surface);
+	--background-color: var(--mds-color-palette-red-50);
+	--border-color: var(--mds-color-border-critical);
+}
+
+.neutral {
+	--accent-color: var(--mds-color-foreground-primary);
+	--background-color: var(--mds-color-surface-faint);
+	--border-color: var(--mds-color-border-strong);
+}
