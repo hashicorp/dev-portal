@@ -54,26 +54,29 @@ module.exports = async () => {
 	// - > next build
 	// So we also check if we've already logged it with "alreadyLoggedUDRInfo"
 	if (process.argv[1].includes('.bin/next') && !alreadyLoggedUDRInfo) {
-		alreadyLoggedUDRInfo = true;
-		console.log(`⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`);
-		console.log(`⚠️ Loading UDR Products: ${JSON.stringify(
-			appConfig["flags.unified_docs_migrated_repos"],
-			null,
-			2)}\n`
-		);
+		alreadyLoggedUDRInfo = true
+		console.log(`⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`)
+		console.log(
+			`⚠️ Loading UDR Products: ${JSON.stringify(
+				appConfig['flags.unified_docs_migrated_repos'],
+				null,
+				2,
+			)}\n`,
+		)
 	}
 
-	return withHashicorp({
+	// eslint config is no longer supported in next.config.js (Next.js 16+)
+	const { eslint: _eslint, ...nextConfig } = withHashicorp({
 		css: false,
 	})({
 		transpilePackages: [
 			'@hashicorp/flight-icons',
 			/**
-		 * TODO: once Sentinel has been migrated into the dev-portal repository,
-		 * we should consider localizing the sentinel-embedded component. Should
-		 * first confirm with Cam Stitt that this component is not being used
-		 * elsewhere.
-		 */
+			 * TODO: once Sentinel has been migrated into the dev-portal repository,
+			 * we should consider localizing the sentinel-embedded component. Should
+			 * first confirm with Cam Stitt that this component is not being used
+			 * elsewhere.
+			 */
 			'@hashicorp/sentinel-embedded',
 			'unist-util-is',
 			'unist-util-visit',
@@ -100,7 +103,7 @@ module.exports = async () => {
 			await fs.promises.writeFile(
 				path.join('src', 'data', '_redirects.generated.json'),
 				JSON.stringify(simpleRedirects, null, 2),
-				'utf-8'
+				'utf-8',
 			)
 			return complexRedirects
 		},
@@ -125,16 +128,21 @@ module.exports = async () => {
 		},
 		images: {
 			formats: ['image/avif', 'image/webp'],
-			domains: [
-				'www.datocms-assets.com',
-				'mktg-content-api-hashicorp.vercel.app',
-				'content.hashicorp.com',
+			remotePatterns: [
+				{ protocol: 'https', hostname: 'www.datocms-assets.com' },
+				{
+					protocol: 'https',
+					hostname: 'mktg-content-api-hashicorp.vercel.app',
+				},
+				{ protocol: 'https', hostname: 'content.hashicorp.com' },
 				// remove the http protocol from the URL
-				process.env.UNIFIED_DOCS_API.replace(/^https?:\/\//, ''),
+				{
+					hostname: process.env.UNIFIED_DOCS_API.replace(/^https?:\/\//, ''),
+				},
 				// only allow localhost in development mode
 				...(process.env.NODE_ENV === 'development' &&
-					process.env.HASHI_ENV !== 'preview'
-					? ['localhost']
+				process.env.HASHI_ENV !== 'preview'
+					? [{ protocol: 'http', hostname: 'localhost' }]
 					: []),
 			],
 			dangerouslyAllowSVG: true,
@@ -142,7 +150,8 @@ module.exports = async () => {
 		},
 		experimental: {
 			largePageDataBytes: 512 * 1000, // 512KB
-			instrumentationHook: true,
 		},
 	})
+
+	return nextConfig
 }

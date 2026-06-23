@@ -9,7 +9,6 @@ import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
-import classNames from 'classnames'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
@@ -25,7 +24,6 @@ import { ProductSlug } from 'types/products'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 import { useTheme } from 'next-themes'
 import { trackSandboxInteraction } from 'views/sandbox-view/utils'
-import { useExperiments } from 'contexts/experiments'
 import { trackNavClickEvent } from 'lib/posthog-events'
 
 interface SandboxDropdownProps {
@@ -49,9 +47,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const [mounted, setMounted] = useState(false)
 	const [isNavigating, setIsNavigating] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
-	const { flags } = useExperiments()
-	const iaPosthogKey = flags['ia-subnav-bar']
-	const iaPosthogVariant = iaPosthogKey === 'test'
 
 	useEffect(() => {
 		setMounted(true)
@@ -84,7 +79,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 				typeof rect.bottom === 'number' &&
 				typeof rect.left === 'number'
 			) {
-				const rectOffset = iaPosthogVariant ? 13 : 16
+				const rectOffset = 13
 				setDropdownPosition({
 					top: rect.bottom + rectOffset,
 					left: rect.left,
@@ -94,7 +89,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			// Reset to null to ensure clean state
 			setDropdownPosition(null)
 		}
-	}, [iaPosthogVariant, isOpen])
+	}, [isOpen])
 
 	// Item data from sandbox config
 	const labs = SANDBOX_CONFIG.labs as unknown as SandboxLab[]
@@ -289,12 +284,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			onMouseLeave={handleMouseLeave}
 			ref={rootRef}
 		>
-			<div
-				className={classNames({
-					[s.activatorWrapper]: !iaPosthogVariant,
-					[s.iaActivatorWrapper]: iaPosthogVariant,
-				})}
-			>
+			<div className={s.activatorWrapper}>
 				<button
 					aria-controls={menuId}
 					aria-expanded={isOpen}
@@ -396,7 +386,11 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 											}}
 											onKeyDown={handleKeyDown}
 											onClickCapture={() => {
-												trackNavClickEvent(lab.title, router.pathname, 'Sandbox')
+												trackNavClickEvent(
+													lab.title,
+													router.pathname,
+													'Sandbox'
+												)
 											}}
 										>
 											<div className={s.content}>

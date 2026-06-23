@@ -11,6 +11,8 @@ import {
 	ProductNavPromo,
 	ProductSidePanel,
 } from 'types/products'
+import { NavItem } from '@hashicorp/react-components/src/components/nav-panel/standard-panel'
+
 
 /**
  * A map of product slugs to their proper noun names.
@@ -236,18 +238,50 @@ const navPromo: ProductNavPromo = {
 	title: 'HashiCorp Cloud Platform',
 	description: 'Get started in minutes with our cloud products',
 	linkUrl: '/hcp',
-	linkTitle: 'All HCP Products',
+	linkTitle: 'Learn more',
 	icon: 'hashicorp',
 	theme: 'default',
 }
 
-const iaExperimentNavPromo: ProductNavPromo = {
-	title: 'HashiCorp Cloud Platform',
-	description: 'Get started in minutes with our cloud products',
-	linkUrl: '/hcp',
-	linkTitle: 'Learn more',
-	icon: 'hashicorp',
-	theme: 'default',
+const learnPanelContent: { navData: NavItem[] } = {
+	navData: [
+		{
+			navItems: [
+				{
+					title: 'Certifications',
+					url: '/certifications',
+					description: 'Get HashiCorp certified',
+					icon: 'award',
+					iconGradient: 'Learn',
+					isDevPortal: true,
+				},
+				{
+					title: 'Tutorials',
+					url: '/tutorials',
+					description: 'Learn HashiCorp products',
+					icon: 'learn',
+					iconGradient: 'Learn',
+					isDevPortal: true,
+				},
+				{
+					title: 'Validated Patterns',
+					url: '/validated-patterns',
+					description: 'Field-tested patterns for using HashiCorp products',
+					icon: 'learn',
+					iconGradient: 'Learn',
+					isDevPortal: true,
+				},
+				{
+					title: 'Well-Architected Framework',
+					url: '/well-architected-framework',
+					description: 'Adopt HashiCorp best practices',
+					icon: 'layers',
+					iconGradient: 'Learn',
+					isDevPortal: true,
+				},
+			],
+		},
+	],
 }
 
 const sidePanelContent: ProductSidePanel = {
@@ -311,6 +345,6 @@ export {
 	navigationData,
 	mobileNavigationData,
 	navPromo,
-	iaExperimentNavPromo,
+	learnPanelContent,
 	sidePanelContent,
 }

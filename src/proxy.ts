@@ -10,10 +10,10 @@ import variantRewrites from '.generated/tutorial-variant-map.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getVariantParam } from 'views/tutorial-view/utils/variants'
-import {
-	computePosthogBootstrapData,
-	setBootstrapCookieOnResponse
-} from 'lib/posthog'
+// import {
+// 	computePosthogBootstrapData,
+// 	setBootstrapCookieOnResponse
+// } from 'lib/posthog'
 
 function determineProductSlug(req: NextRequest): string {
 	// .io production deploy
@@ -26,11 +26,11 @@ function determineProductSlug(req: NextRequest): string {
 }
 
 /**
- * Root-level middleware that will process all middleware-capable requests.
+ * Root-level proxy that will process all proxy-capable requests.
  * Currently used to support:
  * - Handling simple one-to-one redirects for .io routes
  */
-export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+export async function proxy(req: NextRequest, ev: NextFetchEvent) {
 	// UA checks to prevent misuse
 	const { ua } = userAgent(req)
 	if (/(bytespider|bytedance)/i.test(ua)) {
@@ -43,7 +43,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				error:
 					'Please reach out to support@hashicorp.com so we can learn more about your use case.',
 			},
-			{ status: 429 }
+			{ status: 429 },
 		)
 	}
 	// ----------------------
@@ -56,14 +56,14 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// Compute bootstrap data before building the response so we can inject
 	// flags into the forwarded request headers — this makes them available
 	// to getInitialProps on the very first visit, eliminating client-side flicker.
-	const bootstrapData = await computePosthogBootstrapData(req)
+	// const bootstrapData = await computePosthogBootstrapData(req)
 	const requestHeaders = new Headers(req.headers)
-	if (bootstrapData) {
-		requestHeaders.set(
-			'x-posthog-flags',
-			JSON.stringify(bootstrapData.featureFlags)
-		)
-	}
+	// if (bootstrapData) {
+	// 	requestHeaders.set(
+	// 		'x-posthog-flags',
+	// 		JSON.stringify(bootstrapData.featureFlags)
+	// 	)
+	// }
 
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
@@ -72,16 +72,16 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		const { destination, permanent } = redirects[product][req.nextUrl.pathname]
 		if (process.env.DEBUG_REDIRECTS) {
 			console.log(
-				`[DEBUG_REDIRECTS] redirecting ${req.nextUrl.pathname} to ${destination}`
+				`[DEBUG_REDIRECTS] redirecting ${req.nextUrl.pathname} to ${destination}`,
 			)
 		}
 		if (destination.startsWith('http')) {
 			const res = NextResponse.redirect(destination, permanent ? 308 : 307)
 			// Apply geo cookie + posthog bootstrap cookie to the response
 			const finalResponse = setGeoCookie(req, res)
-			if (bootstrapData) {
-				setBootstrapCookieOnResponse(bootstrapData, finalResponse)
-			}
+			// if (bootstrapData) {
+				// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+			// }
 			return finalResponse
 		}
 
@@ -99,9 +99,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		const res = NextResponse.redirect(url, permanent ? 308 : 307)
 		// Apply geo cookie + posthog bootstrap cookie to the response
 		const finalResponse = setGeoCookie(req, res)
-		if (bootstrapData) {
-			setBootstrapCookieOnResponse(bootstrapData, finalResponse)
-		}
+		// if (bootstrapData) {
+			// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+		// }
 		return finalResponse
 	}
 
@@ -121,7 +121,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			 */
 			const variantParam = url.searchParams.get('variants')
 			const isValidVariantOption = tutorialVariant.options.find(
-				(option: string) => variantParam.endsWith(option)
+				(option: string) => variantParam.endsWith(option),
 			)
 
 			if (isValidVariantOption) {
@@ -146,7 +146,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				// grab the specific variant slug from the cookie object
 				variantOptionValue = allVariantsCookie[tutorialVariant.slug]
 			} catch (e) {
-				console.log('[middleware] Variant cookie could not be parsed.', e)
+				console.log('[proxy] Variant cookie could not be parsed.', e)
 			}
 
 			// If the cookie is set with a non-default variant option preference, rewrite
@@ -156,7 +156,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			) {
 				url.pathname = `${url.pathname}/${getVariantParam(
 					tutorialVariant.slug,
-					variantOptionValue
+					variantOptionValue,
 				)}`
 			}
 		}
@@ -172,9 +172,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 	// Apply geo cookie + posthog bootstrap cookie to the response
 	const finalResponse = setGeoCookie(req, response)
-	if (bootstrapData) {
-		setBootstrapCookieOnResponse(bootstrapData, finalResponse)
-	}
+	// if (bootstrapData) {
+		// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+	// }
 	return finalResponse
 }
 

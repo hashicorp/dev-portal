@@ -9,17 +9,12 @@ import { NavBarListContainer, NavigationHeaderDropdownMenu } from '..'
 import {
 	navigationData,
 	navPromo,
-	iaExperimentNavPromo,
-	sidePanelContent,
+	learnPanelContent,
 } from 'lib/products'
 import s from './home-page-content.module.css'
-import { useExperiments } from 'contexts/experiments'
 import { trackNavClickEvent } from 'lib/posthog-events'
 
 const HomePageHeaderContent = () => {
-	const { flags } = useExperiments()
-	const iaPosthogKey = flags['ia-subnav-bar']
-	const iaPosthogVariant = iaPosthogKey === 'test'
 	return (
 		<>
 			<Link
@@ -41,60 +36,17 @@ const HomePageHeaderContent = () => {
 						dropdownClassName={s.homepageDropdownPane}
 						productPanelData={{
 							navigationData,
-							navPromo: iaPosthogVariant ? iaExperimentNavPromo : navPromo,
-							sidePanelContent,
+							navPromo,
 						}}
 						label="Products"
 					/>
 				</li>
-				{iaPosthogVariant && (
-					<li>
-						<NavigationHeaderDropdownMenu
-							standardPanelData={{
-								navData: [
-									{
-										navItems: [
-											{
-												title: 'Certifications',
-												url: '/certifications',
-												description: 'Get HashiCorp certified',
-												icon: 'award',
-												iconGradient: 'Learn',
-												isDevPortal: true,
-											},
-											{
-												title: 'Tutorials',
-												url: '/tutorials',
-												description: 'Learn HashiCorp products',
-												icon: 'learn',
-												iconGradient: 'Learn',
-												isDevPortal: true,
-											},
-											{
-												title: 'Validated Patterns',
-												url: '/validated-patterns',
-												description:
-													'Field-tested patterns for using HashiCorp products',
-												icon: 'learn',
-												iconGradient: 'Learn',
-												isDevPortal: true,
-											},
-											{
-												title: 'Well-Architected Framework',
-												url: '/well-architected-framework',
-												description: 'Adopt HashiCorp best practices',
-												icon: 'layers',
-												iconGradient: 'Learn',
-												isDevPortal: true,
-											},
-										],
-									},
-								],
-							}}
-							label="Learn"
-						/>
-					</li>
-				)}
+				<li>
+					<NavigationHeaderDropdownMenu
+						standardPanelData={learnPanelContent}
+						label="Learn"
+					/>
+				</li>
 			</NavBarListContainer>
 		</>
 	)

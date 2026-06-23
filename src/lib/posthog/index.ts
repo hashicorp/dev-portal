@@ -1,6 +1,6 @@
 import { PostHog } from 'posthog-node'
 import { v4 as uuidv4 } from 'uuid'
-import type { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import Cookies from 'js-cookie'
 import { GetServerSidePropsContext } from 'next'
 
@@ -42,13 +42,13 @@ const POSTHOG_COOKIE_KEY = `ph_${process.env.POSTHOG_PROJECT_API_KEY}_posthog`
  * @returns An object containing the country and region, or null if not available.
  */
 const parseGeoCookie = (rawGeo: string | null) => {
-    if (!rawGeo) return { country: null, region: null }
+	if (!rawGeo) return { country: null, region: null }
 
-    const [countryPart, regionPart] = rawGeo.split(',')
-    const country = countryPart?.split('=')[1]?.toUpperCase() ?? null
-    const region = regionPart?.split('=')[1]?.toUpperCase() ?? null
+	const [countryPart, regionPart] = rawGeo.split(',')
+	const country = countryPart?.split('=')[1]?.toUpperCase() ?? null
+	const region = regionPart?.split('=')[1]?.toUpperCase() ?? null
 
-    return { country, region }
+	return { country, region }
 }
 
 /**
@@ -58,8 +58,8 @@ const parseGeoCookie = (rawGeo: string | null) => {
  * @returns The first header value if it's an array, the value itself if it's a string, or null if undefined.
  */
 const normalizeHeader = (value: string | string[] | undefined) => {
-    if (Array.isArray(value)) return value[0] ?? null
-    return value ?? null
+	if (Array.isArray(value)) return value[0] ?? null
+	return value ?? null
 }
 
 /**
@@ -70,37 +70,37 @@ const normalizeHeader = (value: string | string[] | undefined) => {
  * @returns An object containing the country and region, or null if not available.
  */
 const getGeo = (req: PosthogRequest) => {
-    let rawGeo: string | null = null
+	let rawGeo: string | null = null
 
-    if (isMiddlewareRequest(req)) {
-        rawGeo = req.cookies.get('hc_geo')?.value ?? null
-    } else if (isGetServerSidePropsRequest(req)) {
-        rawGeo = (req.cookies['hc_geo'] as string | undefined) ?? null
-    }
+	if (isMiddlewareRequest(req)) {
+		rawGeo = req.cookies.get('hc_geo')?.value ?? null
+	} else if (isGetServerSidePropsRequest(req)) {
+		rawGeo = (req.cookies['hc_geo'] as string | undefined) ?? null
+	}
 
-    const cookieGeo = parseGeoCookie(rawGeo)
-    if (cookieGeo.country && cookieGeo.region) return cookieGeo
+	const cookieGeo = parseGeoCookie(rawGeo)
+	if (cookieGeo.country && cookieGeo.region) return cookieGeo
 
-    // First request in preview may not have hc_geo yet; use request geo headers.
-    if (isMiddlewareRequest(req)) {
-        return {
-            country: req.headers.get('x-vercel-ip-country')?.toUpperCase() ?? null,
-            region:
-                req.headers.get('x-vercel-ip-country-region')?.toUpperCase() ?? null,
-        }
-    }
+	// First request in preview may not have hc_geo yet; use request geo headers.
+	if (isMiddlewareRequest(req)) {
+		return {
+			country: req.headers.get('x-vercel-ip-country')?.toUpperCase() ?? null,
+			region:
+				req.headers.get('x-vercel-ip-country-region')?.toUpperCase() ?? null,
+		}
+	}
 
-    if (isGetServerSidePropsRequest(req)) {
-        const country =
-            normalizeHeader(req.headers['x-vercel-ip-country'])?.toUpperCase() ??
-            null
-        const region =
-            normalizeHeader(req.headers['x-vercel-ip-country-region'])?.toUpperCase() ??
-            null
-        return { country, region }
-    }
+	if (isGetServerSidePropsRequest(req)) {
+		const country =
+			normalizeHeader(req.headers['x-vercel-ip-country'])?.toUpperCase() ?? null
+		const region =
+			normalizeHeader(
+				req.headers['x-vercel-ip-country-region'],
+			)?.toUpperCase() ?? null
+		return { country, region }
+	}
 
-    return { country: null, region: null }
+	return { country: null, region: null }
 }
 
 /**
@@ -112,26 +112,26 @@ const getGeo = (req: PosthogRequest) => {
  * @returns boolean indicating if the user can be made to opt-out by default
  */
 const canUseOptOutPolicy = (req: PosthogRequest): boolean => {
-    const isDev = process.env.NODE_ENV === 'development'
-    if (isDev) {
-        return true
-    }
+	const isDev = process.env.NODE_ENV === 'development'
+	if (isDev) {
+		return true
+	}
 
-    const { country, region } = getGeo(req)
+	const { country, region } = getGeo(req)
 
-    // If we can't determine country or it's not US, require explicit opt-in
-    if (!country || country !== 'US') return false
+	// If we can't determine country or it's not US, require explicit opt-in
+	if (!country || country !== 'US') return false
 
-    // If we can't determine region, require explicit opt-in
-    if (!region) return false
+	// If we can't determine region, require explicit opt-in
+	if (!region) return false
 
-    const isOptInState = OPT_IN_STATES.includes(region)
-    return !isOptInState
+	const isOptInState = OPT_IN_STATES.includes(region)
+	return !isOptInState
 }
 
 /**
  * Sets the performance consent status based on the user's consent preferences.
- * 
+ *
  * @param req - The request object from middleware or getServerSideProps
  * @returns The performance consent status as a {@link DatagrailPerfCookieConsent} enum value
  */
@@ -184,7 +184,7 @@ const canUsePosthog = (req: PosthogRequest): boolean => {
 
 /**
  * Retrieves the parsed PostHog cookie from the request.
- * 
+ *
  * @param req - The request object from middleware or getServerSideProps
  * @returns The parsed PostHog cookie object, or null if the cookie is not present
  */
@@ -213,7 +213,7 @@ const getParsedPosthogCookie = async (req: PosthogRequest) => {
  * If the cookie does not contain a `distinctID`, a new one is generated. It then uses the
  * PostHog client to fetch all feature flags associated with the `distinctID`. The function
  * returns an object containing the `distinctID` and the feature flags.
- * 
+ *
  * @param req - The request object from middleware or getServerSideProps
  * @returns An object containing the `distinctID` and the feature flags
  */
@@ -229,8 +229,9 @@ async function getBootstrapData(req: PosthogRequest) {
 		distinctID = uuidv4()
 	}
 
-	let bootstrapCookie = null, hasExistingBootstrapData = false
-	if(isMiddlewareRequest(req)) {
+	let bootstrapCookie = null,
+		hasExistingBootstrapData = false
+	if (isMiddlewareRequest(req)) {
 		bootstrapCookie = req.cookies.get(POSTHOG_BOOTSTRAP_COOKIE_KEY)
 		hasExistingBootstrapData = !!bootstrapCookie && bootstrapCookie.value
 	} else if (isGetServerSidePropsRequest(req)) {
@@ -240,7 +241,7 @@ async function getBootstrapData(req: PosthogRequest) {
 
 	if (hasExistingBootstrapData) {
 		const bootstrapData = parseBootstrapData(
-			bootstrapCookie.value ?? bootstrapCookie
+			bootstrapCookie.value ?? bootstrapCookie,
 		)
 		return bootstrapData
 	}
@@ -261,32 +262,34 @@ async function getBootstrapData(req: PosthogRequest) {
 
 /**
  * Retrieves the value of all feature flags for the given request.
- * This function is used in App.getInitialProps to get the feature flags on the server side 
+ * This function is used in App.getInitialProps to get the feature flags on the server side
  * and pass them as props to the app using experiment context.
- * 
+ *
  * @param req - The request object from getInitialProps
  * @returns The value of the feature flags, or {} if the flags are not available or PostHog cannot be used
  */
 export const getFeatureFlagsFromRequest = (
-    req: GetServerSidePropsRequest
+	req: GetServerSidePropsRequest,
 ): FeatureFlags => {
 	if (!canUsePosthog(req)) return {}
-    // Available on first visit (injected by middleware) AND subsequent visits
-    const fromHeader = req.headers['x-posthog-flags']
-    if (fromHeader) {
-        try {
-            return JSON.parse(fromHeader as string)
-        } catch { /* fall through */ }
-    }
+	// Available on first visit (injected by middleware) AND subsequent visits
+	const fromHeader = req.headers['x-posthog-flags']
+	if (fromHeader) {
+		try {
+			return JSON.parse(fromHeader as string)
+		} catch {
+			/* fall through */
+		}
+	}
 
-    // Fallback: read bootstrap cookie (subsequent visits, no middleware injection)
-    const raw = req.cookies[POSTHOG_BOOTSTRAP_COOKIE_KEY]
-    if (!raw) return {}
-    try {
-        return JSON.parse(raw)?.featureFlags ?? {}
-    } catch {
-        return {}
-    }
+	// Fallback: read bootstrap cookie (subsequent visits, no middleware injection)
+	const raw = req.cookies[POSTHOG_BOOTSTRAP_COOKIE_KEY]
+	if (!raw) return {}
+	try {
+		return JSON.parse(raw)?.featureFlags ?? {}
+	} catch {
+		return {}
+	}
 }
 
 /**
@@ -295,10 +298,10 @@ export const getFeatureFlagsFromRequest = (
  * Used in middleware to inject flags into request headers before the response is built.
  */
 export const computePosthogBootstrapData = async (
-    req: NextRequest
+	req: NextRequest,
 ): Promise<BootstrapData | null> => {
-    if (!canUsePosthog(req)) return null
-    return await getBootstrapData(req)
+	if (!canUsePosthog(req)) return null
+	return await getBootstrapData(req)
 }
 
 /**
@@ -306,24 +309,26 @@ export const computePosthogBootstrapData = async (
  * Used in middleware for the render path (next/rewrite), after headers are injected.
  */
 export const setBootstrapCookieOnResponse = (
-    bootstrapData: BootstrapData,
-    res: NextResponse
+	bootstrapData: BootstrapData,
+	res: NextResponse,
 ): NextResponse => {
 	const isDev = process.env.NODE_ENV === 'development'
 	if (isDev) {
-		console.log(`bootstrapped feature flag data: ${JSON.stringify(bootstrapData)}`)
+		console.log(
+			`bootstrapped feature flag data: ${JSON.stringify(bootstrapData)}`,
+		)
 	}
-    res.cookies.set(POSTHOG_BOOTSTRAP_COOKIE_KEY, JSON.stringify(bootstrapData), {
-        expires: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000), // 45 days
-        sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production',
-    })
-    return res
+	res.cookies.set(POSTHOG_BOOTSTRAP_COOKIE_KEY, JSON.stringify(bootstrapData), {
+		expires: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000), // 45 days
+		sameSite: 'lax',
+		secure: process.env.NODE_ENV === 'production',
+	})
+	return res
 }
 
 /**
  * Helped function to parse the bootstrap data from a JSON string.
- * 
+ *
  * @param jsonData The data to be parsed as a JSON string
  * @returns The parsed data
  */
@@ -338,7 +343,7 @@ const parseBootstrapData = (jsonData: string) => {
 /**
  * Retrieves the bootstrap data from the client-side cookies.
  * This function is called when posthog is initialized so the bootstrap data is available.
- * 
+ *
  * @returns The parsed bootstrap data, or null if not available
  */
 export const getBootstrapDataClient = () => {
@@ -348,7 +353,7 @@ export const getBootstrapDataClient = () => {
 
 /**
  * Helper function to determine if the request is a Next.js middleware request.
- * 
+ *
  * @param req The request object to check
  * @returns True if the request is a Next.js middleware request, false otherwise
  */
@@ -359,12 +364,12 @@ function isMiddlewareRequest(req: PosthogRequest): req is NextRequest {
 
 /**
  * Helper function to determine if the request is a Next.js getServerSideProps request.
- * 
+ *
  * @param req The request object to check
  * @returns True if the request is a Next.js getServerSideProps request, false otherwise
  */
 function isGetServerSidePropsRequest(
-	req: PosthogRequest
+	req: PosthogRequest,
 ): req is GetServerSidePropsRequest {
 	// Node.js IncomingMessage has .cookies as an object, not a function
 	return (

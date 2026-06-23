@@ -23,8 +23,6 @@ import alertBannerData from 'data/alert-banner.json'
 import { SkipLinkContext, useCurrentProduct } from 'contexts'
 import SkipToMainContent from 'components/skip-to-main-content'
 import usePostHogPageAnalytics from 'hooks/use-posthog-analytics'
-import { useExperiments } from 'contexts/experiments'
-import { useExperimentExposure } from 'hooks/use-experiment-exposure'
 
 // Local imports
 import { BaseLayoutProps, AlertBannerProps } from './types'
@@ -59,15 +57,10 @@ const BaseLayout = ({
 	})
 	usePostHogPageAnalytics()
 	useScrollPercentageAnalytics()
-	useExperimentExposure('ia-subnav-bar')
 	const [showSkipLink, setShowSkipLink] = useState(false)
 	const currentProduct = useCurrentProduct()
 	const router = useRouter()
-	const { flags } = useExperiments()
-	const iaPosthogKey = flags['ia-subnav-bar']
-	const iaPosthogVariant = iaPosthogKey === 'test'
 	const shouldHaveTallerStickyBars =
-		iaPosthogVariant &&
 		currentProduct &&
 		router.route !== '/_error' &&
 		currentProduct.slug !== 'well-architected-framework'
@@ -121,7 +114,6 @@ const BaseLayout = ({
 					<div
 						className={classNames(s.root, className, {
 							[s.tallStickyBars]: shouldHaveTallerStickyBars,
-							[s.iaStickyBars]: iaPosthogVariant && !shouldHaveTallerStickyBars,
 						})}
 						data-layout="base-new"
 					>

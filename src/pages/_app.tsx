@@ -40,12 +40,12 @@ import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
 import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
-import { ExperimentsProvider } from 'contexts/experiments'
-import {
-	getBootstrapDataClient,
-	getFeatureFlagsFromRequest,
-	type FeatureFlags,
-} from 'lib/posthog'
+// import { ExperimentsProvider } from 'contexts/experiments'
+// import {
+// 	getBootstrapDataClient,
+// 	getFeatureFlagsFromRequest,
+// 	type FeatureFlags,
+// } from 'lib/posthog'
 
 // Local imports
 import './style.css'
@@ -71,10 +71,10 @@ const Adapter: QueryParamAdapterComponent = (props) => (
 	<NextAdapter {...props} />
 )
 
-App.getInitialProps = ({ ctx }) => {
-    const flags = ctx.req ? getFeatureFlagsFromRequest(ctx.req) : {}
-	return { pageProps: { experiments: flags } }
-}
+// App.getInitialProps = ({ ctx }) => {
+//     const flags = ctx.req ? getFeatureFlagsFromRequest(ctx.req) : {}
+// 	return { pageProps: { experiments: flags } }
+// }
 
 export default function App({
 	Component,
@@ -99,30 +99,30 @@ export default function App({
 				},
 			})
 	)
-	const [experimentFlags] = useState<FeatureFlags>(() => {
-		// Server-provided flags take priority (SSR / getServerSideProps pages).
-		const serverFlags = pageProps.experiments ?? {}
-		if (Object.keys(serverFlags).length > 0) {
-			return serverFlags
-		}
-		// On the client, read from the bootstrap cookie synchronously so the
-		// correct variant is available on the very first render. Using a lazy
-		// initializer avoids the useEffect-driven re-render that caused the
-		// control → test flicker on ISR / statically-generated pages.
-		if (typeof window !== 'undefined') {
-			const bootstrapData = getBootstrapDataClient()
-			const cookieFlags = bootstrapData?.featureFlags ?? {}
-			if (Object.keys(cookieFlags).length > 0) {
-				return cookieFlags
-			}
-		}
-		return {}
-	})
+	// const [experimentFlags] = useState<FeatureFlags>(() => {
+	// 	// Server-provided flags take priority (SSR / getServerSideProps pages).
+	// 	const serverFlags = pageProps.experiments ?? {}
+	// 	if (Object.keys(serverFlags).length > 0) {
+	// 		return serverFlags
+	// 	}
+	// 	// On the client, read from the bootstrap cookie synchronously so the
+	// 	// correct variant is available on the very first render. Using a lazy
+	// 	// initializer avoids the useEffect-driven re-render that caused the
+	// 	// control → test flicker on ISR / statically-generated pages.
+	// 	if (typeof window !== 'undefined') {
+	// 		const bootstrapData = getBootstrapDataClient()
+	// 		const cookieFlags = bootstrapData?.featureFlags ?? {}
+	// 		if (Object.keys(cookieFlags).length > 0) {
+	// 			return cookieFlags
+	// 		}
+	// 	}
+	// 	return {}
+	// })
 
 	const currentProduct = pageProps.product || null
 
 	return (
-		<ExperimentsProvider flags={experimentFlags}>
+		// <ExperimentsProvider flags={experimentFlags}>
 			<ConditionalPostHogProvider>
 				<MDSProvider
 					imageComponent={NextImageAdapter}
@@ -160,6 +160,6 @@ export default function App({
 					</QueryClientProvider>
 				</MDSProvider>
 			</ConditionalPostHogProvider>
-		</ExperimentsProvider>
+		// </ExperimentsProvider> 
 	)
 }

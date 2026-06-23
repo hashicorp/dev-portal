@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { resolveProduct } from './revalidate'
+import { resolveProduct } from '../../pages/api/revalidate'
 
 describe('resolveProduct', () => {
 	it('should return "terraform" for product names starting with "terraform-"', () => {

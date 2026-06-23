@@ -4,8 +4,6 @@
  */
 
 import { PropsWithChildren, ReactNode } from 'react'
-import classNames from 'classnames'
-import { useExperiments } from 'contexts/experiments'
 // Layout
 import BaseLayout from 'layouts/base-layout'
 // Styles
@@ -38,13 +36,10 @@ function SidebarLayout({
 	mobileMenuSlot: ReactNode
 	sidebarSlot: ReactNode
 }>) {
-	const { flags } = useExperiments()
-	const iaPosthogKey = flags['ia-subnav-bar']
-	const iaPosthogVariant = iaPosthogKey === 'test'
 	return (
 		<BaseLayout mobileMenuSlot={mobileMenuSlot} showFooterTopBorder>
 			<div className={s.root}>
-				<div className={classNames(s.sidebarArea, { [s.iaSidebarArea]: iaPosthogVariant })}>{sidebarSlot}</div>
+				<div className={s.sidebarArea}>{sidebarSlot}</div>
 				<div className={s.mainArea}>{children}</div>
 			</div>
 		</BaseLayout>

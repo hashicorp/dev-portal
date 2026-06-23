@@ -31,8 +31,6 @@ import type {
 	NavigationHeaderDropdownMenuProps,
 	NavigationHeaderItemGroup,
 } from 'components/navigation-header/types'
-import { useExperiments } from 'contexts/experiments'
-
 // Local imports
 import s from './dropdown-menu.module.css'
 import { trackNavClickEvent } from 'lib/posthog-events'
@@ -61,9 +59,6 @@ const NavigationHeaderDropdownMenu = ({
 	const [isOpen, setIsOpen] = useState(false)
 	const menuId = `navigation-header-menu-${uniqueId}`
 	const hasLeadingIcon = !!leadingIcon
-	const { flags } = useExperiments()
-	const iaPosthogKey = flags['ia-subnav-bar']
-	const iaPosthogVariant = iaPosthogKey === 'test'
 	// Handles closing the menu if there is a click outside of it and it is open.
 	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
 
@@ -205,7 +200,6 @@ const NavigationHeaderDropdownMenu = ({
 			<ProductPanel
 				productCategories={productPanelData.navigationData}
 				promo={productPanelData.navPromo}
-				sidePanel={!iaPosthogVariant && productPanelData.sidePanelContent}
 				isPromoOnTop={true}
 				isDevPortal={true}
 			/>
@@ -336,10 +330,7 @@ const NavigationHeaderDropdownMenu = ({
 	return (
 		<div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
 			<div
-				className={classNames({
-					[s.activatorWrapper]: !iaPosthogVariant,
-					[s.iaActivatorWrapper]: iaPosthogVariant,
-				})}
+				className={s.activatorWrapper}
 			>
 				<button
 					aria-controls={menuId}
