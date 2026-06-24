@@ -33,6 +33,7 @@ When you need to explain or change behavior, verify the current implementation i
 
 1. Verify before you claim. Read the relevant files before stating how the system works.
 1. Start with the smallest change that can solve the problem.
+1. Default to a test-driven workflow for code changes: add or update a failing test first, then make it pass (see "Required workflow: TDD first" below).
 1. Prefer targeted tests before broad refactors.
 1. Keep changes local to the layer you are modifying.
 1. Treat generated artifacts and build outputs as derived from source unless the repo clearly requires direct edits. In this repo, generated output lands in directories such as `src/.generated/` and `src/.extracted/`; treat those as build products, not hand-edited source.
