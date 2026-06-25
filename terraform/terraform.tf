@@ -10,6 +10,10 @@ terraform {
       source  = "integrations/github"
       version = ">= 6.12.0"
     }
+    vercel = {
+      source  = "vercel/vercel"
+      version = ">= 2.0.0"
+    }
   }
 
   backend "remote" {
@@ -32,4 +36,9 @@ provider "github" {
   owner = "hashicorp"
   # PAT comes from env var in HCP:
   # GITHUB_TOKEN
+}
+
+provider "vercel" {
+  api_token = var.vercel_api_token
+  team      = var.vercel_team_slug
 }
