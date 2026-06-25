@@ -50,22 +50,16 @@ Default to a test-driven workflow for code changes.
 1. Run the narrowest relevant test command first.
 1. Run broader validation only after the targeted test passes.
 
-Use these commands as the default validation ladder:
+The primary validation command is the unit suite:
 
 ```sh
 npm run test
-npm run typecheck
-npm run lint
 ```
 
-`npm run test` runs `vitest run`, which executes the unit suite once and exits —
-it does not enter watch mode. Use `npm run test:watch` (`vitest watch`) only when
-you want an interactive watcher. To run a single file or pattern non-interactively,
-use `npx vitest run path/to/file`. `npm run typecheck` runs `tsc -p .` and is also
-wired as a `pre-commit` hook. `npm run lint` runs `eslint .` and only reports
-problems; it does not write fixes. ESLint auto-fix runs separately through
-`lint-staged` on commit (`npm run lint -- --fix`), so if you want fixes applied
-during a task you must pass `--fix` yourself. For CSS, use `npm run lint:stylelint`.
+This runs `vitest run` — a one-shot that executes the suite once and exits, **not**
+a watcher. Run a single file with `npx vitest run path/to/file`. (Typecheck and lint
+run automatically on commit via `simple-git-hooks` and `lint-staged`, so you rarely
+need to run them by hand.)
 
 End-to-end tests use Playwright and require a running server / preview deployment.
 Run them with `npm run test:e2e` and view the report with `npx playwright show-report`.
@@ -82,7 +76,6 @@ such as middleware, redirects, and link rewrites.
 **React components, views, and layouts:**
 - use Vitest with `@testing-library/react` (the project runs in a `jsdom` environment with globals enabled; see `vitest.config.mts`)
 - co-locate test files with the component under `src/components/`, `src/views/`, or `src/layouts/`
-- test rendered behavior and accessibility, not implementation details
 
 **Page / routing behavior:**
 - pages are primarily Pages Router files under `src/pages/`; some API routes use the App Router under `src/app/api/`
@@ -93,18 +86,26 @@ such as middleware, redirects, and link rewrites.
 - per-environment config lives in `config/*.json`, selected by `HASHI_ENV`, and is exposed globally as `__config`
 - config resolution and merging lives in `config/index.js`; tests live in `config/__tests__/`
 
-**Content-only changes:**
-- if the change is only under `src/content/`, code tests may not be the primary validation path
-- still validate frontmatter, links, rendered output, and preview behavior when relevant
+**Landing / authorable content changes (`src/content/`):**
+- `src/content/` holds authorable landing-page content as JSON — sidebar "Resources" items, product/docs/install landing pages, and certifications (see `src/content/README.md`). It is **not** product docs MDX; that content lives in `web-unified-docs`.
+- validate the JSON against its consuming view/types and check the rendered landing page; code tests may not be the primary validation path
 
 ## Local development
 
-Local development requires Vercel environment setup before the app will run correctly.
+This is a developer-only path. It is intentionally not advertised to content
+authors or educators — they do not run this repo directly. (The repo's Docker
+image is the content-repo preview flow, driven from the content / `web-unified-docs`
+side; its `Dockerfile` entrypoint is `scripts/content-repo-preview/start.sh`, not a
+general way to develop the frontend.)
 
-1. Install the Vercel CLI.
-1. Run `vercel link` to connect your local checkout to the Vercel `dev-portal` project.
-1. Run `vercel env pull .env.local` to pull development environment variables.
-1. Remove the `VERCEL="1"` line from `.env.local` (prevents the login flow from using HTTPS URLs).
+Because `dev-portal` renders mostly by fetching content from the unified docs API
+(UDR), running it locally is about pointing the frontend at a UDR backend:
+
+1. The committed `.env` holds the API endpoints. `UNIFIED_DOCS_API` defaults to
+   `http://localhost:8080` (a UDR instance running locally); a deployed UDR URL is
+   also present commented-out. Edit `.env` to point at whichever backend you want.
+1. Secret tokens go in `.env.local` (e.g. `MKTG_CONTENT_API_TOKEN`,
+   `GITHUB_PUBLIC_REPO_TOKEN`) — see `.env.local.example`; ask a teammate for values.
 
 Then install and run:
 
@@ -114,21 +115,26 @@ npm start
 ```
 
 `npm start` runs `next dev --webpack` and serves the app on http://localhost:3000.
-A Docker-based flow is also available; see `README.md` and the root `Dockerfile`.
 To run locally with accessibility checks, use `npm run start:with-axe` (sets `AXE_ENABLED`).
+
+> Note: `README.md` documents a Vercel CLI flow (`vercel link` + `vercel env pull
+> .env.local`). That is stale and not required for typical local frontend work;
+> editing the committed `.env` as above is the practical path.
 
 ## First places to look
 
-Start with the following files before making architectural claims:
+Mechanically, `dev-portal` is a fairly standard Next.js app: it renders pages with
+the Pages Router and fetches most docs content at build/request time from the
+unified docs API (UDR). Start with the surface that matches your change:
 
-- `README.md` for local development, testing, configuration, and repo purpose
-- `package.json` for the supported runtime (`node >=24.0.0 <25.0.0`) and executable commands
-- `vitest.config.mts` for unit test environment, setup files, and excluded paths
-- `playwright.config.ts` for e2e test configuration and projects
-- `config/index.js` and `config/*.json` for environment configuration and `__config`
-- `next.config.js` for build and routing behavior
-- `.github/workflows/ci.yml` for required test and lint CI validation
-- `.github/workflows/playwright.yml` for e2e validation on preview deployments
+- **Rendering / UI**: `src/pages/` (routes), `src/views/` (page views), `src/components/`, `src/layouts/`
+- **Docs content pipeline**: `src/views/docs-view/` (loaders + `server.ts`) — see "How docs pages render and get their content" below
+- **Data / utilities**: `src/lib/` (data fetching, transforms, and their co-located Vitest tests)
+- **Environment / config**: the committed `.env` (API endpoints) and `config/index.js` + `config/*.json` (`__config`, selected by `HASHI_ENV`)
+
+For supporting facts: `package.json` for the runtime (`node >=24.0.0 <25.0.0`) and
+commands, `next.config.js` for build/routing, `vitest.config.mts` (unit) and
+`playwright.config.ts` (e2e) for tests, and `.github/workflows/` for CI and deploys.
 
 Then narrow your search by change type.
 
@@ -158,7 +164,7 @@ feature's behavior, update that co-located documentation in the same PR.
 - `config/`: per-environment JSON configuration and the resolver in `config/index.js`
 - `scripts/`: build, preview, sitemap, redirect, and maintenance scripts
 - `public/`: served static assets
-- `docs/`: internal documentation, decision records (`docs/decisions/`), and local research notes (`docs/.research/`, git-ignored)
+- `docs/`: internal documentation and decision records (`docs/decisions/`)
 - `src/.generated/` and `src/.extracted/`: generated/derived output, not hand-edited source
 
 ### High-value architecture facts
@@ -180,8 +186,8 @@ feature's behavior, update that co-located documentation in the same PR.
 #### Legacy reference: `middleware.ts` vs `proxy.ts`
 
 Older material in and around this repo predates the move to `src/proxy.ts` and
-still says `src/middleware.ts` — for example the git-ignored research notes under
-`docs/.research/`, and (until recently) the `dev-portal-workflows.png` diagram.
+still says `src/middleware.ts` — for example the `dev-portal-workflows.png`
+diagram (until recently).
 If you are reading a legacy doc, comment, PR, or external snippet that references
 `middleware.js`/`middleware.ts`, treat it as the old name for `src/proxy.ts`. Do
 not "restore" a `middleware.ts` file or downgrade the code to match the stale
@@ -238,8 +244,7 @@ legacy content API (`MKTG_CONTENT_DOCS_API`). The switch logic lives in
 ### Architecture diagrams
 
 Three committed diagrams under `docs/architecture-diagrams/` give a visual mental
-model of the above. They are tracked in git (unlike the local notes under
-`docs/.research/`), but they are still secondary references — verify specifics
+model of the above. They are secondary references — verify specifics
 against the code before relying on them. Load them with the image-viewing tool
 when you need the end-to-end picture:
 
@@ -276,32 +281,20 @@ Inspect the following areas first:
 - `src/lib/learn-client/`, `src/lib/integrations-api-client/`, and the `fetch-*` helpers for remote data loading
 - `src/lib/env-checks.js` (`isDeployPreview`) when loading strategy depends on the run context
 
-### If you are adding a new flat-slug docs product
+### If you are working on a flat-slug docs product
 
 A "flat-slug" product is served at `/<slug>/*` (no `/<product>/docs/` segment)
-with content coming from the unified docs API. Well-Architected Framework
-(`well-architected-framework`) is the reference implementation; mirror it,
-substituting the new slug. Verify each of these touchpoints exists for WAF before
-cloning, since the set can drift:
+with content from the unified docs API. Well-Architected Framework
+(`well-architected-framework`) is currently the only product wired up this way, so
+treat it as a worked example, **not** a fixed template — a future flat-slug product
+may not need the same set of files.
 
-- product manifest: `src/data/<slug>.json` (`path: ""` makes pages live at
-  `/<slug>/*`; `basePathForLoader: "docs"` points the loader at the source tree)
-- landing content JSON: `src/content/<slug>/docs-landing.json`
-- landing route: `src/pages/<slug>/index.tsx` (wraps
-  `views/product-root-docs-path-landing/server`)
-- inner-pages route: `src/pages/<slug>/[...page].tsx` (uses
-  `getRootDocsPathGenerationFunctions(slug, '')` and renders `views/docs-view`)
-- landing view: `src/views/<slug>/` (WAF clones
-  `views/product-root-docs-path-landing`)
-- generic-route exclusion: add the slug to `excludedProducts` in
-  `src/pages/[productSlug]/docs/index.tsx`
-- type system: add the slug to `ProductSlug` in `src/types/products.ts` and the
-  corresponding `Exclude`s
-- product helpers: handle the slug in `src/lib/products.ts`
-  (`productSlugsToNames`, `productSlugsToHostNames`)
-- backend handoff: the product must be served by the unified docs API and added
-  to `flags.unified_docs_migrated_repos`; this is a coordinated `web-unified-docs`
-  change (see the relationship section)
+To see what's involved, trace WAF through the code: its manifest in `src/data/`,
+its routes under `src/pages/well-architected-framework/`, its view in `src/views/`,
+its entry in `ProductSlug` (`src/types/products.ts`), and its exclusion from the
+generic docs route (`excludedProducts` in `src/pages/[productSlug]/docs/index.tsx`).
+The backend handoff — serving the slug from the unified docs API and adding it to
+`flags.unified_docs_migrated_repos` — is a coordinated `web-unified-docs` change.
 
 ### If you are changing configuration behavior
 
@@ -347,6 +340,7 @@ This repo is the frontend; it is not the source of truth for the content it rend
 - `dev-portal` owns the user-facing frontend experience, rendering, routing, and presentation
 - `web-unified-docs` owns unified content sourcing, content processing, and the unified docs API for migrated products
 - `dev-portal` also consumes content from the content API (`mktg-content-workflows`), the Learn API, the integrations API, the GitHub API, and the local filesystem
+- the content API (`MKTG_CONTENT_DOCS_API`, `content.hashicorp.com`) is the **legacy** docs source. The repo is incrementally migrating products off it onto the unified docs API — the committed `.env` notes the intent to remove `MKTG_CONTENT_DOCS_API` once migration completes (no firm timeline). Until then, non-migrated products still fall back to it.
 - the unified docs API is consumed via the `UNIFIED_DOCS_API` environment variable; `config/index.js` fetches `${UNIFIED_DOCS_API}/api/supported-products` to populate the `unified_docs_migrated_repos` flag, which controls which products are served from the unified docs pipeline
 - migration helpers for this integration live in `src/lib/unified-docs-migration-utils.ts`
 - some feature work spans both repositories, and preview/production flows may need coordinated changes
@@ -364,15 +358,7 @@ Use the following priority order when gathering context:
 1. Implementation files and tests in this repository
 1. Content-local or feature-local instruction/README files inside the specific directory when the task is scoped to that area
 1. Root operational files such as `README.md`, `package.json`, `vitest.config.mts`, `playwright.config.ts`, `next.config.js`, and `.github/workflows/*.yml`
-1. Focused internal docs under `docs/`, including decision records in `docs/decisions/`
-1. Local research notes under `docs/.research/` as supporting context only
-
-Research notes under `docs/.research/` are git-ignored and local to an individual
-contributor — do not assume those files exist for everyone or in CI. They can also
-be specialized or stale. Treat them as secondary references and verify important
-claims against the live code and workflow files before acting on them. As one
-concrete example of why: some of these notes reference a `src/middleware.ts` file,
-but middleware in this repo actually lives in `src/proxy.ts`.
+1. Focused internal docs under `docs/` (note: `docs/decisions/` ADRs are sparse and historical — only the two 2024 unified-docs env ADRs exist and nothing since — so treat them as background, not an active process)
 
 ## Safe change checklist
 
