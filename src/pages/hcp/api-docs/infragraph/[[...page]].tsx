@@ -77,29 +77,10 @@ export const getStaticProps: GetStaticProps<
 	OpenApiDocsViewProps,
 	OpenApiDocsParams
 > = async ({ params }: GetStaticPropsContext<OpenApiDocsParams>) => {
-	// REMOVE
-	const versionData = [
-		{
-			versionId: '2024-01-01',
-			releaseStage: 'stable',
-			'sourceFile': JSON.stringify({
-				openapi: '3.0.0',
-				info: {
-					title: 'HCP Infragraph',
-					version: '2024-01-01',
-					description: 'Test data'
-				},
-				paths: {},
-				components: { schemas: {} }
-			})
-		}
-	]
-
-
-	// // Fetch all version data, based on remote `stable` & `preview` subfolders
-	// const versionData = await fetchCloudApiVersionData(
-	// 	PAGE_CONFIG.githubSourceDirectory
-	// )
+	// Fetch all version data, based on remote `stable` & `preview` subfolders
+	const versionData = await fetchCloudApiVersionData(
+		PAGE_CONFIG.githubSourceDirectory
+	)
 	// Generate static props based on page configuration, params, and versionData
 	return await getOpenApiDocsStaticProps({
 		...PAGE_CONFIG,
@@ -107,5 +88,6 @@ export const getStaticProps: GetStaticProps<
 		versionData,
 	})
 }
+
 
 export default OpenApiDocsView
