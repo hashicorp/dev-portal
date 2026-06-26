@@ -8,6 +8,7 @@ import SidebarLayout from 'layouts/sidebar-layout'
 // Components
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
+import NoIndexTagForRestrictedDocs from 'components/no-index-tag-for-restricted-docs'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 import VersionSwitcher from 'components/version-switcher'
 import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
@@ -42,6 +43,7 @@ function OpenApiDocsView({
 	serviceProductSlug,
 	versionSwitcherProps,
 	isVersionedUrl,
+	shouldNoIndex,
 	versionAlert,
 	schemaFileString,
 }: OpenApiDocsViewProps) {
@@ -70,6 +72,7 @@ function OpenApiDocsView({
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<NoIndexTagIfVersioned isVersioned={isVersionedUrl} />
+					<NoIndexTagForRestrictedDocs shouldNoIndex={shouldNoIndex} />
 					<OpenApiOverview
 						heading={topOfPageHeading}
 						badgeText={releaseStage}

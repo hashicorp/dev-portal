@@ -178,6 +178,12 @@ export interface OpenApiDocsViewProps {
 	versionAlert?: ApiDocsVersionAlertProps
 
 	/**
+	 * Optional. If set to `true`, a `noindex` will be added to the page even
+	 * if `isVersionedUrl` is false.
+	 */
+	shouldNoIndex?: boolean
+
+	/**
 	 * File string for downloading api-docs spec file
 	 */
 	schemaFileString: string
@@ -240,4 +246,10 @@ export interface OpenApiDocsPageConfig {
 	 * tag-based grouping less useful.
 	 */
 	groupOperationsByPath?: boolean
+
+	/**
+	 * Optional. If set to `true`, a `noindex` will be added to the page even
+	 * if `isVersionedUrl` is false.
+	 */
+	shouldNoIndex?: boolean
 }
