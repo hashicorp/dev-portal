@@ -35,7 +35,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	githubSourceDirectory: {
 		owner: 'hashicorp',
 		repo: 'hcp-specs',
-		path: 'specs/cloud-infragraph-service',
+		path: 'specs/cloud-infragraph',
 		ref: 'main',
 	},
 	groupOperationsByPath: true,
