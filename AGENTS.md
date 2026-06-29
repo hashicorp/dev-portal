@@ -105,7 +105,9 @@ Because `dev-portal` renders mostly by fetching content from the unified docs AP
    `http://localhost:8080` (a UDR instance running locally); a deployed UDR URL is
    also present commented-out. Edit `.env` to point at whichever backend you want.
 1. Secret tokens go in `.env.local` (e.g. `MKTG_CONTENT_API_TOKEN`,
-   `GITHUB_PUBLIC_REPO_TOKEN`) — see `.env.local.example`; ask a teammate for values.
+   `GITHUB_PUBLIC_REPO_TOKEN`) — see `.env.local.example`. Running `vercel link`
+   then `vercel env pull .env.local` (per `README.md`) fetches these from the
+   linked Vercel project, or ask a teammate for values.
 
 Then install and run:
 
@@ -116,10 +118,6 @@ npm start
 
 `npm start` runs `next dev --webpack` and serves the app on http://localhost:3000.
 To run locally with accessibility checks, use `npm run start:with-axe` (sets `AXE_ENABLED`).
-
-> Note: `README.md` documents a Vercel CLI flow (`vercel link` + `vercel env pull
-> .env.local`). That is stale and not required for typical local frontend work;
-> editing the committed `.env` as above is the practical path.
 
 ## First places to look
 
