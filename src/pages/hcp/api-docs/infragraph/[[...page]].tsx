@@ -119,5 +119,4 @@ export const getStaticProps: GetStaticProps<
 	return await generateStaticPropsVersioned(PAGE_CONFIG, params?.page)
 }
 
-
 export default OpenApiDocsViewV2
