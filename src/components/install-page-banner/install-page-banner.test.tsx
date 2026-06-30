@@ -4,7 +4,7 @@
  */
 
 import { render } from '@testing-library/react'
-import InstallPageBanner from '.'
+import { InstallPageBanner } from './index'
 
 describe('InstallPageBanner', () => {
 	describe('with no link', () => {

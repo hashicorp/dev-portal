@@ -4,11 +4,9 @@
  */
 
 import { ReactNode } from 'react'
-import classNames from 'classnames'
-import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+import InlineAlert from 'components/inline-alert'
 import InlineLink from 'components/inline-link'
 import type { InstallPageBannerProps, InstallPageBannerLink } from './types'
-import s from './install-page-banner.module.css'
 
 /**
  * Splits `description` around the first occurrence of `link.text` and returns
@@ -22,19 +20,23 @@ function renderDescription(
 	link?: InstallPageBannerLink
 ): ReactNode {
 	if (!link) {
-		return description
+		return description;
 	}
 
+	const inlineLink = (
+						<InlineLink 
+							href={link.href} 
+							textSize={200}>
+							{link.text}
+						</InlineLink>
+						)
 	const index = description.indexOf(link.text)
 
 	if (index === -1) {
 		// Graceful fallback: link text not found in description string
 		return (
 			<>
-				{description}{' '}
-				<InlineLink href={link.href} textSize={200}>
-					{link.text}
-				</InlineLink>
+				{description} {inlineLink}
 			</>
 		)
 	}
@@ -45,9 +47,7 @@ function renderDescription(
 	return (
 		<>
 			{before}
-			<InlineLink href={link.href} textSize={200}>
-				{link.text}
-			</InlineLink>
+			{inlineLink}
 			{after}
 		</>
 	)
@@ -66,18 +66,15 @@ function renderDescription(
  * Configured via `installBanners.community` or `installBanners.enterprise`
  * in each product's `src/content/{product}/install-landing.json`.
  */
-export default function InstallPageBanner({
-	color,
+export function InstallPageBanner({
 	description,
 	link,
 }: InstallPageBannerProps) {
 	return (
-		<div className={classNames(s.root, color && s[color])}>
-			<span className={s.icon} aria-hidden="true">
-				<IconInfo16 />
-			</span>
-			<p className={s.description}>{renderDescription(description, link)}</p>
-		</div>
+		<InlineAlert 
+			title={""}
+			description={renderDescription(description, link)}
+		/>
 	)
 }
 

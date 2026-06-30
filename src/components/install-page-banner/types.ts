@@ -13,18 +13,6 @@ export interface InstallPageBannerLink {
 }
 
 export interface InstallPageBannerProps {
-	/**
-	 * Controls the banner color scheme.
-	 *
-	 * Omit (or leave undefined) to use the page's product brand color
-	 * automatically via the `--product-color` CSS custom property — this is
-	 * the right default for most products.
-	 *
-	 * Supply a semantic value only when the notice needs to convey urgency
-	 * independent of the product brand (e.g. a deprecation warning).
-	 */
-	color?: 'warning' | 'critical' | 'neutral'
-
 	/** Plain text body. If `link` is provided, `link.text` will be replaced
 	 *  inline with an anchor. */
 	description: string
