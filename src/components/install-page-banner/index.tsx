@@ -54,12 +54,9 @@ function renderDescription(
 /**
  * A configurable notice banner for install pages.
  *
- * By default the banner uses `--product-color` for its border and icon, so it
- * automatically matches the brand color of whatever product page it appears on
- * without any per-product configuration.
- *
- * Pass `color="warning"` or `color="critical"` only when the notice needs to
- * convey urgency independent of the product brand.
+ * Renders a neutral `InlineAlert` whose body is the provided `description`,
+ * with an optional inline link spliced in at the first occurrence of
+ * `link.text` (see `renderDescription`).
  *
  * Configured via `installBanners.community` or `installBanners.enterprise`
  * in each product's `src/content/{product}/install-landing.json`.

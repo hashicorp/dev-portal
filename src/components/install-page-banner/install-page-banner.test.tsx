@@ -30,7 +30,7 @@ describe('InstallPageBanner', () => {
 			const link = getByRole('link', { name: 'migration guide' })
 			expect(link).toHaveAttribute('href', '/vault/docs/upgrading')
 			// The surrounding prose should still be intact around the link
-			expect(link.closest('span')).toHaveTextContent(
+			expect(link.parentElement).toHaveTextContent(
 				'Read the migration guide before upgrading.'
 			)
 		})
@@ -47,7 +47,7 @@ describe('InstallPageBanner', () => {
 			const link = getByRole('link', { name: 'migration guide' })
 			expect(link).toHaveAttribute('href', '/vault/docs/upgrading')
 			// Description text comes first, then the appended link text
-			expect(link.closest('span')).toHaveTextContent(
+			expect(link.parentElement).toHaveTextContent(
 				'Please read the docs for more information. migration guide'
 			)
 		})
