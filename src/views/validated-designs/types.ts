@@ -3,31 +3,39 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ProductSlug } from 'types/products'
+import { VersionSelectItem } from '../docs-view/loaders/remote-content'
+import { OutlineLinkItem } from 'components/outline-nav/types'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
+import {
+	ProductWithCurrentRootDocsPath,
+	RootDocsPath,
+} from 'types/products'
+import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'
+import { OverviewCtaProps } from 'views/product-landing/components/overview-cta/types'
 
-export interface HvdCategoryGroup {
-	slug: string // start of slug e.g. terraform-operation-guides-adoption, used to add to it's guides after the category group is created
-	title: string // from YAML
-	description: string // from YAML
-	productSlug: Exclude<ProductSlug, 'sentinel'>
-	guides: HvdGuide[]
+interface PageContent {
+	pageSubtitle?: string
+	// TODO create a block type
+	marketingContentBlocks: $TSFixMe[]
+	iconCardGridItems?: IconCardGridItem[]
+	hero?: HeroHeadingVisualProps
+	overview?: OverviewCtaProps
 }
 
-export interface HvdGuide {
-	slug: string // base slug e.g. terraform-operation-guides-adoption
-	title: string // from YAML
-	description: string // from YAML
-	href: string // e.g. /validated-designs/terraform-operation-guides-adoption
-	pages: HvdPage[]
+type IconCardGridItem = Pick<RootDocsPath, 'iconName' | 'name' | 'path'>
+
+interface ProductRootDocsPathLandingProps {
+	mdxSource?: MDXRemoteSerializeResult
+	pageContent: PageContent
+	pageHeading: {
+		id: string
+		title: string
+	}
+	product: ProductWithCurrentRootDocsPath
+	versions?: VersionSelectItem[]
+	layoutProps: Omit<SidebarSidecarLayoutProps, 'children'>
+	outlineItems: OutlineLinkItem[]
 }
 
-export interface HvdPage {
-	slug: string // e.g. people-and-process
-	title: string // e.g. people and process
-	href: string // e.g. /validated-designs/terraform-operation-guides-adoption/people-and-process
-	filePath: string // full path to the file e.g. /content/terraform/operation-guides/adoption/0000-people-and-process.mdx
-}
-
-export interface HvdPageMenuItem extends HvdPage {
-	isActive: boolean
-}
+export type { ProductRootDocsPathLandingProps, IconCardGridItem }
