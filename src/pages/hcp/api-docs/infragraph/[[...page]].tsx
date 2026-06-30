@@ -5,11 +5,9 @@
 
 // View
 import OpenApiDocsViewV2 from 'views/open-api-docs-view-v2'
-import {
-	generateStaticPaths,
-	generateStaticPropsVersioned,
-} from 'views/open-api-docs-view-v2/server'
+import { generateStaticPropsVersioned } from 'views/open-api-docs-view-v2/server'
 // Utils
+import { isDeployPreview } from 'lib/env-checks'
 import { getOperationGroupKeyFromPath } from 'views/open-api-docs-view-v2/utils/get-operation-group-key-from-path'
 // Schema transforms
 import { schemaTransformShortenHcp } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-shorten-hcp'
@@ -100,13 +98,28 @@ const PAGE_CONFIG: OpenApiDocsViewV2Config = {
 }
 
 /**
- * Get static paths, using the configured `schemaSource`.
+ * Get static paths for the infragraph OpenAPI docs view.
+ *
+ * Unlike most OpenAPI specs (which use the shared `generateStaticPaths` to
+ * pre-render a page for every operation), the `cloud-infragraph` spec is very
+ * large. Statically rendering every operation page at build time parses and
+ * holds the full schema in memory for each path, which exhausts the Node heap
+ * and causes a "JavaScript heap out of memory" crash during `next build`.
+ *
+ * To avoid this, we only pre-render the landing page and rely on
+ * `fallback: 'blocking'` to render individual operation pages on-demand. This
+ * matches how versioned views are already handled in `generateStaticPaths`.
  */
 export const getStaticPaths: GetStaticPaths<OpenApiDocsV2Params> = async () => {
-	return await generateStaticPaths({
-		schemaSource: PAGE_CONFIG.schemaSource,
-		schemaTransforms: PAGE_CONFIG.schemaTransforms,
-	})
+	// In product repo deploy previews, don't pre-render any paths.
+	if (isDeployPreview()) {
+		return { paths: [], fallback: 'blocking' }
+	}
+	// Only pre-render the landing page; operation pages render via fallback.
+	return {
+		paths: [{ params: { page: [] } }],
+		fallback: 'blocking',
+	}
 }
 
 /**
