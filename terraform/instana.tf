@@ -34,6 +34,7 @@ resource "instana_website_alert_config" "js_errors" {
           metric_name = "errors"
           aggregation = "SUM"
           operator    = "NOT_EMPTY"
+          value = "Any"
         }
       }
       threshold = {
