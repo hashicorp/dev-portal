@@ -165,6 +165,12 @@
 			"name": "Terraform MCP Server",
 			"path": "mcp-server",
 			"productSlugForLoader": "terraform-mcp-server"
+		},
+		{
+			"iconName": "terminal-screen",
+			"name": "tfctl",
+			"path": "tfctl",
+			"productSlugForLoader": "tfctl"
 		}
 	]
 }
