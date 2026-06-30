@@ -75,6 +75,7 @@ export async function getStaticProps({
 	groupOperationsByPath = false,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
+	shouldNoIndex = false,
 }: Omit<OpenApiDocsPageConfig, 'githubSourceDirectory'> & {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	versionData: ApiDocsVersionData[]
@@ -159,6 +160,7 @@ export async function getStaticProps({
 				defaultVersion,
 				basePath,
 			}),
+			shouldNoIndex,
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
 			navResourceItems,
