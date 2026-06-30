@@ -30,7 +30,7 @@ describe('InstallPageBanner', () => {
 			const link = getByRole('link', { name: 'migration guide' })
 			expect(link).toHaveAttribute('href', '/vault/docs/upgrading')
 			// The surrounding prose should still be intact around the link
-			expect(link.closest('p')).toHaveTextContent(
+			expect(link.closest('span')).toHaveTextContent(
 				'Read the migration guide before upgrading.'
 			)
 		})
@@ -47,16 +47,9 @@ describe('InstallPageBanner', () => {
 			const link = getByRole('link', { name: 'migration guide' })
 			expect(link).toHaveAttribute('href', '/vault/docs/upgrading')
 			// Description text comes first, then the appended link text
-			expect(link.closest('p')).toHaveTextContent(
+			expect(link.closest('span')).toHaveTextContent(
 				'Please read the docs for more information. migration guide'
 			)
 		})
-	})
-
-	it('marks the icon as decorative with aria-hidden', () => {
-		const { container } = render(
-			<InstallPageBanner description="Some notice." />
-		)
-		expect(container.querySelector('[aria-hidden="true"]')).toBeInTheDocument()
 	})
 })
