@@ -96,11 +96,11 @@ const ProductDownloadsViewContent = ({
 	)
 
 	// If the version carried over from a previous page (via client-side
-    // navigation, e.g. the install banner link between community/enterprise)
-    // isn't present in this page's release set, fall back to the latest version
-    // so the page always renders rather than crashing on an undefined release.
-    const selectedRelease =
-        releases.versions[currentVersion] ?? releases.versions[latestVersion]
+	// navigation, e.g. the install banner link between community/enterprise)
+	// isn't present in this page's release set, fall back to the latest version
+	// so the page always renders rather than crashing on an undefined release.
+	const selectedRelease =
+		releases.versions[currentVersion] ?? releases.versions[latestVersion]
 	let downloadsByOS = useMemo(
 		() => sortPlatforms(selectedRelease),
 		[selectedRelease]
@@ -162,7 +162,7 @@ const ProductDownloadsViewContent = ({
 				...featuredItems,
 				...sidebarMenuItems,
 			],
-			isEnterpriseMode
+			isEnterpriseMode,
 		),
 	]
 
@@ -269,7 +269,7 @@ const ProductDownloadsView = ({
 				latestVersion,
 				releaseVersions: sortedAndFilteredVersions,
 			}),
-		[latestVersion, sortedAndFilteredVersions]
+		[latestVersion, sortedAndFilteredVersions],
 	)
 
 	return (

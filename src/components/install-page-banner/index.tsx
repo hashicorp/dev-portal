@@ -17,19 +17,17 @@ import type { InstallPageBannerProps, InstallPageBannerLink } from './types'
  */
 function renderDescription(
 	description: string,
-	link?: InstallPageBannerLink
+	link?: InstallPageBannerLink,
 ): ReactNode {
 	if (!link) {
-		return description;
+		return description
 	}
 
 	const inlineLink = (
-						<InlineLink 
-							href={link.href} 
-							textSize={200}>
-							{link.text}
-						</InlineLink>
-						)
+		<InlineLink href={link.href} textSize={200}>
+			{link.text}
+		</InlineLink>
+	)
 	const index = description.indexOf(link.text)
 
 	if (index === -1) {
