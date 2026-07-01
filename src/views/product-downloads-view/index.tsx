@@ -95,6 +95,7 @@ const ProductDownloadsViewContent = ({
 		[currentProduct, isEnterpriseMode, pathname]
 	)
 
+	// Group the selected release downloads by OS, for use in multiple places
 	// If the version carried over from a previous page (via client-side
 	// navigation, e.g. the install banner link between community/enterprise)
 	// isn't present in this page's release set, fall back to the latest version
