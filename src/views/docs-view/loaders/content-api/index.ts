@@ -65,7 +65,6 @@ export async function fetchNavData(
 ) {
 	return retryOn404(async () => {
 		const contentApiBaseUrl = getContentApiBaseUrl(product)
-		console.log({contentApiBaseUrl})
 		const fullPath = `nav-data/${version}/${basePath}`
 		const url = `${contentApiBaseUrl}/api/content/${product}/${fullPath}`
 
