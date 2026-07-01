@@ -15,12 +15,12 @@ resource "instana_alerting_channel" "slack" {
 }
 
 resource "instana_website_alert_config" "js_errors" {
-  name        = "${var.website_name} new RUM error detected"
-  description = "${var.website_name} new RUM error detected"
-  enabled     = true
-  triggering  = false
-  website_id  = instana_website_monitoring_config.devdot.id
-  granularity = var.granularity_minutes * 60000
+  name         = "${var.website_name} new RUM error detected"
+  description  = "${var.website_name} new RUM error detected"
+  enabled      = true
+  triggering   = false
+  website_id   = instana_website_monitoring_config.devdot.id
+  granularity  = var.granularity_minutes * 60000
   grace_period = var.rum_alert_grace_period_minutes * 60000
 
   alert_channel_ids = [
@@ -35,7 +35,7 @@ resource "instana_website_alert_config" "js_errors" {
           metric_name = "errors"
           aggregation = "SUM"
           operator    = "NOT_EMPTY"
-          value = "Any"
+          value       = "Any"
         }
       }
       threshold = {
