@@ -47,7 +47,7 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "intro", "vagrant-cloud", "vmware", "downloads"],
+	"basePaths": ["docs", "intro", "vagrant-cloud", "vmware", "downloads", "hcp-docs"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -64,6 +64,12 @@
 			"iconName": "cloud",
 			"name": "Vagrant Cloud",
 			"path": "vagrant-cloud"
+		},
+		{
+			"iconName": "docs",
+			"name": "HCP Vagrant",
+			"path": "hcp-docs",
+			"productSlugForLoader": "hcp-vagrant"
 		}
 	]
 }
