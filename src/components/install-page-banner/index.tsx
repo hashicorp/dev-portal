@@ -72,5 +72,3 @@ export function InstallPageBanner({
 		/>
 	)
 }
-
-export type { InstallPageBannerProps, InstallPageBannerLink }

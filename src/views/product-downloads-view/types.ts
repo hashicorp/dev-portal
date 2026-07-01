@@ -15,7 +15,7 @@ import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { TryHcpCalloutCompactProps } from 'components/try-hcp-callout/types'
-import { InstallPageBannerProps } from 'components/install-page-banner'
+import { InstallPageBannerProps } from 'components/install-page-banner/types'
 
 /**
  * Raw page content, as structured in .json files
