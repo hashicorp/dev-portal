@@ -8,7 +8,7 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 
 const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
 	'terraform',
-	'terraform-policy',
+	'policy',
 	{ projectName: 'Terraform Policy' }
 )
 

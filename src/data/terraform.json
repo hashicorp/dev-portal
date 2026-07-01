@@ -24,7 +24,7 @@
 		"language",
 		"mcp-server",
 		"migrate",
-		"terraform-policy",
+		"policy",
 		"plugin",
 		"plugin/framework",
 		"plugin/log",
@@ -48,7 +48,7 @@
 			"label": "Provider Use",
 			"fullPath": "/terraform/language/providers"
 		},
-		"terraform-policy",
+		"policy",
 		"plugin",
 		"registry",
 		{
@@ -165,7 +165,7 @@
 		{
 			"iconName": "docs",
 			"name": "Terraform Policy",
-			"path": "terraform-policy",
+			"path": "policy",
 			"productSlugForLoader": "terraform-policy"
 		},
 		{
