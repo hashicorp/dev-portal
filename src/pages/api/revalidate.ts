@@ -75,7 +75,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					const prefix = navDataPrefix ?? path
 
 					const response = await fetch(
-						`${process.env.UNIFIED_DOCS_API}/api/content/${productSlugForLoader}/nav-data/latest/${prefix}`
+						`https://content.hashicorp.com/api/content/${productSlugForLoader}/nav-data/latest/${prefix}`
 					)
 					const { result } = await response.json()
 
