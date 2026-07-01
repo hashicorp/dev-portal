@@ -38,6 +38,12 @@ variable "granularity_minutes" {
   default     = 5
 }
 
+variable "rum_alert_grace_period_minutes" {
+  description = "Cooldown/grace period specified in minutes"
+  type        = number
+  default     = 5
+}
+
 variable "time_window_minutes" {
   description = "Violation sequence time window in minutes."
   type        = number

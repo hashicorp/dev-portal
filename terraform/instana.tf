@@ -21,6 +21,7 @@ resource "instana_website_alert_config" "js_errors" {
   triggering  = false
   website_id  = instana_website_monitoring_config.devdot.id
   granularity = var.granularity_minutes * 60000
+  grace_period = var.rum_alert_grace_period_minutes * 60000
 
   alert_channel_ids = [
     instana_alerting_channel.slack.id,
