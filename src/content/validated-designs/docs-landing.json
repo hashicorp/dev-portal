@@ -15,116 +15,106 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Boundary",
+			"title": "Boundary Enterprise",
 			"cards": [
 				{
-					"title": "Operating Guide for Adoption",
-					"description": "Onboard and operate Boundary in an enterprise environment.",
-					"url": "/validated-designs/boundary/operating-guides/adoption/0000-introduction"
+					"title": "Installation Guide",
+					"description": "Deploy and configure Boundary in an enterprise environment.",
+					"url": "/validated-designs/boundary/installation-guide/introduction"
 				},
 				{
-					"title": "Operating Guide for Standardization",
-					"description": "Standardize Boundary operations across your enterprise.",
-					"url": "/validated-designs/boundary/operating-guides/standardization/0000-introduction"
+					"title": "Administration Guide",
+					"description": "Manage and operate Boundary as a day-2 platform service.",
+					"url": "/validated-designs/boundary/administration-guide/introduction"
 				},
 				{
-					"title": "Solution Design Guide",
-					"description": "Implement Boundary in an enterprise environment.",
-					"url": "/validated-designs/boundary/solution-design-guides/boundary-enterprise/0000-introduction"
+					"title": "User Guide",
+					"description": "Configure and use Boundary features in an enterprise environment.",
+					"url": "/validated-designs/boundary/user-guide/introduction"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Consul",
+			"title": "Consul Enterprise",
 			"cards": [
 				{
-					"title": "Operating Guide for Adoption",
-					"description": "Onboard and operate Consul in an enterprise environment.",
-					"url": "/validated-designs/consul/operating-guides/adoption/0000-Introduction"
+					"title": "Installation Guide",
+					"description": "Deploy and configure Consul in an enterprise environment.",
+					"url": "/validated-designs/consul/installation-guide/introduction"
 				},
 				{
-					"title": "Operating Guide for Scaling (Beta)",
-					"description": "Scale Consul operations in an enterprise environment.",
-					"url": "/validated-designs/consul/operating-guides/scaling/0000-introduction"
+					"title": "Administration Guide",
+					"description": "Manage and operate Consul as a day-2 platform service.",
+					"url": "/validated-designs/consul/administration-guide/introduction"
 				},
 				{
-					"title": "Operating Guide for Standardization (Beta)",
-					"description": "Standardize Consul operations across your enterprise.",
-					"url": "/validated-designs/consul/operating-guides/standardization/0000-Introduction"
-				},
-				{
-					"title": "Solution Design Guide",
-					"description": "Implement Consul in an enterprise environment.",
-					"url": "/validated-designs/consul/solution-design-guides/consul-enterprise-self-hosted/0000-Introduction"
+					"title": "User Guide",
+					"description": "Configure and use Consul features in an enterprise environment.",
+					"url": "/validated-designs/consul/user-guide/introduction"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Nomad",
+			"title": "Nomad Enterprise",
 			"cards": [
 				{
-					"title": "Operating Guide",
-					"description": "Onboard and operate Nomad in an enterprise environment.",
-					"url": "/validated-designs/nomad/operating-guides/nomad-enterprise/0000-introduction"
+					"title": "Installation Guide",
+					"description": "Deploy and configure Nomad in an enterprise environment.",
+					"url": "/validated-designs/nomad/installation-guide/introduction"
 				},
 				{
-					"title": "Solution Design Guide",
-					"description": "Implement Nomad in an enterprise environment.",
-					"url": "/validated-designs/nomad/solution-design-guides/nomad-enterprise/0000-introduction"
+					"title": "Administration Guide",
+					"description": "Manage and operate Nomad as a day-2 platform service.",
+					"url": "/validated-designs/nomad/administration-guide/introduction"
+				},
+				{
+					"title": "User Guide",
+					"description": "Configure and use Nomad features in an enterprise environment.",
+					"url": "/validated-designs/nomad/user-guide/introduction"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Terraform",
+			"title": "Terraform Enterprise",
 			"cards": [
 				{
-					"title": "Operating Guide for Adoption",
-					"description": "Onboard and operate Terraform in an enterprise environment.",
-					"url": "/validated-designs/terraform/operating-guides/adoption/0000-introduction"
+					"title": "Installation Guide",
+					"description": "Deploy Terraform Enterprise, the self-hosted Terraform platform.",
+					"url": "/validated-designs/terraform/installation-guide/introduction"
 				},
 				{
-					"title": "Operating Guide for Scaling (Beta)",
-					"description": "Scale Terraform operations in an enterprise environment.",
-					"url": "/validated-designs/terraform/operating-guides/scaling/0000-introduction"
+					"title": "Administration Guide",
+					"description": "Manage and operate HCP Terraform and Terraform Enterprise as a shared service.",
+					"url": "/validated-designs/terraform/administration-guide/introduction"
 				},
 				{
-					"title": "Operating Guide for Standardization",
-					"description": "Standardize Terraform operations across your enterprise.",
-					"url": "/validated-designs/terraform/operating-guides/standardization/0000-introduction"
-				},
-				{
-					"title": "Solution Design Guide",
-					"description": "Implement Terraform in an enterprise environment.",
-					"url": "/validated-designs/terraform/solution-design-guides/terraform-enterprise/0000-introduction"
+					"title": "User Guide",
+					"description": "Use HCP Terraform and Terraform Enterprise to provision and manage infrastructure.",
+					"url": "/validated-designs/terraform/user-guide/introduction"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Vault",
+			"title": "Vault Enterprise",
 			"cards": [
 				{
-					"title": "Operating Guide for Adoption",
-					"description": "Onboard and operate Vault in an enterprise environment.",
-					"url": "/validated-designs/vault/operating-guides/adoption/0000-Introduction"
+					"title": "Installation Guide",
+					"description": "Deploy Vault Enterprise on virtual machines, cloud infrastructure, or OpenShift.",
+					"url": "/validated-designs/vault/installation-guide/vms/introduction"
 				},
 				{
-					"title": "Operating Guide for Scaling",
-					"description": "Scale Vault operations in an enterprise environment.",
-					"url": "/validated-designs/vault/operating-guides/scaling/0000-introduction"
+					"title": "Administration Guide",
+					"description": "Manage and operate Vault Enterprise as a day-2 platform service.",
+					"url": "/validated-designs/vault/administration-guide/introduction"
 				},
 				{
-					"title": "Operating Guide for Standardization",
-					"description": "Standardize Vault operations across your enterprise.",
-					"url": "/validated-designs/vault/operating-guides/standardization/0000-introduction"
-				},
-				{
-					"title": "Solution Design Guide",
-					"description": "Implement Vault in an enterprise environment.",
-					"url": "/validated-designs/vault/solution-design-guides/vault-enterprise/0000-introduction"
+					"title": "User Guide",
+					"description": "Configure and use Vault Enterprise features in an enterprise environment.",
+					"url": "/validated-designs/vault/user-guide/introduction"
 				}
 			]
 		},
@@ -133,9 +123,14 @@
 			"title": "Vault Radar",
 			"cards": [
 				{
-					"title": "HCP Vault Radar: Operating Guide",
-					"description": "Onboard and operate HCP Vault Radar in an enterprise environment.",
-					"url": "/validated-designs/vault-radar/operating-guides/hcp-vault-radar/0000-introduction"
+					"title": "Administration Guide",
+					"description": "Configure, operate, and govern HCP Vault Radar as a day-2 platform service.",
+					"url": "/validated-designs/vault-radar/administration-guide/introduction"
+				},
+				{
+					"title": "User Guide",
+					"description": "Configure and use HCP Vault Radar features in an enterprise environment.",
+					"url": "/validated-designs/vault-radar/user-guide/introduction"
 				}
 			]
 		}
