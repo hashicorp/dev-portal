@@ -3,14 +3,14 @@
 		"community": {
 			"description": "These instructions install IBM Boundary Community Edition. Looking for enterprise features like session recording, transparent sessions, credential injection, and multi-hop deployments? Refer to the Boundary Enterprise installation page.",
 			"link": {
-				"text": "Boundary Enterprise install page",
+				"text": "Boundary Enterprise installation page",
 				"href": "/boundary/install/enterprise"
 			}
 		},
 		"enterprise": {
-			"description": "These instructions install IBM Boundary Enterprise. For community edition deployments without enterprise features, refer to the Boundary Community Edition install page.",
+			"description": "These instructions install IBM Boundary Enterprise. For a free, self-managed deployment option, refer to the Boundary Community Edition installation page.",
 			"link": {
-				"text": "Boundary Community Edition install page",
+				"text": "Boundary Community Edition installation page",
 				"href": "/boundary/install"
 			}
 		}
