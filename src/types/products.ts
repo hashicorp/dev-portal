@@ -17,6 +17,7 @@ type ProductName =
 	| 'Terraform'
 	| 'Vagrant'
 	| 'Vault'
+	| 'Vault Radar'
 	| 'Waypoint'
 	| 'HCP Vault Secrets'
 
