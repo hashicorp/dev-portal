@@ -1,7 +1,7 @@
 {
 	"installBanners": {
 		"community": {
-			"description": "These instructions install IBM Boundary Community Edition. Looking for enterprise features like HSM support, namespaces, and Sentinel policies? Refer to the Boundary Enterprise install page.",
+			"description": "These instructions install IBM Boundary Community Edition. Looking for enterprise features like session recording, transparent sessions, credential injection, and multi-hop deployments? Refer to the Boundary Enterprise installation page.",
 			"link": {
 				"text": "Boundary Enterprise install page",
 				"href": "/boundary/install/enterprise"
