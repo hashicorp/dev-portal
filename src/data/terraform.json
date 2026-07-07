@@ -166,7 +166,12 @@
 			"iconName": "docs",
 			"name": "Terraform Policy",
 			"path": "policy",
-			"productSlugForLoader": "terraform-policy"
+			"productSlugForLoader": "terraform-policy",
+			"badge": {
+				"text": "BETA",
+				"type": "filled",
+				"color": "neutral"
+			}
 		},
 		{
 			"iconName": "docs",
