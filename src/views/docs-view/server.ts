@@ -45,6 +45,7 @@ import { DocsViewProps } from './types'
 import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 import { getValidVersions } from './utils/get-valid-versions'
 import { VersionSelectItem } from './loaders/remote-content'
+import { emitOtelSpan } from '@scripts/emit-otel-span'
 
 /**
  * Fetches valid versions of a document based on the provided path parts and version information.
@@ -65,7 +66,7 @@ export async function fetchValidVersions(
 	versionPathPart: string,
 	basePathForLoader: string,
 	versions: VersionSelectItem[],
-	productSlugForLoader: string
+	productSlugForLoader: string,
 ): Promise<VersionSelectItem[]> {
 	/**
 	 * Filter versions to include only those where this document exists
@@ -86,7 +87,7 @@ export async function fetchValidVersions(
 		if (/(v\d{6}-\d{1})\/releases/i.test(pathToFetchValidVersions)) {
 			pathToFetchValidVersions = pathToFetchValidVersions.replace(
 				versionPathPart,
-				''
+				'',
 			)
 		}
 	} else {
@@ -97,14 +98,14 @@ export async function fetchValidVersions(
 	}
 	const fullPath = `doc#${path.join(
 		basePathForLoader,
-		pathToFetchValidVersions
+		pathToFetchValidVersions,
 	)}`
 
 	// Filter for valid versions, fetching from the content API under the hood
 	const validVersions = await getValidVersions(
 		versions,
 		fullPath,
-		productSlugForLoader
+		productSlugForLoader,
 	)
 
 	return validVersions
@@ -131,7 +132,7 @@ export function getStaticGenerationFunctions({
 	basePathForLoader = basePath,
 	baseName,
 	additionalRemarkPlugins = [],
-	getScope = async () => ({} as Record<string, unknown>),
+	getScope = async () => ({}) as Record<string, unknown>,
 	mainBranch,
 	navDataPrefix,
 	options = {},
@@ -156,7 +157,7 @@ export function getStaticGenerationFunctions({
 	 * @TODO - set `baseName` using `rootDocsPath`
 	 */
 	const currentRootDocsPath = product.rootDocsPaths?.find(
-		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
+		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath,
 	)
 
 	const loaderOptions: RemoteContentLoader['opts'] = {
@@ -168,7 +169,9 @@ export function getStaticGenerationFunctions({
 
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
 	const getLoader = (
-		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
+		extraOptions?: Partial<
+			ConstructorParameters<typeof RemoteContentLoader>[0]
+		>,
 	) => {
 		if (isDeployPreview(productSlugForLoader)) {
 			return getDeployPreviewLoader({
@@ -226,12 +229,12 @@ export function getStaticGenerationFunctions({
 			}
 		},
 		getStaticProps: async (
-			ctx
+			ctx,
 		): Promise<GetStaticPropsResult<DocsViewProps>> => {
 			const pathParts = (ctx.params.page || []) as string[]
 			const currentPathUnderProduct = `/${path.join(
 				basePathForLoader,
-				pathParts.join('/')
+				pathParts.join('/'),
 			)}`
 			const headings: AnchorLinksPluginHeading[] = [] // populated by anchorLinks plugin below
 
@@ -292,12 +295,24 @@ export function getStaticGenerationFunctions({
 			} catch (error) {
 				console.error(
 					'[docs-view/server] error loading static props after retries',
-					error
+					error,
 				)
 
-				// If it's a 404 after all retries, let the page be 404'd
-				// Return notFound so Next.js shows a 404 page
+				// If it's a 404 after all retries, record an OTel span and return notFound.
+				// The span appears in Instana APM under the 'developer.hashicorp.com' service.
+				// The custom pages/404.tsx also fires ineum('reportEvent', ...) client-side
+				// so the event appears in Instana Website Monitoring as well.
 				if (error.status === 404) {
+					emitOtelSpan({
+						name: 'content not found',
+						scopeName: 'docs-view',
+						attributes: {
+							'content.path': currentPathUnderProduct,
+							'product.slug': product.slug,
+						},
+						status: { message: 'Content not found in content API' },
+					})
+
 					return {
 						notFound: true,
 						revalidate: 10, // Will retry after 10 seconds
@@ -338,7 +353,7 @@ export function getStaticGenerationFunctions({
 			 */
 			let pageHeading: { id: string; title: string }
 			const h1Match = headings.find(
-				(h: AnchorLinksPluginHeading) => h.level === 1
+				(h: AnchorLinksPluginHeading) => h.level === 1,
 			)
 			if (h1Match) {
 				pageHeading = {
@@ -373,7 +388,7 @@ export function getStaticGenerationFunctions({
 							? ctx.params.page
 							: ctx.params.page.join('/')
 					console.warn(
-						`Found an empty title on page "/${product.slug}/${basePath}/${paramsAsPath}". Empty titles are omitted from our sidebar. Ideally, they should be removed in the source MDX.`
+						`Found an empty title on page "/${product.slug}/${basePath}/${paramsAsPath}". Empty titles are omitted from our sidebar. Ideally, they should be removed in the source MDX.`,
 					)
 				}
 			})
@@ -397,7 +412,7 @@ export function getStaticGenerationFunctions({
 			if (versions) {
 				pathParts.find((pathPart, index) => {
 					const matchingVersion = versions.find(
-						(version) => pathPart === version.version
+						(version) => pathPart === version.version,
 					)
 					if (matchingVersion) {
 						versionPathPart = pathPart
@@ -478,7 +493,7 @@ export function getStaticGenerationFunctions({
 				versionPathPart,
 				basePathForLoader,
 				versions,
-				productSlugForLoader
+				productSlugForLoader,
 			)
 
 			/**
@@ -559,7 +574,7 @@ export function getStaticGenerationFunctions({
 				projectName: projectName || null,
 				versions:
 					!hideVersionSelector && hasMeaningfulVersions ? validVersions : null,
-				docHeaders
+				docHeaders,
 			}
 
 			return {
