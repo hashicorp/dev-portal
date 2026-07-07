@@ -92,6 +92,11 @@ export interface SharedProps {
 		isExternal: boolean
 	}[]
 	/**
+	 * Optional. If set to `true`, a `noindex` will be added to the page even
+	 * if `isVersionedUrl` is false.
+	 */
+	shouldNoIndex?: boolean
+	/**
 	 * Optional version metadata. Enables rendering of a version alert
 	 * on non-default versions of the OpenAPI docs.
 	 */
@@ -226,6 +231,11 @@ export interface OpenApiDocsViewV2Config {
 	 * Configuration to set up a status indicator.
 	 */
 	statusIndicatorConfig?: StatusIndicatorConfig
+	/**
+	 * Optional. If set to `true`, a `noindex` will be added to the page even
+	 * if `isVersionedUrl` is false.
+	 */
+	shouldNoIndex?: boolean
 	/**
 	 * Optional hook to allow transformation of versionData after it's been
 	 * fetched from GitHub. Ideally we'd avoid this, the current use case

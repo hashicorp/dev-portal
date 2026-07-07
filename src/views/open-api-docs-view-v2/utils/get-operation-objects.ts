@@ -36,6 +36,12 @@ export function getOperationObjects(
 			if (typeof operation === 'string') {
 				continue
 			}
+
+			const xConfig = operation['x-config'] || {}
+			if (xConfig['hideFromPublicApi']) {
+				continue
+			}
+			
 			// Add the valid operation object to an array, including path and type
 			operationObjects.push({ path, type, ...operation })
 		}
