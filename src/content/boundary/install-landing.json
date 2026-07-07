@@ -1,4 +1,20 @@
 {
+	"installBanners": {
+		"community": {
+			"description": "These instructions install IBM Boundary Community Edition. Looking for enterprise features like HSM support, namespaces, and Sentinel policies? Refer to the Boundary Enterprise install page.",
+			"link": {
+				"text": "Boundary Enterprise install page",
+				"href": "/boundary/install/enterprise"
+			}
+		},
+		"enterprise": {
+			"description": "These instructions install IBM Boundary Enterprise. For community edition deployments without enterprise features, refer to the Boundary Community Edition install page.",
+			"link": {
+				"text": "Boundary Community Edition install page",
+				"href": "/boundary/install"
+			}
+		}
+	},
 	"featuredTutorialsSlugs": [
 		"boundary/oidc-auth0",
 		"boundary/community-vault-cred-brokering-quickstart",

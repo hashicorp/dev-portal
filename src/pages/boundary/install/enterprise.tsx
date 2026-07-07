@@ -1,0 +1,16 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+import boundaryData from 'data/boundary.json'
+import { ProductData } from 'types/products'
+import ProductDownloadsView from 'views/product-downloads-view'
+import { generateGetStaticProps } from 'views/product-downloads-view/server'
+
+const getStaticProps = generateGetStaticProps(boundaryData as ProductData, {
+	isEnterpriseMode: true,
+})
+
+export { getStaticProps }
+export default ProductDownloadsView
