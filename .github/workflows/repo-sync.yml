@@ -151,3 +151,18 @@ jobs:
             })
             // Error loud here, so no try/catch
             console.log('Merged the pull request successfully')
+
+      - name: Emit repo-sync failure span
+        if: failure()
+        run: npx hc-tools ./scripts/emit-otel-span-cli.ts
+        env:
+          # parameters
+          SPAN_NAME: repo-sync failed
+          SPAN_STATUS_MESSAGE: repo-sync workflow failed
+          SPAN_SCOPE_NAME: github-actions
+          SPAN_SERVICE_NAME: developer.hashicorp.com
+          SPAN_ATTRIBUTES: >-
+            {"ci.workflow":"${{ github.workflow }}","ci.run_id":"${{ github.run_id }}","ci.run_url":"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}","git.ref":"${{ github.ref }}"}
+          # secrets
+          INSTANA_OTLP_ENDPOINT: ${{ secrets.INSTANA_OTLP_ENDPOINT }}
+          INSTANA_OTLP_API_TOKEN: ${{ secrets.INSTANA_OTLP_API_TOKEN }}
