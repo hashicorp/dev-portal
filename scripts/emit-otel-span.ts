@@ -5,24 +5,17 @@
 
 import crypto from 'node:crypto'
 
-/**
- * OTLP span status codes.
- * @see https://opentelemetry.io/docs/specs/otel/trace/api/#set-status
- */
-const STATUS_CODE_UNSET = 0
-const STATUS_CODE_ERROR = 2
-
-/**
- * OTLP span kinds.
- * @see https://opentelemetry.io/docs/specs/otel/trace/api/#spankind
- */
-const SPAN_KIND_INTERNAL = 1
-
 /** Default `service.name` resource attribute spans are reported under. */
 const DEFAULT_SERVICE_NAME = 'developer.hashicorp.com'
 
-/** Default instrumentation scope name. */
-const DEFAULT_SCOPE_NAME = 'docs-view'
+/**
+ * OTLP `SPAN_KIND_SERVER`. Reporting the span as an entry call makes Instana
+ * surface it as an endpoint on the service.
+ */
+const SPAN_KIND_SERVER = 2
+
+/** OTLP `STATUS_CODE_ERROR`. Instana counts spans with this status as erroneous. */
+const STATUS_CODE_ERROR = 2
 
 export interface EmitOtelSpanOptions {
 	/** Name of the span, e.g. "content not found". */
@@ -43,7 +36,15 @@ export interface EmitOtelSpanOptions {
 	 */
 	serviceName?: string
 	/** The instrumentation scope name. Defaults to `docs-view`. */
-	scopeName?: string
+	scopeName: string
+	/**
+	 * Host identifier used to associate this data with a host entity in Instana.
+	 * Sent as the `x-instana-host` header and the `host.id` + `host.name` resource
+	 * attributes. Instana groups the resulting call under one process/host entity
+	 * per distinct `host.id`, so keep it stable per source (e.g. the app vs CI).
+	 * Defaults to `process.env.INSTANA_HOST_ID`, falling back to the `serviceName`.
+	 */
+	hostId?: string
 	/**
 	 * The Instana OTLP endpoint to POST the span to.
 	 * Defaults to `process.env.INSTANA_OTLP_ENDPOINT`.
@@ -57,10 +58,20 @@ export interface EmitOtelSpanOptions {
 }
 
 /**
- * Emits a single OTLP span to Instana over HTTP.
+ * Emits a single OTLP span (trace) to Instana over HTTP.
+ *
+ * The event is reported as a `SPAN_KIND_SERVER` span so that Instana surfaces it
+ * as a call/endpoint (named after `name`) on the OpenTelemetry service
+ * identified by `serviceName`. These calls are countable and groupable in
+ * Analyze Calls / Unbounded Analytics (e.g. group by `endpoint.name`, filter by
+ * span attributes), which — unlike raw OTLP metrics — reliably surfaces on this
+ * Instana tenant. Providing `status` marks the call as erroneous.
+ *
+ * The span is POSTed to the configured `INSTANA_OTLP_ENDPOINT`, which must point
+ * at the OTLP traces path (`/v1/traces`).
  *
  * This is shared between the Next.js app (e.g. recording "content not found"
- * spans during static generation) and standalone contexts such as GitHub
+ * events during static generation) and standalone contexts such as GitHub
  * Actions workflows.
  *
  * The returned promise resolves with the `fetch` response so callers can await
@@ -72,7 +83,8 @@ export function emitOtelSpan({
 	attributes = {},
 	status,
 	serviceName = DEFAULT_SERVICE_NAME,
-	scopeName = DEFAULT_SCOPE_NAME,
+	scopeName,
+	hostId = process.env.INSTANA_HOST_ID ?? serviceName,
 	endpoint = process.env.INSTANA_OTLP_ENDPOINT,
 	apiToken = process.env.INSTANA_OTLP_API_TOKEN,
 }: EmitOtelSpanOptions): Promise<Response> {
@@ -91,9 +103,29 @@ export function emitOtelSpan({
 		)
 	}
 
-	const nowNs = (BigInt(Date.now()) * BigInt(1_000_000)).toString()
+	// Millisecond-precision timestamp in nanoseconds. Zero-duration span: the
+	// event is instantaneous, so start and end are equal.
+	const timeUnixNano = (BigInt(Date.now()) * BigInt(1_000_000)).toString()
 	const traceId = crypto.randomBytes(16).toString('hex')
 	const spanId = crypto.randomBytes(8).toString('hex')
+
+	const spanAttributes = Object.entries(attributes).map(([key, value]) => ({
+		key,
+		value: { stringValue: value },
+	}))
+
+	const span: Record<string, unknown> = {
+		traceId,
+		spanId,
+		name,
+		kind: SPAN_KIND_SERVER,
+		startTimeUnixNano: timeUnixNano,
+		endTimeUnixNano: timeUnixNano,
+		attributes: spanAttributes,
+	}
+	if (status) {
+		span.status = { code: STATUS_CODE_ERROR, message: status.message }
+	}
 
 	const payload = {
 		resourceSpans: [
@@ -104,28 +136,20 @@ export function emitOtelSpan({
 							key: 'service.name',
 							value: { stringValue: serviceName },
 						},
+						{
+							key: 'host.id',
+							value: { stringValue: hostId },
+						},
+						{
+							key: 'host.name',
+							value: { stringValue: hostId },
+						},
 					],
 				},
 				scopeSpans: [
 					{
 						scope: { name: scopeName },
-						spans: [
-							{
-								traceId,
-								spanId,
-								name,
-								kind: SPAN_KIND_INTERNAL,
-								startTimeUnixNano: nowNs,
-								endTimeUnixNano: nowNs,
-								attributes: Object.entries(attributes).map(([key, value]) => ({
-									key,
-									value: { stringValue: value },
-								})),
-								status: status
-									? { code: STATUS_CODE_ERROR, message: status.message }
-									: { code: STATUS_CODE_UNSET },
-							},
-						],
+						spans: [span],
 					},
 				],
 			},
@@ -137,6 +161,7 @@ export function emitOtelSpan({
 		headers: {
 			'Content-Type': 'application/json',
 			'x-instana-key': apiToken,
+			'x-instana-host': hostId,
 		},
 		body: JSON.stringify(payload),
 	})

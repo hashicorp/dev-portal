@@ -305,7 +305,7 @@ export function getStaticGenerationFunctions({
 				if (error.status === 404) {
 					emitOtelSpan({
 						name: 'content not found',
-						scopeName: 'docs-view',
+						scopeName: 'src/views/docs-view/server.ts',
 						attributes: {
 							'content.path': currentPathUnderProduct,
 							'product.slug': product.slug,
