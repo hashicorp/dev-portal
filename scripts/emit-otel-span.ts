@@ -106,70 +106,11 @@ function buildSpan({
 }
 
 /**
- * POSTs one or more prebuilt spans to Instana under a single resource and
- * instrumentation scope (`resourceSpans[0].scopeSpans[0].spans`).
- */
-function postSpans({
-	spans,
-	serviceName,
-	scopeName,
-	hostId,
-	endpoint,
-	apiToken,
-}: {
-	spans: Record<string, unknown>[]
-	serviceName: string
-	scopeName: string
-	hostId: string
-	endpoint?: string
-	apiToken?: string
-}): Promise<Response> {
-	if (!endpoint) {
-		return Promise.reject(
-			new Error(
-				'emitOtelSpan: missing OTLP endpoint (set INSTANA_OTLP_ENDPOINT or pass `endpoint`)',
-			),
-		)
-	}
-	if (!apiToken) {
-		return Promise.reject(
-			new Error(
-				'emitOtelSpan: missing OTLP API token (set INSTANA_OTLP_API_TOKEN or pass `apiToken`)',
-			),
-		)
-	}
-
-	const payload = {
-		resourceSpans: [
-			{
-				resource: {
-					attributes: [
-						{ key: 'service.name', value: { stringValue: serviceName } },
-						{ key: 'host.id', value: { stringValue: hostId } },
-						{ key: 'host.name', value: { stringValue: hostId } },
-					],
-				},
-				scopeSpans: [{ scope: { name: scopeName }, spans }],
-			},
-		],
-	}
-
-	return fetch(endpoint, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'x-instana-key': apiToken,
-			'x-instana-host': hostId,
-		},
-		body: JSON.stringify(payload),
-	})
-}
-
-/**
  * Emits one or more OTLP spans (traces) to Instana over HTTP.
  *
  * Pass a single span or an array of spans via `span`; multiple spans are sent
- * in one request under the same resource and scope.
+ * in one request under the same resource and scope
+ * (`resourceSpans[0].scopeSpans[0].spans`).
  *
  * Each span is reported as a `SPAN_KIND_SERVER` span so that Instana surfaces it
  * as a call/endpoint (named after `span.name`) on the OpenTelemetry service
@@ -197,13 +138,49 @@ export function emitOtelSpan({
 	endpoint = process.env.INSTANA_OTLP_ENDPOINT,
 	apiToken = process.env.INSTANA_OTLP_API_TOKEN,
 }: EmitOtelSpanOptions): Promise<Response> {
+	if (!endpoint) {
+		return Promise.reject(
+			new Error(
+				'emitOtelSpan: missing OTLP endpoint (set INSTANA_OTLP_ENDPOINT or pass `endpoint`)',
+			),
+		)
+	}
+	if (!apiToken) {
+		return Promise.reject(
+			new Error(
+				'emitOtelSpan: missing OTLP API token (set INSTANA_OTLP_API_TOKEN or pass `apiToken`)',
+			),
+		)
+	}
+
 	const spanInputs = Array.isArray(span) ? span : [span]
-	return postSpans({
-		spans: spanInputs.map(buildSpan),
-		serviceName,
-		scopeName,
-		hostId,
-		endpoint,
-		apiToken,
+
+	// Build all spans under a single resource and instrumentation scope
+	// (`resourceSpans[0].scopeSpans[0].spans`).
+	const payload = {
+		resourceSpans: [
+			{
+				resource: {
+					attributes: [
+						{ key: 'service.name', value: { stringValue: serviceName } },
+						{ key: 'host.id', value: { stringValue: hostId } },
+						{ key: 'host.name', value: { stringValue: hostId } },
+					],
+				},
+				scopeSpans: [
+					{ scope: { name: scopeName }, spans: spanInputs.map(buildSpan) },
+				],
+			},
+		],
+	}
+
+	return fetch(endpoint, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'x-instana-key': apiToken,
+			'x-instana-host': hostId,
+		},
+		body: JSON.stringify(payload),
 	})
 }
