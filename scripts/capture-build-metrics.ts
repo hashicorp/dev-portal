@@ -151,7 +151,7 @@ async function main() {
 			throw new AggregateError(failedSubmissions)
 		}
 	} catch (error) {
-		if (process.env.NODE_ENV === 'development' || process.env.CI) {
+		if (process.env.CI || process.env.VERCEL_ENV === 'production') {
 			throw error
 		}
 	}
