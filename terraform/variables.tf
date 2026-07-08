@@ -61,3 +61,19 @@ variable "critical_threshold" {
   type        = number
   default     = 2
 }
+
+variable "instana_agent_key" {
+  description = "Agent key used to submit metrics to Instana. Obtained from: https://prod-hashicorp.instana.io/#/instanaagent/installation"
+  type        = string
+  sensitive   = true
+}
+
+variable "instana_otlp_endpoint" {
+  description = "Instana OTLP endpoint for sending metrics to Instana."
+  type        = string
+}
+
+variable "github_repository" {
+  description = "Canonical name of the GitHub repository to manage."
+  type        = string
+}
