@@ -17,7 +17,8 @@ const SPAN_KIND_SERVER = 2
 /** OTLP `STATUS_CODE_ERROR`. Instana counts spans with this status as erroneous. */
 const STATUS_CODE_ERROR = 2
 
-export interface EmitOtelSpanOptions {
+/** A single span to emit. */
+export interface OtelSpanInput {
 	/** Name of the span, e.g. "content not found". */
 	name: string
 	/**
@@ -31,11 +32,26 @@ export interface EmitOtelSpanOptions {
 	 */
 	status?: { message: string }
 	/**
+	 * Span duration in milliseconds, rendered by Instana as the call's latency.
+	 * Defaults to 1ms; values below 1ms are clamped to 1ms (zero-duration spans
+	 * are not surfaced).
+	 */
+	durationMs?: number
+}
+
+export interface EmitOtelSpanOptions {
+	/**
+	 * A single span, or an array of spans, to emit. Multiple spans are batched
+	 * into one request under the same resource and scope
+	 * (`resourceSpans[0].scopeSpans[0].spans`).
+	 */
+	span: OtelSpanInput | OtelSpanInput[]
+	/**
 	 * The `service.name` resource attribute the span is reported under.
 	 * Defaults to `developer.hashicorp.com`.
 	 */
 	serviceName?: string
-	/** The instrumentation scope name. Defaults to `docs-view`. */
+	/** The instrumentation scope name. */
 	scopeName: string
 	/**
 	 * Host identifier used to associate this data with a host entity in Instana.
@@ -57,37 +73,57 @@ export interface EmitOtelSpanOptions {
 	apiToken?: string
 }
 
-/**
- * Emits a single OTLP span (trace) to Instana over HTTP.
- *
- * The event is reported as a `SPAN_KIND_SERVER` span so that Instana surfaces it
- * as a call/endpoint (named after `name`) on the OpenTelemetry service
- * identified by `serviceName`. These calls are countable and groupable in
- * Analyze Calls / Unbounded Analytics (e.g. group by `endpoint.name`, filter by
- * span attributes), which — unlike raw OTLP metrics — reliably surfaces on this
- * Instana tenant. Providing `status` marks the call as erroneous.
- *
- * The span is POSTed to the configured `INSTANA_OTLP_ENDPOINT`, which must point
- * at the OTLP traces path (`/v1/traces`).
- *
- * This is shared between the Next.js app (e.g. recording "content not found"
- * events during static generation) and standalone contexts such as GitHub
- * Actions workflows.
- *
- * The returned promise resolves with the `fetch` response so callers can await
- * delivery when running in short-lived environments like CI. In fire-and-forget
- * contexts the promise can be ignored.
- */
-export function emitOtelSpan({
+/** Builds a single OTLP `SPAN_KIND_SERVER` span object. */
+function buildSpan({
 	name,
 	attributes = {},
 	status,
-	serviceName = DEFAULT_SERVICE_NAME,
+	durationMs = 1,
+}: OtelSpanInput) {
+	// Timestamps in nanoseconds (millisecond precision). Give the span a small
+	// non-zero duration — Instana does not surface zero-duration spans as calls.
+	const durationNs =
+		BigInt(Math.max(1, Math.round(durationMs))) * BigInt(1_000_000)
+	const endTimeUnixNano = BigInt(Date.now()) * BigInt(1_000_000)
+	const startTimeUnixNano = endTimeUnixNano - durationNs
+
+	const span: Record<string, unknown> = {
+		traceId: crypto.randomBytes(16).toString('hex'),
+		spanId: crypto.randomBytes(8).toString('hex'),
+		name,
+		kind: SPAN_KIND_SERVER,
+		startTimeUnixNano: startTimeUnixNano.toString(),
+		endTimeUnixNano: endTimeUnixNano.toString(),
+		attributes: Object.entries(attributes).map(([key, value]) => ({
+			key,
+			value: { stringValue: value },
+		})),
+	}
+	if (status) {
+		span.status = { code: STATUS_CODE_ERROR, message: status.message }
+	}
+	return span
+}
+
+/**
+ * POSTs one or more prebuilt spans to Instana under a single resource and
+ * instrumentation scope (`resourceSpans[0].scopeSpans[0].spans`).
+ */
+function postSpans({
+	spans,
+	serviceName,
 	scopeName,
-	hostId = process.env.INSTANA_HOST_ID ?? serviceName,
-	endpoint = process.env.INSTANA_OTLP_ENDPOINT,
-	apiToken = process.env.INSTANA_OTLP_API_TOKEN,
-}: EmitOtelSpanOptions): Promise<Response> {
+	hostId,
+	endpoint,
+	apiToken,
+}: {
+	spans: Record<string, unknown>[]
+	serviceName: string
+	scopeName: string
+	hostId: string
+	endpoint?: string
+	apiToken?: string
+}): Promise<Response> {
 	if (!endpoint) {
 		return Promise.reject(
 			new Error(
@@ -103,56 +139,17 @@ export function emitOtelSpan({
 		)
 	}
 
-	// Timestamps in nanoseconds (millisecond precision). Give the span a small
-	// non-zero duration — Instana does not surface zero-duration spans as calls.
-	const endTimeUnixNano = BigInt(Date.now()) * BigInt(1_000_000)
-	const startTimeUnixNano = endTimeUnixNano - BigInt(1_000_000)
-	const traceId = crypto.randomBytes(16).toString('hex')
-	const spanId = crypto.randomBytes(8).toString('hex')
-
-	const spanAttributes = Object.entries(attributes).map(([key, value]) => ({
-		key,
-		value: { stringValue: value },
-	}))
-
-	const span: Record<string, unknown> = {
-		traceId,
-		spanId,
-		name,
-		kind: SPAN_KIND_SERVER,
-		startTimeUnixNano: startTimeUnixNano.toString(),
-		endTimeUnixNano: endTimeUnixNano.toString(),
-		attributes: spanAttributes,
-	}
-	if (status) {
-		span.status = { code: STATUS_CODE_ERROR, message: status.message }
-	}
-
 	const payload = {
 		resourceSpans: [
 			{
 				resource: {
 					attributes: [
-						{
-							key: 'service.name',
-							value: { stringValue: serviceName },
-						},
-						{
-							key: 'host.id',
-							value: { stringValue: hostId },
-						},
-						{
-							key: 'host.name',
-							value: { stringValue: hostId },
-						},
+						{ key: 'service.name', value: { stringValue: serviceName } },
+						{ key: 'host.id', value: { stringValue: hostId } },
+						{ key: 'host.name', value: { stringValue: hostId } },
 					],
 				},
-				scopeSpans: [
-					{
-						scope: { name: scopeName },
-						spans: [span],
-					},
-				],
+				scopeSpans: [{ scope: { name: scopeName }, spans }],
 			},
 		],
 	}
@@ -165,5 +162,48 @@ export function emitOtelSpan({
 			'x-instana-host': hostId,
 		},
 		body: JSON.stringify(payload),
+	})
+}
+
+/**
+ * Emits one or more OTLP spans (traces) to Instana over HTTP.
+ *
+ * Pass a single span or an array of spans via `span`; multiple spans are sent
+ * in one request under the same resource and scope.
+ *
+ * Each span is reported as a `SPAN_KIND_SERVER` span so that Instana surfaces it
+ * as a call/endpoint (named after `span.name`) on the OpenTelemetry service
+ * identified by `serviceName`. These calls are countable and groupable in
+ * Analyze Calls / Unbounded Analytics (e.g. group by `endpoint.name`, filter by
+ * span attributes), which — unlike raw OTLP metrics — reliably surfaces on this
+ * Instana tenant. Providing a span `status` marks that call as erroneous.
+ *
+ * The spans are POSTed to the configured `INSTANA_OTLP_ENDPOINT`, which must
+ * point at the OTLP traces path (`/v1/traces`).
+ *
+ * This is shared between the Next.js app (e.g. recording "content not found"
+ * events during static generation) and standalone contexts such as GitHub
+ * Actions workflows.
+ *
+ * The returned promise resolves with the `fetch` response so callers can await
+ * delivery when running in short-lived environments like CI. In fire-and-forget
+ * contexts the promise can be ignored.
+ */
+export function emitOtelSpan({
+	span,
+	serviceName = DEFAULT_SERVICE_NAME,
+	scopeName,
+	hostId = process.env.INSTANA_HOST_ID ?? serviceName,
+	endpoint = process.env.INSTANA_OTLP_ENDPOINT,
+	apiToken = process.env.INSTANA_OTLP_API_TOKEN,
+}: EmitOtelSpanOptions): Promise<Response> {
+	const spanInputs = Array.isArray(span) ? span : [span]
+	return postSpans({
+		spans: spanInputs.map(buildSpan),
+		serviceName,
+		scopeName,
+		hostId,
+		endpoint,
+		apiToken,
 	})
 }

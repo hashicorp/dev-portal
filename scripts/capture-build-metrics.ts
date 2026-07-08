@@ -6,6 +6,7 @@
 import path from 'path'
 import fs from 'fs'
 import { client, v1 } from '@datadog/datadog-api-client'
+import { emitOtelSpan } from './emit-otel-span'
 
 const TRACE_FILE_PATH = './.next/trace'
 const EVENTS = [
@@ -73,72 +74,31 @@ const submitDatadogMetrics = async (metrics: BuildEvent[]) => {
 }
 
 /**
- * Submit build metrics to Instana OpenTelemetry endpoint
+ * Submit build metrics to Instana as OpenTelemetry spans.
+ *
+ * Raw OTLP metrics don't reliably surface on our Instana tenant, so each build
+ * event is reported as a span (via `emitOtelSpan`) whose duration reflects the
+ * build event duration. These appear as calls (named `build.<event>`) on the
+ * app's service and can be charted in Analyze Calls.
  */
 const submitInstanaMetrics = async (metrics: BuildEvent[]) => {
-	const payload = {
-		resourceMetrics: [
-			{
-				resource: {
-					attributes: [
-						{
-							key: 'service.name',
-							value: {
-								stringValue: metrics[0].tags.find(([key]) => {
-									return key === 'app'
-								})?.[1],
-							},
-						},
-					],
-				},
-				scopeMetrics: [
-					{
-						scope: {
-							name: 'capture-build-metrics',
-						},
-						metrics: metrics.map(({ timestamp, tags, ...event }) => {
-							const unixTimeNs = (
-								BigInt(timestamp ?? Math.round(Date.now() / 1e3)) *
-								BigInt(1_000_000_000)
-							).toString()
-
-							return {
-								name: `build.${event.name}`,
-								description: 'Build event duration',
-								unit: 's',
-								gauge: {
-									dataPoints: [
-										{
-											attributes: tags.map(([key, value]) => {
-												return {
-													key,
-													value: { stringValue: value },
-												}
-											}),
-											asDouble: Math.round(event.duration / 1e3),
-											timeUnixNano: unixTimeNs,
-										},
-									],
-								},
-							}
-						}),
-					},
-				],
-			},
-		],
-	}
-	const response = await fetch(process.env.INSTANA_OTLP_ENDPOINT!, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'x-instana-key': process.env.INSTANA_OTLP_API_TOKEN!,
-		},
-		body: JSON.stringify(payload),
+	const response = await emitOtelSpan({
+		scopeName: 'capture-build-metrics',
+		span: metrics.map(({ name, duration, tags }) => {
+			return {
+				name: `build.${name}`,
+				attributes: Object.fromEntries(tags),
+				// Next.js trace durations are in microseconds; convert to milliseconds
+				// so Instana renders the build duration as the call's latency.
+				durationMs: duration / 1e3,
+			}
+		}),
 	})
-	if (![200, 202].includes(response.status)) {
+
+	if (!response.ok) {
 		const responseText = await response.text()
 		throw new Error(
-			`Failed to submit metrics to Instana. Status: ${response.status}, Response: ${responseText}`,
+			`Failed to submit build spans to Instana. Status: ${response.status}, Response: ${responseText}`,
 		)
 	}
 
@@ -146,7 +106,7 @@ const submitInstanaMetrics = async (metrics: BuildEvent[]) => {
 		return `${key}:${value}`
 	})
 	console.log(
-		`〽️ Submitted build metrics to Instana:\n${JSON.stringify(tags, null, 2)}`,
+		`〽️ Submitted build spans to Instana:\n${JSON.stringify(tags, null, 2)}`,
 	)
 }
 

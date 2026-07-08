@@ -11,41 +11,38 @@
  *
  *   npx hc-tools ./scripts/emit-otel-span-cli.ts
  *
- * Configuration is read from environment variables:
- * - SPAN_NAME          (required) span name, e.g. "content not found"
- * - SPAN_STATUS_MESSAGE (optional) if set, marks the span as an error
- * - SPAN_SCOPE_NAME    (optional) instrumentation scope name
- * - SPAN_SERVICE_NAME  (optional) service.name resource attribute
- * - SPAN_HOST_ID       (optional) host identifier, sent as the `x-instana-host`
- *                      header and `host.id` resource attribute. Instana needs
- *                      this to attach agentless data to a host entity so it is
- *                      queryable. Defaults to INSTANA_HOST_ID, then serviceName.
- * - SPAN_ATTRIBUTES    (optional) JSON object of string attributes, e.g.
- *                      '{"content.path":"/vault/docs","product.slug":"vault"}'
- * - INSTANA_OTLP_ENDPOINT  (required) OTLP endpoint
- * - INSTANA_OTLP_API_TOKEN (required) Instana API token
+ * Configuration is read from environment variables, mirroring the parameters of
+ * `emitOtelSpan`:
+ * - SPAN               (required) JSON for the `span` param: either a single
+ *                      span object or an array of span objects. Each object is
+ *                      `{"name":"...","attributes":{...},"status":{"message":"..."},"durationMs":123}`
+ *                      (only `name` is required).
+ * - SPAN_SCOPE_NAME    (required) instrumentation scope name (`scopeName`).
+ * - SPAN_SERVICE_NAME  (optional) `service.name` resource attribute (`serviceName`).
+ * - SPAN_HOST_ID       (optional) host identifier (`hostId`), sent as the
+ *                      `x-instana-host` header and `host.id`/`host.name` attrs.
+ *                      Defaults to INSTANA_HOST_ID, then serviceName.
+ * - INSTANA_OTLP_ENDPOINT  (required) OTLP endpoint (`endpoint`).
+ * - INSTANA_OTLP_API_TOKEN (required) Instana API token (`apiToken`).
  */
 
-import { emitOtelSpan } from './emit-otel-span'
+import { emitOtelSpan, OtelSpanInput } from './emit-otel-span'
 
 async function main() {
-	const name = process.env.SPAN_NAME
-	if (!name) {
-		throw new Error('emit-otel-span-cli: SPAN_NAME is required')
+	const spanJson = process.env.SPAN
+	if (!spanJson) {
+		throw new Error('emit-otel-span-cli: SPAN is required')
 	}
+	const span = JSON.parse(spanJson) as OtelSpanInput | OtelSpanInput[]
 
-	let attributes: Record<string, string> | undefined
-	if (process.env.SPAN_ATTRIBUTES) {
-		attributes = JSON.parse(process.env.SPAN_ATTRIBUTES)
+	const scopeName = process.env.SPAN_SCOPE_NAME
+	if (!scopeName) {
+		throw new Error('emit-otel-span-cli: SPAN_SCOPE_NAME is required')
 	}
-
-	const statusMessage = process.env.SPAN_STATUS_MESSAGE
 
 	const response = await emitOtelSpan({
-		name,
-		attributes,
-		status: statusMessage ? { message: statusMessage } : undefined,
-		scopeName: process.env.SPAN_SCOPE_NAME,
+		span,
+		scopeName,
 		serviceName: process.env.SPAN_SERVICE_NAME,
 		hostId: process.env.SPAN_HOST_ID,
 	})
@@ -56,7 +53,8 @@ async function main() {
 		)
 	}
 
-	console.log(`emit-otel-span-cli: emitted span "${name}"`)
+	const names = (Array.isArray(span) ? span : [span]).map((s) => s.name)
+	console.log(`emit-otel-span-cli: emitted span(s) ${JSON.stringify(names)}`)
 }
 
 main().catch((error) => {

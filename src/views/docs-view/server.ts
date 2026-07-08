@@ -304,13 +304,15 @@ export function getStaticGenerationFunctions({
 				// so the event appears in Instana Website Monitoring as well.
 				if (error.status === 404) {
 					emitOtelSpan({
-						name: 'content not found',
-						scopeName: 'src/views/docs-view/server.ts',
-						attributes: {
-							'content.path': currentPathUnderProduct,
-							'product.slug': product.slug,
+						span: {
+							name: 'content not found',
+							attributes: {
+								'content.path': currentPathUnderProduct,
+								'product.slug': product.slug,
+							},
+							status: { message: 'Content not found in content API' },
 						},
-						status: { message: 'Content not found in content API' },
+						scopeName: 'src/views/docs-view/server.ts',
 					})
 
 					return {
