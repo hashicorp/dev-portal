@@ -103,9 +103,10 @@ export function emitOtelSpan({
 		)
 	}
 
-	// Millisecond-precision timestamp in nanoseconds. Zero-duration span: the
-	// event is instantaneous, so start and end are equal.
-	const timeUnixNano = (BigInt(Date.now()) * BigInt(1_000_000)).toString()
+	// Timestamps in nanoseconds (millisecond precision). Give the span a small
+	// non-zero duration — Instana does not surface zero-duration spans as calls.
+	const endTimeUnixNano = BigInt(Date.now()) * BigInt(1_000_000)
+	const startTimeUnixNano = endTimeUnixNano - BigInt(1_000_000)
 	const traceId = crypto.randomBytes(16).toString('hex')
 	const spanId = crypto.randomBytes(8).toString('hex')
 
@@ -119,8 +120,8 @@ export function emitOtelSpan({
 		spanId,
 		name,
 		kind: SPAN_KIND_SERVER,
-		startTimeUnixNano: timeUnixNano,
-		endTimeUnixNano: timeUnixNano,
+		startTimeUnixNano: startTimeUnixNano.toString(),
+		endTimeUnixNano: endTimeUnixNano.toString(),
 		attributes: spanAttributes,
 	}
 	if (status) {
