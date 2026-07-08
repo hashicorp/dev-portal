@@ -111,10 +111,6 @@ const submitInstanaMetrics = async (metrics: BuildEvent[]) => {
 }
 
 async function main() {
-	if (!process.env.CI || process.env.DEV_IO) {
-		return
-	}
-
 	const [, , appName = 'dev-portal'] = process.argv
 
 	try {
@@ -155,9 +151,6 @@ async function main() {
 			throw new AggregateError(failedSubmissions)
 		}
 	} catch (error) {
-		// Swallow errors
-		// we don't want to impact the build or make it seem like there's been
-		// an error in the actual app if something goes wrong when sending metrics
 		if (process.env.NODE_ENV === 'development' || process.env.CI) {
 			throw error
 		}
