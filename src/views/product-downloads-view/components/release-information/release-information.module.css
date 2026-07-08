@@ -29,9 +29,9 @@
 
 .armUserNote {
 	padding: 16px;
-	min-width: 0; /* this was the change to fix code block overflow */ 
+	min-width: 0; /* overwrites flex children's default behavior of min width conforming to longest content */ 
 
-	& span:last-of-type { /* suggested to remove or limit scope? */
+	& span:last-of-type {
 		width: 100%;
 	}
 }
