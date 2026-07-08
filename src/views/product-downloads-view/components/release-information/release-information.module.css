@@ -29,8 +29,9 @@
 
 .armUserNote {
 	padding: 16px;
+	min-width: 0; /* this was the change to fix code block overflow */ 
 
-	& span:last-of-type {
+	& span:last-of-type { /* suggested to remove or limit scope? */
 		width: 100%;
 	}
 }
