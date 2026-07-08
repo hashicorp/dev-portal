@@ -111,6 +111,10 @@ const submitInstanaMetrics = async (metrics: BuildEvent[]) => {
 }
 
 async function main() {
+	if (process.env.CI) {
+		return
+	}
+
 	const [, , appName = 'dev-portal'] = process.argv
 
 	try {
@@ -151,7 +155,7 @@ async function main() {
 			throw new AggregateError(failedSubmissions)
 		}
 	} catch (error) {
-		if (process.env.CI || process.env.VERCEL_ENV === 'production') {
+		if (process.env.VERCEL_ENV === 'production') {
 			throw error
 		}
 	}
