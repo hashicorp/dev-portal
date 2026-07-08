@@ -30,36 +30,27 @@
  * - INSTANA_OTLP_API_TOKEN (required) Instana API token (`apiToken`).
  */
 
+import { parseArgs } from 'node:util'
+
 import { emitOtelSpan, OtelSpanInput } from './emit-otel-span'
 
-/** Parses `--flag value` and `--flag=value` pairs from argv. */
-function parseArgs(argv: string[]): Record<string, string> {
-	const args: Record<string, string> = {}
-	for (let i = 0; i < argv.length; i++) {
-		const arg = argv[i]
-		if (!arg.startsWith('--')) {
-			continue
-		}
-		const equalsIndex = arg.indexOf('=')
-		if (equalsIndex !== -1) {
-			args[arg.slice(2, equalsIndex)] = arg.slice(equalsIndex + 1)
-		} else {
-			args[arg.slice(2)] = argv[++i]
-		}
-	}
-	return args
-}
-
 async function main() {
-	const args = parseArgs(process.argv.slice(2))
+	const { values } = parseArgs({
+		options: {
+			span: { type: 'string' },
+			'scope-name': { type: 'string' },
+			'service-name': { type: 'string' },
+			'host-id': { type: 'string' },
+		},
+	})
 
-	const spanJson = args['span']
+	const spanJson = values.span
 	if (!spanJson) {
 		throw new Error('emit-otel-span-cli: --span is required')
 	}
 	const span = JSON.parse(spanJson) as OtelSpanInput | OtelSpanInput[]
 
-	const scopeName = args['scope-name']
+	const scopeName = values['scope-name']
 	if (!scopeName) {
 		throw new Error('emit-otel-span-cli: --scope-name is required')
 	}
@@ -67,8 +58,8 @@ async function main() {
 	const response = await emitOtelSpan({
 		span,
 		scopeName,
-		serviceName: args['service-name'],
-		hostId: args['host-id'],
+		serviceName: values['service-name'],
+		hostId: values['host-id'],
 	})
 
 	if (!response.ok) {

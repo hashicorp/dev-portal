@@ -154,7 +154,6 @@ jobs:
 
       - name: Emit repo-sync failure span
         if: failure()
-        # hc-tools strips flags before `--`; everything after it goes to the script.
         run: |
           npx hc-tools ./scripts/emit-otel-span-cli.ts -- \
             --span '{

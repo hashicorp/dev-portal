@@ -303,17 +303,21 @@ export function getStaticGenerationFunctions({
 				// The custom pages/404.tsx also fires ineum('reportEvent', ...) client-side
 				// so the event appears in Instana Website Monitoring as well.
 				if (error.status === 404) {
-					emitOtelSpan({
-						span: {
-							name: 'content not found',
-							attributes: {
-								'content.path': currentPathUnderProduct,
-								'product.slug': product.slug,
+					// Only emit to Instana from Vercel production to avoid noise from
+					// preview/development builds.
+					if (process.env.VERCEL_ENV === 'production') {
+						emitOtelSpan({
+							span: {
+								name: 'content not found',
+								attributes: {
+									'content.path': currentPathUnderProduct,
+									'product.slug': product.slug,
+								},
+								status: { message: 'Content not found in content API' },
 							},
-							status: { message: 'Content not found in content API' },
-						},
-						scopeName: 'src/views/docs-view/server.ts',
-					})
+							scopeName: 'src/views/docs-view/server.ts',
+						})
+					}
 
 					return {
 						notFound: true,
