@@ -11,6 +11,7 @@ import {
 	AccordionWithMdxContent,
 	CertificationsMaxWidth,
 	SignupFormArea,
+	CertificationCardDisplay,
 } from 'views/certifications/components'
 // Local view
 import { CertificationProgramSummaryCard } from './components'
@@ -29,7 +30,35 @@ function CertificationsLandingView({
 			<div className={s.root}>
 				{/* Hero */}
 				<LandingHero heading={hero.heading} description={hero.description} />
-				{/* Program Summaries */}
+				<CertificationsMaxWidth>
+					<div style={{ display: "flex", flexDirection: "column" }}>
+						<CertificationCardDisplay
+							product={"terraform"}
+							title={"Terraform Associate"} 
+							desc={"Brief description to gives the user enough context to take the next step with confidence"} 
+							starCount={3}
+							ctaLink={"certifications"}
+							certDetails={[
+								"Product version tested: Terraform 1.12", 
+								"Terraform basic concepts and skills",
+								"Terraform Associate value proposition"]} 
+							isReduced={true} 
+						/>
+						<CertificationCardDisplay
+							product={"terraform"}
+							title={"Terraform Authoring and Operations Professional"} 
+							desc={"Brief description to gives the user enough context to take the next step with confidence"} 
+							starCount={3}
+							ctaLink={"certifications"}
+							certDetails={[
+								"Product version tested: Terraform 1.12", 
+								"Terraform advanced concepts and skills",
+								"Terraform Professional value proposition"]} 
+							isReduced={true} 
+						/>
+					</div>
+				</CertificationsMaxWidth>
+				{/* Program Summaries
 				<div className={s.programsSection}>
 					{programSummaries.map(
 						(programSummary: CertificationProgramSummary) => {
@@ -46,7 +75,7 @@ function CertificationsLandingView({
 							)
 						}
 					)}
-				</div>
+				</div> */}
 				<div className={s.faqSignupSection}>
 					<CertificationsMaxWidth>
 						<h2 className={s.faqHeading}>{pageContent.faqHeading}</h2>
