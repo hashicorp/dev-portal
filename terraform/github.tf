@@ -6,6 +6,6 @@ module "github_repo" {
     INSTANA_OTLP_ENDPOINT = var.instana_otlp_endpoint
   }
   secrets = {
-    INSTANA_OTLP_API_TOKEN = var.instana_agent_key
+    INSTANA_OTLP_AGENT_TOKEN = var.instana_agent_key
   }
 }
