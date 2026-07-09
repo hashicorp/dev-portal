@@ -17,6 +17,7 @@ import { CertificationProgramSummaryCard } from './components'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import s from './landing.module.css'
 import LandingHero from 'components/landing-hero'
+import { Announcement } from 'views/certifications/components/announcement'
 
 function CertificationsLandingView({
 	pageContent,
@@ -29,8 +30,16 @@ function CertificationsLandingView({
 			<div className={s.root}>
 				{/* Hero */}
 				<LandingHero heading={hero.heading} description={hero.description} />
+				<CertificationsMaxWidth>
+					<Announcement
+						heading="TechXchange is Coming"
+						text="Learn from certified instructors on how to boost your enterprise adoption of HashiCorp"
+						cta="Read more"
+						ctaLink="https://developer.hashicorp.com"
+					/>
+				</CertificationsMaxWidth>
 				{/* Program Summaries */}
-				<div className={s.programsSection}>
+				{/* <div className={s.programsSection}>
 					{programSummaries.map(
 						(programSummary: CertificationProgramSummary) => {
 							const { slug, heading, description, exams } = programSummary
@@ -44,9 +53,9 @@ function CertificationsLandingView({
 									/>
 								</CertificationsMaxWidth>
 							)
-						}
+						},
 					)}
-				</div>
+				</div> */}
 				<div className={s.faqSignupSection}>
 					<CertificationsMaxWidth>
 						<h2 className={s.faqHeading}>{pageContent.faqHeading}</h2>
