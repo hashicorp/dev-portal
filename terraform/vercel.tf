@@ -1,6 +1,6 @@
 locals {
   environment = {
-    INSTANA_AGENT_KEY = {
+    INSTANA_WEBSITE_MONITORING_KEY = {
       value          = instana_website_monitoring_config.devdot.id
       sensitive      = true
       comment        = "Instana RUM/EUM beacon key for devdot."
