@@ -9,6 +9,7 @@ import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import {
 	AccordionWithMdxContent,
+	Announcement,
 	CertificationsMaxWidth,
 	SignupFormArea,
 } from 'views/certifications/components'
@@ -17,7 +18,6 @@ import { CertificationProgramSummaryCard } from './components'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import s from './landing.module.css'
 import LandingHero from 'components/landing-hero'
-import { Announcement } from 'views/certifications/components/announcement'
 
 function CertificationsLandingView({
 	pageContent,
