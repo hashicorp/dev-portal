@@ -73,6 +73,26 @@ variable "instana_otlp_endpoint" {
   type        = string
 }
 
+
+variable "instana_application_violation_time_window_minutes" {
+  description = "Violation sequence time window in minutes for application alerting."
+  type        = number
+  default     = 10
+}
+
+variable "instana_repo_sync_failed_warning_threshold" {
+  description = "Warning threshold for repo-sync-failed application alert throughput."
+  type        = number
+  default     = 1
+}
+
+variable "instana_content_not_found_warning_threshold" {
+  description = "Warning threshold for content-not-found application alert throughput."
+  type        = number
+  default     = 500
+}
+
+
 variable "github_repository" {
   description = "Canonical name of the GitHub repository to manage."
   type        = string
