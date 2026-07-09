@@ -1,8 +1,13 @@
+// Components
 import Heading from '@components/heading'
 import Link from '@components/link'
-import s from './announcement.module.css'
-import { IconGuideLink16 } from '@hashicorp/flight-icons/svg-react/guide-link-16'
 import Text from '@components/text'
+
+// Styles
+import s from './announcement.module.css'
+
+// Icon
+import { IconGuideLink16 } from '@hashicorp/flight-icons/svg-react/guide-link-16'
 
 export const Announcement = ({ heading, text, cta, ctaLink}: { heading: string, text: string, cta: string, ctaLink: string }) => {
     return (
