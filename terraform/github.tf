@@ -1,17 +1,16 @@
 locals {
   secrets = {
     INSTANA_OTLP_AGENT_TOKEN = var.instana_agent_key
+    INSTANA_OTLP_ENDPOINT    = var.instana_otlp_endpoint
   }
-  variables = {
-    INSTANA_OTLP_ENDPOINT = var.instana_otlp_endpoint
-  }
+  variables = {}
 }
 
 resource "github_actions_variable" "this" {
-  for_each    = local.variables
-  repository  = var.github_repository
+  for_each      = local.variables
+  repository    = var.github_repository
   variable_name = each.key
-  value = each.value
+  value         = each.value
 }
 
 # Github Actions Secrets
