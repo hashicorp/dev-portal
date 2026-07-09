@@ -85,6 +85,11 @@ locals {
       instana_alerting_channel.slack.id,
     ]
   }
+  # This is duplicated from var.website_name because although the value is
+  # technically the same, it isn't guarunteed to be and changing it would
+  # break the metric name for the alert rule. So we keep it separate to avoid
+  # confusion.
+  application_service_name = "developer.hashicorp.com"
 }
 
 # @todo Remove after apply - don't actually need to, but this will be a no-op
@@ -161,4 +166,270 @@ resource "instana_application_alert_config" "not_found_alert" {
     }
   }]
   boundary_scope = "INBOUND"
+}
+
+# @todo Remove after apply - don't actually need to, but this will be a no-op
+# so we should probably clean it up
+import {
+  id = "Ny24CKFwSBO2Kg4btaONHg"
+  to = instana_custom_dashboard.devdot_dashboard
+}
+# Custom dashboard for devdot metrics
+resource "instana_custom_dashboard" "devdot_dashboard" {
+  access_rule = [
+    {
+      access_type   = "READ_WRITE"
+      related_id    = "6a22dcb586eff10001254b83"
+      relation_type = "USER"
+    },
+    {
+      access_type   = "READ"
+      relation_type = "GLOBAL"
+    },
+    {
+      access_type   = "READ_WRITE"
+      related_id    = "6a074e0aff31dc0001bade81"
+      relation_type = "USER"
+    },
+  ]
+  title = var.website_name
+  widgets = jsonencode(
+    [
+      {
+        config = {
+          comparisonDecreaseColor = "greenish"
+          comparisonIncreaseColor = "redish"
+          formatter               = "latency.detailed"
+          metricConfiguration = {
+            aggregation      = "MEAN"
+            includeInternal  = false
+            includeSynthetic = false
+            metric           = "latency"
+            source           = "APPLICATION"
+            tagFilterExpression = {
+              elements = [
+                {
+                  entity   = "DESTINATION"
+                  name     = "service.name"
+                  operator = "EQUALS"
+                  type     = "TAG_FILTER"
+                  value    = "${local.application_service_name}"
+                },
+                {
+                  entity   = "DESTINATION"
+                  name     = "endpoint.name"
+                  operator = "EQUALS"
+                  type     = "TAG_FILTER"
+                  value    = "build.total"
+                },
+              ]
+              logicalOperator = "AND"
+              type            = "EXPRESSION"
+            }
+            threshold = {
+              critical         = ""
+              operator         = ">="
+              thresholdEnabled = false
+              warning          = ""
+            }
+            timeShift = 0
+          }
+        }
+        height = 13
+        title  = "Total Build Time (avg)"
+        type   = "bigNumber"
+        width  = 4
+        x      = 7
+        y      = 0
+      },
+      {
+        config = {
+          formatter         = "number.compact"
+          formatterSelected = true
+          metricConfiguration = {
+            aggregation = "SUM"
+            grouping = [
+              {
+                by = {
+                  groupbyTag               = "opentelemetry.tag"
+                  groupbyTagEntity         = "NOT_APPLICABLE"
+                  groupbyTagSecondLevelKey = "content.path"
+                }
+                direction     = "DESC"
+                includeOthers = false
+                maxResults    = 5
+              },
+            ]
+            includeInternal  = false
+            includeSynthetic = false
+            metric           = "calls"
+            source           = "APPLICATION"
+            tagFilterExpression = {
+              elements = [
+                {
+                  entity   = "DESTINATION"
+                  name     = "service.name"
+                  operator = "EQUALS"
+                  type     = "TAG_FILTER"
+                  value    = "${local.application_service_name}"
+                },
+                {
+                  entity   = "DESTINATION"
+                  name     = "endpoint.name"
+                  operator = "EQUALS"
+                  type     = "TAG_FILTER"
+                  value    = "content-not-found"
+                },
+              ]
+              logicalOperator = "AND"
+              type            = "EXPRESSION"
+            }
+            timeShift = 0
+          }
+        }
+        height = 16
+        title  = "Content not found - Path Sum"
+        type   = "topList"
+        width  = 6
+        x      = 5
+        y      = 13
+      },
+      {
+        config = {
+          shareMaxAxisDomain = false
+          type               = "TIME_SERIES"
+          y1 = {
+            formatter         = "latency.detailed"
+            formatterSelected = false
+            metrics = [
+              {
+                aggregation          = "MEAN"
+                color                = ""
+                compareToTimeShifted = false
+                includeInternal      = false
+                includeSynthetic     = false
+                label                = ""
+                metric               = "latency"
+                metricLabel          = "Latency"
+                source               = "APPLICATION"
+                tagFilterExpression = {
+                  elements = [
+                    {
+                      entity   = "DESTINATION"
+                      name     = "service.name"
+                      operator = "EQUALS"
+                      type     = "TAG_FILTER"
+                      value    = "${local.application_service_name}"
+                    },
+                    {
+                      entity   = "DESTINATION"
+                      name     = "endpoint.name"
+                      operator = "EQUALS"
+                      type     = "TAG_FILTER"
+                      value    = "build.total"
+                    },
+                  ]
+                  logicalOperator = "AND"
+                  type            = "EXPRESSION"
+                }
+                threshold = {
+                  critical         = ""
+                  operator         = ">="
+                  thresholdEnabled = false
+                  warning          = ""
+                }
+                timeShift = 0
+              },
+            ]
+            renderer = "line"
+          }
+          y2 = {
+            formatter = "number.detailed"
+            metrics   = []
+            renderer  = "line"
+          }
+        }
+        height = 13
+        title  = "Total Build Time (Aggregate)"
+        type   = "chart"
+        width  = 7
+        x      = 0
+        y      = 0
+      },
+      {
+        config = {
+          shareMaxAxisDomain = false
+          type               = "TIME_SERIES"
+          y1 = {
+            formatter         = "number.detailed"
+            formatterSelected = false
+            metrics = [
+              {
+                aggregation          = "SUM"
+                color                = ""
+                compareToTimeShifted = false
+                grouping = [
+                  {
+                    by = {
+                      groupbyTag               = "endpoint.name"
+                      groupbyTagEntity         = "DESTINATION"
+                      groupbyTagSecondLevelKey = ""
+                    }
+                    direction     = "DESC"
+                    includeOthers = false
+                    maxResults    = 5
+                  },
+                ]
+                includeInternal  = false
+                includeSynthetic = false
+                label            = ""
+                metric           = "calls"
+                metricLabel      = "Calls"
+                source           = "APPLICATION"
+                tagFilterExpression = {
+                  elements = [
+                    {
+                      entity   = "DESTINATION"
+                      name     = "service.name"
+                      operator = "EQUALS"
+                      type     = "TAG_FILTER"
+                      value    = "${local.application_service_name}"
+                    },
+                    {
+                      entity   = "DESTINATION"
+                      name     = "endpoint.name"
+                      operator = "EQUALS"
+                      type     = "TAG_FILTER"
+                      value    = "content-not-found"
+                    },
+                  ]
+                  logicalOperator = "AND"
+                  type            = "EXPRESSION"
+                }
+                threshold = {
+                  critical         = ""
+                  operator         = ">="
+                  thresholdEnabled = false
+                  warning          = ""
+                }
+                timeShift = 0
+              },
+            ]
+            renderer = "line"
+          }
+          y2 = {
+            formatter = "number.detailed"
+            metrics   = []
+            renderer  = "line"
+          }
+        }
+        height = 16
+        title  = "Content not found"
+        type   = "chart"
+        width  = 5
+        x      = 0
+        y      = 13
+      },
+    ]
+  )
 }
