@@ -312,6 +312,8 @@ export function getStaticGenerationFunctions({
 								attributes: {
 									'content.path': currentPathUnderProduct,
 									'product.slug': product.slug,
+									environment: process.env.HASHI_ENV ?? 'local',
+
 								},
 								status: { message: 'Content not found in content API' },
 							},
