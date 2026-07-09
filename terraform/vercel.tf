@@ -1,8 +1,4 @@
-module "vercel_project" {
-  source = "./vercel_project"
-
-  project_id = var.vercel_project_id
-  team_id    = var.vercel_team_slug
+locals {
   environment = {
     INSTANA_AGENT_KEY = {
       value          = instana_website_monitoring_config.devdot.id
@@ -11,4 +7,17 @@ module "vercel_project" {
       client_visible = true
     }
   }
+}
+
+# Vercel Project Environment Variables
+resource "vercel_project_environment_variable" "this" {
+  for_each = locals.environment
+
+  project_id = var.vercel_project_id
+  team_id    = var.vercel_team_slug
+  key        = each.value.client_visible && !startswith(each.key, "NEXT_PUBLIC_") ? format("NEXT_PUBLIC_%s", each.key) : each.key
+  value      = each.value.value
+  target     = each.value.targets != null ? each.value.targets : ["production"]
+  sensitive  = each.value.sensitive != null ? each.value.sensitive : true
+  comment    = "${try(each.value.comment, "")} ${format("Managed by Terraform workspace %s. Do not edit manually.", terraform.workspace)}"
 }
