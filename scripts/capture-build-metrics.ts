@@ -82,17 +82,35 @@ const submitDatadogMetrics = async (metrics: BuildEvent[]) => {
  * app's service and can be charted in Analyze Calls.
  */
 const submitInstanaMetrics = async (metrics: BuildEvent[]) => {
+	const spans = metrics.map(({ name, duration, tags }) => {
+		return {
+			name: `build.${name}`,
+			attributes: Object.fromEntries(tags),
+			// Next.js trace durations are in microseconds; convert to milliseconds
+			// so Instana renders the build duration as the call's latency.
+			durationMs: duration / 1e3,
+		}
+	})
+
+	// Also emit an aggregate `build.total` span whose duration is the sum of all
+	// build phase durations. Instana chart/number widgets can't sum datasets, so
+	// this lets dashboards chart total build time as a single series. Because
+	// avg(sum) == sum(avg), avg(build.total) equals the sum of the per-phase
+	// averages (avg(build.next_build) + avg(build.next_export) + ...).
+	if (metrics.length > 0) {
+		const totalDurationMicros = metrics.reduce((sum, { duration }) => {
+			return sum + duration
+		}, 0)
+		spans.push({
+			name: 'build.total',
+			attributes: Object.fromEntries(metrics[0].tags),
+			durationMs: totalDurationMicros / 1e3,
+		})
+	}
+
 	const response = await emitOtelSpan({
 		scopeName: 'capture-build-metrics',
-		span: metrics.map(({ name, duration, tags }) => {
-			return {
-				name: `build.${name}`,
-				attributes: Object.fromEntries(tags),
-				// Next.js trace durations are in microseconds; convert to milliseconds
-				// so Instana renders the build duration as the call's latency.
-				durationMs: duration / 1e3,
-			}
-		}),
+		span: spans,
 	})
 
 	if (!response.ok) {
@@ -111,10 +129,6 @@ const submitInstanaMetrics = async (metrics: BuildEvent[]) => {
 }
 
 async function main() {
-	if (process.env.CI) {
-		return
-	}
-
 	const [, , appName = 'dev-portal'] = process.argv
 
 	try {
