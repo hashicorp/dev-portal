@@ -68,7 +68,7 @@ export interface EmitOtelSpanOptions {
 	endpoint?: string
 	/**
 	 * The Instana OTLP API token.
-	 * Defaults to `process.env.INSTANA_OTLP_API_TOKEN`.
+	 * Defaults to `process.env.INSTANA_OTLP_AGENT_TOKEN`.
 	 */
 	apiToken?: string
 }
@@ -136,7 +136,7 @@ export function emitOtelSpan({
 	scopeName,
 	hostId = process.env.INSTANA_HOST_ID ?? serviceName,
 	endpoint = process.env.INSTANA_OTLP_ENDPOINT,
-	apiToken = process.env.INSTANA_OTLP_API_TOKEN,
+	apiToken = process.env.INSTANA_OTLP_AGENT_TOKEN,
 }: EmitOtelSpanOptions): Promise<Response> {
 	if (!endpoint) {
 		return Promise.reject(
@@ -148,7 +148,7 @@ export function emitOtelSpan({
 	if (!apiToken) {
 		return Promise.reject(
 			new Error(
-				'emitOtelSpan: missing OTLP API token (set INSTANA_OTLP_API_TOKEN or pass `apiToken`)',
+				'emitOtelSpan: missing OTLP API token (set INSTANA_OTLP_AGENT_TOKEN or pass `apiToken`)',
 			),
 		)
 	}
