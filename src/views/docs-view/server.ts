@@ -308,7 +308,7 @@ export function getStaticGenerationFunctions({
 					if (process.env.VERCEL_ENV === 'production') {
 						emitOtelSpan({
 							span: {
-								name: 'content not found',
+								name: 'content-not-found',
 								attributes: {
 									'content.path': currentPathUnderProduct,
 									'product.slug': product.slug,

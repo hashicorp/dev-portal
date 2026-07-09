@@ -160,7 +160,7 @@ jobs:
         run: |
           npx hc-tools ./scripts/emit-otel-span-cli.ts -- \
             --span '{
-              "name": "repo-sync failed",
+              "name": "repo-sync-failed",
               "status": { "message": "repo-sync workflow failed" },
               "attributes": {
                 "ci.workflow": "${{ github.workflow }}",
