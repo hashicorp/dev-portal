@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Components
 import Heading from '@components/heading'
 import Link from '@components/link'
