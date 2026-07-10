@@ -39,6 +39,7 @@ provider "github" {
 }
 
 provider "vercel" {
-  api_token = var.vercel_api_token
   team      = var.vercel_team_slug
+  # Token comes from env var in HCP:
+  # VERCEL_API_TOKEN
 }

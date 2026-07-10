@@ -101,12 +101,6 @@ variable "github_repository" {
 # -------------------------
 # Vercel
 # -------------------------
-variable "vercel_api_token" {
-  description = "Vercel API token. Can also be set via VERCEL_API_TOKEN env var."
-  type        = string
-  sensitive   = true
-}
-
 variable "vercel_team_slug" {
   description = "Vercel team slug (the part after vercel.com/ in your team URL)."
   type        = string
