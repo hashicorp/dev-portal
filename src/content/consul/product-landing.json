@@ -181,12 +181,6 @@
 			]
 		},
 		{
-			"type": "heading",
-			"heading": "Get Certified",
-			"level": 2,
-			"size": 400
-		},
-		{
 			"type": "collection_cards",
 			"collectionSlugs": ["consul/certification-003"]
 		}
