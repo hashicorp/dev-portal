@@ -9,6 +9,7 @@ import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import {
 	AccordionWithMdxContent,
+	Announcement,
 	CertificationsMaxWidth,
 	SignupFormArea,
 	CertificationCardDisplay,
@@ -57,9 +58,15 @@ function CertificationsLandingView({
 							isReduced={true} 
 						/>
 					</div>
+					<Announcement
+						heading="TechXchange is Coming"
+						text="Learn from certified instructors on how to boost your enterprise adoption of HashiCorp"
+						cta="Read more"
+						ctaLink="https://developer.hashicorp.com"
+					/>
 				</CertificationsMaxWidth>
-				{/* Program Summaries
-				<div className={s.programsSection}>
+				{/* Program Summaries */}
+				{/* <div className={s.programsSection}>
 					{programSummaries.map(
 						(programSummary: CertificationProgramSummary) => {
 							const { slug, heading, description, exams } = programSummary
@@ -73,7 +80,7 @@ function CertificationsLandingView({
 									/>
 								</CertificationsMaxWidth>
 							)
-						}
+						},
 					)}
 				</div> */}
 				<div className={s.faqSignupSection}>
