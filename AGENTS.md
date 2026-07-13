@@ -13,6 +13,9 @@ repo is the frontend — it is **not** the source of truth for the content it re
    pass. See [testing.md](docs/agents/testing.md).
 3. **Middleware lives in `src/proxy.ts`** (Next.js 16 convention), not `src/middleware.ts`.
    Do not create a `middleware.ts` file.
+4. **Keep the guides current.** If your change touches any of the trigger areas listed in
+   [maintaining these guides](docs/agents/maintenance.md#maintenance-rule), update the
+   relevant guide in the same PR. If you skip it, say why in your summary.
 
 ## Key facts
 
