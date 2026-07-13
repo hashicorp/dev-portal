@@ -60,12 +60,6 @@ resource "instana_website_alert_config" "js_errors" {
   }
 }
 
-# @todo Remove after apply - don't actually need to, but this will be a no-op
-# so we should probably clean it up
-import {
-  id = "BkwLjIyeSQasx5EBFRAc3g"
-  to = instana_application_config.devdot
-}
 resource "instana_application_config" "devdot" {
   label          = "web-devdot - ${var.github_repository}"
   boundary_scope = "INBOUND"
@@ -87,12 +81,6 @@ locals {
   }
 }
 
-# @todo Remove after apply - don't actually need to, but this will be a no-op
-# so we should probably clean it up
-import {
-  id = "GHOlFdRaQzef02Ixy0nhcg"
-  to = instana_application_alert_config.repo_sync_failed_alert
-}
 resource "instana_application_alert_config" "repo_sync_failed_alert" {
   name            = "${var.github_repository} repo-sync failed"
   tag_filter      = "endpoint.name@dest EQUALS 'repo-sync-failed'"
@@ -125,12 +113,6 @@ resource "instana_application_alert_config" "repo_sync_failed_alert" {
   boundary_scope = "INBOUND"
 }
 
-# @todo Remove after apply - don't actually need to, but this will be a no-op
-# so we should probably clean it up
-import {
-  id = "tYXabw6kT46BR8VG3h5vWw"
-  to = instana_application_alert_config.not_found_alert
-}
 resource "instana_application_alert_config" "not_found_alert" {
   name            = "high docs content-not-found errors"
   tag_filter      = "endpoint.name@dest EQUALS 'content-not-found'"
@@ -163,12 +145,6 @@ resource "instana_application_alert_config" "not_found_alert" {
   boundary_scope = "INBOUND"
 }
 
-# @todo Remove after apply - don't actually need to, but this will be a no-op
-# so we should probably clean it up
-import {
-  id = "Ny24CKFwSBO2Kg4btaONHg"
-  to = instana_custom_dashboard.devdot_dashboard
-}
 # Custom dashboard for devdot metrics
 resource "instana_custom_dashboard" "devdot_dashboard" {
   access_rule = [
