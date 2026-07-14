@@ -6,7 +6,12 @@
 import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 export class ContentApiError extends Error {
 	name = 'ContentApiError' as const
-	constructor(message: string, public status: number) {
+	constructor(
+		message: string,
+		public status: number,
+		public resource: 'nav-data' | 'doc' | 'version-metadata',
+		public resource_url: string,
+	) {
 		super(message)
 	}
 }
@@ -14,7 +19,7 @@ export class ContentApiError extends Error {
 const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
 	? new Headers({
 			'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-	  })
+		})
 	: new Headers()
 
 /**
@@ -28,10 +33,7 @@ const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
  * @returns The result of the function call
  * @throws The error after all retries are exhausted
  */
-async function retryOn404<T>(
-	fn: () => Promise<T>,
-	retries = 3
-): Promise<T> {
+async function retryOn404<T>(fn: () => Promise<T>, retries = 3): Promise<T> {
 	let lastError: Error
 
 	for (let attempt = 0; attempt < retries; attempt++) {
@@ -46,7 +48,7 @@ async function retryOn404<T>(
 				if (attempt < retries - 1) {
 					// Exponential backoff: 100ms, 200ms, 400ms
 					const delay = 100 * Math.pow(2, attempt)
-					await new Promise(resolve => setTimeout(resolve, delay))
+					await new Promise((resolve) => setTimeout(resolve, delay))
 					continue
 				}
 			}
@@ -61,7 +63,7 @@ async function retryOn404<T>(
 export async function fetchNavData(
 	product: string, //: string, // waypoint
 	basePath: string, //: string, // commands | docs | plugins
-	version: string //: string // v0.5.x
+	version: string, //: string // v0.5.x
 ) {
 	return retryOn404(async () => {
 		const contentApiBaseUrl = getContentApiBaseUrl(product)
@@ -71,7 +73,12 @@ export async function fetchNavData(
 		const response = await fetch(url, { headers })
 
 		if (response.status !== 200) {
-			throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
+			throw new ContentApiError(
+				`Failed to fetch: ${url}`,
+				response.status,
+				'nav-data',
+				url,
+			)
 		}
 
 		const { result } = await response.json()
@@ -86,7 +93,12 @@ export async function fetchDocument(product: string, fullPath: string) {
 		const response = await fetch(url, { headers })
 
 		if (response.status !== 200) {
-			throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
+			throw new ContentApiError(
+				`Failed to fetch: ${url}`,
+				response.status,
+				'doc',
+				url,
+			)
 		}
 
 		const { result } = await response.json()
@@ -101,7 +113,12 @@ export async function fetchVersionMetadataList(product: string) {
 	const response = await fetch(url, { headers })
 
 	if (response.status !== 200) {
-		throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
+		throw new ContentApiError(
+			`Failed to fetch: ${url}`,
+			response.status,
+			'version-metadata',
+			url,
+		)
 	}
 
 	const { result } = await response.json()

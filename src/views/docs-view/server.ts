@@ -313,7 +313,8 @@ export function getStaticGenerationFunctions({
 									'content.path': currentPathUnderProduct,
 									'product.slug': product.slug,
 									environment: process.env.HASHI_ENV ?? 'local',
-
+									'failed.resource': error.resource ?? 'unknown',
+									'failed.resource-url': error.resource_url ?? '',
 								},
 								status: { message: 'Content not found in content API' },
 							},
