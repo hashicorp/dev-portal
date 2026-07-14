@@ -55,8 +55,7 @@ module.exports = async () => {
 	// So we also check if we've already logged it with "alreadyLoggedUDRInfo"
 	if (process.argv[1].includes('.bin/next') && !alreadyLoggedUDRInfo) {
 		alreadyLoggedUDRInfo = true
-		const udrApi = process.env.UNIFIED_DOCS_API || 'undefined'
-		console.log(`⚠️ Loading UDR from "${udrApi + " "}"`)
+		console.log(`⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`)
 		console.log(
 			`⚠️ Loading UDR Products: ${JSON.stringify(
 				appConfig['flags.unified_docs_migrated_repos'],
