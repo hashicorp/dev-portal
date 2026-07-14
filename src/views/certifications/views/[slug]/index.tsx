@@ -6,6 +6,7 @@
 // Global
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
+import image from '../../../../../public/img/homepage/waypoint-slot-accent.svg'
 // Share certifications
 import {
 	AccordionWithMdxContent,
@@ -13,7 +14,12 @@ import {
 	SignupFormArea,
 } from 'views/certifications/components'
 // Local
-import { ExamDetailsCard, ProgramHero, HeadingPermalink } from './components'
+import {
+	ExamDetailsCard,
+	ProgramHero,
+	HeadingPermalink,
+	LinkWithImage,
+} from './components'
 import { CertificationProgramViewProps } from './types'
 import s from './program-view.module.css'
 
@@ -57,6 +63,15 @@ function CertificationProgramView({
 					</div>
 					<div className={s.signupForm}>
 						<SignupFormArea />
+					</div>
+					<div className={s.knowledgeBaseLink}>
+						<LinkWithImage
+							title="knowledge base for FAQs"
+							description="As a cloud engineer specializing in DevOps, IT, security, or development, you can use the HashiCorp certification program to earn formal"
+							cta="Go to knowledge base"
+							ctaLink="https://developer.hashicorp.com"
+							image={image}
+						/>
 					</div>
 				</CertificationsMaxWidth>
 			</div>
