@@ -64,6 +64,7 @@ resource "instana_application_config" "devdot" {
   label          = "web-devdot - ${var.github_repository}"
   boundary_scope = "INBOUND"
   scope          = "INCLUDE_IMMEDIATE_DOWNSTREAM_DATABASE_AND_MESSAGING"
+  tag_filter     = "service.name@dest EQUALS '${instana_website_monitoring_config.devdot.name}'"
 }
 
 
@@ -173,6 +174,6 @@ resource "instana_custom_dashboard" "devdot_dashboard" {
   lifecycle {
     ignore_changes = [
       widgets
-     ]
+    ]
   }
 }
