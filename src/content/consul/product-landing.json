@@ -179,10 +179,6 @@
 				"consul/network-automation",
 				"consul/implement-multi-tenancy"
 			]
-		},
-		{
-			"type": "collection_cards",
-			"collectionSlugs": ["consul/certification-003"]
 		}
 	]
 }
