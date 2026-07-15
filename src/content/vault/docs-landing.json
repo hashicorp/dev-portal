@@ -7,6 +7,7 @@
 		},
 		{
 			"type": "icon-card-grid",
+			"key": "vault-options",
 			"cards": [
 				{
 					"iconName": "vault-color",
@@ -67,6 +68,7 @@
 		},
 		{
 			"type": "icon-card-grid",
+			"key": "work-with-vault",
 			"cards": [
 				{
 					"iconName": "wrench",
