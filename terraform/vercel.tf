@@ -11,13 +11,13 @@ locals {
 
 # Vercel Project Environment Variables
 resource "vercel_project_environment_variable" "this" {
-  for_each = locals.environment
+  for_each = local.environment
 
   project_id = var.vercel_project_id
   team_id    = var.vercel_team_slug
   key        = each.value.client_visible && !startswith(each.key, "NEXT_PUBLIC_") ? format("NEXT_PUBLIC_%s", each.key) : each.key
   value      = each.value.value
-  target     = each.value.targets != null ? each.value.targets : ["production"]
+  target     = coalesce(try(each.value.targets, null), ["production"])
   sensitive  = each.value.sensitive != null ? each.value.sensitive : true
   comment    = "${try(each.value.comment, "")} ${format("Managed by Terraform workspace %s. Do not edit manually.", terraform.workspace)}"
 }
