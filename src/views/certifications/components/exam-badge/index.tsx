@@ -5,8 +5,6 @@
 
 import Image, { ImageProps } from 'next/image'
 import { CertificationProductSlug, ExamTier } from 'views/certifications/types'
-import svgConsulBadgeAssociate from './assets/consul-badge-mini-associate.svg'
-import svgConsulBadgePro from './assets/consul-badge-mini-pro.svg'
 import svgTerraformBadgeAssociate from './assets/terraform-badge-mini-associate.svg'
 import svgTerraformBadgePro from './assets/terraform-badge-mini-pro.svg'
 import svgVaultBadgeAssociate from './assets/vault-badge-mini-associate.svg'
@@ -20,10 +18,6 @@ const BADGE_SVG_MAP: Record<
 	CertificationProductSlug,
 	Record<ExamTier, ImageProps['src']>
 > = {
-	consul: {
-		associate: svgConsulBadgeAssociate,
-		pro: svgConsulBadgePro,
-	},
 	terraform: {
 		associate: svgTerraformBadgeAssociate,
 		pro: svgTerraformBadgePro,
