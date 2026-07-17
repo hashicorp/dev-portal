@@ -15,6 +15,9 @@ module.exports = {
 			`${siteUrl}/server-sitemap.xml`,
 		],
 		policies: [
+			// TODO(HVD): remove this GPTBot disallow once HashiCorp Validated Designs
+			// (/validated-designs) are ready to be publicly indexed. Left in place
+			// intentionally for now; see docs/.research/hvd-bespoke-pipeline-teardown.md §4.
 			{ userAgent: 'GPTBot', disallow: '/validated-designs' },
 			{ userAgent: '*', allow: '/' }, // default policy
 		],
