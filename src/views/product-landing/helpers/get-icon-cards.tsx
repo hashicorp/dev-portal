@@ -22,7 +22,9 @@ export function getIconCards(product: ProductData) {
 		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',
-			url: `/${product.slug}/install`,
+			url: product.slug === 'boundary'
+				? `/${product.slug}/install/enterprise`
+				: `/${product.slug}/install`,
 		})
 	}
 

@@ -114,7 +114,7 @@ After you've got the project running locally with `AXE_ENABLED` set, you can ope
 
 ## Testing
 
-We use [jest](https://jestjs.io/) to write unit tests for our code. We also have [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) integrated for writing tests against our rendered React components.
+We use [Vitest](https://vitest.dev/) to write unit tests for our code. We also have [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) integrated for writing tests against our rendered React components.
 
 To run tests:
 
