@@ -13,10 +13,14 @@
     border: 1px solid var(--mds-color-border-faint);
     box-shadow: var(--token-surface-mid-box-shadow);
     overflow: hidden;
-
+    
     @nest html[data-theme='dark'] & {
-		background-color: var(--mds-color-surface-faint);
+        background-color: var(--mds-color-surface-faint);
 	}
+
+    @media (--dev-dot-tablet), (--dev-dot-mobile) {
+        max-width: 100%;
+    }
 }
 
 .certificationCardReduced {
