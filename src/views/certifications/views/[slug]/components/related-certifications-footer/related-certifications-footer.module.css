@@ -3,4 +3,73 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
- 
+ .relatedCertFooter {
+    display: flex;
+    padding: 88px 192px;
+    gap: 136px;
+    background-color: var(--mds-color-surface-strong);
+
+    @nest html[data-theme='dark'] & {
+		background-color: var(--mds-color-page-faint);
+	}
+
+    @media (--dev-dot-tablet) {
+        flex-direction: column;
+        padding: 48px 40px;
+        gap: 32px;
+    }
+
+    @media (--dev-dot-mobile) {
+        flex-direction: column;
+        padding: 32px 24px;
+        gap: 32px;
+    }
+ }
+
+ /* 
+    Why do properties not cascade down to lower screen sizes??
+ */
+ .relatedCertFooterHeader {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (--dev-dot-tablet), (--dev-dot-mobile) {
+        width: 100%;
+        gap: 32px;
+    }
+ }
+
+ .relatedCertFooterTitle {
+    font-size: 40px;
+ }
+
+ .relatedCertFooterDesc {
+    font-size: 18px;
+    color: var(--mds-color-foreground-primary);
+
+    /* 
+        This was added because tablet/mobile view has darker text???
+    
+        @nest html[data-theme='dark'] & {
+            color: var(--mds-color-palette-neutral-400);
+	    } 
+    */
+ }
+
+ .relatedCertFooterContent {
+    display: flex;
+    gap: 32px;
+
+    @media (--dev-dot-tablet) {
+        width: 100%;
+        gap: 24px;
+    }
+
+    @media (--dev-dot-mobile) {
+        width: 100%;
+        flex-direction: column;
+        gap: 24px;
+    }
+ }

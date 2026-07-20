@@ -20,50 +20,40 @@ import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import s from './landing.module.css'
 import LandingHero from 'components/landing-hero'
 
+import { RelatedCertificationsFooter } from 'views/certifications/views/[slug]/components/related-certifications-footer'
+
 function CertificationsLandingView({
 	pageContent,
 	programSummaries,
 	faqItems,
 }: CertificationLandingProps) {
 	const { hero } = pageContent
+	const relatedCertifications = [
+		{
+			product: 'Terraform',
+			title: 'Terraform Intermediate',
+			ctaLink: '/certifications/terraform-intermediate',
+		},
+		{
+			product: 'Terraform',
+			title: 'Terraform Authoring and Operations Professional',
+			ctaLink:
+				'/certifications/terraform-authoring-and-operations-professional',
+		},
+	]
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
 				{/* Hero */}
 				<LandingHero heading={hero.heading} description={hero.description} />
+				<RelatedCertificationsFooter
+					title={'Related certifications'}
+					desc={
+						'Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum turpis. Sed quam vitae porttitor egestas. Luctus nibh ut posuere'
+					}
+					relatedCertifications={relatedCertifications}
+				/>
 				<CertificationsMaxWidth>
-					<div style={{ display: 'flex', flexDirection: 'column' }}>
-						<CertificationCardDisplay
-							product={'terraform'}
-							title={'Terraform Associate'}
-							desc={
-								'Brief description to gives the user enough context to take the next step with confidence'
-							}
-							starCount={3}
-							ctaLink={'certifications'}
-							certDetails={[
-								'Product version tested: Terraform 1.12',
-								'Terraform basic concepts and skills',
-								'Terraform Associate value proposition',
-							]}
-							isReduced={true}
-						/>
-						<CertificationCardDisplay
-							product={'terraform'}
-							title={'Terraform Authoring and Operations Professional'}
-							desc={
-								'Brief description to gives the user enough context to take the next step with confidence'
-							}
-							starCount={3}
-							ctaLink={'certifications'}
-							certDetails={[
-								'Product version tested: Terraform 1.12',
-								'Terraform advanced concepts and skills',
-								'Terraform Professional value proposition',
-							]}
-							isReduced={true}
-						/>
-					</div>
 					<Announcement
 						heading="TechXchange is Coming"
 						text="Learn from certified instructors on how to boost your enterprise adoption of HashiCorp"
