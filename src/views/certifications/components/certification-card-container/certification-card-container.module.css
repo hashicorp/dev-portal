@@ -1,0 +1,65 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+ .certCardContainer {
+    display: flex;
+    gap: 32px;
+    padding: 64px 0;
+
+    @media (--dev-dot-tablet) {
+        flex-direction: column;
+        padding: 40px 16px;
+    }
+
+    @media (--dev-dot-mobile) {
+        flex-direction: column;
+        padding: 40px 0;
+        gap: 24px;
+    }
+ }
+
+ .certCardContainerHeader {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (--dev-dot-tablet) {
+        width: 100%;
+    }
+
+    @media (--dev-dot-mobile) {
+        width: 100%;
+    }
+ }
+
+ .certCardContainerTitle {
+    display: flex;
+    gap: 16px;
+ }
+
+ .certCardContainerTitleText {
+    font-size: 40px;
+    color: var(--mds-color-foreground-strong);
+ }
+
+ .certCardContainerHeaderDesc {
+    color: var(--mds-color-foreground-primary);
+ }
+
+ .certCardContainerContent {
+    display: flex;
+    flex-grow: 1;
+    gap: 32px;
+
+    @media (--dev-dot-tablet) {
+        width: 100%;
+    }
+
+    @media (--dev-dot-mobile) {
+        flex-direction: column;
+        gap: 24px;
+    }
+ }
