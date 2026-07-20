@@ -32,30 +32,36 @@ function CertificationsLandingView({
 				{/* Hero */}
 				<LandingHero heading={hero.heading} description={hero.description} />
 				<CertificationsMaxWidth>
-					<div style={{ display: "flex", flexDirection: "column" }}>
+					<div style={{ display: 'flex', flexDirection: 'column' }}>
 						<CertificationCardDisplay
-							product={"terraform"}
-							title={"Terraform Associate"} 
-							desc={"Brief description to gives the user enough context to take the next step with confidence"} 
+							product={'terraform'}
+							title={'Terraform Associate'}
+							desc={
+								'Brief description to gives the user enough context to take the next step with confidence'
+							}
 							starCount={3}
-							ctaLink={"certifications"}
+							ctaLink={'certifications'}
 							certDetails={[
-								"Product version tested: Terraform 1.12", 
-								"Terraform basic concepts and skills",
-								"Terraform Associate value proposition"]} 
-							isReduced={true} 
+								'Product version tested: Terraform 1.12',
+								'Terraform basic concepts and skills',
+								'Terraform Associate value proposition',
+							]}
+							isReduced={true}
 						/>
 						<CertificationCardDisplay
-							product={"terraform"}
-							title={"Terraform Authoring and Operations Professional"} 
-							desc={"Brief description to gives the user enough context to take the next step with confidence"} 
+							product={'terraform'}
+							title={'Terraform Authoring and Operations Professional'}
+							desc={
+								'Brief description to gives the user enough context to take the next step with confidence'
+							}
 							starCount={3}
-							ctaLink={"certifications"}
+							ctaLink={'certifications'}
 							certDetails={[
-								"Product version tested: Terraform 1.12", 
-								"Terraform advanced concepts and skills",
-								"Terraform Professional value proposition"]} 
-							isReduced={true} 
+								'Product version tested: Terraform 1.12',
+								'Terraform advanced concepts and skills',
+								'Terraform Professional value proposition',
+							]}
+							isReduced={true}
 						/>
 					</div>
 					<Announcement
