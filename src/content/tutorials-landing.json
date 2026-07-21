@@ -179,7 +179,6 @@
 	},
 	"crossProductSection": {
 		"collectionSlugs": [
-			"well-architected-framework/com",
 			"consul/network-automation"
 		]
 	}
