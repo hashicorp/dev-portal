@@ -29,6 +29,7 @@
 
 .armUserNote {
 	padding: 16px;
+	min-width: 0; /* overwrites flex children's default behavior of min width conforming to longest content */ 
 
 	& span:last-of-type {
 		width: 100%;

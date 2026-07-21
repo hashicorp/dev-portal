@@ -100,7 +100,9 @@ export const getLeftSideNavItems = (
 	if (currentProduct.slug !== 'hcp' && currentProduct.slug !== 'waypoint') {
 		items.push({
 			label: 'Install',
-			url: `/${currentProduct.slug}/install`,
+			url: currentProduct.slug === 'boundary'
+				? `/${currentProduct.slug}/install/enterprise`
+				: `/${currentProduct.slug}/install`,
 		})
 	}
 
