@@ -2,3 +2,49 @@
  * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
+
+.certDetailsTopCard {
+	display: flex;
+	justify-content: space-between;
+
+	@media (--dev-dot-tablet) {
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+		gap: 16px;
+	}
+}
+
+.certDetailsTopCardTitle {
+	width: 33%;
+	font-size: 32px;
+	text-wrap: balance;
+	color: var(--mds-color-foreground-strong);
+
+	@media (--dev-dot-tablet) {
+		width: 100%;
+	}
+	@media (--dev-dot-mobile) {
+		width: 100%;
+		font-size: 24px;
+        text-wrap: initial;
+	}
+}
+
+.certDetailsTopCardDesc {
+	width: 67%;
+	font-size: 18px;
+	color: var(--mds-color-foreground-primary);
+
+	@media (--dev-dot-tablet) {
+		width: 100%;
+	}
+
+	@media (--dev-dot-mobile) {
+		width: 100%;
+		font-size: 16px;
+	}
+}
