@@ -14,20 +14,21 @@ interface CertificationCardContainerProps {
 	containerDesc: string
 	certData: CertificationCardProps[]
 }
+
+const MAX_NUM_CERTIFICATIONS = 2;
 /* 
     Things to note:
-    1. Might want to restrict the number of certification cards to n cards (e.g. n = 2)
-    2a. Need to insert a product icon here based on the product name
-	2b. Found how the icons are being rendered: https://github.com/hashicorp/dev-portal/blob/main/src/views/certifications/components/exam-badge/index.tsx#L34
-    3. Determine how much space is needed for section of the container
-    4. Address turning the product name into Title case when fed as a lowercase string
-    5. MAX WIDTH ON CERTIFICATION CARDS LEAVES SOME EXTRA SPACE ON TABLET/MOBILE VIEWS; Might want to consider removing.
+    1a. Need to insert a product icon here based on the product name
+	1b. Found how the icons are being rendered: https://github.com/hashicorp/dev-portal/blob/main/src/views/certifications/components/exam-badge/index.tsx#L34
 */
+
 export function CertificationCardContainer({
 	product,
 	containerDesc,
 	certData,
 }: CertificationCardContainerProps) {
+	certData = certData.slice(0, MAX_NUM_CERTIFICATIONS); // Limit the number of certifications displayed to MAX_NUM_CERTIFICATIONS
+
 	return (
 		<div className={s.certCardContainer}>
 			<div className={s.certCardContainerHeader}>
