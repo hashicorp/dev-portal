@@ -4,6 +4,14 @@
  */
 import { execSync } from 'child_process'
 
+const sensitiveKeys = [
+	process.env.DD_API_KEY,
+]
+
+const redactSensitiveKeys = (string: string) => {
+	return string.replace(new RegExp(sensitiveKeys.join('|'), 'g'), '[REDACTED]')
+}
+
 /**
  * Uploads source maps to Datadog and then deletes source maps to prevent bundle size increase and leaking of source code.
  */
@@ -36,7 +44,7 @@ const main = () => {
 
 		console.log('Source maps uploaded successfully')
 	} catch (error) {
-		console.error(error)
+		console.error(redactSensitiveKeys(String(error)))
 
 		console.log('Failed to upload sourcemaps')
 	}
@@ -45,7 +53,7 @@ const main = () => {
 	try {
 		execSync(`rm -f .next/static/**/*.js.map`)
 	} catch (error) {
-		console.error(error)
+		console.error(redactSensitiveKeys(String(error)))
 
 		console.log('Failed to delete sourcemaps')
 	}

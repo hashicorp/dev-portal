@@ -275,6 +275,7 @@ const ProductDownloadsView = ({
 
 	return (
 		<CurrentVersionProvider
+			key={latestVersion}
 			initialValue={latestVersion}
 			latestVersion={latestVersion}
 		>
