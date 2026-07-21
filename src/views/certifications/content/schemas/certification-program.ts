@@ -13,7 +13,6 @@ import { z } from 'zod'
  * will need to be expanded when additional certification programs are added.
  */
 export const productsWithCertifications = [
-	'consul',
 	'terraform',
 	'vault',
 ] as const
