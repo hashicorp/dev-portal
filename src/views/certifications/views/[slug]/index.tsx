@@ -54,6 +54,11 @@ function CertificationProgramView({
 					value:
 						'$70.50 USD, plus locally applicable taxes and fees. Free retake not included.',
 				},
+				{
+					name: 'Keyboard',
+					value:
+						'US QWERTY only (contact certifications@hashicorp.com for other languages or layouts)',
+				},
 			],
 		},
 		prerequisites: {

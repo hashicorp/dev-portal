@@ -9,10 +9,13 @@
 
 	/* the gradient background absolute position references the root container */
 	position: relative;
+	
+	/* enables the current card to grow to the tallest/widest card in the flex container */
+	flex-grow: 1;
 }
 
 .inner {
-	/* padding: 24px; */
+	height: 100%;
 	padding: 40px 32px;
 	position: relative;
 
@@ -87,8 +90,9 @@
 	}
 
 	/* Gradient drop shadow, that appears "below" the card using z-index */
-	&::before {
-		content: '\200B'; /* zero width space */
+	
+	/* &::before {
+		content: '\200B'; zero width space
 		position: absolute;
 		bottom: var(--shadow-inset);
 		left: var(--shadow-inset);
@@ -97,7 +101,8 @@
 		background: var(--shadow-background);
 		filter: blur(50px);
 		z-index: -1;
-	}
+	} 
+	**/
 
 	/* Theme classes for specific shadow & "border" gradient coloration */
 	&.theme-infrastructure-automation {

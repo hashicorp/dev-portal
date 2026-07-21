@@ -3,6 +3,21 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.certDetails {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.certDetailsBottom {
+	display: flex;
+	gap: 32px;
+
+	@media (--dev-dot-tablet), (--dev-dot-mobile) {
+		flex-direction: column;
+	}
+}
+
 .certDetailsTopCard {
 	display: flex;
 	justify-content: space-between;
@@ -30,7 +45,7 @@
 	@media (--dev-dot-mobile) {
 		width: 100%;
 		font-size: 24px;
-        text-wrap: initial;
+		text-wrap: initial;
 	}
 }
 
@@ -47,4 +62,96 @@
 		width: 100%;
 		font-size: 16px;
 	}
+}
+
+.certDetailsBottomLeftCard {
+    display: flex;
+	width: 50%;
+
+	@media (--dev-dot-tablet), (--dev-dot-mobile) {
+		width: 100%;
+	}
+}
+
+.certDetailsBottomLeftCardContents {
+    height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.certDetailsBottomLeftCardTitle {
+	font-size: 32px;
+	color: var(--mds-color-foreground-strong);
+}
+
+.certDetailsBottomLeftCardList {
+	height: 100%;
+	display: flex;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	flex-wrap: wrap;
+}
+
+.certDetailsBottomLeftCardListItem {
+	width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    /* add margin except for the last item in the list to avoid extra space at the bottom */
+    &:not(:last-child) {
+        margin-bottom: 24px;
+    }
+
+	@media (--dev-dot-mobile) {
+		width: 100%;
+	}
+}
+
+.certDetailsBottomLeftCardListItemTitle {
+	color: var(--mds-color-foreground-disabled);
+}
+
+.certDetailsBottomLeftCardListItemDesc {
+	font-size: 18px;
+}
+
+.certDetailsBottomRightCard {
+	width: 50%;
+
+	@media (--dev-dot-tablet), (--dev-dot-mobile) {
+		width: 100%;
+	}
+}
+
+.certDetailsBottomRightCardContents {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.certDetailsBottomRightCardTitle {
+	font-size: 32px;
+	color: var(--mds-color-foreground-strong);
+}
+
+.certDetailsBottomRightCardList {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin: 0;
+	padding: 0;
+	margin-left: 24px;
+}
+
+.certDetailsBottomRightCardListItem {
+	color: var(--mds-color-foreground-faint); /* gray text */
+}
+
+.certDetailsBottomRightCardBottomDesc {
+	color: var(--mds-color-foreground-faint); /* gray text */
+	margin: 0;
 }
