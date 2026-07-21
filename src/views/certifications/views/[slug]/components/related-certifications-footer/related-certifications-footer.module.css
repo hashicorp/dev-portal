@@ -5,7 +5,7 @@
 
  .relatedCertFooter {
     display: flex;
-    padding: 88px 192px;
+    padding: 88px 0;
     gap: 136px;
     background-color: var(--mds-color-surface-strong);
 
@@ -14,16 +14,27 @@
 	}
 
     @media (--dev-dot-tablet) {
+        padding: 48px 0;
+    }
+
+    @media (--dev-dot-mobile) {
+        padding: 32px 0;
+    } 
+ }
+
+ .relatedCertFooterContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+
+    @media (--dev-dot-tablet) {
         flex-direction: column;
-        padding: 48px 40px;
-        gap: 32px;
     }
 
     @media (--dev-dot-mobile) {
         flex-direction: column;
-        padding: 32px 24px;
-        gap: 32px;
     }
+    
  }
 
  /* 

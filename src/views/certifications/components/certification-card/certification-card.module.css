@@ -28,15 +28,13 @@
 	Revisit the flex-basis + flex-grow solution later
 */
 .certificationCardReduced {
-	/* width: 50%;
-    min-width: 280px; 
-	*/
 	height: 200px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	flex-basis: 280px;
 	flex-grow: 1;
+	background-color: var(--mds-color-surface-primary);
 
 	@nest html[data-theme='dark'] & {
 		background-color: var(--mds-color-surface-strong);
