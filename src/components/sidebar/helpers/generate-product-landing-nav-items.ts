@@ -49,7 +49,9 @@ export const generateProductLandingSidebarMenuItems = (
 	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
 		menuItems.push({
 			title: 'Install',
-			fullPath: `/${product.slug}/install`,
+			fullPath: product.slug === 'boundary'
+				? `/${product.slug}/install/enterprise`
+				: `/${product.slug}/install`,
 		})
 	}
 

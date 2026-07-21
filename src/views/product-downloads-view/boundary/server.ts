@@ -34,15 +34,17 @@ interface BoundaryDownloadsPageProps extends ProductDownloadsViewStaticProps {
 }
 
 /**
- * Get static props for the Boundary downloads page.
+ * Factory that returns a getStaticProps function for the Boundary downloads page.
+ * Pass `isEnterpriseMode: true` to get enterprise release data.
  */
-const getStaticProps: GetStaticProps<BoundaryDownloadsPageProps> = async () => {
+const createGetStaticProps = (isEnterpriseMode = false): GetStaticProps<BoundaryDownloadsPageProps> => async () => {
 	/**
 	 * Get the base static props for the view,
 	 * which fetches the `boundary` release data.
 	 */
 	const { props: baseProps, ...restBaseResult } = await generateGetStaticProps(
-		boundaryData as ProductData
+		boundaryData as ProductData,
+		{ isEnterpriseMode }
 	)()
 
 	/**
@@ -92,4 +94,7 @@ const getStaticProps: GetStaticProps<BoundaryDownloadsPageProps> = async () => {
 	return { props: finalProps, ...restBaseResult }
 }
 
-export { getStaticProps }
+const getStaticProps = createGetStaticProps(false)
+const getEnterpriseStaticProps = createGetStaticProps(true)
+
+export { getStaticProps, getEnterpriseStaticProps }
