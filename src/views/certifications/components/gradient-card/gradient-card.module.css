@@ -105,7 +105,7 @@
 	**/
 
 	/* Theme classes for specific shadow & "border" gradient coloration */
-	&.theme-infrastructure-automation {
+	&.theme-terraform {
 		--shadow-background: linear-gradient(90deg, #8cdeff 0%, #8763d9 100%);
 		--gradient-border-background: radial-gradient(
 			36.05% 120.87% at 3.06% 4.48%,
@@ -116,7 +116,7 @@
 		);
 	}
 
-	&.theme-security-automation {
+	&.theme-vault {
 		--shadow-background: linear-gradient(90deg, #ffe58c 0%, #f26b63 100%);
 		--gradient-border-background: radial-gradient(
 			36.05% 120.87% at 3.06% 4.48%,
