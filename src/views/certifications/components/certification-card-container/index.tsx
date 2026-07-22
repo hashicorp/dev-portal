@@ -6,13 +6,17 @@
 // Components
 import Heading from '@components/heading'
 import Text from '@components/text'
-import { CertificationCardDisplay } from 'views/certifications/components/certification-card'
+import {
+	CertificationCardDisplay,
+	ExamBadge,
+} from 'views/certifications/components'
 
 // Styles
 import s from './certification-card-container.module.css'
 
 // Types
 import { CertificationCardProps } from 'views/certifications/components/certification-card/types'
+import { CertificationProductSlug } from 'views/certifications/content/schemas/certification-program'
 
 interface CertificationCardContainerProps {
 	product: string
@@ -21,11 +25,6 @@ interface CertificationCardContainerProps {
 }
 
 const MAX_NUM_CERTIFICATIONS = 2
-/* 
-    Things to note:
-    1a. Need to insert a product icon here based on the product name
-	1b. Found how the icons are being rendered: https://github.com/hashicorp/dev-portal/blob/main/src/views/certifications/components/exam-badge/index.tsx#L34
-*/
 
 /**
  * This component is used to display a container for certification cards. It takes in a product name, a description for the container, and an array of certification card data. The component will render a maximum of MAX_NUM_CERTIFICATIONS certification cards.
@@ -47,8 +46,9 @@ export function CertificationCardContainer({
 		<div className={s.certCardContainer}>
 			<div className={s.certCardContainerHeader}>
 				<div className={s.certCardContainerTitle}>
-					{/* Insert a product icon here based on the product name */}
-					{'Icon'}
+					<ExamBadge
+						productSlug={product.toLowerCase() as CertificationProductSlug}
+					/>
 					<Heading
 						className={s.certCardContainerTitleText}
 						level={2}
