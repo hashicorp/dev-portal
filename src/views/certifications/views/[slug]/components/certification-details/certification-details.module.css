@@ -5,6 +5,10 @@
 
 .descTextSize {
 	font-size: 18px;
+
+	@media (--dev-dot-mobile) {
+		font-size: 16px;
+	}
 }
 
 .certDetails {
@@ -83,6 +87,10 @@
 .certDetailsBottomLeftCardTitle {
 	font-size: 32px;
 	color: var(--mds-color-foreground-strong);
+
+	@media (--dev-dot-mobile) {
+		font-size: 24px;
+	}
 }
 
 .certDetailsBottomLeftCardList {
@@ -137,6 +145,10 @@
 .certDetailsBottomRightCardTitle {
 	font-size: 32px;
 	color: var(--mds-color-foreground-strong);
+
+	@media (--dev-dot-mobile) {
+		font-size: 24px;
+	}
 }
 
 .certDetailsBottomRightCardList {
