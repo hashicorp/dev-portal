@@ -6,7 +6,6 @@
 .root {
 	width: fit-content;
 	position: relative;
-	z-index: 200;
 
 	@media (max-width: 1024px) {
 		display: none;
@@ -14,8 +13,8 @@
 }
 
 .activatorWrapper {
-	padding-bottom: 16px;
-	padding-top: 16px;
+	padding-bottom: 13px;
+	padding-top: 13px;
 }
 
 .activator {

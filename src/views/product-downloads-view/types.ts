@@ -15,6 +15,7 @@ import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { TryHcpCalloutCompactProps } from 'components/try-hcp-callout/types'
+import { InstallPageBannerProps } from 'components/install-page-banner/types'
 
 /**
  * Raw page content, as structured in .json files
@@ -40,6 +41,15 @@ export interface RawProductDownloadsViewContent {
 	doesNotHavePackageManagers?: boolean
 	featuredCollectionsSlugs?: string[]
 	featuredTutorialsSlugs?: string[]
+	/**
+	 * Per-mode banners rendered directly below the page header.
+	 * `community` applies to the standard install page; `enterprise` applies
+	 * to the enterprise install page. Either key may be omitted independently.
+	 */
+	installBanners?: {
+		community?: InstallPageBannerProps
+		enterprise?: InstallPageBannerProps
+	}
 	packageManagerOverrides?: PackageManager[]
 	sidebarMenuItems?: MenuItem[]
 	sidecarMarketingCard: SidecarMarketingCardProps
@@ -60,6 +70,7 @@ export interface ProductDownloadsViewProps {
 	pageContent: {
 		featuredCollectionCards?: FeaturedCollectionCard[]
 		featuredTutorialCards?: FeaturedTutorialCard[]
+		installBanner?: InstallPageBannerProps
 		sidecarMarketingCard: SidecarMarketingCardProps
 		sidecarHcpCallout?: TryHcpCalloutCompactProps
 		sidebarMenuItems?: MenuItem[]

@@ -8,6 +8,7 @@ import {
 	groupSimpleRedirects,
 	filterInvalidRedirects,
 	getRedirectsFromContentRepo,
+	normalizeRedirectSource,
 } from '../redirects'
 
 afterEach(() => {
@@ -279,6 +280,38 @@ describe('getRedirectsFromContentRepo', () => {
 
 		expect(redirects).toEqual([])
 		expect(mockConsole).toHaveBeenCalledOnce()
+	})
+})
+
+describe('normalizeRedirectSource', () => {
+	test('rewrites unnamed capture group followed by named param', () => {
+		const input = '/((?!get$)):slug'
+		const result = normalizeRedirectSource(input)
+		expect(result).toBe('/:slug((?!get$)[^/]+)')
+	})
+
+	test('handles multiple capture groups in a single source', () => {
+		const input = '/((?!api)):product/((?!docs)):page'
+		const result = normalizeRedirectSource(input)
+		expect(result).toBe('/:product((?!api)[^/]+)/:page((?!docs)[^/]+)')
+	})
+
+	test('leaves sources without capture groups unchanged', () => {
+		const input = '/docs/:slug/overview'
+		const result = normalizeRedirectSource(input)
+		expect(result).toBe('/docs/:slug/overview')
+	})
+
+	test('leaves plain paths unchanged', () => {
+		const input = '/docs/some-page'
+		const result = normalizeRedirectSource(input)
+		expect(result).toBe('/docs/some-page')
+	})
+
+	test('handles underscore in parameter names', () => {
+		const input = '/((?!private)):my_param'
+		const result = normalizeRedirectSource(input)
+		expect(result).toBe('/:my_param((?!private)[^/]+)')
 	})
 })
 

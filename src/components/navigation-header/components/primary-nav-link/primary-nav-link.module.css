@@ -17,11 +17,22 @@
 	padding-left: var(--header-menu-item-padding-left-right);
 	padding-right: var(--header-menu-item-padding-left-right);
 	padding-top: 8px;
+	height: 63px;
 
 	&:hover {
 		color: var(--mds-color-foreground-strong);
 		cursor: pointer;
 	}
+}
+
+.underline {
+	border-bottom: 2px solid var(--mds-color-foreground-strong);
+	border-radius: 0;
+	margin-bottom: -2px;
+	margin-left: var(--header-menu-item-padding-left-right);
+	margin-right: var(--header-menu-item-padding-left-right);
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .linkText {

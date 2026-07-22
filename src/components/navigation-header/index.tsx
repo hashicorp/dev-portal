@@ -85,26 +85,34 @@ const NavigationHeader = () => {
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
 
-	const shouldRenderGenericHeaderContent =
-		!currentProduct || router.route === '/_error'
-	const LeftSideHeaderContent = shouldRenderGenericHeaderContent
-		? HomePageHeaderContent
-		: ProductPageHeaderContent
+	const shouldOnlyRenderHomeHeader =
+		!currentProduct ||
+		router.route === '/_error' ||
+		currentProduct.slug === 'well-architected-framework'
 
 	return (
-		<header className={s.root}>
-			<div className={s.leftSide}>
-				<LeftSideHeaderContent />
-			</div>
-			<div className={s.rightSide}>
-				<CommandBarActivator
-					leadingIcon={<IconSearch16 />}
-					visualLabel={'Search'}
-				/>
-				<AuthenticationControls />
-				<MobileMenuButton />
-			</div>
-		</header>
+		<>
+			<header className={s.mainHeader}>
+				<div className={s.leftSide}>
+					<HomePageHeaderContent />
+				</div>
+				<div className={s.middle}>
+					<CommandBarActivator
+						leadingIcon={<IconSearch16 />}
+						visualLabel={'Search'}
+					/>
+				</div>
+				<div className={s.rightSide}>
+					<AuthenticationControls />
+					<MobileMenuButton />
+				</div>
+			</header>
+			{!shouldOnlyRenderHomeHeader ? (
+				<header className={s.subNav}>
+					<ProductPageHeaderContent />
+				</header>
+			) : null}
+		</>
 	)
 }
 

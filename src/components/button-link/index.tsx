@@ -26,6 +26,8 @@ const ButtonLink = ({
 	text,
 	className,
 	onClick,
+	onClickCapture,
+	
 }: ButtonLinkProps) => {
 	const hasIcon = !!icon
 	const hasText = !!text
@@ -54,6 +56,7 @@ const ButtonLink = ({
 			onClick={onClick}
 			opensInNewTab={opensInNewTab}
 			rel={opensInNewTab ? 'noreferrer noopener' : undefined}
+			onClickCapture={onClickCapture}
 		>
 			<>
 				{hasLeadingIcon && icon}

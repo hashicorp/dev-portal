@@ -9,6 +9,10 @@ on:
       preview_url:
         description: 'A Vercel preview url. Only used during manual runs'
         required: true
+
+permissions:
+  contents: read
+
 jobs:
   on-deploy:
     runs-on: ubuntu-latest

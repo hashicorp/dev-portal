@@ -6,6 +6,8 @@
 .nav {
 	/* Compensates for padding on individual nav list items */
 	margin-left: calc(var(--header-menu-item-padding-left-right) * -1);
+	flex: 1;
+	min-width: 0;
 
 	@media (--dev-dot-show-mobile-menu) {
 		display: none;
@@ -18,4 +20,6 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	width: 100%;
+	justify-content: space-between;
 }

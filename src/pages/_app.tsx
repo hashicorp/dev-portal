@@ -13,7 +13,10 @@ import { type Session } from 'next-auth'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { NextAdapter } from 'next-query-params'
-import { QueryParamAdapterComponent, QueryParamProvider } from 'use-query-params'
+import {
+	QueryParamAdapterComponent,
+	QueryParamProvider,
+} from 'use-query-params'
 import type { AppProps } from 'next/app'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
@@ -37,6 +40,12 @@ import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
 import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
+// import { ExperimentsProvider } from 'contexts/experiments'
+// import {
+// 	getBootstrapDataClient,
+// 	getFeatureFlagsFromRequest,
+// 	type FeatureFlags,
+// } from 'lib/posthog'
 
 // Local imports
 import './style.css'
@@ -59,8 +68,13 @@ if (typeof window !== 'undefined') {
 }
 
 const Adapter: QueryParamAdapterComponent = (props) => (
-  <NextAdapter {...props} />
+	<NextAdapter {...props} />
 )
+
+// App.getInitialProps = ({ ctx }) => {
+//     const flags = ctx.req ? getFeatureFlagsFromRequest(ctx.req) : {}
+// 	return { pageProps: { experiments: flags } }
+// }
 
 export default function App({
 	Component,
@@ -85,46 +99,67 @@ export default function App({
 				},
 			})
 	)
+	// const [experimentFlags] = useState<FeatureFlags>(() => {
+	// 	// Server-provided flags take priority (SSR / getServerSideProps pages).
+	// 	const serverFlags = pageProps.experiments ?? {}
+	// 	if (Object.keys(serverFlags).length > 0) {
+	// 		return serverFlags
+	// 	}
+	// 	// On the client, read from the bootstrap cookie synchronously so the
+	// 	// correct variant is available on the very first render. Using a lazy
+	// 	// initializer avoids the useEffect-driven re-render that caused the
+	// 	// control → test flicker on ISR / statically-generated pages.
+	// 	if (typeof window !== 'undefined') {
+	// 		const bootstrapData = getBootstrapDataClient()
+	// 		const cookieFlags = bootstrapData?.featureFlags ?? {}
+	// 		if (Object.keys(cookieFlags).length > 0) {
+	// 			return cookieFlags
+	// 		}
+	// 	}
+	// 	return {}
+	// })
 
 	const currentProduct = pageProps.product || null
 
 	return (
-		<ConditionalPostHogProvider>
-			<MDSProvider
-				imageComponent={NextImageAdapter}
-				linkComponent={NextLinkAdapter}
-			>
-				<QueryClientProvider client={queryClient}>
-					<SSRProvider>
-						<QueryParamProvider adapter={Adapter}>
-							<ErrorBoundary FallbackComponent={DevDotClient}>
-								<SessionProvider session={session}>
-									<DeviceSizeProvider>
-										<CurrentProductProvider currentProduct={currentProduct}>
-											<InstruqtProvider source="sandbox" renderEmbed={true}>
-												<HeadMetadata {...pageProps.metadata} />
-												<LazyMotion
-													features={() =>
-														import('lib/framer-motion-features').then(
-															(mod) => mod.default
-														)
-													}
-													strict={process.env.NODE_ENV === 'development'}
-												>
-													<Component {...pageProps} />
-													<Toaster />
-													<ReactQueryDevtools />
-													<SpeedInsights sampleRate={0.05} />
-												</LazyMotion>
-											</InstruqtProvider>
-										</CurrentProductProvider>
-									</DeviceSizeProvider>
-								</SessionProvider>
-							</ErrorBoundary>
-						</QueryParamProvider>
-					</SSRProvider>
-				</QueryClientProvider>
-			</MDSProvider>
-		</ConditionalPostHogProvider>
+		// <ExperimentsProvider flags={experimentFlags}>
+			<ConditionalPostHogProvider>
+				<MDSProvider
+					imageComponent={NextImageAdapter}
+					linkComponent={NextLinkAdapter}
+				>
+					<QueryClientProvider client={queryClient}>
+						<SSRProvider>
+							<QueryParamProvider adapter={Adapter}>
+								<ErrorBoundary FallbackComponent={DevDotClient}>
+									<SessionProvider session={session}>
+										<DeviceSizeProvider>
+											<CurrentProductProvider currentProduct={currentProduct}>
+												<InstruqtProvider source="sandbox" renderEmbed={true}>
+													<HeadMetadata {...pageProps.metadata} />
+													<LazyMotion
+														features={() =>
+															import('lib/framer-motion-features').then(
+																(mod) => mod.default
+															)
+														}
+														strict={process.env.NODE_ENV === 'development'}
+													>
+														<Component {...pageProps} />
+														<Toaster />
+														<ReactQueryDevtools />
+														<SpeedInsights sampleRate={0.05} />
+													</LazyMotion>
+												</InstruqtProvider>
+											</CurrentProductProvider>
+										</DeviceSizeProvider>
+									</SessionProvider>
+								</ErrorBoundary>
+							</QueryParamProvider>
+						</SSRProvider>
+					</QueryClientProvider>
+				</MDSProvider>
+			</ConditionalPostHogProvider>
+		// </ExperimentsProvider> 
 	)
 }

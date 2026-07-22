@@ -1,0 +1,6 @@
+website_name = "developer.hashicorp.com"
+
+# Provider api token and endpoint come from varsets in HCP:
+# INSTANA_API_TOKEN
+# INSTANA_ENDPOINT
+# INSTANA_TLS_SKIP_VERIFY

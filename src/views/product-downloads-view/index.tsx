@@ -44,6 +44,7 @@ import { ContentWithPermalink } from 'views/open-api-docs-view/components/conten
 import Heading from 'components/heading'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import { MenuItem, SidebarProps } from 'components/sidebar/types'
+import { InstallPageBanner } from 'components/install-page-banner'
 
 /**
  * We need certain heading data, such as "Release information" & "Next Steps",
@@ -81,11 +82,13 @@ const ProductDownloadsViewContent = ({
 		sidecarMarketingCard,
 		sidecarHcpCallout,
 		sidebarMenuItems = [],
+		installBanner,
 		installName,
 		additionalDownloadItems = [], // Used for the Boundary Desktop client
 	} = pageContent
 	const currentProduct = useCurrentProduct()
-	const { currentVersion } = useCurrentVersion()
+	// Grabs current version and latest version for fallback logic in case the current version is not present in the releases object
+	const { currentVersion, latestVersion } = useCurrentVersion()
 	const { pathname } = useRouter()
 	const breadcrumbLinks = useMemo(
 		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
@@ -93,7 +96,12 @@ const ProductDownloadsViewContent = ({
 	)
 
 	// Group the selected release downloads by OS, for use in multiple places
-	const selectedRelease = releases.versions[currentVersion]
+	// If the version carried over from a previous page (via client-side
+	// navigation, e.g. the install banner link between community/enterprise)
+	// isn't present in this page's release set, fall back to the latest version
+	// so the page always renders rather than crashing on an undefined release.
+	const selectedRelease =
+		releases.versions[currentVersion] ?? releases.versions[latestVersion]
 	let downloadsByOS = useMemo(
 		() => sortPlatforms(selectedRelease),
 		[selectedRelease]
@@ -155,7 +163,7 @@ const ProductDownloadsViewContent = ({
 				...featuredItems,
 				...sidebarMenuItems,
 			],
-			isEnterpriseMode
+			isEnterpriseMode,
 		),
 	]
 
@@ -197,6 +205,11 @@ const ProductDownloadsViewContent = ({
 				}}
 				versionSwitcherOptions={versionSwitcherOptions}
 			/>
+			{installBanner ? (
+				<div className={s.installBanner}>
+					<InstallPageBanner {...installBanner} />
+				</div>
+			) : null}
 			{merchandisingSlot?.position === 'above' ? merchandisingSlot.slot : null}
 			<DownloadsSection
 				packageManagers={packageManagers}
@@ -257,11 +270,12 @@ const ProductDownloadsView = ({
 				latestVersion,
 				releaseVersions: sortedAndFilteredVersions,
 			}),
-		[latestVersion, sortedAndFilteredVersions]
+		[latestVersion, sortedAndFilteredVersions],
 	)
 
 	return (
 		<CurrentVersionProvider
+			key={latestVersion}
 			initialValue={latestVersion}
 			latestVersion={latestVersion}
 		>
