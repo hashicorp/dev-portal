@@ -12,7 +12,7 @@ import {
 	Announcement,
 	CertificationsMaxWidth,
 	SignupFormArea,
-	CertificationCardDisplay,
+	CertificationCardContainer,
 } from 'views/certifications/components'
 // Local view
 import { CertificationProgramSummaryCard } from './components'
@@ -28,6 +28,34 @@ function CertificationsLandingView({
 	faqItems,
 }: CertificationLandingProps) {
 	const { hero } = pageContent
+
+	const certData = [
+		{
+			product: 'terraform',
+			title: 'Terraform Associate',
+			desc: 'Brief description to gives the user enough context to take the next step with confidence',
+			starCount: 1,
+			ctaLink: 'certifications',
+			certDetails: [
+				'Product version tested: Terraform 1.12',
+				'Terraform basic concepts and skills',
+				'Terraform Associate value proposition',
+			],
+		},
+		{
+			product: 'terraform',
+			title: 'Terraform Authoring and Operations Professional',
+			desc: 'Brief description to gives the user enough context to take the next step with confidence',
+			starCount: 3,
+			ctaLink: 'certifications',
+			certDetails: [
+				'Product version tested: Terraform 1.12',
+				'Terraform advanced concepts and skills',
+				'Terraform Professional value proposition',
+			],
+		},
+	]
+
 	const relatedCertifications = [
 		{
 			product: 'Terraform',
@@ -59,6 +87,13 @@ function CertificationsLandingView({
 						text="Learn from certified instructors on how to boost your enterprise adoption of HashiCorp"
 						cta="Read more"
 						ctaLink="https://developer.hashicorp.com"
+					/>
+					<CertificationCardContainer
+						product={'Terraform'}
+						containerDesc={
+							'We offer Terraform certifications at two levels. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification.'
+						}
+						certData={certData}
 					/>
 				</CertificationsMaxWidth>
 				{/* Program Summaries */}

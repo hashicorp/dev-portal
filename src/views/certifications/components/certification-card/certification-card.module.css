@@ -18,15 +18,11 @@
 		background-color: var(--mds-color-surface-faint);
 	}
 
-	@media (--dev-dot-tablet), (--dev-dot-mobile) {
+	@media (--dev-dot-tablet-down) {
 		max-width: 100%;
 	}
 }
 
-/* 
-	Still slightly buggy when going from desktop to tablet view
-	Revisit the flex-basis + flex-grow solution later
-*/
 .certificationCardReduced {
 	height: 200px;
 	display: flex;

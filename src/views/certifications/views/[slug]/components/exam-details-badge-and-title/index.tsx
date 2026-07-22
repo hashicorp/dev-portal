@@ -26,7 +26,7 @@ function ExamDetailsBadgeAndTitle({
 }) {
 	return (
 		<div className={s.root}>
-			<ExamBadge productSlug={productSlug} examTier={examTier} />
+			<ExamBadge productSlug={productSlug} />
 			<div className={s.eyebrow}>HashiCorp Certified:</div>
 			<h2
 				className={s.title}
