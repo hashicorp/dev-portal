@@ -89,21 +89,6 @@
 		border-radius: calc(var(--border-radius) - var(--gradient-border-width));
 	}
 
-	/* Gradient drop shadow, that appears "below" the card using z-index */
-	
-	/* &::before {
-		content: '\200B'; zero width space
-		position: absolute;
-		bottom: var(--shadow-inset);
-		left: var(--shadow-inset);
-		right: var(--shadow-inset);
-		height: 72px;
-		background: var(--shadow-background);
-		filter: blur(50px);
-		z-index: -1;
-	} 
-	**/
-
 	/* Theme classes for specific shadow & "border" gradient coloration */
 	&.theme-terraform {
 		--shadow-background: linear-gradient(90deg, #8cdeff 0%, #8763d9 100%);
