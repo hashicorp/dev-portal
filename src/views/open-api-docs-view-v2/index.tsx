@@ -16,6 +16,7 @@ import SidebarBackToLink from '@components/sidebar/components/sidebar-back-to-li
 import BreadcrumbBar from '@components/breadcrumb-bar'
 import VersionSwitcher from '@components/version-switcher'
 import NoIndexTagIfVersioned from '@components/no-index-tag-if-versioned'
+import NoIndexTagForRestrictedDocs from '@components/no-index-tag-for-restricted-docs'
 // Components, local
 import { OpenApiV2SidebarContents } from './components/sidebar'
 import { SidebarResourceLinks } from './components/sidebar-resource-links'
@@ -41,6 +42,7 @@ export default function OpenApiDocsViewV2({
 	operationLinkGroups,
 	resourceLinks,
 	product,
+	shouldNoIndex,
 	versionMetadata,
 	versionSwitcherProps,
 	...restProps
@@ -98,6 +100,7 @@ export default function OpenApiDocsViewV2({
 				basePath={basePath}
 			/>
 			<NoIndexTagIfVersioned isVersioned={versionMetadata.isVersionedUrl} />
+			<NoIndexTagForRestrictedDocs shouldNoIndex={shouldNoIndex} />
 			<div className={s.paddedContainer}>
 				<div className={s.spaceBreadcrumbsContent}>
 					<BreadcrumbBar links={breadcrumbLinks} />

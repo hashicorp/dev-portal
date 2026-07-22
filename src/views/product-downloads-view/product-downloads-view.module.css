@@ -3,6 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.installBanner {
+	margin-bottom: 24px;
+}
+
 .heading2 {
 	/* composition */
 	composes: hds-typography-display-300 from global;

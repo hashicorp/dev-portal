@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 import classNames from 'classnames'
 import { GlobalThemeOption } from 'styles/themes/types'
 import { CompanyLogoOption, CompanyLogoProps } from './types'
@@ -57,9 +57,8 @@ function ThemedLogo({
 				 * Note: for use in CollectionCard, consumer should provide meaningful
 				 * text using the card heading element.
 				 */
-				objectPosition="left center"
-				layout="fill"
-				objectFit="contain"
+				fill
+				style={{ objectFit: 'contain', objectPosition: 'left center' }}
 			/>
 		</span>
 	)

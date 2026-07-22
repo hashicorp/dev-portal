@@ -41,8 +41,10 @@ vi.mock('views/sandbox-view/utils', () => ({
 }))
 
 const mockTrackSandboxEvent = vi.fn()
+const mockTrackNavClickEvent = vi.fn()
 vi.mock('lib/posthog-events', () => ({
 	trackSandboxEvent: (...args: unknown[]) => mockTrackSandboxEvent(...args),
+	trackNavClickEvent: (...args: unknown[]) => mockTrackNavClickEvent(...args),
 	SANDBOX_EVENT: {
 		SANDBOX_OPEN: 'sandbox_open',
 	},

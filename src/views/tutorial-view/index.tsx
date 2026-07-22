@@ -51,11 +51,10 @@ import {
 	FeaturedInCollections,
 	NextPrevious,
 	getNextPrevious,
-	FeedbackPanel,
 	VariantDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' with { type: 'json' }
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -83,7 +82,7 @@ const LayoutContentWrapper = ({
 			 */
 			getCollectionViewSidebarSections(
 				product.slug,
-				collectionCtx.current
+				collectionCtx.current,
 			).then((result: CollectionCategorySidebarSection[]) => {
 				hasLoadedData.current = true
 				setCollectionViewSidebarSections(result)
@@ -131,7 +130,7 @@ function TutorialView({
 	let effectiveHandsOnLab = handsOnLab
 	if (handsOnLab && !handsOnLab.id && product?.slug) {
 		const matchingLab = SANDBOX_CONFIG.labs?.find((lab) =>
-			lab.products.includes(product.slug)
+			lab.products.includes(product.slug),
 		)
 		if (matchingLab) {
 			effectiveHandsOnLab = {
@@ -142,7 +141,7 @@ function TutorialView({
 	}
 
 	const featuredInWithoutCurrent = collectionCtx.featuredIn?.filter(
-		(c) => c.id !== collectionCtx.current.id
+		(c) => c.id !== collectionCtx.current.id,
 	)
 	const hasVideo = Boolean(video)
 	const isInteractive = Boolean(effectiveHandsOnLab)
@@ -177,7 +176,7 @@ function TutorialView({
 				<TutorialViewSidebarContent
 					collection={collectionCtx.current}
 					items={collectionCtx.current.tutorials.map((t) =>
-						formatTutorialToMenuItem(t, collectionCtx.current, currentPath)
+						formatTutorialToMenuItem(t, collectionCtx.current, currentPath),
 					)}
 				/>
 			),
@@ -191,7 +190,7 @@ function TutorialView({
 	const tutorialId = id
 	const collectionId = collectionCtx.current.id
 	const collectionTutorialIds = collectionCtx.current.tutorials.map(
-		(t: TutorialLite) => t.id
+		(t: TutorialLite) => t.id,
 	)
 
 	/**
@@ -304,7 +303,7 @@ function TutorialView({
 								mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
 							/>
 							<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
-							<FeedbackPanel />
+
 							<NextPrevious {...nextPreviousData} />
 							<FeaturedInCollections
 								className={s.featuredInCollections}

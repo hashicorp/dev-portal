@@ -14,7 +14,8 @@ import {
 } from './content-api'
 import {
 	stripVersionFromPathParams,
-	getPathsFromNavData
+	getPathsFromNavData,
+	getNodeFromPath,
 } from './utils'
 import renderPageMdx from '../render-page-mdx'
 import { DEFAULT_PARAM_ID, REMARK_ARRAY_ERROR } from '../consts'
@@ -207,9 +208,7 @@ export default class RemoteContentLoader implements DataLoader {
 
 		if (this.opts.enabledVersionedDocs) {
 			versionToFetch =
-				versionFromPath === 'latest'
-					? latestVersion
-					: versionFromPath
+				versionFromPath === 'latest' ? latestVersion : versionFromPath
 		}
 
 		/**
@@ -221,23 +220,44 @@ export default class RemoteContentLoader implements DataLoader {
 		 * We want the latter URL to 404, so we do NOT want to automatically
 		 * resolve trailing `/index` from provided URL path parts.
 		 */
-		const fullPath = [
+		let fullPath = [
 			'doc',
 			versionToFetch,
 			this.opts.basePath,
 			...paramsNoVersion,
 		].join('/')
 
-		const documentPromise = fetchDocument(this.opts.product, fullPath)
 		const navDataPromise = fetchNavData(
 			this.opts.product,
 			this.opts.navDataPrefix!,
 			versionToFetch
 		)
 
-		const [{ result: document, docHeaders }, navData] = await Promise.all([
+		const [navData] = await Promise.all([navDataPromise])
+
+		// This case handles docs using an internal only product as the single
+		// source of truth. For these products, they will include an `import` field 
+		// in their nav-data which specifies the path to the content file to load 
+		// for a given page. If this field is present, we should use it instead 
+		// of attempting to resolve the content file path ourselves based on the URL.
+		const pathToCheck =
+			versionToFetch !== 'latest'
+				? [versionToFetch, ...paramsNoVersion].join('/')
+				: paramsNoVersion.join('/')
+
+		try {
+			const navNode = getNodeFromPath(pathToCheck, navData.navData, '')
+
+			if (navNode.import) {
+				fullPath = ['doc', versionToFetch, navNode.import].join('/')
+			}
+		} catch {
+			// if there is not a node, continue with the rest of the original flow
+		}
+
+		const documentPromise = fetchDocument(this.opts.product, fullPath)
+		const [{ result: document, docHeaders }] = await Promise.all([
 			documentPromise,
-			navDataPromise,
 		])
 
 		// For non-latest versions

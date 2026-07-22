@@ -66,6 +66,7 @@ function TutorialLibrarySidebar() {
 							promo={productPanelNavPromo}
 							sidePanel={productPanelSidePanelContent}
 							isPromoOnTop={true}
+							isDevPortal={true}
 						/>
 					</NavigationMenu.Root>
 				</SidebarNavList>

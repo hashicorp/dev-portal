@@ -6,8 +6,13 @@
 import InlineSvg from '@hashicorp/react-inline-svg'
 import Link from 'components/link'
 import { NavBarListContainer, NavigationHeaderDropdownMenu } from '..'
-import { navigationData, navPromo, sidePanelContent } from 'lib/products'
+import {
+	navigationData,
+	navPromo,
+	learnPanelContent,
+} from 'lib/products'
 import s from './home-page-content.module.css'
+import { trackNavClickEvent } from 'lib/posthog-events'
 
 const HomePageHeaderContent = () => {
 	return (
@@ -16,6 +21,9 @@ const HomePageHeaderContent = () => {
 				href="/"
 				aria-label="HashiCorp Developer Home"
 				className={s.siteLogoLink}
+				onClickCapture={() => {
+					trackNavClickEvent('HashiCorp Developer Home', '/')
+				}}
 			>
 				<InlineSvg
 					className={s.siteLogo}
@@ -29,9 +37,14 @@ const HomePageHeaderContent = () => {
 						productPanelData={{
 							navigationData,
 							navPromo,
-							sidePanelContent,
 						}}
 						label="Products"
+					/>
+				</li>
+				<li>
+					<NavigationHeaderDropdownMenu
+						standardPanelData={learnPanelContent}
+						label="Learn"
 					/>
 				</li>
 			</NavBarListContainer>

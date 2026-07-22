@@ -41,7 +41,7 @@ const getRelevantFileNamePrefixes = (repo: string) => {
  * Handles describing, requiring, and parsing the arguments for the main script.
  */
 const getScriptArguments = (): { repo: string } => {
-	const args = yargs
+	const args = yargs(process.argv.slice(2))
 		.option('repo', {
 			description: 'the name of the repo under `hashicorp` to check',
 		})
@@ -79,7 +79,7 @@ const main = async () => {
 	// Initialize Octokit for interacting with GitHub REST API client
 	if (!process.env.GITHUB_TOKEN) {
 		console.warn(
-			'No GITHUB_TOKEN env variable found. Provide it to avoid rate limits with the GitHub REST API.'
+			'No GITHUB_TOKEN env variable found. Provide it to avoid rate limits with the GitHub REST API.',
 		)
 	}
 	const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
@@ -90,7 +90,7 @@ const main = async () => {
 		{
 			owner: 'hashicorp',
 			repo: repo,
-		}
+		},
 	)
 
 	// For each PR...
@@ -106,7 +106,7 @@ const main = async () => {
 				owner: 'hashicorp',
 				repo: repo,
 				pull_number: pullNumber,
-			}
+			},
 		)
 
 		// For each filename...
@@ -128,7 +128,7 @@ const main = async () => {
 	const sortedResult = Array.from(result).sort()
 	console.log('')
 	console.log(
-		`There are ${sortedResult.length} open PRs in "hashicorp/${repo}" with docs changes:\n`
+		`There are ${sortedResult.length} open PRs in "hashicorp/${repo}" with docs changes:\n`,
 	)
 	sortedResult.forEach((prUrl: string) => {
 		console.log(` - ${prUrl}`)

@@ -36,6 +36,7 @@ function MobileMenuLevelsGeneric() {
 					promo={navPromo}
 					sidePanel={sidePanelContent}
 					isPromoOnTop={true}
+					isDevPortal={true}
 				/>
 			</NavigationMenu.Root>
 		</MobileMenuContainer>
