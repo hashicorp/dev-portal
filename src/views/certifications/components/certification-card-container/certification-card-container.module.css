@@ -8,13 +8,12 @@
     gap: 32px;
     padding: 64px 0;
 
-    @media (--dev-dot-tablet) {
+    @media (--dev-dot-tablet-down) {
         flex-direction: column;
         padding: 40px 16px;
     }
 
     @media (--dev-dot-mobile) {
-        flex-direction: column;
         padding: 40px 0;
         gap: 24px;
     }
@@ -26,11 +25,7 @@
     flex-direction: column;
     gap: 24px;
 
-    @media (--dev-dot-tablet) {
-        width: 100%;
-    }
-
-    @media (--dev-dot-mobile) {
+    @media (--dev-dot-tablet-down) {
         width: 100%;
     }
  }
