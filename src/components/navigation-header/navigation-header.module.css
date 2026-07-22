@@ -18,8 +18,6 @@
 	--header-padding-left-right: 24px;
 	--header-menu-item-padding-left-right: 12px;
 
-	background-color: var(--mds-color-surface-faint);
-	display: flex;
 	padding-top: 0;
 	padding-bottom: 0;
 	min-height: var(--navigation-header-height);
@@ -28,7 +26,7 @@
 	padding-right: var(--header-padding-left-right);
 	position: relative;
 	width: 100%;
-	z-index: 150;
+	border-bottom: 1px solid var(--mds-color-border-primary);
 
 	@media (--dev-dot-show-mobile-menu) {
 		padding-bottom: 14px;
@@ -37,17 +35,21 @@
 }
 
 .leftSide {
-	align-items: center;
+	justify-self: start;
 	display: flex;
-	justify-content: left;
+	align-items: center;
 	gap: 24px;
 }
 
-.rightSide {
-	align-items: center;
+.middle {
+	justify-self: center;
 	display: flex;
-	justify-content: right;
-	gap: 12px;
+	align-items: center;
+}
+
+.rightSide {
+	justify-self: end;
+	display: flex;
 }
 
 .mobileMenuButton {
@@ -80,14 +82,6 @@
 	}
 }
 
-.signUpLink {
-	color: var(--mds-color-foreground-high-contrast);
-
-	&:hover {
-		color: var(--mds-color-foreground-high-contrast);
-	}
-}
-
 .userDropdownDisclosureActivator {
 	/* composition */
 	composes: g-focus-ring-from-box-shadow-dark from global;
@@ -100,4 +94,22 @@
 	&[aria-expanded='true'] {
 		border-color: var(--mds-color-border-strong);
 	}
+}
+
+.mainHeader {
+	composes: root;
+	background-color: var(--mds-color-surface-primary);
+	z-index: 150;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+
+	@media only screen and (max-width: 1190px) {
+		grid-template-columns: 1fr min-content min-content;
+	}
+}
+
+.subNav {
+	composes: root;
+	background-color: var(--mds-color-surface-faint);
+	display: flex;
 }

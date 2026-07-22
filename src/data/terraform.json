@@ -24,6 +24,7 @@
 		"language",
 		"mcp-server",
 		"migrate",
+		"policy",
 		"plugin",
 		"plugin/framework",
 		"plugin/log",
@@ -47,6 +48,7 @@
 			"label": "Provider Use",
 			"fullPath": "/terraform/language/providers"
 		},
+		"policy",
 		"plugin",
 		"registry",
 		{
@@ -162,13 +164,20 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Terraform MCP Server",
-			"path": "mcp-server",
-			"productSlugForLoader": "terraform-mcp-server",
+			"name": "Terraform Policy",
+			"path": "policy",
+			"productSlugForLoader": "terraform-policy",
 			"badge": {
 				"text": "BETA",
-				"color": "highlight"
+				"type": "filled",
+				"color": "neutral"
 			}
+		},
+		{
+			"iconName": "docs",
+			"name": "Terraform MCP Server",
+			"path": "mcp-server",
+			"productSlugForLoader": "terraform-mcp-server"
 		}
 	]
 }

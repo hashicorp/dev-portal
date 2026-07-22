@@ -18,12 +18,10 @@ import { UnifiedHitsContainer } from '../unified-hits-container'
 import { gatherSearchTabsData } from '../unified-hits-container/helpers'
 import {
 	getAlgoliaFilters,
-	useCommandBarProductTag,
 	useDebouncedRecentSearches,
 } from './helpers'
 // Types
 import type { Hit } from 'instantsearch.js'
-import type { ProductSlug } from 'types/products'
 import type { SuggestedPageProps } from '../suggested-pages/types'
 import { type UnifiedSearchResults, SearchContentTypes } from '../../types'
 // Styles
@@ -49,16 +47,14 @@ const searchClient = algoliasearch(appId, apiKey)
  */
 export function UnifiedSearchCommandBarDialogBody() {
 	const { currentInputValue } = useCommandBar()
-	const currentProductTag = useCommandBarProductTag()
-	const currentProductSlug = currentProductTag?.id as ProductSlug
 	const recentSearches = useDebouncedRecentSearches(currentInputValue)
 
 	/**
 	 * Generate suggested pages for the current product (if any).
 	 */
 	const suggestedPages = useMemo<SuggestedPageProps[]>(() => {
-		return generateSuggestedPages(currentProductSlug)
-	}, [currentProductSlug])
+		return generateSuggestedPages()
+	}, [])
 
 	/**
 	 * If there's no searchQuery yet, show suggested pages.
@@ -81,7 +77,6 @@ export function UnifiedSearchCommandBarDialogBody() {
 		<>
 			<SearchResults
 				currentInputValue={currentInputValue}
-				currentProductSlug={currentProductSlug}
 				suggestedPages={suggestedPages}
 			/>
 		</>
@@ -92,11 +87,9 @@ export function UnifiedSearchCommandBarDialogBody() {
  * Render unified search results for the provided query input.
  */
 function SearchResults({
-	currentProductSlug,
 	currentInputValue,
 	suggestedPages,
 }: {
-	currentProductSlug: ProductSlug
 	currentInputValue: string
 	suggestedPages: SuggestedPageProps[]
 }) {
@@ -126,8 +119,8 @@ function SearchResults({
 	 * to show a helpful "No Results" message.
 	 */
 	const tabsData = useMemo(() => {
-		return gatherSearchTabsData(unifiedSearchResults, currentProductSlug)
-	}, [unifiedSearchResults, currentProductSlug])
+		return gatherSearchTabsData(unifiedSearchResults)
+	}, [unifiedSearchResults])
 
 	return (
 		<>
@@ -135,7 +128,7 @@ function SearchResults({
 			    Maybe helpful to think of this as "the part that fetches results". */}
 			<InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
 				{Object.values(SearchContentTypes).map((type: SearchContentTypes) => {
-					const filters = getAlgoliaFilters(currentProductSlug, type)
+					const filters = getAlgoliaFilters(type)
 					return (
 						<Index key={type} indexName={ALGOLIA_INDEX_NAME} indexId={type}>
 							<Configure

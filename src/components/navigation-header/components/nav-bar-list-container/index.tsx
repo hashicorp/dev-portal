@@ -23,8 +23,14 @@ export default function NavBarListContainer({
 	children: ReactNode
 }) {
 	return (
-		<NavigationMenu.Root className={s.nav}>
-			<NavigationMenu.List className={s.ul}>{children}</NavigationMenu.List>
+		<NavigationMenu.Root
+			className={s.nav}
+		>
+			<NavigationMenu.List
+				className={s.ul}
+			>
+				{children}
+			</NavigationMenu.List>
 		</NavigationMenu.Root>
 	)
 }

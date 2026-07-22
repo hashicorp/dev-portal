@@ -61,6 +61,7 @@ const generateGetStaticProps = (
 			doesNotHavePackageManagers,
 			featuredCollectionsSlugs,
 			featuredTutorialsSlugs,
+			installBanners,
 			packageManagerOverrides,
 			sidebarMenuItems,
 			sidecarMarketingCard,
@@ -149,6 +150,7 @@ const generateGetStaticProps = (
 			pageContent: {
 				featuredCollectionCards,
 				featuredTutorialCards,
+				installBanner: installBanners?.[isEnterpriseMode ? 'enterprise' : 'community'],
 				installName: options.installName,
 				sidebarMenuItems,
 				sidecarMarketingCard,

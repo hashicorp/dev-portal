@@ -41,7 +41,7 @@ const getScriptArgumentsForCi = () => {
 	].filter((key: string) => !process.env[key])
 	if (missingRequiredEnvVariables.length > 0) {
 		throw new Error(
-			`Missing required environment variables: ${missingRequiredEnvVariables}`
+			`Missing required environment variables: ${missingRequiredEnvVariables}`,
 		)
 	}
 
@@ -53,7 +53,7 @@ const getScriptArgumentsForCi = () => {
 		RELEVANT_CHANGED_FILES,
 	} = process.env
 	const { changedMdxFiles = [], changedNavDataJsonFiles = [] } = JSON.parse(
-		RELEVANT_CHANGED_FILES
+		RELEVANT_CHANGED_FILES,
 	)
 
 	// Concatenate cwd() with given file path prefixes
@@ -63,10 +63,10 @@ const getScriptArgumentsForCi = () => {
 	// Return the shaped-up arguments
 	return {
 		changedMdxFiles: changedMdxFiles.map((filePath) =>
-			path.join(mdxFilesPrefix, filePath)
+			path.join(mdxFilesPrefix, filePath),
 		),
 		changedNavDataJsonFiles: changedNavDataJsonFiles.map((filePath) =>
-			path.join(navDataFilesPrefix, filePath)
+			path.join(navDataFilesPrefix, filePath),
 		),
 		mdxFilesPrefix,
 		navDataFilesPrefix,
@@ -78,7 +78,7 @@ const getScriptArgumentsForCommandLine = () => {
 	const changedMdxFiles = []
 	const changedNavDataJsonFiles = []
 
-	const cliArgs = yargs
+	const cliArgs = yargs(process.argv.slice(2))
 		.option('repo', {
 			description: 'the name of the repo under `hashicorp` to check',
 		})
@@ -102,13 +102,13 @@ const getScriptArgumentsForCommandLine = () => {
 		process.cwd(),
 		localCopyLocation,
 		repo,
-		mdxPrefix
+		mdxPrefix,
 	)
 	const navDataDirectory = path.join(
 		process.cwd(),
 		localCopyLocation,
 		repo,
-		navDataPrefix
+		navDataPrefix,
 	)
 
 	gatherAllFilesWithSuffixFromDirectory({

@@ -4,7 +4,7 @@
  */
 
 import { CSSProperties } from 'react'
-import Image, { type StaticImageData } from 'next/legacy/image'
+import Image, { type StaticImageData } from 'next/image'
 import { BrandedCardProps } from './types'
 import { ProductSlug } from 'types/products'
 // Note: images are static imports, seems to be a requirement of next/image
@@ -58,7 +58,7 @@ function BrandedCard({ productSlug, children }: BrandedCardProps) {
 		? {
 				'--gradient-start': `var(--token-color-${productSlug}-gradient-faint-start)`,
 				'--gradient-stop': `var(--token-color-${productSlug}-gradient-faint-stop)`,
-		  }
+			}
 		: gradientDefault
 
 	return (
@@ -70,9 +70,8 @@ function BrandedCard({ productSlug, children }: BrandedCardProps) {
 					src={PATTERN_IMG_MAP[productSlug] || patternGeneric}
 					/** Note: pattern image is purely decorative */
 					alt=""
-					layout="fill"
-					objectFit="cover"
-					objectPosition="center"
+					fill
+					style={{ objectFit: 'cover', objectPosition: 'center' }}
 				/>
 			</div>
 		</div>

@@ -150,6 +150,7 @@ export async function generateStaticProps({
 	resourceLinks = [],
 	statusIndicatorConfig,
 	schemaTransforms,
+	shouldNoIndex = false,
 	productContext,
 	theme = productContext,
 	versionData,
@@ -304,6 +305,7 @@ export async function generateStaticProps({
 		landingLink,
 		operationLinkGroups,
 		product: productData,
+		shouldNoIndex,
 		versionMetadata: {
 			isVersionedUrl,
 			currentVersion: {

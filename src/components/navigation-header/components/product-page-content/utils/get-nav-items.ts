@@ -27,16 +27,9 @@ enum TRY_CLOUD_PRODUCT_LINKS {
 	vagrant = 'https://portal.cloud.hashicorp.com/vagrant/discover',
 }
 
-/**
- * Given current product data,
- * Return an array of NavItems to render in the top navigation bar.
- *
- * Note that these items are only shown on larger viewports.
- * On smaller viewports, a separate mobile menu is shown, which
- * does not use this exact function to generate nav items,
- * so may not show the same set of items.
- */
-export function getNavItems(currentProduct: ProductData): NavItem[] {
+export const getLeftSideNavItems = (
+	currentProduct: ProductData
+): NavItem[] => {
 	/**
 	 * All products except Terraform currently have a small enough number
 	 * of distinct documentation "categories" (ie path like /docs, /api, etc)
@@ -107,7 +100,9 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	if (currentProduct.slug !== 'hcp' && currentProduct.slug !== 'waypoint') {
 		items.push({
 			label: 'Install',
-			url: `/${currentProduct.slug}/install`,
+			url: currentProduct.slug === 'boundary'
+				? `/${currentProduct.slug}/install/enterprise`
+				: `/${currentProduct.slug}/install`,
 		})
 	}
 
@@ -169,6 +164,27 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		})
 	}
 
+	if (
+		getIsEnabledProductIntegrations(currentProduct.slug) &&
+		currentProduct.slug !== 'terraform'
+	) {
+		items.push({
+			label: 'Integrations',
+			url: `/${currentProduct.slug}/integrations`,
+		})
+	}
+
+	/**
+	 * Return the items
+	 */
+	return items
+}
+
+export const getRightSideNavItems = (
+	currentProduct: ProductData
+): NavItem[] => {
+	const items: NavItem[] = []
+
 	/**
 	 * For Terraform, add a "Registry" item
 	 */
@@ -178,23 +194,23 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 			url: 'https://registry.terraform.io/',
 			opensInNewTab: true,
 		})
-	} else if (getIsEnabledProductIntegrations(currentProduct.slug)) {
-		items.push({
-			label: 'Integrations',
-			url: `/${currentProduct.slug}/integrations`,
-		})
 	}
 
 	/**
 	 * For cloud products, add a "Try Cloud" item
 	 */
 	if (TRY_CLOUD_ITEM_PRODUCT_SLUGS.includes(currentProduct.slug)) {
+		const label =
+			currentProduct.slug === 'hcp'
+				? 'Try Cloud'
+				: `Try HCP ${currentProduct.name}`
 		items.push({
-			label: 'Try Cloud',
+			label,
 			url:
 				TRY_CLOUD_PRODUCT_LINKS[currentProduct.slug] ??
 				TRY_CLOUD_PRODUCT_LINKS['default'],
 			opensInNewTab: true,
+			isPrimary: true,
 		})
 	}
 

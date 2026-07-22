@@ -26,6 +26,7 @@ interface Window {
 	 * https://www.npmjs.com/package/@datadog/browser-rum
 	 */
 	DD_RUM: $TSFixMe
+	ineum?: (...args: unknown[]) => void
 }
 
 /**

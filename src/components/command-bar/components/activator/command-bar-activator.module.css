@@ -19,11 +19,13 @@
 	padding-left: 12px;
 	padding-right: 12px;
 	padding-top: 8px;
-	width: fit-content;
+	width: 320px;
 
-	/* Show icon-only starting at 1071px and narrower */
-	@media only screen and (max-width: 1071px) {
+	/* Show icon-only starting at 1190px and narrower */
+	@media only screen and (max-width: 1190px) {
+		width: fit-content;
 		padding: 10px;
+		margin-right: 12px;
 
 		& .leadingIcon {
 			color: var(--mds-color-foreground-faint);

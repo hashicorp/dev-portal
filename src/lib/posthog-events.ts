@@ -80,3 +80,23 @@ export function trackVideoPlay(url: string): void {
 		})
 	}
 }
+
+/**
+ * Pushes a 'Nav link click' custom event to PostHog.
+ * A wrapper around the PostHog custom event method.
+ *
+ * @param {string} name - The name of the nav link
+ * @param {string} href - The href for the nav link
+ * @param {string} [section] - The name of the section of the nav. Top-level links do not have a section.
+ */
+export const trackNavClickEvent = (
+	name: string,
+	href: string,
+	section?: string,
+) => {
+	posthog.capture('Nav link click', {
+		name,
+		href,
+		section,
+	})
+}

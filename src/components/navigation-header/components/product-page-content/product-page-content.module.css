@@ -38,4 +38,18 @@
 	align-items: center;
 	display: flex;
 	gap: 24px;
+	width: 100%;
+	min-width: 0;
+}
+
+.left {
+	display: flex;
+	align-items: center;
+}
+
+.right {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	gap: 16px;
 }

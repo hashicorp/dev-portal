@@ -2,11 +2,11 @@
 	"title": "Security Automation",
 	"summary": {
 		"heading": "Security<br />Automation Certifications",
-		"description": "Verify your security and networking automation expertise with our Vault and Consul certifications. Earn an associate-level certification to validate your foundational Vault or Consul knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam."
+		"description": "Verify your security and networking automation expertise with our Vault certifications. Earn an associate-level certification to validate your foundational Vault knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam."
 	},
 	"hero": {
 		"heading": "Security<br />Automation Certifications",
-		"description": " Verify your security and networking automation expertise with our Vault and Consul certifications. Earn an associate-level certification to validate your foundational Vault or Consul knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam."
+		"description": " Verify your security and networking automation expertise with our Vault certifications. Earn an associate-level certification to validate your foundational Vault knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam."
 	},
 	"exams": [
 		{
@@ -32,18 +32,7 @@
 				"register": "/certifications/signin"
 			},
 			"faqSlug": "vault-operations-professional"
-		},
-		{
-			"title": "Consul Associate",
-			"examCode": "003",
-			"productSlug": "consul",
-			"versionTested": "Consul 1.15",
-			"description": "Prove your foundational Consul knowledge and skills in an hour-long multiple-choice exam.",
-			"links": {
-				"prepare": "/consul/tutorials/certification-003",
-				"register": "/certifications/signin"
-			},
-			"faqSlug": "consul-associate-003"
 		}
+		
 	]
 }
