@@ -4,89 +4,105 @@
  */
 
 .certificationCard {
-    max-width: 384px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 32px 24px;
-    border-radius: 8px;
-    border: 1px solid var(--mds-color-border-faint);
-    box-shadow: var(--token-surface-mid-box-shadow);
-    overflow: hidden;
+	max-width: 384px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding: 32px 24px;
+	border-radius: 8px;
+	border: 1px solid var(--mds-color-border-faint);
+	box-shadow: var(--token-surface-mid-box-shadow);
+	overflow: hidden;
 
-    @nest html[data-theme='dark'] & {
+	@nest html[data-theme='dark'] & {
 		background-color: var(--mds-color-surface-faint);
+	}
+
+	@media (--dev-dot-tablet), (--dev-dot-mobile) {
+		max-width: 100%;
 	}
 }
 
+/* 
+	Still slightly buggy when going from desktop to tablet view
+	Revisit the flex-basis + flex-grow solution later
+*/
 .certificationCardReduced {
-    width: 50%;
-    min-width: 280px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-basis: 280px;
+	flex-grow: 1;
+	background-color: var(--mds-color-surface-primary);
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--mds-color-surface-strong);
+	}
+
+	@media (--dev-dot-mobile) {
+		flex-basis: auto;
+	}
 }
 
 .topBar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    background-color: var(--product-color);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 8px;
+	background-color: var(--product-color);
 }
 
 .stars {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
+	display: flex;
+	gap: 8px;
+	margin-bottom: 16px;
 
-    & svg {
-        color: var(--product-color);
-    }
+	& svg {
+		color: var(--product-color);
+	}
 }
 
 .certContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 24px;
-    flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 24px;
+	flex-grow: 1;
 }
 
 .certHeader {
-    display: flex;
-    flex-direction: column;
-    color: var(--mds-color-foreground-strong);
-    gap: 8px;
-
+	display: flex;
+	flex-direction: column;
+	color: var(--mds-color-foreground-strong);
+	gap: 8px;
 }
 
 .certDetails {
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    gap: 12px;
+	display: flex;
+	flex-direction: column;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	gap: 12px;
 }
 
 .certDetail {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--mds-color-foreground-faint);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--mds-color-foreground-faint);
 
-    & svg {
-        color: var(--mds-color-foreground-primary);
-    }
+	& svg {
+		color: var(--mds-color-foreground-primary);
+	}
 }
 
 .cta {
-    display: flex;
-    align-items: center;
-    margin-top: 32px;
-    gap: 6px;
-    color: var(--mds-color-foreground-strong);
+	display: flex;
+	align-items: center;
+	margin-top: 32px;
+	gap: 6px;
+	color: var(--mds-color-foreground-strong);
 }
