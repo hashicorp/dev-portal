@@ -3,84 +3,75 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
- .relatedCertFooter {
-    display: flex;
-    padding: 88px 0;
-    gap: 136px;
-    background-color: var(--mds-color-surface-strong);
+.relatedCertFooter {
+	display: flex;
+	padding: 88px 0;
+	gap: 136px;
+	background-color: var(--mds-color-surface-strong);
 
-    @nest html[data-theme='dark'] & {
+	@nest html[data-theme='dark'] & {
 		background-color: var(--mds-color-page-faint);
 	}
 
-    @media (--dev-dot-tablet) {
-        padding: 48px 0;
-    }
+	@media (--dev-dot-tablet) {
+		padding: 48px 0;
+	}
 
-    @media (--dev-dot-mobile) {
-        padding: 32px 0;
-    } 
- }
+	@media (--dev-dot-mobile) {
+		padding: 32px 0;
+	}
+}
 
- .relatedCertFooterContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 32px;
+.relatedCertFooterContainer {
+	display: flex;
+	flex-direction: row;
+	gap: 32px;
 
-    @media (--dev-dot-tablet) {
-        flex-direction: column;
-    }
+	@media (--dev-dot-tablet-down) {
+		flex-direction: column;
+	}
+}
 
-    @media (--dev-dot-mobile) {
-        flex-direction: column;
-    }
-    
- }
+.relatedCertFooterHeader {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
 
- /* 
-    Why do properties not cascade down to lower screen sizes??
- */
- .relatedCertFooterHeader {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+	@media (--dev-dot-tablet-down) {
+		width: 100%;
+		gap: 32px;
+	}
+}
 
-    @media (--dev-dot-tablet), (--dev-dot-mobile) {
-        width: 100%;
-        gap: 32px;
-    }
- }
+.relatedCertFooterTitle {
+	font-size: 40px;
+}
 
- .relatedCertFooterTitle {
-    font-size: 40px;
- }
+.relatedCertFooterDesc {
+	font-size: 18px;
+	color: var(--mds-color-foreground-primary);
 
- .relatedCertFooterDesc {
-    font-size: 18px;
-    color: var(--mds-color-foreground-primary);
+	/* 
+        This was added because tablet/mobile view has darker text
+        Remove if we decide to not follow through with this design decision
 
-    /* 
-        This was added because tablet/mobile view has darker text???
-    
         @nest html[data-theme='dark'] & {
             color: var(--mds-color-palette-neutral-400);
 	    } 
     */
- }
+}
 
- .relatedCertFooterContent {
-    display: flex;
-    gap: 32px;
+.relatedCertFooterContent {
+	display: flex;
+	gap: 32px;
 
-    @media (--dev-dot-tablet) {
-        width: 100%;
-        gap: 24px;
-    }
+	@media (--dev-dot-tablet-down) {
+		width: 100%;
+		gap: 24px;
+	}
 
-    @media (--dev-dot-mobile) {
-        width: 100%;
-        flex-direction: column;
-        gap: 24px;
-    }
- }
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+	}
+}

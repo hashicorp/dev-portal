@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Components
 import Heading from '@components/heading'
 import Text from '@components/text'
@@ -16,6 +21,15 @@ interface relatedCertificationsFooterProps {
 	relatedCertifications: CertificationCardProps[]
 }
 
+/**
+ * This component is used to display a footer section with related certifications. It takes in a title, description, and an array of related certifications, and renders them in a structured layout.
+ *
+ * @param title - The title of the footer section.
+ * @param desc - A brief description or subtitle for the footer section.
+ * @param relatedCertifications - An array of JSON objects that will be displayed in the footer. Each object should contain the necessary properties to render a certification card, such as product, title, and ctaLink.
+ *
+ * @returns A React functional component that renders the related certifications footer.
+ */
 export function RelatedCertificationsFooter({
 	title,
 	desc,
