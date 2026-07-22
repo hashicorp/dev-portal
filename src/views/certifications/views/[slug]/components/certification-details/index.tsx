@@ -1,16 +1,34 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Components
-import { GradientCard } from 'views/certifications/components/gradient-card'
+import {
+	GradientCard,
+	type GradientCardTheme,
+} from 'views/certifications/components/gradient-card'
 import Heading from '@components/heading'
 import Text from '@components/text'
 
 // Styles
 import s from './certification-details.module.css'
+import classNames from 'classnames'
 
 // Types
 import type { ExamDetail, CertificationDetailsProps } from './types'
 
 // Components
-// Product is used to determine the theme of the gradient card
+
+/**
+ * This component renders the top card of the certification details section. It displays a title and description about who should take the exam.
+ *
+ * @param product - The product name (e.g., 'terraform', 'vault') used to determine the theme of the gradient card.
+ * @param title - The title of the card. Defaults to 'Who should take this exam'.
+ * @param desc - The description text for the card.
+ *
+ * @returns JSX.Element
+ */
 function CertificationDetailsTopCard({
 	product,
 	title = 'Who should take this exam',
@@ -21,7 +39,7 @@ function CertificationDetailsTopCard({
 	desc: string
 }) {
 	return (
-		<GradientCard theme={'infrastructure-automation'}>
+		<GradientCard theme={product as GradientCardTheme}>
 			<div className={s.certDetailsTopCard}>
 				<Heading
 					className={s.certDetailsTopCardTitle}
@@ -31,7 +49,10 @@ function CertificationDetailsTopCard({
 				>
 					{title}
 				</Heading>
-				<Text className={s.certDetailsTopCardDesc} size={300}>
+				<Text
+					className={classNames(s.certDetailsTopCardDesc, s.fontSize)}
+					size={300}
+				>
 					{desc}
 				</Text>
 			</div>
@@ -39,10 +60,15 @@ function CertificationDetailsTopCard({
 	)
 }
 
-/* 
-    1. Check styling - I have margins on the bottom of each exam detail besides the last one
-    2. Figure out how to add the horizontal gap between each exam detail (32px)
-*/
+/**
+ * This component renders the bottom left card of the certification details section. It displays the exam details in a list format.
+ *
+ * @param product - The product name (e.g., 'terraform', 'vault') used to determine the theme of the gradient card.
+ * @param title - The title of the card. Defaults to 'Exam Detail'.
+ * @param examDetails - An array of exam detail objects, each containing a name and value.
+ *
+ * @returns JSX.Element
+ */
 function CertificationDetailsBottomLeftCard({
 	product,
 	title = 'Exam Detail',
@@ -54,7 +80,7 @@ function CertificationDetailsBottomLeftCard({
 }) {
 	return (
 		<div className={s.certDetailsBottomLeftCard}>
-			<GradientCard theme={'infrastructure-automation'}>
+			<GradientCard theme={product as GradientCardTheme}>
 				<div className={s.certDetailsBottomLeftCardContents}>
 					<Heading
 						className={s.certDetailsBottomLeftCardTitle}
@@ -78,11 +104,7 @@ function CertificationDetailsBottomLeftCard({
 								>
 									{detail.name}
 								</Heading>
-								<Text
-									size={300}
-									weight={'semibold'}
-									className={s.certDetailsBottomLeftCardListItemDesc}
-								>
+								<Text size={300} weight={'semibold'} className={s.descTextSize}>
 									{detail.value}
 								</Text>
 							</li>
@@ -94,10 +116,16 @@ function CertificationDetailsBottomLeftCard({
 	)
 }
 
-/* 
-    1. Check styling - Margin left found on the list of prereqs
-    2. Confirm the text coloring
-*/
+/**
+ * This component renders the bottom right card of the certification details section. It displays the prerequisites in a list format.
+ *
+ * @param product - The product name (e.g., 'terraform', 'vault') used to determine the theme of the gradient card.
+ * @param title - The title of the card. Defaults to 'Prerequisites'.
+ * @param prereqs - An array of prerequisite strings.
+ * @param bottomDesc - An optional description text displayed at the bottom of the card.
+ *
+ * @returns JSX.Element
+ */
 function CertificationDetailsBottomRightCard({
 	product,
 	title = 'Prerequisites',
@@ -111,7 +139,7 @@ function CertificationDetailsBottomRightCard({
 }) {
 	return (
 		<div className={s.certDetailsBottomRightCard}>
-			<GradientCard theme={'infrastructure-automation'}>
+			<GradientCard theme={product as GradientCardTheme}>
 				<div className={s.certDetailsBottomRightCardContents}>
 					<Heading
 						className={s.certDetailsBottomRightCardTitle}
@@ -127,14 +155,22 @@ function CertificationDetailsBottomRightCard({
 								key={`prereq-${index}`}
 								className={s.certDetailsBottomRightCardListItem}
 							>
-								<Text size={300}>{prereq}</Text>
+								<Text weight={'semibold'} className={s.descTextSize}>
+									{prereq}
+								</Text>
 							</li>
 						))}
 					</ul>
 					{bottomDesc && (
-						<p className={s.certDetailsBottomRightCardBottomDesc}>
+						<Text
+							weight={'semibold'}
+							className={classNames(
+								s.certDetailsBottomRightCardBottomDesc,
+								s.descTextSize,
+							)}
+						>
 							{bottomDesc}
-						</p>
+						</Text>
 					)}
 				</div>
 			</GradientCard>
@@ -142,11 +178,19 @@ function CertificationDetailsBottomRightCard({
 	)
 }
 
+/**
+ * This component renders the certification details section, which includes the top card (who should take this exam), the bottom left card (exam details), and the bottom right card (prerequisites).
+ *
+ * @param product - The product name (e.g., 'terraform', 'vault') used to determine the theme of the gradient cards.
+ * @param data - An object containing the data for the certification details, including who should take the exam, exam details, and prerequisites.
+ *
+ * @returns JSX.Element
+ */
 export function CertificationDetails({
 	product,
 	data,
 }: CertificationDetailsProps) {
-	const whoExamData = data.who
+	const whoExamData = data.whoShouldTakeExam
 	const examData = data.examDetails
 	const prereqData = data.prerequisites
 

@@ -31,7 +31,7 @@ function CertificationProgramView({
 	const { hero, exams } = pageContent
 
 	const testData = {
-		who: {
+		whoShouldTakeExam: {
 			title: 'Who should take this exam',
 			desc: 'You should take the Terraform Authoring and Operations Professional exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. You will need to demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows.',
 		},

@@ -3,6 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.descTextSize {
+	font-size: 18px;
+}
+
 .certDetails {
 	display: flex;
 	flex-direction: column;
@@ -13,7 +17,7 @@
 	display: flex;
 	gap: 32px;
 
-	@media (--dev-dot-tablet), (--dev-dot-mobile) {
+	@media (--dev-dot-tablet-down) {
 		flex-direction: column;
 	}
 }
@@ -22,13 +26,12 @@
 	display: flex;
 	justify-content: space-between;
 
-	@media (--dev-dot-tablet) {
+	@media (--dev-dot-tablet-down) {
 		flex-direction: column;
 		gap: 32px;
 	}
 
 	@media (--dev-dot-mobile) {
-		flex-direction: column;
 		gap: 16px;
 	}
 }
@@ -39,11 +42,10 @@
 	text-wrap: balance;
 	color: var(--mds-color-foreground-strong);
 
-	@media (--dev-dot-tablet) {
+	@media (--dev-dot-tablet-down) {
 		width: 100%;
 	}
 	@media (--dev-dot-mobile) {
-		width: 100%;
 		font-size: 24px;
 		text-wrap: initial;
 	}
@@ -51,30 +53,28 @@
 
 .certDetailsTopCardDesc {
 	width: 67%;
-	font-size: 18px;
 	color: var(--mds-color-foreground-primary);
 
-	@media (--dev-dot-tablet) {
+	@media (--dev-dot-tablet-down) {
 		width: 100%;
 	}
 
 	@media (--dev-dot-mobile) {
-		width: 100%;
 		font-size: 16px;
 	}
 }
 
 .certDetailsBottomLeftCard {
-    display: flex;
+	display: flex;
 	width: 50%;
 
-	@media (--dev-dot-tablet), (--dev-dot-mobile) {
+	@media (--dev-dot-tablet-down) {
 		width: 100%;
 	}
 }
 
 .certDetailsBottomLeftCardContents {
-    height: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
@@ -86,24 +86,29 @@
 }
 
 .certDetailsBottomLeftCardList {
-	height: 100%;
-	display: flex;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	flex-wrap: wrap;
+	display: grid;
+	grid-auto-flow: row;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, max-content);
+	gap: 32px;
+
+	@media (--dev-dot-tablet-down) {
+		gap: 24px;
+	}
+
+	@media (--dev-dot-mobile) {
+		grid-template-columns: 1fr;
+	}
 }
 
 .certDetailsBottomLeftCardListItem {
-	width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    /* add margin except for the last item in the list to avoid extra space at the bottom */
-    &:not(:last-child) {
-        margin-bottom: 24px;
-    }
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	overflow-wrap: anywhere;
 
 	@media (--dev-dot-mobile) {
 		width: 100%;
@@ -114,23 +119,19 @@
 	color: var(--mds-color-foreground-disabled);
 }
 
-.certDetailsBottomLeftCardListItemDesc {
-	font-size: 18px;
-}
-
 .certDetailsBottomRightCard {
 	width: 50%;
 
-	@media (--dev-dot-tablet), (--dev-dot-mobile) {
+	@media (--dev-dot-tablet-down) {
 		width: 100%;
 	}
 }
 
 .certDetailsBottomRightCardContents {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
 }
 
 .certDetailsBottomRightCardTitle {
@@ -148,10 +149,10 @@
 }
 
 .certDetailsBottomRightCardListItem {
-	color: var(--mds-color-foreground-faint); /* gray text */
+	color: var(--mds-color-foreground-faint);
 }
 
 .certDetailsBottomRightCardBottomDesc {
-	color: var(--mds-color-foreground-faint); /* gray text */
+	color: var(--mds-color-foreground-faint);
 	margin: 0;
 }

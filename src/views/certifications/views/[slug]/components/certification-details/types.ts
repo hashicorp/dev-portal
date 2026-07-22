@@ -6,7 +6,7 @@ export interface ExamDetail {
 export interface CertificationDetailsProps {
 	product: string
 	data: {
-		who: {
+		whoShouldTakeExam: {
 			title?: string
 			desc: string
 		}
