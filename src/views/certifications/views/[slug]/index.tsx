@@ -12,11 +12,11 @@ import {
 	AccordionWithMdxContent,
 	CertificationsMaxWidth,
 	SignupFormArea,
+	CertificationHero,
 } from 'views/certifications/components'
 // Local
 import {
 	ExamDetailsCard,
-	ProgramHero,
 	HeadingPermalink,
 	LinkWithImage,
 	CertificationDetails,
@@ -79,10 +79,12 @@ function CertificationProgramView({
 
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
-			<ProgramHero
+			<CertificationHero
+				eyebrow="Hashicorp certified:"
 				heading={hero.heading}
 				description={hero.description}
-				slug={slug}
+				leftCta={{ text: 'Register for the exam', link: '/certifications' }}
+				rightCta={{ text: 'Prepare for the exam', link: '/certifications' }}
 			/>
 			<div className={s.mainSection}>
 				<CertificationsMaxWidth key={slug}>
