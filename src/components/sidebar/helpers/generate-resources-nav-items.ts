@@ -45,6 +45,7 @@ const COMMUNITY_LINKS_BY_PRODUCT: {
 	terraform: 'https://discuss.hashicorp.com/c/terraform-core/27',
 	vagrant: 'https://discuss.hashicorp.com/c/vagrant/24',
 	vault: 'https://discuss.hashicorp.com/c/vault/30',
+	'vault-radar': 'https://discuss.hashicorp.com/c/vault-radar/52',
 	waypoint: 'https://discuss.hashicorp.com/c/waypoint/51',
 }
 
@@ -63,6 +64,7 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: {
 	terraform: 'https://github.com/hashicorp/terraform',
 	vagrant: 'https://github.com/hashicorp/vagrant',
 	vault: 'https://github.com/hashicorp/vault',
+	'vault-radar': 'https://github.com/hashicorp/vault',
 }
 
 /**

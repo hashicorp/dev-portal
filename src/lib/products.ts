@@ -90,6 +90,7 @@ const productSlugsToNames: {
 	packer: 'Packer',
 	consul: 'Consul',
 	vault: 'Vault',
+	'vault-radar': 'Vault Radar',
 	boundary: 'Boundary',
 	nomad: 'Nomad',
 	waypoint: 'Waypoint',
@@ -115,6 +116,7 @@ const productSlugsToHostNames: {
 	terraform: 'terraform.io',
 	vagrant: 'vagrantup.com',
 	vault: 'vaultproject.io',
+	'vault-radar': 'vaultproject.io',
 	waypoint: 'waypointproject.io',
 }
 
