@@ -20,6 +20,8 @@ import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import s from './landing.module.css'
 import LandingHero from 'components/landing-hero'
 
+import { RelatedCertificationsFooter } from 'views/certifications/views/[slug]/components/related-certifications-footer'
+
 function CertificationsLandingView({
 	pageContent,
 	programSummaries,
@@ -54,11 +56,31 @@ function CertificationsLandingView({
 		},
 	]
 
+	const relatedCertifications = [
+		{
+			product: 'Terraform',
+			title: 'Terraform Intermediate',
+			ctaLink: '/certifications/terraform-intermediate',
+		},
+		{
+			product: 'Terraform',
+			title: 'Terraform Authoring and Operations Professional',
+			ctaLink:
+				'/certifications/terraform-authoring-and-operations-professional',
+		},
+	]
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
 				{/* Hero */}
 				<LandingHero heading={hero.heading} description={hero.description} />
+				<RelatedCertificationsFooter
+					title={'Related certifications'}
+					desc={
+						'Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum turpis. Sed quam vitae porttitor egestas. Luctus nibh ut posuere'
+					}
+					relatedCertifications={relatedCertifications}
+				/>
 				<CertificationsMaxWidth>
 					<Announcement
 						heading="TechXchange is Coming"

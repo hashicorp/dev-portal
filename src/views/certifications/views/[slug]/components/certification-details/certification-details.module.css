@@ -1,0 +1,170 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.descTextSize {
+	font-size: 18px;
+
+	@media (--dev-dot-mobile) {
+		font-size: 16px;
+	}
+}
+
+.certDetails {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.certDetailsBottom {
+	display: flex;
+	gap: 32px;
+
+	@media (--dev-dot-tablet-down) {
+		flex-direction: column;
+	}
+}
+
+.certDetailsTopCard {
+	display: flex;
+	justify-content: space-between;
+
+	@media (--dev-dot-tablet-down) {
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	@media (--dev-dot-mobile) {
+		gap: 16px;
+	}
+}
+
+.certDetailsTopCardTitle {
+	width: 33%;
+	font-size: 32px;
+	text-wrap: balance;
+	color: var(--mds-color-foreground-strong);
+
+	@media (--dev-dot-tablet-down) {
+		width: 100%;
+	}
+	@media (--dev-dot-mobile) {
+		font-size: 24px;
+		text-wrap: initial;
+	}
+}
+
+.certDetailsTopCardDesc {
+	width: 67%;
+	color: var(--mds-color-foreground-primary);
+
+	@media (--dev-dot-tablet-down) {
+		width: 100%;
+	}
+
+	@media (--dev-dot-mobile) {
+		font-size: 16px;
+	}
+}
+
+.certDetailsBottomLeftCard {
+	display: flex;
+	width: 50%;
+
+	@media (--dev-dot-tablet-down) {
+		width: 100%;
+	}
+}
+
+.certDetailsBottomLeftCardContents {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.certDetailsBottomLeftCardTitle {
+	font-size: 32px;
+	color: var(--mds-color-foreground-strong);
+
+	@media (--dev-dot-mobile) {
+		font-size: 24px;
+	}
+}
+
+.certDetailsBottomLeftCardList {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-auto-flow: row;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, max-content);
+	gap: 32px;
+
+	@media (--dev-dot-tablet-down) {
+		gap: 24px;
+	}
+
+	@media (--dev-dot-mobile) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.certDetailsBottomLeftCardListItem {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	overflow-wrap: anywhere;
+
+	@media (--dev-dot-mobile) {
+		width: 100%;
+	}
+}
+
+.certDetailsBottomLeftCardListItemTitle {
+	color: var(--mds-color-foreground-disabled);
+}
+
+.certDetailsBottomRightCard {
+	width: 50%;
+
+	@media (--dev-dot-tablet-down) {
+		width: 100%;
+	}
+}
+
+.certDetailsBottomRightCardContents {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.certDetailsBottomRightCardTitle {
+	font-size: 32px;
+	color: var(--mds-color-foreground-strong);
+
+	@media (--dev-dot-mobile) {
+		font-size: 24px;
+	}
+}
+
+.certDetailsBottomRightCardList {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin: 0;
+	padding: 0;
+	margin-left: 24px;
+}
+
+.certDetailsBottomRightCardListItem {
+	color: var(--mds-color-foreground-faint);
+}
+
+.certDetailsBottomRightCardBottomDesc {
+	color: var(--mds-color-foreground-faint);
+	margin: 0;
+}

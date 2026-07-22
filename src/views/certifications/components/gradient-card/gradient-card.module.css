@@ -9,14 +9,22 @@
 
 	/* the gradient background absolute position references the root container */
 	position: relative;
+	
+	/* enables the current card to grow to the tallest/widest card in the flex container */
+	flex-grow: 1;
 }
 
 .inner {
-	padding: 24px;
+	height: 100%;
+	padding: 40px 32px;
 	position: relative;
 
 	/* we want to make sure contents are layered over the background */
 	z-index: 1;
+
+	@media (--dev-dot-mobile) {
+		padding: 24px;
+	}
 }
 
 .gradientBorderBackground {
@@ -41,7 +49,7 @@
 	--border-radius: 6px;
 
 	/* base-background is used behind the gradient "border", and as a mask */
-	--base-background: var(--mds-color-surface-primary);
+	--base-background: var(--mds-color-surface-faint);
 
 	/**
 	 * Gradient shadow properties
@@ -81,21 +89,8 @@
 		border-radius: calc(var(--border-radius) - var(--gradient-border-width));
 	}
 
-	/* Gradient drop shadow, that appears "below" the card using z-index */
-	&::before {
-		content: '\200B'; /* zero width space */
-		position: absolute;
-		bottom: var(--shadow-inset);
-		left: var(--shadow-inset);
-		right: var(--shadow-inset);
-		height: 72px;
-		background: var(--shadow-background);
-		filter: blur(50px);
-		z-index: -1;
-	}
-
 	/* Theme classes for specific shadow & "border" gradient coloration */
-	&.theme-infrastructure-automation {
+	&.theme-terraform {
 		--shadow-background: linear-gradient(90deg, #8cdeff 0%, #8763d9 100%);
 		--gradient-border-background: radial-gradient(
 			36.05% 120.87% at 3.06% 4.48%,
@@ -106,7 +101,7 @@
 		);
 	}
 
-	&.theme-security-automation {
+	&.theme-vault {
 		--shadow-background: linear-gradient(90deg, #ffe58c 0%, #f26b63 100%);
 		--gradient-border-background: radial-gradient(
 			36.05% 120.87% at 3.06% 4.48%,
