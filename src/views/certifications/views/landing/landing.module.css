@@ -23,7 +23,10 @@
 
 .signupForm {
 	margin-top: 72px;
-	padding-bottom: 108px;
+	margin-bottom: 108px;
+	border: 1px solid var(--mds-color-border-strong);
+	border-radius: 8px;
+	overflow: hidden;
 
 	@media (--dev-dot-tablet) {
 		margin-top: 40px;
