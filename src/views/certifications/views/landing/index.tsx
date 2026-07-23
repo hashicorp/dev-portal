@@ -13,12 +13,12 @@ import {
 	CertificationsMaxWidth,
 	SignupFormArea,
 	CertificationCardContainer,
+	CertificationHero,
 } from 'views/certifications/components'
 // Local view
 import { CertificationProgramSummaryCard } from './components'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import s from './landing.module.css'
-import LandingHero from 'components/landing-hero'
 
 import { RelatedCertificationsFooter } from 'views/certifications/views/[slug]/components/related-certifications-footer'
 
@@ -73,7 +73,10 @@ function CertificationsLandingView({
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
 				{/* Hero */}
-				<LandingHero heading={hero.heading} description={hero.description} />
+				<CertificationHero
+					heading={hero.heading}
+					description={hero.description}
+				/>
 				<RelatedCertificationsFooter
 					title={'Related certifications'}
 					desc={
