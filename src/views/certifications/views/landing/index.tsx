@@ -8,7 +8,6 @@ import BaseLayout from 'layouts/base-layout'
 // Shared components
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import {
-	AccordionWithMdxContent,
 	Announcement,
 	CertificationsMaxWidth,
 	SignupFormArea,
@@ -16,26 +15,21 @@ import {
 	CertificationHero,
 } from 'views/certifications/components'
 // Local view
-import { CertificationProgramSummaryCard } from './components'
-import { CertificationLandingProps, CertificationProgramSummary } from './types'
+import { CertificationLandingProps } from './types'
 import s from './landing.module.css'
-
-import { RelatedCertificationsFooter } from 'views/certifications/views/[slug]/components/related-certifications-footer'
 
 function CertificationsLandingView({
 	pageContent,
-	programSummaries,
-	faqItems,
 }: CertificationLandingProps) {
 	const { hero } = pageContent
 
-	const certData = [
+	const terraformCertData = [
 		{
 			product: 'terraform',
 			title: 'Terraform Associate',
 			desc: 'Brief description to gives the user enough context to take the next step with confidence',
 			starCount: 1,
-			ctaLink: 'certifications',
+			ctaLink: 'certifications/infrastructure-automation',
 			certDetails: [
 				'Product version tested: Terraform 1.12',
 				'Terraform basic concepts and skills',
@@ -47,7 +41,7 @@ function CertificationsLandingView({
 			title: 'Terraform Authoring and Operations Professional',
 			desc: 'Brief description to gives the user enough context to take the next step with confidence',
 			starCount: 3,
-			ctaLink: 'certifications',
+			ctaLink: 'certifications/infrastructure-automation',
 			certDetails: [
 				'Product version tested: Terraform 1.12',
 				'Terraform advanced concepts and skills',
@@ -56,19 +50,33 @@ function CertificationsLandingView({
 		},
 	]
 
-	const relatedCertifications = [
+	const vaultCertData = [
 		{
-			product: 'Terraform',
-			title: 'Terraform Intermediate',
-			ctaLink: '/certifications/terraform-intermediate',
+			product: 'vault',
+			title: 'Vault Associate',
+			desc: 'Brief description to gives the user enough context to take the next step with confidence',
+			starCount: 1,
+			ctaLink: 'certifications/security-automation',
+			certDetails: [
+				'Product version tested: Vault 1.12',
+				'Vault basic concepts and skills',
+				'Vault Associate value proposition',
+			],
 		},
 		{
-			product: 'Terraform',
-			title: 'Terraform Authoring and Operations Professional',
-			ctaLink:
-				'/certifications/terraform-authoring-and-operations-professional',
+			product: 'vault',
+			title: 'Vault Operations Professional',
+			desc: 'Brief description to gives the user enough context to take the next step with confidence',
+			starCount: 3,
+			ctaLink: 'certifications/security-automation',
+			certDetails: [
+				'Product version tested: Vault 1.12',
+				'Vault advanced concepts and skills',
+				'Vault Professional value proposition',
+			],
 		},
 	]
+
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
@@ -76,13 +84,6 @@ function CertificationsLandingView({
 				<CertificationHero
 					heading={hero.heading}
 					description={hero.description}
-				/>
-				<RelatedCertificationsFooter
-					title={'Related certifications'}
-					desc={
-						'Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum turpis. Sed quam vitae porttitor egestas. Luctus nibh ut posuere'
-					}
-					relatedCertifications={relatedCertifications}
 				/>
 				<CertificationsMaxWidth>
 					<Announcement
@@ -92,40 +93,19 @@ function CertificationsLandingView({
 						ctaLink="https://developer.hashicorp.com"
 					/>
 					<CertificationCardContainer
-						product={'Terraform'}
-						containerDesc={
-							'We offer Terraform certifications at two levels. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification.'
-						}
-						certData={certData}
+						product="Terraform"
+						containerDesc="We offer Terraform certifications at two levels. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification."
+						certData={terraformCertData}
 					/>
+					<CertificationCardContainer
+						product="Vault"
+						containerDesc="Earn an associate-level certification to validate your foundational Vault or Consul knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam."
+						certData={vaultCertData}
+					/>
+					<div className={s.signupForm}>
+						<SignupFormArea />
+					</div>
 				</CertificationsMaxWidth>
-				{/* Program Summaries */}
-				{/* <div className={s.programsSection}>
-					{programSummaries.map(
-						(programSummary: CertificationProgramSummary) => {
-							const { slug, heading, description, exams } = programSummary
-							return (
-								<CertificationsMaxWidth key={slug}>
-									<CertificationProgramSummaryCard
-										slug={slug}
-										heading={heading}
-										description={description}
-										exams={exams}
-									/>
-								</CertificationsMaxWidth>
-							)
-						},
-					)}
-				</div> */}
-				<div className={s.faqSignupSection}>
-					<CertificationsMaxWidth>
-						<h2 className={s.faqHeading}>{pageContent.faqHeading}</h2>
-						<AccordionWithMdxContent items={faqItems} />
-						<div className={s.signupForm}>
-							<SignupFormArea />
-						</div>
-					</CertificationsMaxWidth>
-				</div>
 			</div>
 		</BaseLayout>
 	)
