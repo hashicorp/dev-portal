@@ -81,7 +81,10 @@ function CertificationProgramView({
 	}
 
 	return (
-		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
+		<BaseLayout
+			className={s.baseLayout}
+			mobileMenuSlot={<MobileMenuLevelsGeneric />}
+		>
 			<CertificationHero
 				eyebrow="Hashicorp certified:"
 				heading={hero.heading}
@@ -100,13 +103,25 @@ function CertificationProgramView({
 						ctaLink={'/certifications'}
 					/>
 					<CertificationDetails product={'terraform'} data={testData} />
-					<AccordionWithMdxContent items={exams[0].faqItems} />
+					<AccordionWithMdxContent
+						className={s.accordionSection}
+						items={exams[0].faqItems}
+					/>
 					<div className={s.renewCertSection}>
 						<div className={s.renewCertHeader}>
-							<Heading level={2} size={500} weight={'bold'}>
+							<Heading
+								className={s.renewCertHeaderTitle}
+								level={2}
+								size={600}
+								weight={'bold'}
+							>
 								Renew Your Certification
 							</Heading>
-							<Text>
+							<Text
+								className={s.renewCertHeaderDesc}
+								size={300}
+								weight={'regular'}
+							>
 								Understand your recertification options. Start by finding the
 								scenario that applies to you and then evaluate your options.
 								Know which exam version you passed by the 3-digit code on your
