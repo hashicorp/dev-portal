@@ -9,7 +9,7 @@
 
 	/* the gradient background absolute position references the root container */
 	position: relative;
-	
+
 	/* enables the current card to grow to the tallest/widest card in the flex container */
 	flex-grow: 1;
 }
@@ -77,7 +77,7 @@
 	top: 0;
 
 	/* Inset white background makes the gradient background look like a border,
-	   by masking most of the area. */
+	by masking most of the area. */
 	&::after {
 		content: '\200B';
 		position: absolute;
@@ -87,6 +87,11 @@
 		top: var(--gradient-border-width);
 		background: var(--base-background);
 		border-radius: calc(var(--border-radius) - var(--gradient-border-width));
+		background-color: var(--mds-color-surface-primary);
+
+		@nest html[data-theme='dark'] & {
+			background-color: var(--mds-color-surface-faint);
+		}
 	}
 
 	/* Theme classes for specific shadow & "border" gradient coloration */
