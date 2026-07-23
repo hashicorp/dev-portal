@@ -6,20 +6,23 @@
 // Global
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
+import DevDotContent from 'components/dev-dot-content'
+import Heading from '@components/heading'
+import Text from '@components/text'
 import image from '../../../../../public/img/homepage/waypoint-slot-accent.svg'
+
 // Share certifications
 import {
-	AccordionWithMdxContent,
 	CertificationsMaxWidth,
-	SignupFormArea,
 	CertificationHero,
+	Announcement,
+	AccordionWithMdxContent,
 } from 'views/certifications/components'
 // Local
 import {
-	ExamDetailsCard,
-	HeadingPermalink,
-	LinkWithImage,
 	CertificationDetails,
+	LinkWithImage,
+	RelatedCertificationsFooter,
 } from './components'
 import { CertificationProgramViewProps } from './types'
 import s from './program-view.module.css'
@@ -88,43 +91,58 @@ function CertificationProgramView({
 			/>
 			<div className={s.mainSection}>
 				<CertificationsMaxWidth key={slug}>
+					<Announcement
+						heading={'TechXchange is Coming'}
+						text={
+							'Learn from certified instructors on how to boost your enterprise adoption of HashiCorp'
+						}
+						cta={'Read more'}
+						ctaLink={'/certifications'}
+					/>
 					<CertificationDetails product={'terraform'} data={testData} />
-					{/* <div className={s.examsSection}>
-						{exams.map((exam) => {
-							const { title, examCode } = exam
-							const fullTitle = title + (examCode ? ` (${examCode})` : '')
-							const accordionHeading = `${fullTitle} details`
-
-							return (
-								<div key={fullTitle}>
-									<ExamDetailsCard
-										title={fullTitle}
-										description={exam.description}
-										links={exam.links}
-										examTier={exam.examTier}
-										productSlug={exam.productSlug}
-										versionTested={exam.versionTested}
-										slug={slug}
-									/>
-									<HeadingPermalink heading={accordionHeading} />
-									<AccordionWithMdxContent items={exam.faqItems} />
-								</div>
-							)
-						})}
-					</div> */}
-					{/* <div className={s.signupForm}>
-						<SignupFormArea />
+					<AccordionWithMdxContent items={exams[0].faqItems} />
+					<div className={s.renewCertSection}>
+						<div className={s.renewCertHeader}>
+							<Heading level={2} size={500} weight={'bold'}>
+								Renew Your Certification
+							</Heading>
+							<Text>
+								Understand your recertification options. Start by finding the
+								scenario that applies to you and then evaluate your options.
+								Know which exam version you passed by the 3-digit code on your
+								credentials (badge and certificate).
+							</Text>
+						</div>
+						{/* <DevDotContent></DevDotContent> */}
 					</div>
-					<div className={s.knowledgeBaseLink}>
-						<LinkWithImage
-							title="knowledge base for FAQs"
-							description="As a cloud engineer specializing in DevOps, IT, security, or development, you can use the HashiCorp certification program to earn formal"
-							cta="Go to knowledge base"
-							ctaLink="https://developer.hashicorp.com"
-							image={image}
-						/>
-					</div> */}
+					<LinkWithImage
+						title={'Title - knowledge base for FAQs '}
+						description={
+							'Donec ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nullam id dolor id nibh ultricies'
+						}
+						cta={'Go to knowledge base'}
+						ctaLink={'/certifications'}
+						image={image}
+					/>
 				</CertificationsMaxWidth>
+				<RelatedCertificationsFooter
+					title={'Related Certifications'}
+					desc={
+						'Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum '
+					}
+					relatedCertifications={[
+						{
+							product: 'terraform',
+							title: 'Terraform Associate',
+							ctaLink: '/certifications/terraform-associate',
+						},
+						{
+							product: 'vault',
+							title: 'Vault Associate',
+							ctaLink: '/certifications/vault-associate',
+						},
+					]}
+				/>
 			</div>
 		</BaseLayout>
 	)
