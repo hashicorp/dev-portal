@@ -1,0 +1,66 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/* Keep this here now for reference, may be removed or edited once we have correct images for heroes */
+.heroBackground {
+	background: var(--background-image);
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	bottom: -10%;
+	left: -10%;
+	overflow: hidden;
+	position: absolute;
+	right: -10%;
+	top: -10%;
+	z-index: -1;
+}
+
+.heroStartSlot {
+	display: flex;
+	flex-direction: column;
+}
+
+.eyebrowText {
+	margin-bottom: 8px;
+	font-size: 15px;
+	color: var(--mds-color-foreground-faint);
+
+}
+
+.heroHeadingText {
+	font-size: 50px;
+	margin-bottom: 24px;
+}
+
+.heroDescriptionText {
+	font-size: 18px;
+	margin-bottom: 24px;
+}
+
+.ctaGroup {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+	}
+}
+
+.buttonLink {
+	padding: 10px 16px;
+	font-size: 14px;
+}
+
+.rightCta {
+	color: var(--mds-color-foreground-strong);
+
+	&:hover:not(:disabled) {
+		background-color: transparent;
+		border-color: transparent;
+		color: var(--mds-color-foreground-strong);
+	}
+}

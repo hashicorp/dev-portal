@@ -12,11 +12,11 @@ import {
 	CertificationsMaxWidth,
 	SignupFormArea,
 	CertificationCardContainer,
+	CertificationHero,
 } from 'views/certifications/components'
 // Local view
 import { CertificationLandingProps } from './types'
 import s from './landing.module.css'
-import LandingHero from 'components/landing-hero'
 
 function CertificationsLandingView({
 	pageContent,
@@ -81,7 +81,10 @@ function CertificationsLandingView({
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
 				{/* Hero */}
-				<LandingHero heading={hero.heading} description={hero.description} />
+				<CertificationHero
+					heading={hero.heading}
+					description={hero.description}
+				/>
 				<CertificationsMaxWidth>
 					<Announcement
 						heading="TechXchange is Coming"
