@@ -1,0 +1,138 @@
+{
+	"hero": {
+		"heading": "HashiCorp Validated Designs",
+		"subtitle": "Prescriptive reference architectures for deploying and operating HashiCorp tools at scale.",
+		"image": "/img/well-architected-framework/landing-hero-graphic.png"
+	},
+	"overview": {
+		"heading": "Validated Designs",
+		"body": "Prescriptive reference architectures and operational guidance for deploying and operating HashiCorp tools at scale, validated by HashiCorp.",
+		"image": {
+			"light": "/img/validated-designs/overview-light.png",
+			"dark": "/img/validated-designs/overview-dark.png"
+		}
+	},
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Boundary Enterprise",
+			"cards": [
+				{
+					"title": "Installation Guide",
+					"description": "Deploy and configure Boundary in an enterprise environment.",
+					"url": "/validated-designs/boundary/installation-guide/introduction"
+				},
+				{
+					"title": "Administration Guide",
+					"description": "Manage and operate Boundary as a day-2 platform service.",
+					"url": "/validated-designs/boundary/administration-guide/introduction"
+				},
+				{
+					"title": "User Guide",
+					"description": "Configure and use Boundary features in an enterprise environment.",
+					"url": "/validated-designs/boundary/user-guide/introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Consul Enterprise",
+			"cards": [
+				{
+					"title": "Installation Guide",
+					"description": "Deploy and configure Consul in an enterprise environment.",
+					"url": "/validated-designs/consul/installation-guide/introduction"
+				},
+				{
+					"title": "Administration Guide",
+					"description": "Manage and operate Consul as a day-2 platform service.",
+					"url": "/validated-designs/consul/administration-guide/introduction"
+				},
+				{
+					"title": "User Guide",
+					"description": "Configure and use Consul features in an enterprise environment.",
+					"url": "/validated-designs/consul/user-guide/introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Nomad Enterprise",
+			"cards": [
+				{
+					"title": "Installation Guide",
+					"description": "Deploy and configure Nomad in an enterprise environment.",
+					"url": "/validated-designs/nomad/installation-guide/introduction"
+				},
+				{
+					"title": "Administration Guide",
+					"description": "Manage and operate Nomad as a day-2 platform service.",
+					"url": "/validated-designs/nomad/administration-guide/introduction"
+				},
+				{
+					"title": "User Guide",
+					"description": "Configure and use Nomad features in an enterprise environment.",
+					"url": "/validated-designs/nomad/user-guide/introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Terraform Enterprise",
+			"cards": [
+				{
+					"title": "Installation Guide",
+					"description": "Deploy Terraform Enterprise, the self-hosted Terraform platform.",
+					"url": "/validated-designs/terraform/installation-guide/introduction"
+				},
+				{
+					"title": "Administration Guide",
+					"description": "Manage and operate HCP Terraform and Terraform Enterprise as a shared service.",
+					"url": "/validated-designs/terraform/administration-guide/introduction"
+				},
+				{
+					"title": "User Guide",
+					"description": "Use HCP Terraform and Terraform Enterprise to provision and manage infrastructure.",
+					"url": "/validated-designs/terraform/user-guide/introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Vault Enterprise",
+			"cards": [
+				{
+					"title": "Installation Guide",
+					"description": "Deploy Vault Enterprise on virtual machines, cloud infrastructure, or OpenShift.",
+					"url": "/validated-designs/vault/installation-guide/vms/introduction"
+				},
+				{
+					"title": "Administration Guide",
+					"description": "Manage and operate Vault Enterprise as a day-2 platform service.",
+					"url": "/validated-designs/vault/administration-guide/introduction"
+				},
+				{
+					"title": "User Guide",
+					"description": "Configure and use Vault Enterprise features in an enterprise environment.",
+					"url": "/validated-designs/vault/user-guide/introduction"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Vault Radar",
+			"cards": [
+				{
+					"title": "Administration Guide",
+					"description": "Configure, operate, and govern HCP Vault Radar as a day-2 platform service.",
+					"url": "/validated-designs/vault-radar/administration-guide/introduction"
+				},
+				{
+					"title": "User Guide",
+					"description": "Configure and use HCP Vault Radar features in an enterprise environment.",
+					"url": "/validated-designs/vault-radar/user-guide/introduction"
+				}
+			]
+		}
+	]
+}

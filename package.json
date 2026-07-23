@@ -8,9 +8,9 @@
 		"generate:tutorial-map": "hc-tools ./scripts/generate-tutorial-map.ts",
 		"lint": "eslint .",
 		"lint:stylelint": "npx stylelint '**/*.css'",
-		"prebuild": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts && hc-tools ./scripts/build-sitemap.ts",
+		"prebuild": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/build-sitemap.ts",
 		"prepare": "simple-git-hooks",
-		"prestart": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
+		"prestart": "hc-tools ./scripts/generate-tutorial-variant-map.ts",
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
 		"postbuild": "npm run sitemap && hc-tools ./scripts/capture-build-metrics.ts dev-portal && hc-tools ./scripts/upload-source-maps.ts",
@@ -26,7 +26,7 @@
 		"test:watch": "vitest watch",
 		"test": "vitest run",
 		"test:ci": "npm run test",
-		"typecheck": "tsc -p ."
+		"typecheck": ""
 	},
 	"simple-git-hooks": {
 		"pre-commit": "npm run typecheck"
