@@ -5,8 +5,10 @@
 
 import { ReactNode } from 'react'
 import classNames from 'classnames'
-import { ProgramSlug } from 'views/certifications/types'
 import s from './gradient-card.module.css'
+
+// Temporary type used to determine the theme of the gradient card
+type GradientCardTheme = 'terraform' | 'vault'
 
 /**
  * Renders a card with a pretty gradient drop shadow.
@@ -14,12 +16,14 @@ import s from './gradient-card.module.css'
  * Note: in the future we want to enhance this component by adding a
  * gradient border style as well. For now, we have the drop shadow only.
  */
+
+// Note: Need to update the theme to remove the "infrastructure-automation" and "security-automation"; Clear any dependencies
 function GradientCard({
 	children,
 	theme,
 }: {
 	children: ReactNode
-	theme?: ProgramSlug
+	theme?: GradientCardTheme | 'infrastructure-automation' | 'security-automation'
 }) {
 	return (
 		<div className={s.root}>
@@ -31,4 +35,4 @@ function GradientCard({
 	)
 }
 
-export { GradientCard }
+export { GradientCard, type GradientCardTheme }

@@ -13,6 +13,8 @@
 	@media (--dev-dot-desktop) {
 		--programs-faq-overlap: 128px;
 	}
+
+	background-color: var(--mds-color-page-faint)
 }
 
 /**
