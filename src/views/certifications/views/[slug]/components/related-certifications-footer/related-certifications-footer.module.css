@@ -64,6 +64,7 @@
 
 .relatedCertFooterContent {
 	display: flex;
+	flex-grow: 1;
 	gap: 32px;
 
 	@media (--dev-dot-tablet-down) {

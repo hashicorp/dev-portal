@@ -3,26 +3,54 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.mainSection {
-	background: var(--mds-color-surface-interactive-disabled);
-	padding-bottom: 168px;
+.baseLayout {
+	background-color: var(--mds-color-surface-faint);
 
 	@nest html[data-theme='dark'] & {
 		background-color: var(--mds-color-page-primary);
 	}
 }
 
-.examsSection {
+.accordionSection {
+	margin-bottom: 64px;
+
+	@media (--dev-dot-tablet) {
+		margin-bottom: 48px;
+	}
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 32px;
+	}
+}
+
+.renewCertSection {
 	display: flex;
 	flex-direction: column;
-	gap: 72px;
-	margin-top: -72px;
+	gap: 32px;
+	margin-bottom: 64px;
+
+	@media (--dev-dot-tablet) {
+		margin-bottom: 48px;
+	}
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 32px;
+	}
 }
 
-.signupForm {
-	margin-top: 72px;
+.renewCertHeader {
+	max-width: 800px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
-.knowledgeBaseLink {
-	margin-top: 72px;
+.renewCertHeaderTitle {
+	font-size: 32px;
+	color: var(--mds-color-foreground-strong);
+}
+
+.renewCertHeaderDesc {
+	font-size: 18px;
+	color: var(--mds-color-foreground-primary);
 }

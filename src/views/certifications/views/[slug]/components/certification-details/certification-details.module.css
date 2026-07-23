@@ -15,6 +15,15 @@
 	display: flex;
 	flex-direction: column;
 	gap: 32px;
+	margin-bottom: 64px;
+
+	@media (--dev-dot-tablet) {
+		margin-bottom: 48px;
+	}
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 32px;
+	}
 }
 
 .certDetailsBottom {
