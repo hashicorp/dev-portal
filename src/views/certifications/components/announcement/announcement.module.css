@@ -8,9 +8,15 @@
     border: 1px solid var(--mds-color-border-faint);
     border-radius: 5px;
     overflow: hidden;
+    margin-bottom: 64px;
+
+    @media (--dev-dot-tablet) {
+        margin-bottom: 48px;
+    }
 
     @media (--dev-dot-mobile) {
 		flex-direction: column;
+        margin-bottom: 32px;
 	}
 }
 
