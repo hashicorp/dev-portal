@@ -30,6 +30,7 @@ import s from './program-view.module.css'
 function CertificationProgramView({
 	pageContent,
 	slug,
+	mdxSource
 }: CertificationProgramViewProps) {
 	const { hero, exams } = pageContent
 
@@ -128,7 +129,7 @@ function CertificationProgramView({
 								credentials (badge and certificate).
 							</Text>
 						</div>
-						{/* <DevDotContent></DevDotContent> */}
+						<DevDotContent mdxRemoteProps={{ ...mdxSource }} />
 					</div>
 					<LinkWithImage
 						title={'Title - knowledge base for FAQs '}
