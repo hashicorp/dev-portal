@@ -12,5 +12,6 @@ export interface AccordionMdxItem {
 
 export interface AccordionWithMdxContentProps {
 	items: AccordionMdxItem[]
-	className?: string 
+	className?: string
+	disclosureClassName?: string
 }

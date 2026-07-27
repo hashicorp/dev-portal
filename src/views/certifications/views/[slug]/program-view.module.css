@@ -11,7 +11,10 @@
 	}
 }
 
-.accordionSection {
+.examObjectivesSection {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
 	margin-bottom: 64px;
 
 	@media (--dev-dot-tablet) {
@@ -20,6 +23,30 @@
 
 	@media (--dev-dot-mobile) {
 		margin-bottom: 32px;
+		gap: 16px;
+	}
+}
+
+.examObjectivesTitle,
+.renewCertHeaderTitle {
+	font-size: 32px;
+	color: var(--mds-color-foreground-strong);
+
+	@media (--dev-dot-mobile) {
+		font-size: 24px;
+	}
+}
+
+.examObjectives {
+	padding: 24px;
+
+	& button,
+	div {
+		padding: 0;
+	}
+
+	& span {
+		font-size: 18px;
 	}
 }
 
@@ -35,6 +62,7 @@
 
 	@media (--dev-dot-mobile) {
 		margin-bottom: 32px;
+		gap: 16px;
 	}
 }
 
@@ -45,12 +73,40 @@
 	gap: 16px;
 }
 
-.renewCertHeaderTitle {
-	font-size: 32px;
-	color: var(--mds-color-foreground-strong);
-}
-
 .renewCertHeaderDesc {
 	font-size: 18px;
 	color: var(--mds-color-foreground-primary);
+}
+
+.renewCertCard {
+	padding: 0px 32px;
+	padding-top: 8px;
+	padding-bottom: 24px;
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--mds-color-surface-faint);
+	}
+
+	@media (--dev-dot-mobile) {
+		padding-top: 0px;
+		padding-bottom: 16px;
+	}
+}
+
+.renewCertCardContent {
+	& h3 {
+		font-size: 20px;
+	}
+
+	& h4,
+	p,
+	li,
+	a {
+		font-size: 18px;
+	}
+
+	& li {
+		font-size: 18px;
+		margin: 0 !important;
+	}
 }

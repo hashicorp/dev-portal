@@ -26,10 +26,12 @@ const MDX_COMPONENTS = {
 export function AccordionWithMdxContent({
 	items,
 	className,
+	disclosureClassName,
 }: AccordionWithMdxContentProps) {
 	return (
 		<Accordion
 			className={className}
+			disclosureClassName={disclosureClassName}
 			items={items.map((item: AccordionMdxItem, index: number) => {
 				/** Default to open the first item, to highlight the interaction */
 				const initialOpen = index === 0

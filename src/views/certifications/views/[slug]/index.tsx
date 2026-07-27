@@ -9,6 +9,7 @@ import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import DevDotContent from 'components/dev-dot-content'
 import Heading from '@components/heading'
 import Text from '@components/text'
+import { MDSCard } from '@components/mds-card'
 import image from '../../../../../public/img/homepage/waypoint-slot-accent.svg'
 
 // Share certifications
@@ -30,7 +31,7 @@ import s from './program-view.module.css'
 function CertificationProgramView({
 	pageContent,
 	slug,
-	mdxSource
+	mdxSource,
 }: CertificationProgramViewProps) {
 	const { hero, exams } = pageContent
 
@@ -104,10 +105,20 @@ function CertificationProgramView({
 						ctaLink={'/certifications'}
 					/>
 					<CertificationDetails product={'terraform'} data={testData} />
-					<AccordionWithMdxContent
-						className={s.accordionSection}
-						items={exams[0].faqItems}
-					/>
+					<div className={s.examObjectivesSection}>
+						<Heading
+							className={s.examObjectivesTitle}
+							level={2}
+							size={600}
+							weight={'bold'}
+						>
+							Exam Objectives
+						</Heading>
+						<AccordionWithMdxContent
+							disclosureClassName={s.examObjectives}
+							items={exams[0].faqItems}
+						/>
+					</div>
 					<div className={s.renewCertSection}>
 						<div className={s.renewCertHeader}>
 							<Heading
@@ -129,7 +140,12 @@ function CertificationProgramView({
 								credentials (badge and certificate).
 							</Text>
 						</div>
-						<DevDotContent mdxRemoteProps={{ ...mdxSource }} />
+						<MDSCard className={s.renewCertCard}>
+							<DevDotContent
+								className={s.renewCertCardContent}
+								mdxRemoteProps={{ ...mdxSource }}
+							/>
+						</MDSCard>
 					</div>
 					<LinkWithImage
 						title={'Title - knowledge base for FAQs '}
