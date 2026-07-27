@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2022, 2026
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { FlightIconName } from "@hashicorp/mds-react/components";
 import type { ProductSlug } from "types/products";
 

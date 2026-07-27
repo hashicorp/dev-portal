@@ -1,4 +1,9 @@
 /**
+ * Copyright IBM Corp. 2022, 2026
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Import the logos as raw inline SVG strings (via the `?include` loader
  * provided by @hashicorp/platform-nextjs-plugin). Inlining the markup means
  * the SVG is part of the React tree rather than an <img> src, so it is not
