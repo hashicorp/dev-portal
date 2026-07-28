@@ -6,7 +6,7 @@
 	},
 	"overview": {
 		"heading": "Validated Designs",
-		"body": "Prescriptive reference architectures and operational guidance for deploying and operating HashiCorp tools at scale, validated by HashiCorp.",
+		"body": "Prescriptive reference architectures, operational guidance and consumption patterns for deploying, operating and consuming HashiCorp Enterprise products at scale.",
 		"image": {
 			"light": "/img/validated-designs/overview-light.png",
 			"dark": "/img/validated-designs/overview-dark.png"
