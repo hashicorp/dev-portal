@@ -81,7 +81,7 @@ describe('DocsVersionSwitcher', () => {
 	it.each([
 		['/waypoint/docs'],
 		['/waypoint/docs/v0.8.x'],
-	])('given path "%s", hides "%s" from the dropdown', (asPath) => {
+	])('given path "%s", checks for all versions in the dropdown', (asPath) => {
 		mockUserRouter.mockImplementation(() => ({
 			asPath: asPath,
 		}))
@@ -91,7 +91,7 @@ describe('DocsVersionSwitcher', () => {
 			{ wrapper }
 		)
 
-		// assert that only n versions are shown in the dropdown
+		// assert that all n versions are shown in the dropdown
 		const links = queryAllByRole('link')
 		expect(links).toHaveLength(4)
 
