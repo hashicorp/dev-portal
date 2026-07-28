@@ -10,7 +10,8 @@ import DropdownDisclosure, {
 import { VersionSwitcherProps, VersionSwitcherOption } from './types'
 import s from './version-switcher.module.css'
 import { Alert, Separator } from '@hashicorp/mds-react/components'
-import { IconFileX16 } from '@hashicorp/flight-icons/svg-react/file-x-16';
+import { IconFileX16 } from '@hashicorp/flight-icons/svg-react/file-x-16'
+import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -28,7 +29,7 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 
 	// Get the selected option, shown on the disclosure activator
 	const selectedOption = options.find(
-		(option: VersionSwitcherOption) => option.isSelected
+		(option: VersionSwitcherOption) => option.isSelected,
 	)
 
 	return (
@@ -42,25 +43,25 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 			>
 				<DropdownDisclosureLabelItem>{label}</DropdownDisclosureLabelItem>
 				{options
-					// Hide currently selected version from dropdown list
-					.filter((option: VersionSwitcherOption) => !option.isSelected)
 					// Render an anchor item for each option
 					.map((option: VersionSwitcherOption, index: number) => {
 						return [
 							// If the next version is missing, then render a message to explain
-							(index < options.length - 1 && options[index].found && !options[index + 1].found) ? (
+							index < options.length - 1 &&
+							options[index].found &&
+							!options[index + 1].found ? (
 								<>
 									<DropdownDisclosureLabelItem>
-										<Separator spacing='0' />
+										<Separator spacing="0" />
 									</DropdownDisclosureLabelItem>
 									<DropdownDisclosureLabelItem>
 										<Alert
 											type="compact"
-											color='critical'
+											color="critical"
 											icon="info"
 											key="no-previous-versions"
 											description={`No versions of this document exist before ${options[index].label}. Click below to redirect to the version homepage.`}
-											role='alert'
+											role="alert"
 										/>
 									</DropdownDisclosureLabelItem>
 								</>
@@ -71,7 +72,12 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 								rel={option.isLatest ? undefined : 'nofollow'}
 								icon={option.found ? null : <IconFileX16 />}
 							>
-								{option.label}
+								<div className={s.versionDropdownItem}>
+									{option.label}{' '}
+									{option.isSelected ? (
+										<IconCheck16 className={s.currentVersionCheckmark} />
+									) : null}
+								</div>
 							</DropdownDisclosureAnchorItem>,
 						]
 					})}
