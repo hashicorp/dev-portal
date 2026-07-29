@@ -5,6 +5,7 @@
 
 .contentHeaderCard {
 	padding: 0;
+	overflow: visible;
 
 	& .cardTop {
 		padding: 16px;
