@@ -39,7 +39,8 @@
 			"consul",
 			"nomad",
 			"packer",
-			"vagrant"
+			"vagrant",
+			"tfctl-cli"
 		]
 	}
 }

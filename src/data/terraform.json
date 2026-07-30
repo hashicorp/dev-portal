@@ -32,7 +32,8 @@
 		"plugin/sdkv2",
 		"plugin/testing",
 		"registry",
-		"downloads"
+		"downloads",
+		"tfctl-cli"
 	],
 	"docsNavItems": [
 		"docs",
@@ -178,6 +179,12 @@
 			"name": "Terraform MCP Server",
 			"path": "mcp-server",
 			"productSlugForLoader": "terraform-mcp-server"
+		},
+		{
+			"iconName": "docs",
+			"name": "CLI: tfctl",
+			"path": "tfctl-cli",
+			"productSlugForLoader": "tfctl-cli"
 		}
 	]
 }
