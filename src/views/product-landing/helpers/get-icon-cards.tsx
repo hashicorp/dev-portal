@@ -18,7 +18,9 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
 export function getIconCards(product: ProductData) {
 	const iconCards = []
 
-	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
+	if (product.slug !== 'hcp' && 
+		product.slug !== 'waypoint' &&
+		product.slug !== 'vault-radar') {
 		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',

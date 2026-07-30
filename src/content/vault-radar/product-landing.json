@@ -1,0 +1,52 @@
+{
+	"hero": {
+		"heading": "Find and remediate exposed secrets",
+		"image": "https://www.datocms-assets.com/2885/1662767802-dev-dot-vault-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is HCP Vault Radar?",
+		"body": "HCP Vault Radar scans source code, chat messages, and other systems to detect exposed secrets, and helps teams remediate them before they can be exploited.",
+		"cta": {
+			"text": "Learn more about HCP Vault Radar",
+			"url": "/hcp/docs/vault-radar"
+		}
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Learn how to get started with HCP Vault Radar.",
+		"ctas": [
+			{
+				"text": "HCP Vault Radar Quick Start",
+				"url": "/hcp/tutorials/get-started-hcp-vault-radar/what-is-secret-scanning"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Learn HCP Vault Radar",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Secret scanning",
+					"body": "Learn how HCP Vault Radar scans for exposed secrets across your systems.",
+					"url": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-secret-scanning"
+				},
+				{
+					"heading": "Alerting",
+					"body": "Learn how to set up alerts when HCP Vault Radar detects an exposed secret.",
+					"url": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-alert-setup"
+				},
+				{
+					"heading": "Ticketing integration",
+					"body": "Learn how to connect HCP Vault Radar findings to your ticketing system.",
+					"url": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-ticketing-setup"
+				}
+			]
+		}
+	]
+}

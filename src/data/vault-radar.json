@@ -1,6 +1,9 @@
 {
 	"name": "Vault Radar",
 	"slug": "vault-radar",
+	"algoliaConfig": {
+		"indexName": "product_VAULT-RADAR"
+	},
 	"metadata": {
 		"title": "Vault Radar by HashiCorp"
 	},
