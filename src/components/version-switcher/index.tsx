@@ -46,6 +46,19 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 					// Render an anchor item for each option
 					.map((option: VersionSwitcherOption, index: number) => {
 						return [
+							<DropdownDisclosureAnchorItem
+								key={option.href}
+								href={option.href}
+								rel={option.isLatest ? undefined : 'nofollow'}
+								icon={option.found ? null : <IconFileX16 />}
+							>
+								<div className={s.versionDropdownItem}>
+									{option.label}{' '}
+									{option.isSelected ? (
+										<IconCheck16 className={s.currentVersionCheckmark} />
+									) : null}
+								</div>
+							</DropdownDisclosureAnchorItem>,
 							// If the next version is missing, then render a message to explain
 							index < options.length - 1 &&
 							options[index].found &&
@@ -66,19 +79,6 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 									</DropdownDisclosureLabelItem>
 								</>
 							) : null,
-							<DropdownDisclosureAnchorItem
-								key={option.href}
-								href={option.href}
-								rel={option.isLatest ? undefined : 'nofollow'}
-								icon={option.found ? null : <IconFileX16 />}
-							>
-								<div className={s.versionDropdownItem}>
-									{option.label}{' '}
-									{option.isSelected ? (
-										<IconCheck16 className={s.currentVersionCheckmark} />
-									) : null}
-								</div>
-							</DropdownDisclosureAnchorItem>,
 						]
 					})}
 			</DropdownDisclosure>
