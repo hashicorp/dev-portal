@@ -238,7 +238,7 @@ and negative margin.
 /* 
 	The issue with the scrolling has to do with this scroll-margin-top, which controls how far the links redirect
 	When we calculate --total-scroll-offset, we do so without accounting for the extra subnav height (64px) -> Header hidden behind subnav
-	So, the change is done to --total-scroll-offset above where we just double --navigation-header-height given the nav & subnav are the save height
+	So, the change is done to --total-scroll-offset above where we just double --navigation-header-height given the nav & subnav are the same height
 	We can safely do this because the sidecar disappears after a certain min width (1280px) is reached - src/layouts/sidebar-sidecar/sidebar-sidecar-layout.module.css
 	and this width is well above the tablet/mobile views.
 
