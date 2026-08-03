@@ -64,7 +64,7 @@ variable "critical_threshold" {
 
 variable "instana_dashboard_prefix" {
   description = "Used as the prefix to all of our resources and dashboards in Instana to make it easier to find things that we own"
-  type = string
+  type        = string
 }
 
 variable "instana_agent_key" {
@@ -106,8 +106,8 @@ variable "github_repository" {
 # -------------------------
 # Vercel
 # -------------------------
-variable "vercel_team_slug" {
-  description = "Vercel team slug (the part after vercel.com/ in your team URL)."
+variable "vercel_team_id" {
+  description = "Team ID of the \"hashicorp\" team"
   type        = string
 }
 
