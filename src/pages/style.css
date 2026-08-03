@@ -33,10 +33,6 @@
 /* Print Styles */
 @import './print.css';
 
-:root {
-	--mdx-content-max-width: 75ch;
-}
-
 /*
  * About this selector:
  * `.g-subnav ~ *` finds all elements after the navigation.
@@ -229,14 +225,26 @@ and negative margin.
 * "Reconcile" task: https://app.asana.com/0/1201987349274776/1202052090505082/f
 ***
 */
+
 :root {
+	--mdx-content-max-width: 75ch;
 	--permalink-scroll-offset: 24px;
 	--total-scroll-offset: calc(
-		var(--navigation-header-height) + var(--permalink-scroll-offset)
+		calc(var(--navigation-header-height) * 2) + var(--permalink-scroll-offset)
 	);
 	--ce-color: purple;
 }
 
+/* 
+	The issue with the scrolling has to do with this scroll-margin-top, which controls how far the links redirect
+	When we calculate --total-scroll-offset, we do so without accounting for the extra subnav height (64px) -> Header hidden behind subnav
+	So, the change is done to --total-scroll-offset above where we just double --navigation-header-height given the nav & subnav are the same height
+	We can safely do this because the sidecar disappears after a certain min width (1280px) is reached - src/layouts/sidebar-sidecar/sidebar-sidecar-layout.module.css
+	and this width is well above the tablet/mobile views.
+
+	Note: A better fix would be to incorporate the dynamicness of the nav height into --total-scroll-offset and there is the existence of --sticky-bars-height 
+	found in src/layouts/base-layout/base-layout.module.css that we can maybe incorporate. But we'd need to import the file and that gets messy to refactor.
+*/
 .g-offset-scroll-margin-top {
 	scroll-margin-top: var(--total-scroll-offset);
 
