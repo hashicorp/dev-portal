@@ -2,9 +2,10 @@ locals {
   environment = {
     INSTANA_WEBSITE_MONITORING_KEY = {
       value          = instana_website_monitoring_config.devdot.id
-      sensitive      = true
+      sensitive      = false
       comment        = "Instana RUM/EUM beacon key for devdot."
       client_visible = true
+      targets = ["production", "preview", "development"]
     }
   }
 }
