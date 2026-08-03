@@ -17,6 +17,7 @@
 	},
 	"flags": {
 		"unified_docs_migrated_repos": [
+			"terraform-tfctl-cli",
 			"terraform-policy",
 			"terraform-mcp-server",
 			"terraform-migrate",
@@ -39,8 +40,7 @@
 			"consul",
 			"nomad",
 			"packer",
-			"vagrant",
-			"tfctl-cli"
+			"vagrant"
 		]
 	}
 }

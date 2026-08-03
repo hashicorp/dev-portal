@@ -184,7 +184,7 @@
 			"iconName": "docs",
 			"name": "CLI: tfctl",
 			"path": "tfctl-cli",
-			"productSlugForLoader": "tfctl-cli"
+			"productSlugForLoader": "terraform-tfctl-cli"
 		}
 	]
 }
