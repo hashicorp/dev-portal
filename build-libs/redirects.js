@@ -267,6 +267,16 @@ async function buildDevPortalRedirects() {
 			destination: '/vault-radar/hcp-docs/:path*',
 			permanent: true,
 		},
+		{
+			source: '/vault-radar/docs',
+			destination: '/vault-radar/hcp-docs',
+			permanent: true,
+		},
+		{
+			source: '/vault-radar/docs/:path*',
+			destination: '/vault-radar/hcp-docs/:path*',
+			permanent: true,
+		},
 		/**
 		 * Redirects from our former Packer Plugin library to our
 		 * new integrations library for Packer,

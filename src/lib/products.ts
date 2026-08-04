@@ -166,7 +166,7 @@ const navigationData: ProductNavData = [
 			},
 			{
 				product: 'Vault Radar',
-				url: '/hcp/docs/vault-radar',
+				url: '/vault-radar',
 				description: 'Scan for embedded secrets',
 			},
 			{
@@ -219,7 +219,7 @@ const mobileNavigationData: ProductNavData = [
 			},
 			{
 				product: 'Vault Radar',
-				url: '/hcp/docs/vault-radar',
+				url: '/vault-radar',
 				description: 'Scan for embedded secrets',
 			},
 			{
