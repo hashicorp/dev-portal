@@ -57,6 +57,14 @@ export const tryHcpCalloutContent: Record<
 		image:
 			'https://www.datocms-assets.com/2885/1721073685-devdot-try-hcp-callout-ui-mock-vault.svg',
 	},
+	'vault-radar': {
+		heading: 'HCP Vault Radar',
+		description: 'Monitor and analyze your Vault deployments',
+		ctaText: 'Try HCP Vault Radar for free',
+		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
+		image:
+			'https://www.datocms-assets.com/2885/1721073685-devdot-try-hcp-callout-ui-mock-vault.svg',
+	},
 	waypoint: {
 		heading: 'HCP Waypoint',
 		description: 'Simplify your application deployments across platforms',

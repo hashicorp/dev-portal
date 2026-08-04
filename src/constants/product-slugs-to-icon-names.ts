@@ -10,6 +10,7 @@ export const PRODUCT_SLUGS_TO_ICON_NAMES: Record<ProductSlug | 'hcp-vault-secret
 	terraform: 'terraform-color',
 	vagrant: 'vagrant-color',
 	vault: 'vault-color',
+	'vault-radar': 'vault-radar-square-color',
 	'hcp-vault-radar': 'vault-radar-square-color',
 	'hcp-vault-secrets': 'vault-secrets-square-color',
 	waypoint: 'waypoint-color',

@@ -90,6 +90,7 @@ const productSlugsToNames: {
 	packer: 'Packer',
 	consul: 'Consul',
 	vault: 'Vault',
+	'vault-radar': 'Vault Radar',
 	boundary: 'Boundary',
 	nomad: 'Nomad',
 	waypoint: 'Waypoint',
@@ -115,6 +116,7 @@ const productSlugsToHostNames: {
 	terraform: 'terraform.io',
 	vagrant: 'vagrantup.com',
 	vault: 'vaultproject.io',
+	'vault-radar': 'vaultproject.io',
 	waypoint: 'waypointproject.io',
 }
 
@@ -164,7 +166,7 @@ const navigationData: ProductNavData = [
 			},
 			{
 				product: 'Vault Radar',
-				url: '/hcp/docs/vault-radar',
+				url: '/vault-radar',
 				description: 'Scan for embedded secrets',
 			},
 			{
@@ -217,7 +219,7 @@ const mobileNavigationData: ProductNavData = [
 			},
 			{
 				product: 'Vault Radar',
-				url: '/hcp/docs/vault-radar',
+				url: '/vault-radar',
 				description: 'Scan for embedded secrets',
 			},
 			{

@@ -17,10 +17,11 @@ type ProductName =
 	| 'Terraform'
 	| 'Vagrant'
 	| 'Vault'
+	| 'Vault Radar'
 	| 'Waypoint'
 	| 'HCP Vault Secrets'
 
-type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'well-architected-framework'
+type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'vault-radar' | 'well-architected-framework'
 
 type TerraformSubProducts = `${Extract<ProductSlug, 'terraform'>}-${
 	| 'cdk'
