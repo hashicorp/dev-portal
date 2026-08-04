@@ -20,5 +20,5 @@ public/.extracted/
 sitemap-0.xml
 sitemap.xml
 robots.txt
-.terraform*
+.terraform
 terraform.tfvars
