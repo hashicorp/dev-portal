@@ -9,80 +9,90 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 // Local imports
-import {
-	NavBarListContainer,
-	PrimaryNavLink,
-	PrimaryNavSubmenu,
-} from '..'
+import { NavBarListContainer, PrimaryNavLink, PrimaryNavSubmenu } from '..'
 import { ProductIconTextLink } from './components'
-import {
-	getRightSideNavItems,
-	NavItem,
-	getLeftSideNavItems,
-} from './utils'
+import { getRightSideNavItems, NavItem, getLeftSideNavItems } from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
 import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
+import { useRouter } from 'next/router'
 
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
-	const leftSideNavItems = getLeftSideNavItems(currentProduct)
-	const rightSideNavItems = getRightSideNavItems(currentProduct)
+	const router = useRouter()
+	const isCertificationsRoute = router.route.startsWith('/certifications')
+
+	const leftSideNavItems = getLeftSideNavItems(
+		currentProduct,
+		isCertificationsRoute,
+	)
+	const rightSideNavItems = getRightSideNavItems(
+		currentProduct,
+		isCertificationsRoute,
+	)
 
 	// Check if the current product has sandbox support
 	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
 	const hasSandbox =
 		SANDBOX_CONFIG.labs?.length > 0 &&
-		supportedSandboxProducts.includes(currentProduct.slug)
+		supportedSandboxProducts.includes(currentProduct?.slug)
 
 	return (
 		<>
 			<div className={s.productLinkAndNav}>
 				<ProductIconTextLink
-					name={currentProduct.name}
-					slug={currentProduct.slug}
+					name={isCertificationsRoute ? 'Certifications' : currentProduct.name}
+					slug={isCertificationsRoute ? 'certifications' : currentProduct.slug}
 				/>
 				<NavBarListContainer>
 					<div className={s.left}>
-					{leftSideNavItems.map((navItem: NavItem) => {
-						const ariaLabel = `${currentProduct.name} ${navItem.label}`
-						const isSubmenu = 'items' in navItem
-						const isSandbox = navItem.label === 'Sandbox'
+						{leftSideNavItems.map((navItem: NavItem) => {
+							const ariaLabel = `${currentProduct?.name} ${navItem.label}`
+							const isSubmenu = 'items' in navItem
+							const isSandbox = navItem.label === 'Sandbox'
 
-						if (isSandbox && hasSandbox) {
+							if (isSandbox && hasSandbox) {
+								return (
+									<li key={navItem.label}>
+										<div className={s.navDropdown}>
+											<NavigationMenu.Root>
+												<SandboxDropdown
+													ariaLabel={ariaLabel}
+													label="Sandbox"
+												/>
+											</NavigationMenu.Root>
+										</div>
+									</li>
+								)
+							}
+
 							return (
 								<li key={navItem.label}>
-									<div className={s.navDropdown}>
-										<NavigationMenu.Root>
-											<SandboxDropdown ariaLabel={ariaLabel} label="Sandbox" />
-										</NavigationMenu.Root>
-									</div>
+									{isSubmenu ? (
+										<PrimaryNavSubmenu
+											ariaLabel={ariaLabel}
+											navItem={navItem}
+										/>
+									) : (
+										<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
+									)}
 								</li>
 							)
-						}
+						})}
+					</div>
+					<div className={s.right}>
+						{rightSideNavItems.map(
+							(navItem: PrimaryNavLinkProps['navItem']) => {
+								const ariaLabel = `${currentProduct?.name} ${navItem.label}`
 
-						return (
-							<li key={navItem.label}>
-								{isSubmenu ? (
-									<PrimaryNavSubmenu ariaLabel={ariaLabel} navItem={navItem} />
-								) : (
-									<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
-								)}
-							</li>
-						)
-					})}
-				</div>
-				<div className={s.right}>
-					{rightSideNavItems.map((navItem: PrimaryNavLinkProps['navItem']) => {
-						const ariaLabel = `${currentProduct.name} ${navItem.label}`
-
-						return (
-							<li key={navItem.label}>
-								<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
-							</li>
-						)
-					})}
-				</div>
+								return (
+									<li key={navItem.label}>
+										<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
+									</li>
+								)
+							},
+						)}
+					</div>
 				</NavBarListContainer>
 			</div>
 		</>

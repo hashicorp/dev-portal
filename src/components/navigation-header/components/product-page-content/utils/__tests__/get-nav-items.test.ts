@@ -6,6 +6,9 @@
 import { getLeftSideNavItems, getRightSideNavItems } from '../get-nav-items'
 import { ProductData } from 'types/products'
 
+// Might want to update tests to try Certifications subnav redirects
+const isCertifications = false
+
 const testNomadData = {
 	slug: 'nomad',
 	rootDocsPaths: [
@@ -156,7 +159,7 @@ const testHCPData = {
 
 describe('getLeftSideNavItems', () => {
 	it('for most products, returns the standard set of items', () => {
-		expect(getLeftSideNavItems(testNomadData)).toMatchInlineSnapshot(`
+		expect(getLeftSideNavItems(testNomadData, isCertifications)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Install",
@@ -187,7 +190,7 @@ describe('getLeftSideNavItems', () => {
 	})
 
 	it('for Terraform, returns the standard set of items with a Documentation dropdown', () => {
-		expect(getLeftSideNavItems(testTerraformData)).toMatchInlineSnapshot(`
+		expect(getLeftSideNavItems(testTerraformData, isCertifications)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Install",
@@ -262,7 +265,7 @@ describe('getLeftSideNavItems', () => {
 	})
 
 	it('for HCP, returns documentation nav link without dropdown', () => {
-		expect(getLeftSideNavItems(testHCPData)).toMatchInlineSnapshot(`
+		expect(getLeftSideNavItems(testHCPData, isCertifications)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Tutorials",
@@ -279,11 +282,11 @@ describe('getLeftSideNavItems', () => {
 
 describe('getRightSideNavItems', () => {
 	it('for most products, returns no items', () => {
-		expect(getRightSideNavItems(testNomadData)).toMatchInlineSnapshot(`[]`)
+		expect(getRightSideNavItems(testNomadData, isCertifications)).toMatchInlineSnapshot(`[]`)
 	})
 
 	it('for Terraform, returns a link to the Registry and a Try Cloud item', () => {
-		expect(getRightSideNavItems(testTerraformData)).toMatchInlineSnapshot(`
+		expect(getRightSideNavItems(testTerraformData, isCertifications)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Registry",
@@ -301,7 +304,7 @@ describe('getRightSideNavItems', () => {
 	})
 
 	it('for HCP, returns a Try Cloud item', () => {
-		expect(getRightSideNavItems(testHCPData)).toMatchInlineSnapshot(`
+		expect(getRightSideNavItems(testHCPData, isCertifications)).toMatchInlineSnapshot(`
 			[
 			  {
 			    "isPrimary": true,

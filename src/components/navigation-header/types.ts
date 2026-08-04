@@ -28,7 +28,7 @@ interface BaseNavigationHeaderItem {
 		color?: BadgeProps['color']
 		text: BadgeProps['text']
 	}
-	icon: NavigationHeaderIcon
+	icon?: NavigationHeaderIcon
 	label: string
 }
 
