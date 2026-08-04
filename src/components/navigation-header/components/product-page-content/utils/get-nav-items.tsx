@@ -64,7 +64,7 @@ export const getLeftSideNavItems = (
 					return {
 						icon: navItem.icon as NavigationHeaderIcon,
 						label: navItem.label,
-						path: navItem.fullPath, // this is where fullPath becomes regular path
+						path: navItem.fullPath,
 						...(navItem.badge && { badge: navItem.badge }),
 					}
 				}),
