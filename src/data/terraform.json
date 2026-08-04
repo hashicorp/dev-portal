@@ -50,6 +50,7 @@
 			"fullPath": "/terraform/language/providers"
 		},
 		"policy",
+		"tfctl-cli",
 		"plugin",
 		"registry",
 		{
