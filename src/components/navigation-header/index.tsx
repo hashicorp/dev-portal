@@ -68,7 +68,7 @@ const AuthenticationControls = () => {
 									href: '/sign-up',
 									label: 'Sign up',
 								},
-						  ]
+							]
 				}
 				user={user}
 			/>
@@ -86,9 +86,9 @@ const NavigationHeader = () => {
 	const currentProduct = useCurrentProduct()
 
 	const shouldOnlyRenderHomeHeader =
-		!currentProduct ||
+		(!currentProduct && !router.route.startsWith('/certifications')) ||
 		router.route === '/_error' ||
-		currentProduct.slug === 'well-architected-framework'
+		currentProduct?.slug === 'well-architected-framework'
 
 	return (
 		<>

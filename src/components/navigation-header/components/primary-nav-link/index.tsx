@@ -2,9 +2,7 @@
  * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
-
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
-import { IconCloud16 } from '@hashicorp/flight-icons/svg-react/cloud-16'
 import useCurrentPath from 'hooks/use-current-path'
 import Link from 'components/link'
 import Text from 'components/text'
@@ -14,6 +12,8 @@ import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import { trackNavClickEvent } from 'lib/posthog-events'
 
+import { ReactElement } from 'react'
+
 export interface PrimaryNavLinkProps {
 	ariaLabel: string
 	navItem: {
@@ -21,30 +21,40 @@ export interface PrimaryNavLinkProps {
 		url: string
 		opensInNewTab?: boolean
 		isPrimary?: boolean
+		icon?: ReactElement
+		iconPosition?: 'trailing' | 'leading'
 	}
 }
 
+// THIS IS BEING USED FOR NON DROPDOWN SUBNAV ITEMS
+// THIS IS WHY WE SEE OVERVIEW AND THE REGISTER BUTTON
 const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
-	const { label, url, opensInNewTab, isPrimary } = navItem
+	const { label, url, opensInNewTab, isPrimary, icon, iconPosition } = navItem
 	const currentProduct = useCurrentProduct()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
 	const isCurrentPageInPath = currentPath.startsWith(url) && url !== '/'
+
 	// There is an edge case where the 'Documentation' tab was highlighted incorrectly
 	// for vault and boundary since some of the docs sub-paths have their own nav link.
 	// These two edge case conditions check for these paths. If future nav links are added
 	// that run into this scenario, an edge case will need to be added here.
 	const vaultEdgeCase =
-		currentProduct.name === 'Vault' &&
+		currentProduct?.name === 'Vault' &&
 		currentPath.startsWith('/vault/docs/commands') &&
 		url === '/vault/docs'
 	const boundaryEdgeCase =
-		currentProduct.name === 'Boundary' &&
+		currentProduct?.name === 'Boundary' &&
 		(currentPath.startsWith('/boundary/docs/commands') ||
 			currentPath.startsWith('/boundary/docs/domain-model')) &&
 		url === '/boundary/docs'
+	const certificationsEdgeCase =
+		currentPath.startsWith('/certifications') && currentPath !== '/certifications'
 	const shouldLinkBeUnderlined =
-		isCurrentPageInPath && !vaultEdgeCase && !boundaryEdgeCase
+		isCurrentPageInPath &&
+		!vaultEdgeCase &&
+		!boundaryEdgeCase &&
+		!certificationsEdgeCase
 
 	if (opensInNewTab) {
 		return (
@@ -54,7 +64,8 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				color={isPrimary ? 'primary' : 'secondary'}
 				href={url}
 				opensInNewTab={opensInNewTab}
-				icon={isPrimary ? <IconCloud16 /> : <IconExternalLink16 />}
+				icon={icon}
+				iconPosition={iconPosition ?? 'leading'}
 				text={label}
 				onClickCapture={() => {
 					trackNavClickEvent(label, url)

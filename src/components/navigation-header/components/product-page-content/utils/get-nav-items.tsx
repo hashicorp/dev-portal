@@ -8,8 +8,11 @@ import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
 import { NavItem } from './types'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconCloud16 } from '@hashicorp/flight-icons/svg-react/cloud-16'
+import CERTS_CONFIG from 'content/certifications/subnav.json'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
-
 const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'boundary',
 	'consul',
@@ -28,7 +31,8 @@ enum TRY_CLOUD_PRODUCT_LINKS {
 }
 
 export const getLeftSideNavItems = (
-	currentProduct: ProductData
+	currentProduct: ProductData,
+	isCertifications: boolean,
 ): NavItem[] => {
 	/**
 	 * All products except Terraform currently have a small enough number
@@ -40,6 +44,10 @@ export const getLeftSideNavItems = (
 	 * So, we construct a "Documentation" dropdown for the top nav bar.
 	 */
 	let docsNavItems: NavItem[]
+
+	if (isCertifications) {
+		return CERTS_CONFIG['certSubNavItems']
+	}
 
 	// Well-Architected Framework has no header nav items
 	if (currentProduct.slug === 'well-architected-framework') {
@@ -100,9 +108,10 @@ export const getLeftSideNavItems = (
 	if (currentProduct.slug !== 'hcp' && currentProduct.slug !== 'waypoint') {
 		items.push({
 			label: 'Install',
-			url: currentProduct.slug === 'boundary'
-				? `/${currentProduct.slug}/install/enterprise`
-				: `/${currentProduct.slug}/install`,
+			url:
+				currentProduct.slug === 'boundary'
+					? `/${currentProduct.slug}/install/enterprise`
+					: `/${currentProduct.slug}/install`,
 		})
 	}
 
@@ -181,9 +190,23 @@ export const getLeftSideNavItems = (
 }
 
 export const getRightSideNavItems = (
-	currentProduct: ProductData
+	currentProduct: ProductData,
+	isCertifications: boolean,
 ): NavItem[] => {
-	const items: NavItem[] = []
+	const items = []
+
+	if (isCertifications) {
+		const registerButton = {
+			label: 'Register for exam',
+			url: '/certifications/signin',
+			opensInNewTab: true,
+			isPrimary: true,
+			icon: <IconArrowRight16 />,
+			iconPosition: 'trailing' as const,
+		}
+
+		return [registerButton]
+	}
 
 	/**
 	 * For Terraform, add a "Registry" item
@@ -193,6 +216,7 @@ export const getRightSideNavItems = (
 			label: 'Registry',
 			url: 'https://registry.terraform.io/',
 			opensInNewTab: true,
+			icon: <IconExternalLink16 />,
 		})
 	}
 
@@ -211,6 +235,7 @@ export const getRightSideNavItems = (
 				TRY_CLOUD_PRODUCT_LINKS['default'],
 			opensInNewTab: true,
 			isPrimary: true,
+			icon: <IconCloud16 />,
 		})
 	}
 
