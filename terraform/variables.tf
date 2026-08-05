@@ -1,3 +1,6 @@
+# Copyright IBM Corp. 2022, 2026
+# SPDX-License-Identifier: MPL-2.0
+
 variable "website_name" {
   description = "Website monitoring config name to create in Instana."
   type        = string
