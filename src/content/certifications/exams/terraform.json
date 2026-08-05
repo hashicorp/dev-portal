@@ -1,0 +1,32 @@
+{
+	"associate": [
+		{
+			"product": "terraform",
+			"title": "Terraform Associate",
+			"desc": "Brief description to gives the user enough context to take the next step with confidence",
+			"starCount": 1,
+			"ctaLink": "terraform-associate",
+			"certDetails": [
+				"Product version tested: Terraform 1.12",
+				"Terraform basic concepts and skills",
+				"Terraform Associate value proposition"
+			],
+			"uuid": "0"
+		}
+	],
+	"professional": [
+		{
+			"product": "terraform",
+			"title": "Terraform Authoring and Operations Professional",
+			"desc": "Brief description to gives the user enough context to take the next step with confidence",
+			"starCount": 3,
+			"ctaLink": "terraform-professional",
+			"certDetails": [
+				"Product version tested: Terraform 1.12",
+				"Terraform advanced concepts and skills",
+				"Terraform Professional value proposition"
+			],
+			"uuid": "1"
+		}
+	]
+}

@@ -2,7 +2,7 @@
 	"title": "Terraform Associate",
 	"hero": {
 		"eyebrow": "Hashicorp Certified:",
-		"title": "Terraform Authoring and Operations Professional",
+		"title": "Terraform Associate",
 		"description": "Current Exam Description: Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
 		"leftCta": {
 			"text": "Register for the exam",
@@ -81,24 +81,12 @@
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
 		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
-		"tempData": [
+		"certData": [
 			{
-				"product": "terraform",
-				"title": "Terraform Associate",
-				"ctaLink": "/certifications/terraform-associate"
+				"uuid": "0"
 			},
 			{
-				"product": "vault",
-				"title": "Vault Associate",
-				"ctaLink": "/certifications/vault-associate"
-			}
-		],
-		"data": [
-			{
-				"examUUID": "0"
-			},
-			{
-				"examUUID": "1"
+				"uuid": "1"
 			}
 		]
 	}

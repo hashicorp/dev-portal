@@ -20,7 +20,7 @@
 		"ctaLink": "/certifications"
 	},
 	"certificationDetails": {
-		"productSlug": "terraform",
+		"product": "terraform",
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
@@ -66,13 +66,11 @@
 		}
 	},
 	"objectives": {
-		"title": "Exam Objectives",
-		"objectiveSlug": "terraform-associate-004"
+		"title": "Exam Objectives"
 	},
 	"renewCertifications": {
 		"title": "Renew Your Certification",
-		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate).",
-		"renewCertSlug": "terraform-associate"
+		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate)."
 	},
 	"linkWithImage": {
 		"title": "Title - knowledge base for FAQs ",
@@ -83,24 +81,12 @@
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
 		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
-		"tempData": [
+		"certData": [
 			{
-				"product": "terraform",
-				"title": "Terraform Associate",
-				"ctaLink": "/certifications/terraform-associate"
+				"uuid": "0"
 			},
 			{
-				"product": "vault",
-				"title": "Vault Associate",
-				"ctaLink": "/certifications/vault-associate"
-			}
-		],
-		"data": [
-			{
-				"examUUID": "0"
-			},
-			{
-				"examUUID": "1"
+				"uuid": "1"
 			}
 		]
 	}

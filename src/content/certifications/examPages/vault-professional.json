@@ -1,9 +1,9 @@
 {
-	"title": "Terraform Associate",
+	"title": "Vault Professional",
 	"hero": {
 		"eyebrow": "Hashicorp Certified:",
-		"title": "Terraform Authoring and Operations Professional",
-		"description": "Current Exam Description: Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
+		"title": "Vault Authoring and Operations Professional",
+		"description": "Current Exam Description: Demonstrate your advanced, production-level Vault expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
 		"leftCta": {
 			"text": "Register for the exam",
 			"link": "/certifications"
@@ -20,11 +20,11 @@
 		"ctaLink": "/certifications"
 	},
 	"certificationDetails": {
-		"productSlug": "terraform",
+		"product": "vault",
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "You should take the Terraform Authoring and Operations Professional exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. You will need to demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
+				"description": "You should take the Vault Authoring and Operations Professional exam if you have advanced production-level Vault expertise in both configuration authoring and Vault workflows. You will need to demonstrate your professional-level skills implementing and authoring Vault modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
 			},
 			"examDetails": {
 				"title": "Exam Details",
@@ -53,26 +53,24 @@
 			"prerequisites": {
 				"title": "Prerequisites",
 				"prereqs": [
-					"Terraform Associate certification (strongly recommend, or equivalent experience required)",
+					"Vault Associate certification (strongly recommend, or equivalent experience required)",
 					"Linux skills, such as the ability to list and edit files via command terminal",
 					"Linux skills, such as the ability to list and edit files via command terminal",
 					"Experience using cloud credentials",
 					"Familiarity with YAML, JSON, HCL, and CSV formats",
 					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
-					"Advanced configuration authoring and a deep understanding of Terraform workflows"
+					"Advanced configuration authoring and a deep understanding of Vault workflows"
 				],
 				"bottomDescription": "While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
 			}
 		}
 	},
 	"objectives": {
-		"title": "Exam Objectives",
-		"objectiveSlug": "terraform-associate-004"
+		"title": "Exam Objectives"
 	},
 	"renewCertifications": {
 		"title": "Renew Your Certification",
-		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate).",
-		"renewCertSlug": "terraform-associate"
+		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate)."
 	},
 	"linkWithImage": {
 		"title": "Title - knowledge base for FAQs ",
@@ -83,24 +81,12 @@
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
 		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
-		"tempData": [
+		"certData": [
 			{
-				"product": "terraform",
-				"title": "Terraform Associate",
-				"ctaLink": "/certifications/terraform-associate"
+				"uuid": "0"
 			},
 			{
-				"product": "vault",
-				"title": "Vault Associate",
-				"ctaLink": "/certifications/vault-associate"
-			}
-		],
-		"data": [
-			{
-				"examUUID": "0"
-			},
-			{
-				"examUUID": "1"
+				"uuid": "1"
 			}
 		]
 	}
