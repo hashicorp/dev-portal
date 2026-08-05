@@ -3,26 +3,110 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.mainSection {
-	background: var(--mds-color-surface-interactive-disabled);
-	padding-bottom: 168px;
+.baseLayout {
+	background-color: var(--mds-color-surface-faint);
 
 	@nest html[data-theme='dark'] & {
 		background-color: var(--mds-color-page-primary);
 	}
 }
 
-.examsSection {
+.examObjectivesSection {
 	display: flex;
 	flex-direction: column;
-	gap: 72px;
-	margin-top: -72px;
+	gap: 32px;
+	margin-bottom: 64px;
+
+	@media (--dev-dot-tablet) {
+		margin-bottom: 48px;
+	}
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 32px;
+		gap: 16px;
+	}
 }
 
-.signupForm {
-	margin-top: 72px;
+.examObjectivesTitle,
+.renewCertHeaderTitle {
+	font-size: 32px;
+	color: var(--mds-color-foreground-strong);
+
+	@media (--dev-dot-mobile) {
+		font-size: 24px;
+	}
 }
 
-.knowledgeBaseLink {
-	margin-top: 72px;
+.examObjectives {
+	padding: 24px;
+
+	& button,
+	div {
+		padding: 0;
+	}
+
+	& span {
+		font-size: 18px;
+	}
+}
+
+.renewCertSection {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	margin-bottom: 64px;
+
+	@media (--dev-dot-tablet) {
+		margin-bottom: 48px;
+	}
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 32px;
+		gap: 16px;
+	}
+}
+
+.renewCertHeader {
+	max-width: 800px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.renewCertHeaderDesc {
+	font-size: 18px;
+	color: var(--mds-color-foreground-primary);
+}
+
+.renewCertCard {
+	padding: 0px 32px;
+	padding-top: 8px;
+	padding-bottom: 24px;
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--mds-color-surface-faint);
+	}
+
+	@media (--dev-dot-mobile) {
+		padding-top: 0px;
+		padding-bottom: 16px;
+	}
+}
+
+.renewCertCardContent {
+	& h3 {
+		font-size: 20px;
+	}
+
+	& h4,
+	p,
+	li,
+	a {
+		font-size: 18px;
+	}
+
+	& li {
+		font-size: 18px;
+		margin: 0 !important;
+	}
 }

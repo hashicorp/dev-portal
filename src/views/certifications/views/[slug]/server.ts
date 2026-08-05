@@ -11,6 +11,7 @@ import {
 import { ProgramSlug } from 'views/certifications/types'
 // Local
 import { preparePageContent } from './utils/prepare-page-content'
+import { flattenExams } from '../landing/utils/flattenExams'
 import { CertificationProgramViewProps } from './types'
 
 export async function getStaticProps({
@@ -24,13 +25,17 @@ export async function getStaticProps({
 	const pageContent = await preparePageContent(rawPageContent, slug)
 	// Return static props
 
+	// Grabs all exams from every product condensed into a single list
+	const exams = flattenExams()
+
 	return {
 		props: {
 			pageContent,
 			slug,
+			exams,
 			metadata: {
 				title: pageContent.title,
-				localOgImage: 'certifications.jpg',
+				localOgImage: 'certifications.jpg', // might want to change this?
 			},
 		},
 	}
