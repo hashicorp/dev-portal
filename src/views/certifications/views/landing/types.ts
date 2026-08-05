@@ -4,10 +4,10 @@
  */
 
 import { HeadMetadataProps } from 'components/head-metadata/types'
-import {
-	RawCertificationExam,
-	RawCertificationProgram,
-} from 'views/certifications/content/schemas/certification-program'
+// import {
+// 	RawCertificationExam,
+// 	RawCertificationProgram,
+// } from 'views/certifications/content/schemas/certification-program'
 import { RawLandingPageContent } from 'views/certifications/content/schemas/landing-page'
 import { FaqItem, ProgramSlug } from 'views/certifications/types'
 
@@ -16,16 +16,16 @@ import { FaqItem, ProgramSlug } from 'views/certifications/types'
  */
 export interface CertificationProgramSummary {
 	slug: ProgramSlug
-	heading: RawCertificationProgram['summary']['heading']
-	description: RawCertificationProgram['summary']['description']
-	exams: {
-		title: RawCertificationExam['title']
-		examCode?: RawCertificationExam['examCode']
-		examTier?: RawCertificationExam['examTier']
-		productSlug: RawCertificationExam['productSlug']
-		prepareUrl?: RawCertificationExam['links']['prepare']
-		registerUrl?: RawCertificationExam['links']['register']
-	}[]
+	// heading: RawCertificationProgram['summary']['heading']
+	// description: RawCertificationProgram['summary']['description']
+	// exams: {
+	// 	title: RawCertificationExam['title']
+	// 	examCode?: RawCertificationExam['examCode']
+	// 	examTier?: RawCertificationExam['examTier']
+	// 	productSlug: RawCertificationExam['productSlug']
+	// 	prepareUrl?: RawCertificationExam['links']['prepare']
+	// 	registerUrl?: RawCertificationExam['links']['register']
+	// }[]
 }
 
 /**

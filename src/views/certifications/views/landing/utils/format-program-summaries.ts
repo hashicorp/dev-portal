@@ -31,18 +31,19 @@ export function formatProgramSummaries(
 			// Format the full program data into a summary object
 			return {
 				slug: program.slug,
-				heading: program.pageContent.summary.heading,
-				description: program.pageContent.summary.description,
-				exams: program.pageContent.exams.map((exam) => {
-					return stripUndefinedProperties({
-						title: exam.title,
-						examCode: exam.examCode,
-						examTier: exam.examTier,
-						productSlug: exam.productSlug,
-						prepareUrl: exam.links?.prepare,
-						registerUrl: exam.links?.register,
-					})
-				}),
+				// heading: program.pageContent.summary.heading,
+				// description: program.pageContent.summary.description,
+				// exams: program.pageContent.exams.map((exam) => {
+				// 	return stripUndefinedProperties({
+				// 		title: exam.title,
+				// 		examCode: exam.examCode,
+				// 		examTier: exam.examTier,
+				// 		productSlug: exam.productSlug,
+				// 		prepareUrl: exam.links?.prepare,
+				// 		registerUrl: exam.links?.register,
+				// 	})
+				// }),
+				
 			}
 		}
 	)

@@ -12,10 +12,7 @@ import { z } from 'zod'
  * This schema, and components that use the CertificationProductSlug type,
  * will need to be expanded when additional certification programs are added.
  */
-export const productsWithCertifications = [
-	'terraform',
-	'vault',
-] as const
+export const productsWithCertifications = ['terraform', 'vault'] as const
 
 const CertificationProductSlugSchema = z.enum(productsWithCertifications)
 
@@ -40,26 +37,68 @@ const ExamTierSchema = z.enum(['associate', 'pro'])
 export type ExamTier = z.infer<typeof ExamTierSchema>
 
 /**
- * Content schema for an exam.
+ * Content schema for an exam page.
  *
  * Each certification program can reference multiple exams.
  * For example, the Security Automation certification program
  * contains both the Vault Associate and Vault Professional exams.
  */
-export const CertificationExamSchema = z.object({
+const MdxRemoteSerializeResultSchema = z.object({
+	compiledSource: z.string(),
+	scope: z.record(z.string(), z.unknown()),
+})
+
+const FaqItemSchema = z.object({
 	title: z.string(),
-	examCode: z.string().optional(),
-	examTier: ExamTierSchema.optional(),
-	productSlug: CertificationProductSlugSchema,
-	versionTested: z.string(),
+	mdxSource: MdxRemoteSerializeResultSchema,
+})
+
+export const ExamPageContentSchema = z.object({
+	objectivesItems: z.array(FaqItemSchema),
+	recertificationMdx: MdxRemoteSerializeResultSchema,
+})
+
+const ctaSchema = z.object({
+	text: z.string(),
+	link: z.string(),
+})
+
+const whoShouldTakeExamSchema = z.object({
+	title: z.string().optional(),
 	description: z.string(),
-	faqSlug: z.string(),
-	links: z
-		.object({
-			prepare: z.string().optional(),
-			register: z.string().optional(),
-		})
-		.optional(),
+})
+
+const prerequisitesSchema = z.object({
+	title: z.string().optional(),
+	prereqs: z.array(z.string()),
+	bottomDescription: z.string().optional(),
+})
+
+const examDetailSchema = z.object({
+	name: z.string(),
+	value: z.string(),
+})
+
+const examDetailsSchema = z.object({
+	title: z.string().optional(),
+	details: z.array(examDetailSchema),
+})
+
+const certificationCardSchema = z.object({
+	product: z.string(),
+	title: z.string(),
+	description: z.string().optional(),
+	starCount: z.number().optional(),
+	cta: z.string().optional(),
+	ctaLink: z.string(),
+	certDetails: z.array(z.string()).optional(),
+	isReduced: z.boolean().optional(),
+})
+
+const relatedCertsTempSchema = certificationCardSchema
+
+const relatedCertsExamSchema = z.object({
+	examUUID: z.string(),
 })
 
 /**
@@ -72,14 +111,46 @@ export const CertificationExamSchema = z.object({
 export const CertificationProgramSchema = z.object({
 	title: z.string(),
 	hero: z.object({
-		heading: z.string(),
+		eyebrow: z.string().optional(),
+		title: z.string(),
+		description: z.string(),
+		leftCta: ctaSchema.optional(),
+		rightCta: ctaSchema.optional(),
+	}),
+	announcement: z.object({
+		header: z.string(),
+		text: z.string(),
+		cta: z.string(),
+		ctaLink: z.string(),
+	}),
+	certificationDetails: z.object({
+		product: z.enum(['terraform', 'vault']),
+		data: z.object({
+			whoShouldTakeExam: whoShouldTakeExamSchema,
+			examDetails: examDetailsSchema,
+			prerequisites: prerequisitesSchema,
+		}),
+	}),
+	objectives: z.object({
+		title: z.string(),
+	}),
+	renewCertifications: z.object({
+		title: z.string(),
 		description: z.string(),
 	}),
-	summary: z.object({
-		heading: z.string(),
+	linkWithImage: z.object({
+		title: z.string(),
 		description: z.string(),
+		cta: z.string(),
+		ctaLink: z.string(),
 	}),
-	exams: z.array(CertificationExamSchema),
+	relatedCertsFooter: z.object({
+		title: z.string(),
+		description: z.string(),
+		tempData: z.array(relatedCertsTempSchema),
+		data: z.array(relatedCertsExamSchema),
+	}),
+	examPageContent: ExamPageContentSchema.optional(),
 })
 
 /**
@@ -93,4 +164,4 @@ export type RawCertificationProgram = z.infer<typeof CertificationProgramSchema>
 /**
  * Raw content for an individual exam item.
  */
-export type RawCertificationExam = z.infer<typeof CertificationExamSchema>
+export type RawExamPageContent = z.infer<typeof ExamPageContentSchema>

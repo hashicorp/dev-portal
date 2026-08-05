@@ -12,8 +12,12 @@ import { z } from 'zod'
  * when additional certification programs are added.
  */
 const ProgramSlugSchema = z.enum([
-	'infrastructure-automation',
-	'security-automation',
+	'infrastructure-automation', // DELETE ME
+	'security-automation', // DELETE ME
+	"terraform-associate",
+	"terraform-professional",
+	"vault-associate",
+	"vault-professional"
 ])
 
 /**

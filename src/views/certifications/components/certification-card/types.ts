@@ -47,4 +47,9 @@ export interface CertificationCardProps {
         Default value is false
     */
     isReduced?: boolean;
+
+    /*
+        Optional UUID string to distinguish between exams and to link the content for the card
+    */
+    examUUID?: string;
 }

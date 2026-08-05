@@ -28,7 +28,17 @@ function CertificationProgramView({
 	pageContent,
 	slug,
 }: CertificationProgramViewProps) {
-	const { hero, exams } = pageContent
+	console.log(pageContent)
+	const {
+		hero,
+		announcement,
+		certificationDetails,
+		objectives,
+		renewCertifications,
+		linkWithImage,
+		relatedCertsFooter,
+		examPageContent,
+	} = pageContent
 
 	const testData = {
 		whoShouldTakeExam: {
@@ -81,10 +91,10 @@ function CertificationProgramView({
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<CertificationHero
 				eyebrow="Hashicorp certified:"
-				heading={hero.heading}
+				title={hero.title}
 				description={hero.description}
-				leftCta={{ text: 'Register for the exam', link: '/certifications' }}
-				rightCta={{ text: 'Prepare for the exam', link: '/certifications' }}
+				leftCta={hero.leftCta}
+				rightCta={hero.rightCta}
 			/>
 			<div className={s.mainSection}>
 				<CertificationsMaxWidth key={slug}>

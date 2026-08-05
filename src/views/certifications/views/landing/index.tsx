@@ -18,10 +18,17 @@ import {
 import { CertificationLandingProps } from './types'
 import s from './landing.module.css'
 
-function CertificationsLandingView({
-	pageContent,
-}: CertificationLandingProps) {
-	const { hero } = pageContent
+function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
+	const {
+		hero,
+		// announcement,
+		// certificationDetails,
+		// objectives,
+		// renewCertifications,
+		// linkWithImage,
+		// relatedCertsFooter,
+		// examPageContent,
+	} = pageContent
 
 	const terraformCertData = [
 		{
@@ -82,7 +89,7 @@ function CertificationsLandingView({
 			<div className={s.root}>
 				{/* Hero */}
 				<CertificationHero
-					heading={hero.heading}
+					title={hero.heading}
 					description={hero.description}
 				/>
 				<CertificationsMaxWidth>

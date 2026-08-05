@@ -21,8 +21,9 @@ export async function getStaticProps({
 	// Fetch the authored page content
 	const { pageContent: rawPageContent } = getCertificationProgram(slug)
 	// Prepare the page content for rendering, such as prepping MDX source
-	const pageContent = await preparePageContent(rawPageContent)
+	const pageContent = await preparePageContent(rawPageContent, slug)
 	// Return static props
+
 	return {
 		props: {
 			pageContent,

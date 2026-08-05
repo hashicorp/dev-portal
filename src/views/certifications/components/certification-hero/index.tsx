@@ -22,7 +22,7 @@ import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
  */
 function CertificationHero({
 	eyebrow,
-	heading,
+	title,
 	description,
 	leftCta,
 	rightCta,
@@ -44,7 +44,7 @@ function CertificationHero({
 							weight="bold"
 							className={s.heroHeadingText}
 						>
-							{heading}
+							{title}
 						</Heading>
 						<Text className={s.heroDescriptionText}>{description}</Text>
 						<div className={s.ctaGroup}>

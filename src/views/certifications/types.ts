@@ -5,7 +5,7 @@
 
 import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import type {
-	RawCertificationExam,
+	RawExamPageContent,
 	RawCertificationProgram,
 	CertificationProductSlug,
 	ExamTier,
@@ -39,17 +39,14 @@ export interface FaqItem {
 /**
  * Certification exam content, after being prepared for the client.
  */
-export interface CertificationExam
-	extends Omit<RawCertificationExam, 'faqSlug'> {
-	faqItems: FaqItem[]
-}
+export type ExamPageContent = RawExamPageContent
 
 /**
  * Certification program content, after being prepared for the client.
  */
 export interface CertificationProgram
-	extends Omit<RawCertificationProgram, 'exams'> {
-	exams: CertificationExam[]
+	extends RawCertificationProgram {
+	examPageContent: ExamPageContent
 }
 
 /**

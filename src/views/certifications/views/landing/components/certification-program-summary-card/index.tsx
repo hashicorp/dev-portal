@@ -17,9 +17,9 @@ import s from './certification-program-summary-card.module.css'
 
 export function CertificationProgramSummaryCard({
 	slug,
-	heading,
-	description,
-	exams,
+	// heading,
+	// description,
+	// exams,
 }: CertificationProgramSummary) {
 	return (
 		<GradientCard theme={slug}>
@@ -28,12 +28,12 @@ export function CertificationProgramSummaryCard({
 				startContent={
 					<h3
 						className={s.heading}
-						dangerouslySetInnerHTML={{ __html: heading }}
+						dangerouslySetInnerHTML={{ __html: "heading" }}
 					/>
 				}
 				endContent={
 					<>
-						<div className={s.description}>{description}</div>
+						<div className={s.description}>{"description"}</div>
 						<CtaGroup className={s.buttonGroup}>
 							<ButtonLink text="Learn more" href={`/certifications/${slug}`} />
 						</CtaGroup>
@@ -41,7 +41,7 @@ export function CertificationProgramSummaryCard({
 				}
 			/>
 			<div className={s.examCards}>
-				{exams.map(
+				{/* {exams.map(
 					({
 						title,
 						prepareUrl,
@@ -70,7 +70,7 @@ export function CertificationProgramSummaryCard({
 							/>
 						)
 					}
-				)}
+				)} */}
 			</div>
 		</GradientCard>
 	)
