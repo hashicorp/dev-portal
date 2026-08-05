@@ -12,6 +12,8 @@ import { ProgramSlug } from 'views/certifications/types'
 // Local
 import { preparePageContent } from './utils/prepare-page-content'
 import { CertificationProgramViewProps } from './types'
+import { serialize } from 'lib/next-mdx-remote/serialize'
+import { readLocalFile } from 'lib/read-local-file'
 
 export async function getStaticProps({
 	params: { slug },
@@ -22,6 +24,11 @@ export async function getStaticProps({
 	const { pageContent: rawPageContent } = getCertificationProgram(slug)
 	// Prepare the page content for rendering, such as prepping MDX source
 	const pageContent = await preparePageContent(rawPageContent)
+
+	const recertificationMdx = readLocalFile(
+		'src/content/certifications/recertification.mdx',
+	)
+	const mdxSource = await serialize(recertificationMdx)
 	// Return static props
 	return {
 		props: {
@@ -31,6 +38,7 @@ export async function getStaticProps({
 				title: pageContent.title,
 				localOgImage: 'certifications.jpg',
 			},
+			mdxSource
 		},
 	}
 }

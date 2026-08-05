@@ -20,7 +20,7 @@ function ExamBadgeAndTitle({
 }) {
 	return (
 		<div className={s.root}>
-			<ExamBadge productSlug={productSlug} examTier={examTier} />
+			<ExamBadge productSlug={productSlug} />
 			<div className={s.text}>
 				<div className={s.eyebrow}>{eyebrow}</div>
 				<div className={s.title}>{title}</div>

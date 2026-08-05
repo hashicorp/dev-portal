@@ -10,14 +10,18 @@
 	/* background and image elements may "bleed", prevent this from turning
 	   into viewport overflow */
 	overflow: hidden;
-	padding-bottom: 220px;
-	padding-top: 64px;
+	padding-top: 128px;
+	padding-bottom: 160px;
 
 	/* relative position allows background absolute position to cover the hero */
 	position: relative;
 
-	@media (--dev-dot-tablet-up) {
-		padding-top: 144px;
+	@media (--dev-dot-tablet) {
+		padding-top: 80px;
+	}
+
+	@media (--dev-dot-mobile) {
+		padding-top: 64px;
 	}
 }
 
