@@ -4,86 +4,95 @@
  */
 
 .linkWithImage {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid var(--mds-color-border-primary);
-    border-radius: 8px;
-    min-height: 303px;
-    overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	border: 1px solid var(--mds-color-border-primary);
+	border-radius: 8px;
+	min-height: 303px;
+	overflow: hidden;
+	margin-top: 64px;
+	margin-bottom: 88px;
 
-    @media (--dev-dot-mobile) {
-        flex-direction: column;
-    }
+	@media (--dev-dot-tablet) {
+		margin-top: 0px;
+		margin-bottom: 48px;
+	}
+
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+		margin-top: 0px;
+		margin-bottom: 32px;
+	}
 }
 
 .content {
-    width: 50%;
-    padding: 56px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: var(--mds-color-surface-strong);
+	width: 50%;
+	padding: 56px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background-color: var(--mds-color-surface-strong);
 
-    @media (--dev-dot-mobile) {
-        width: 100%;
-        padding: 32px 24px;
-    }
+	@media (--dev-dot-mobile) {
+		width: 100%;
+		padding: 32px 24px;
+	}
 }
 
 .textContent {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 
 .title {
-    color: var(--mds-color-foreground-strong);
-    font-size: 32px;
+	color: var(--mds-color-foreground-strong);
+	font-size: 32px;
 
-    @media (--dev-dot-tablet) {
+	@media (--dev-dot-tablet) {
 		font-size: 24px;
 	}
 
-    @media (--dev-dot-mobile) {
+	@media (--dev-dot-mobile) {
 		font-size: 24px;
 	}
 }
 
 .description {
-    color: var(--mds-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .cta {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    gap: 6px; 
-    color: var(--mds-color-foreground-action);
-    padding-top: 4px;
+	font-size: 13px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--mds-color-foreground-action);
+	padding-top: 4px;
 
-    & svg {
-        height: 12px;
-        width: 12px;
-    }
+	& svg {
+		height: 12px;
+		width: 12px;
+	}
 
-    @media (--dev-dot-mobile) {
-        padding-top: 24px;
+	@media (--dev-dot-mobile) {
+		padding-top: 24px;
 		justify-content: center;
 	}
 }
 
 .image {
-    width: 50%;
-    position: relative;
+	width: 50%;
+	position: relative;
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 
-    @media (--dev-dot-mobile) {
-        width: 100%;
-        height: 215px;
-    }
+	@media (--dev-dot-mobile) {
+		width: 100%;
+		height: 215px;
+	}
 }

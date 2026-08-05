@@ -4,6 +4,7 @@
  */
 
 import { HeadMetadataProps } from 'components/head-metadata/types'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote/types'
 import { ProgramSlug } from 'views/certifications/types'
 import { CertificationProgram } from 'views/certifications/types'
 
@@ -22,4 +23,6 @@ export interface CertificationProgramViewProps {
 	 * Optional metadata, passed to `components/head-metadata` via _app.tsx.
 	 */
 	metadata?: HeadMetadataProps
+
+	mdxSource?: MDXRemoteSerializeResult
 }
