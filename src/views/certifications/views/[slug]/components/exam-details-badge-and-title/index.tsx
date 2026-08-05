@@ -5,7 +5,7 @@
 
 import mitigateWidows from '@hashicorp/platform-util/text/mitigate-widows'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
-import { CertificationProductSlug, ExamTier } from 'views/certifications/types'
+import { CertificationProductSlug } from 'views/certifications/types'
 import { ExamBadge } from 'views/certifications/components'
 import s from './exam-details-badge-and-title.module.css'
 
@@ -17,12 +17,10 @@ function ExamDetailsBadgeAndTitle({
 	title,
 	productSlug,
 	versionTested,
-	examTier,
 }: {
 	title: string
 	productSlug: CertificationProductSlug
 	versionTested: string
-	examTier: ExamTier
 }) {
 	return (
 		<div className={s.root}>

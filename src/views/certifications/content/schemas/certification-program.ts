@@ -24,40 +24,12 @@ export type CertificationProductSlug = z.infer<
 >
 
 /**
- * Each exam can optionally define a tier.
- * - associate (shows 1 start on badges)
- * - pro (shows 2 stars on badges)
- * Generally, the `associate` tier is used as the default.
- */
-const ExamTierSchema = z.enum(['associate', 'pro'])
-
-/**
- * Export the ExamTier enum as a type.
- */
-export type ExamTier = z.infer<typeof ExamTierSchema>
-
-/**
- * Content schema for an exam page.
+ * Content schema for an individual certification program.
  *
- * Each certification program can reference multiple exams.
- * For example, the Security Automation certification program
- * contains both the Vault Associate and Vault Professional exams.
+ * Certification programs are oriented around solution areas, such as
+ * "Infrastructure Automation". Each certification program can contain
+ * multiple specific exams.
  */
-const MdxRemoteSerializeResultSchema = z.object({
-	compiledSource: z.string(),
-	scope: z.record(z.string(), z.unknown()),
-})
-
-const FaqItemSchema = z.object({
-	title: z.string(),
-	mdxSource: MdxRemoteSerializeResultSchema,
-})
-
-export const ExamPageContentSchema = z.object({
-	objectivesItems: z.array(FaqItemSchema),
-	recertificationMdx: MdxRemoteSerializeResultSchema,
-})
-
 const ctaSchema = z.object({
 	text: z.string(),
 	link: z.string(),
@@ -84,30 +56,10 @@ const examDetailsSchema = z.object({
 	details: z.array(examDetailSchema),
 })
 
-const certificationCardSchema = z.object({
-	product: z.string(),
-	title: z.string(),
-	description: z.string().optional(),
-	starCount: z.number().optional(),
-	cta: z.string().optional(),
-	ctaLink: z.string(),
-	certDetails: z.array(z.string()).optional(),
-	isReduced: z.boolean().optional(),
-})
-
-const relatedCertsTempSchema = certificationCardSchema
-
 const relatedCertsExamSchema = z.object({
-	examUUID: z.string(),
+	uuid: z.string(),
 })
 
-/**
- * Content schema for an individual certification program.
- *
- * Certification programs are oriented around solution areas, such as
- * "Infrastructure Automation". Each certification program can contain
- * multiple specific exams.
- */
 export const CertificationProgramSchema = z.object({
 	title: z.string(),
 	hero: z.object({
@@ -124,7 +76,7 @@ export const CertificationProgramSchema = z.object({
 		ctaLink: z.string(),
 	}),
 	certificationDetails: z.object({
-		product: z.enum(['terraform', 'vault']),
+		product: CertificationProductSlugSchema,
 		data: z.object({
 			whoShouldTakeExam: whoShouldTakeExamSchema,
 			examDetails: examDetailsSchema,
@@ -147,10 +99,8 @@ export const CertificationProgramSchema = z.object({
 	relatedCertsFooter: z.object({
 		title: z.string(),
 		description: z.string(),
-		tempData: z.array(relatedCertsTempSchema),
-		data: z.array(relatedCertsExamSchema),
+		certData: z.array(relatedCertsExamSchema),
 	}),
-	examPageContent: ExamPageContentSchema.optional(),
 })
 
 /**
@@ -160,8 +110,3 @@ export const CertificationProgramSchema = z.object({
  * It may need to be transformed before it can be used at the view level.
  */
 export type RawCertificationProgram = z.infer<typeof CertificationProgramSchema>
-
-/**
- * Raw content for an individual exam item.
- */
-export type RawExamPageContent = z.infer<typeof ExamPageContentSchema>
