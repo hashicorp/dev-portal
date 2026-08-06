@@ -1,6 +1,7 @@
 {
 	"associate": [
 		{
+			"uuid": "0",
 			"product": "terraform",
 			"title": "Terraform Associate",
 			"desc": "Brief description to gives the user enough context to take the next step with confidence",
@@ -10,12 +11,12 @@
 				"Product version tested: Terraform 1.12",
 				"Terraform basic concepts and skills",
 				"Terraform Associate value proposition"
-			],
-			"uuid": "0"
+			]
 		}
 	],
 	"professional": [
 		{
+			"uuid": "1",
 			"product": "terraform",
 			"title": "Terraform Authoring and Operations Professional",
 			"desc": "Brief description to gives the user enough context to take the next step with confidence",
@@ -25,8 +26,7 @@
 				"Product version tested: Terraform 1.12",
 				"Terraform advanced concepts and skills",
 				"Terraform Professional value proposition"
-			],
-			"uuid": "1"
+			]
 		}
 	]
 }

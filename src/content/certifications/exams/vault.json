@@ -1,6 +1,7 @@
 {
 	"associate": [
 		{
+			"uuid": "2",
 			"product": "vault",
 			"title": "Vault Associate",
 			"desc": "Brief description to gives the user enough context to take the next step with confidence",
@@ -10,12 +11,12 @@
 				"Product version tested: Vault 1.12",
 				"Vault basic concepts and skills",
 				"Vault Associate value proposition"
-			],
-			"uuid": "2"
+			]
 		}
 	],
 	"professional": [
 		{
+			"uuid": "3",
 			"product": "vault",
 			"title": "Vault Operations Professional",
 			"desc": "Brief description to gives the user enough context to take the next step with confidence",
@@ -25,8 +26,7 @@
 				"Product version tested: Vault 1.12",
 				"Vault advanced concepts and skills",
 				"Vault Professional value proposition"
-			],
-			"uuid": "3"
+			]
 		}
 	]
 }
