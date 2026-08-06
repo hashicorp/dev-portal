@@ -25,7 +25,7 @@ import {
 	LinkWithImage,
 	RelatedCertificationsFooter,
 } from './components'
-import { findMatchingExam } from '../landing/utils/findMatchingExam'
+import { findMatchingExams } from '../landing/utils/findMatchingExams'
 import { CertificationProgramViewProps } from './types'
 import s from './program-view.module.css'
 
@@ -125,7 +125,7 @@ function CertificationProgramView({
 				<RelatedCertificationsFooter
 					title={relatedCertsFooter.title}
 					desc={relatedCertsFooter.description}
-					relatedCertifications={findMatchingExam(
+					relatedCertifications={findMatchingExams(
 						relatedCertsFooter.certData,
 						exams,
 					)}

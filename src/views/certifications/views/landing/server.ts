@@ -5,7 +5,7 @@
 
 import path from 'path'
 import { readLocalFile } from 'lib/read-local-file'
-import { flattenExams } from './utils/flattenExams'
+import { getCertExams } from './utils/getCertExams'
 import { GetStaticPropsResult } from 'next'
 import { CertificationLandingProps } from './types'
 import { LandingPageSchema } from 'views/certifications/content/schemas/landing-page'
@@ -25,7 +25,7 @@ export async function getStaticProps(): Promise<
 	const pageContent = LandingPageSchema.parse(JSON.parse(contentString))
 
 	// Grabs all exams from every product condensed into a single list
-	const exams = flattenExams()
+	const exams = getCertExams()
 
 	/**
 	 * Return static props

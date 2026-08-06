@@ -15,7 +15,7 @@ import {
 	CertificationHero,
 } from 'views/certifications/components'
 // Utils
-import { findMatchingExam } from './utils/findMatchingExam'
+import { findMatchingExams } from './utils/findMatchingExams'
 // Local view
 import { CertificationLandingProps } from './types'
 import s from './landing.module.css'
@@ -51,12 +51,12 @@ function CertificationsLandingView({
 					<CertificationCardContainer
 						product={terraformCerts.product}
 						containerDesc={terraformCerts.containerDescription}
-						certData={findMatchingExam(terraformCerts.certData, exams)}
+						certData={findMatchingExams(terraformCerts.certData, exams)}
 					/>
 					<CertificationCardContainer
 						product={vaultCerts.product}
 						containerDesc={vaultCerts.containerDescription}
-						certData={findMatchingExam(vaultCerts.certData, exams)}
+						certData={findMatchingExams(vaultCerts.certData, exams)}
 					/>
 					<div className={s.signupForm}>
 						<SignupFormArea />
