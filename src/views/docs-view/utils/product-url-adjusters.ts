@@ -126,11 +126,16 @@ export function rewriteDocsUrl(
 		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
 	)
 	const isProductPath = new RegExp(`^/(${productSlugs.join('|')})`)
-	const isTutorialsPath = new RegExp(
+	// Matches any URL that already starts with a known devdot-internal path segment.
+	// These URLs must not be rewritten to dot-io external links, even for products
+	// that are excluded from productSlugs (WAF, validated-patterns, validated-designs)
+	// because they have no dot-io hostname.
+	const isKnownInternalPath = new RegExp(
 		`^/(${[
 			...productSlugs,
 			SectionOption['well-architected-framework'],
 			SectionOption['validated-patterns'],
+			'validated-designs',
 		].join('|')}(/tutorials)?)`
 	)
 
@@ -144,7 +149,7 @@ export function rewriteDocsUrl(
 			return `/${currentProduct.slug}/install/vmware`
 		}
 		return `/${currentProduct.slug}${inputUrl}`
-	} else if (!isProductPath.test(inputUrl) && !isTutorialsPath.test(inputUrl)) {
+	} else if (!isProductPath.test(inputUrl) && !isKnownInternalPath.test(inputUrl)) {
 		// if the path doesnt already start with a product slug i.e. /consul/tutorials
 		// and its not an absolute url we assume it is an internal .io link
 		// for this product context that is not a docs link, and should link to the external .io site
