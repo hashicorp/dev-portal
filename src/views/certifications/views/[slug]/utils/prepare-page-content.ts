@@ -6,14 +6,11 @@
 import path from 'path'
 import { readLocalFile } from 'lib/read-local-file'
 import {
-	ExamPageContent,
+	ExamPageMDXContent,
 	CertificationProgram,
 	ProgramSlug,
 } from 'views/certifications/types'
-import {
-	RawExamPageContent,
-	RawCertificationProgram,
-} from 'views/certifications/content/schemas/certification-program'
+import { RawCertificationProgram } from 'views/certifications/content/schemas/certification-program'
 import { getFaqsFromMdx } from 'views/certifications/content/utils'
 import { serialize } from 'lib/next-mdx-remote/serialize'
 
@@ -32,18 +29,19 @@ export async function preparePageContent(
 	slug: ProgramSlug,
 ): Promise<CertificationProgram> {
 	// slug = terraform-associate
-	const examPageContent = await prepareExamContent(slug)
+	const examPageMDXContent = await prepareExamContent(slug)
 
-	return { ...rawPageContent, examPageContent }
+	return { ...rawPageContent, examPageMDXContent }
 }
 
 /**
  * Transforms an exam item with an `examSlug` into an exam item
- * with full `examPageContent` data, ready to render in the view.
+ * with full `examPageMDXContent` data, ready to render in the view.
  */
 
-// Modify this to handle objectives, renew certs, maybe related certs
-async function prepareExamContent(examSlug: string): Promise<ExamPageContent> {
+async function prepareExamContent(
+	examSlug: string,
+): Promise<ExamPageMDXContent> {
 	const examFile = `${examSlug}.mdx`
 	const objectivesMdxString = readLocalFile(path.join(OBJECTIVES_DIR, examFile))
 	const parsedObjectiveItems = await getFaqsFromMdx(objectivesMdxString)

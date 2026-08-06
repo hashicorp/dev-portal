@@ -5,10 +5,8 @@
 
 import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import type {
-	RawExamPageContent,
 	RawCertificationProgram,
 	CertificationProductSlug,
-	ExamTier,
 } from './content/schemas/certification-program'
 import { ProgramSlug } from './content/schemas/landing-page'
 
@@ -23,11 +21,6 @@ export type { ProgramSlug }
 export type { CertificationProductSlug }
 
 /**
- * Re-export ExamTier from this file, for convenience
- */
-export type { ExamTier }
-
-/**
  * An FAQ item consists of a title representing the questions,
  * and some serialized MDX representing the answer content.
  */
@@ -38,15 +31,21 @@ export interface FaqItem {
 
 /**
  * Certification exam content, after being prepared for the client.
+ * Defined explicitly so that `objectivesItems` and `recertificationMdx`
+ * use the concrete `MDXRemoteSerializeResult` type rather than the weaker
+ * Zod-inferred equivalent, which TypeScript cannot assign to it.
  */
-export type ExamPageContent = RawExamPageContent
+export interface ExamPageMDXContent {
+	objectivesItems: FaqItem[]
+	recertificationMdx: MDXRemoteSerializeResult
+}
 
 /**
  * Certification program content, after being prepared for the client.
  */
 export interface CertificationProgram
 	extends RawCertificationProgram {
-	examPageContent: ExamPageContent
+	examPageMDXContent: ExamPageMDXContent
 }
 
 /**
