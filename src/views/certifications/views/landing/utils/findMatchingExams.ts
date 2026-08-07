@@ -18,7 +18,7 @@ export function findMatchingExams(
 ): Exam[] {
 	if (desiredExams.length === 0) {
 		throw new Error(
-			'Error: Missing array of desired IDs. Please check to see if `certData` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
+			'Error: Missing array of desired IDs. Please check to see if `certs` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
 		)
 	}
 

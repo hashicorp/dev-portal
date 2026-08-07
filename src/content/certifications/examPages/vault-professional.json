@@ -81,7 +81,7 @@
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
 		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
-		"certData": [
+		"certs": [
 			{
 				"id": "0d655aec-de48-4efb-a97a-9fd5a334afa2"
 			},

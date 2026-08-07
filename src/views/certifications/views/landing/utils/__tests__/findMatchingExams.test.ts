@@ -37,7 +37,7 @@ describe('findMatchingExams', () => {
 		const desiredExams = []
 		const exams = [EXAM_A, EXAM_B]
 		expect(() => findMatchingExams(desiredExams, exams)).toThrowError(
-			'Error: Missing array of desired IDs. Please check to see if `certData` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
+			'Error: Missing array of desired IDs. Please check to see if `certs` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
 		)
 	})
 

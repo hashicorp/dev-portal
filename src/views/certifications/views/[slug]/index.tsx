@@ -126,7 +126,7 @@ function CertificationProgramView({
 					title={relatedCertsFooter.title}
 					desc={relatedCertsFooter.description}
 					relatedCertifications={findMatchingExams(
-						relatedCertsFooter.certData,
+						relatedCertsFooter.certs,
 						exams,
 					)}
 				/>

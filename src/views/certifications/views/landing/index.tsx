@@ -51,12 +51,12 @@ function CertificationsLandingView({
 					<CertificationCardContainer
 						product={terraformCerts.product}
 						containerDesc={terraformCerts.containerDescription}
-						certData={findMatchingExams(terraformCerts.certData, exams)}
+						certs={findMatchingExams(terraformCerts.certs, exams)}
 					/>
 					<CertificationCardContainer
 						product={vaultCerts.product}
 						containerDesc={vaultCerts.containerDescription}
-						certData={findMatchingExams(vaultCerts.certData, exams)}
+						certs={findMatchingExams(vaultCerts.certs, exams)}
 					/>
 					<div className={s.signupForm}>
 						<SignupFormArea />

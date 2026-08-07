@@ -99,7 +99,7 @@ export const CertificationProgramSchema = z.object({
 	relatedCertsFooter: z.object({
 		title: z.string(),
 		description: z.string(),
-		certData: z.array(relatedCertsExamSchema),
+		certs: z.array(relatedCertsExamSchema),
 	}),
 })
 
