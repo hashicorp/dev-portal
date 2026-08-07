@@ -8,7 +8,11 @@ import classNames from 'classnames'
 import s from './gradient-card.module.css'
 
 // Temporary type used to determine the theme of the gradient card
-type GradientCardTheme = 'terraform' | 'vault'
+type GradientCardTheme =
+	| 'terraform-associate'
+	| 'terraform-professional'
+	| 'vault-associate'
+	| 'vault-professional'
 
 /**
  * Renders a card with a pretty gradient drop shadow.
@@ -23,7 +27,10 @@ function GradientCard({
 	theme,
 }: {
 	children: ReactNode
-	theme?: GradientCardTheme | 'infrastructure-automation' | 'security-automation'
+	theme?:
+		| GradientCardTheme
+		| 'infrastructure-automation'
+		| 'security-automation'
 }) {
 	return (
 		<div className={s.root}>

@@ -21,7 +21,7 @@ import { CertificationProductSlug } from 'views/certifications/content/schemas/c
 interface CertificationCardContainerProps {
 	product: string
 	containerDesc: string
-	certData: CertificationCardProps[]
+	certs: CertificationCardProps[]
 }
 
 const MAX_NUM_CERTIFICATIONS = 2
@@ -31,16 +31,16 @@ const MAX_NUM_CERTIFICATIONS = 2
  *
  * @param product - The name of the product for which the certifications are being displayed.
  * @param containerDesc - A description for the certification card container.
- * @param certData - An array of certification card data. Each item in the array should be a JSON object that contains the properties defined in the CertificationCardProps interface.
+ * @param certs - An array of certification card data. Each item in the array should be a JSON object that contains the properties defined in the CertificationCardProps interface.
  *
  * @returns A JSX element that represents the certification card container with the specified product name, description, and certification cards.
  */
 export function CertificationCardContainer({
 	product,
 	containerDesc,
-	certData,
+	certs,
 }: CertificationCardContainerProps) {
-	certData = certData.slice(0, MAX_NUM_CERTIFICATIONS) // Limit the number of certifications displayed to MAX_NUM_CERTIFICATIONS
+	certs = certs.slice(0, MAX_NUM_CERTIFICATIONS) // Limit the number of certifications displayed to MAX_NUM_CERTIFICATIONS
 
 	return (
 		<div className={s.certCardContainer}>
@@ -67,8 +67,8 @@ export function CertificationCardContainer({
 				</Text>
 			</div>
 			<div className={s.certCardContainerContent}>
-				{certData &&
-					certData.map((cert, index) => (
+				{certs &&
+					certs.map((cert, index) => (
 						<CertificationCardDisplay
 							key={`certCard-${index}`}
 							product={cert.product}
@@ -76,7 +76,11 @@ export function CertificationCardContainer({
 							desc={cert.desc ? cert.desc : ''}
 							starCount={cert.starCount ? cert.starCount : 0}
 							cta={cert?.cta}
-							ctaLink={cert.ctaLink}
+							// we need to prepend certifications for the landing page cards
+							// otherwise we'll redirect to something like dev.hashicorp.com/[blah], which doesn't exist
+							// this is a compromise for the related certs footer as we'll be nested in /certifications in the footer
+							// and setting ctaLink = certifications/[blah] would result in certifications/certifications/[blah], which also doesn't exist
+							ctaLink={`certifications/${cert.ctaLink}`}
 							certDetails={cert.certDetails ? cert.certDetails : []}
 						/>
 					))}

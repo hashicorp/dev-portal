@@ -6,16 +6,17 @@
 import path from 'path'
 import { readLocalFile } from 'lib/read-local-file'
 import {
-	CertificationExam,
+	ExamPageMDXContent,
 	CertificationProgram,
+	ProgramSlug,
 } from 'views/certifications/types'
-import {
-	RawCertificationExam,
-	RawCertificationProgram,
-} from 'views/certifications/content/schemas/certification-program'
+import { RawCertificationProgram } from 'views/certifications/content/schemas/certification-program'
 import { getFaqsFromMdx } from 'views/certifications/content/utils'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 
-const EXAM_CONTENT_DIR = 'src/content/certifications/exam-faqs'
+// Update DIRS to include objective dir/reuse exam faqs
+const OBJECTIVES_DIR = 'src/content/certifications/objectives'
+const RECERTIFICATIONS_DIR = 'src/content/certifications/recertifications'
 
 /**
  * Process raw authored page content.
@@ -24,23 +25,34 @@ const EXAM_CONTENT_DIR = 'src/content/certifications/exam-faqs'
  * into FAQ items, each with processed `mdxSource`.
  */
 export async function preparePageContent(
-	rawPageContent: RawCertificationProgram
+	rawPageContent: RawCertificationProgram,
+	slug: ProgramSlug,
 ): Promise<CertificationProgram> {
-	const preparedExamsContent = await Promise.all(
-		rawPageContent.exams.map(prepareExamContent)
-	)
-	return { ...rawPageContent, exams: preparedExamsContent }
+	// slug = terraform-associate
+	const examPageMDXContent = await prepareExamContent(slug)
+
+	return { ...rawPageContent, examPageMDXContent }
 }
 
 /**
- * Transforms an exam item with an `faqSlug` into an exam item
- * with full `faqItems` data, ready to render in the view.
+ * Transforms an exam item with an `examSlug` into an exam item
+ * with full `examPageMDXContent` data, ready to render in the view.
  */
+
 async function prepareExamContent(
-	exam: RawCertificationExam
-): Promise<CertificationExam> {
-	const faqFile = `${exam.faqSlug}.mdx`
-	const faqMdxString = readLocalFile(path.join(EXAM_CONTENT_DIR, faqFile))
-	const parsedFaqItems = await getFaqsFromMdx(faqMdxString)
-	return { ...exam, faqItems: parsedFaqItems }
+	examSlug: string,
+): Promise<ExamPageMDXContent> {
+	const examFile = `${examSlug}.mdx`
+	const objectivesMdxString = readLocalFile(path.join(OBJECTIVES_DIR, examFile))
+	const parsedObjectiveItems = await getFaqsFromMdx(objectivesMdxString)
+
+	const recertificationsMdx = readLocalFile(
+		path.join(RECERTIFICATIONS_DIR, examFile),
+	)
+	const recertMdxSource = await serialize(recertificationsMdx)
+
+	return {
+		objectivesItems: parsedObjectiveItems,
+		recertificationMdx: recertMdxSource,
+	}
 }

@@ -1,25 +1,25 @@
 export interface ExamDetail {
-	name: string
-	value: string
+	name?: string
+	value?: string
 }
 
 export interface CertificationDetailsProps {
 	product: string
 	data: {
-		whoShouldTakeExam: {
+		whoShouldTakeExam?: {
 			title?: string
-			desc: string
+			description?: string
 		}
 
-		examDetails: {
+		examDetails?: {
 			title?: string
-			details: ExamDetail[]
+			details?: ExamDetail[]
 		}
 
-		prerequisites: {
+		prerequisites?: {
 			title?: string
-			prereqs: string[]
-			bottomDesc?: string
+			prereqs?: string[]
+			bottomDescription?: string
 		}
 	}
 }
