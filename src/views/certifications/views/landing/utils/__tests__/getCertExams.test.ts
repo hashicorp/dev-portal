@@ -7,7 +7,6 @@
 import { getCertExams } from '../getCertExams'
 
 // MOCKS
-import { vi } from 'vitest'
 vi.mock('lib/read-local-filepaths')
 vi.mock('lib/read-local-file')
 
@@ -16,22 +15,22 @@ import { readLocalFile } from 'lib/read-local-file'
 
 // DUMMY DATA
 const EXAM_A = JSON.stringify({
-	associate: [{ uuid: 'uuid-1', title: 'Exam A' }],
+	associate: [{ id: 'id-1', title: 'Exam A' }],
 })
 const EXAM_B = JSON.stringify({
-	associate: [{ uuid: 'uuid-2', title: 'Exam B' }],
+	associate: [{ id: 'id-2', title: 'Exam B' }],
 })
 const EXAM_DUPE = JSON.stringify({
-	associate: [{ uuid: 'uuid-1', title: 'Exam C' }],
+	associate: [{ id: 'id-1', title: 'Exam C' }],
 })
 const EXAM_MULTI_TYPE = JSON.stringify({
-	associate: [{ uuid: 'uuid-3', title: 'Exam E' }],
-	professional: [{ uuid: 'uuid-4', title: 'Exam F' }],
+	associate: [{ id: 'id-3', title: 'Exam E' }],
+	professional: [{ id: 'id-4', title: 'Exam F' }],
 })
 
 const EXAM_DUPE_WITHIN = JSON.stringify({
-	associate: [{ uuid: 'uuid-5', title: 'Exam G' }],
-	professional: [{ uuid: 'uuid-5', title: 'Exam H' }],
+	associate: [{ id: 'id-5', title: 'Exam G' }],
+	professional: [{ id: 'id-5', title: 'Exam H' }],
 })
 
 describe('getCertExams', () => {
@@ -39,7 +38,7 @@ describe('getCertExams', () => {
 		vi.resetAllMocks()
 	})
 
-	it('should throw an error from a duplicate exam uuid across files', () => {
+	it('should throw an error from a duplicate exam id across files', () => {
 		vi.mocked(readLocalFilepaths).mockReturnValue([
 			'exam-a.json',
 			'exam-dupe.json',
@@ -48,14 +47,14 @@ describe('getCertExams', () => {
 			.mockReturnValueOnce(EXAM_A)
 			.mockReturnValueOnce(EXAM_DUPE)
 
-		expect(() => getCertExams()).toThrow('uuid-1')
+		expect(() => getCertExams()).toThrow('id-1')
 	})
 
-	it('should throw an error for a duplicate uuid within a single file', () => {
+	it('should throw an error for a duplicate id within a single file', () => {
 		vi.mocked(readLocalFilepaths).mockReturnValue(['exam-dupe-within.json'])
 		vi.mocked(readLocalFile).mockReturnValueOnce(EXAM_DUPE_WITHIN)
 
-		expect(() => getCertExams()).toThrow('uuid-5')
+		expect(() => getCertExams()).toThrow('id-5')
 	})
 
 	it('should return a nonempty array of exams', () => {
@@ -80,7 +79,7 @@ describe('getCertExams', () => {
 		const exams = getCertExams()
 
 		expect(exams).toHaveLength(2)
-		expect(exams.map((e) => e.uuid)).toEqual(['uuid-3', 'uuid-4'])
+		expect(exams.map((e) => e.id)).toEqual(['id-3', 'id-4'])
 	})
 
 	it('should return an empty array of Exams', () => {

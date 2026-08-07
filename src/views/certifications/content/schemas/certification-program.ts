@@ -57,7 +57,7 @@ const examDetailsSchema = z.object({
 })
 
 const relatedCertsExamSchema = z.object({
-	uuid: z.string(),
+	id: z.string(),
 })
 
 export const CertificationProgramSchema = z.object({

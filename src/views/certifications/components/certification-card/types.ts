@@ -49,7 +49,7 @@ export interface CertificationCardProps {
 	isReduced?: boolean
 
 	/*
-        UUID string to distinguish between exams and to link the content
+        ID string to distinguish between exams and to link the content from /exams to pages
     */
-	uuid?: string
+	id?: string
 }

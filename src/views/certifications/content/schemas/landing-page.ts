@@ -35,7 +35,7 @@ export type ProgramSlug = z.infer<typeof ProgramSlugSchema>
 const certificationProgramsSchema = z.object({
 	product: z.string(),
 	containerDescription: z.string(),
-	certData: z.array(z.object({ uuid: z.string() })),
+	certData: z.array(z.object({ id: z.string() })),
 })
 
 export const LandingPageSchema = z.object({

@@ -1,7 +1,7 @@
 {
 	"associate": [
 		{
-			"uuid": "0",
+			"id": "1900ebc8-15d5-46e0-8dc2-be8c9ce1fed1",
 			"product": "terraform",
 			"title": "Terraform Associate",
 			"desc": "Brief description to gives the user enough context to take the next step with confidence",
@@ -16,7 +16,7 @@
 	],
 	"professional": [
 		{
-			"uuid": "1",
+			"id": "0898551e-80b4-4a8b-815d-ca9e8fde8d19",
 			"product": "terraform",
 			"title": "Terraform Authoring and Operations Professional",
 			"desc": "Brief description to gives the user enough context to take the next step with confidence",

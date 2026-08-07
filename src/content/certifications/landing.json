@@ -13,64 +13,18 @@
 		{
 			"product": "Terraform",
 			"containerDescription": "We offer Terraform certifications at two levels. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification.",
-			"tempCertData": [
-				{
-					"product": "terraform",
-					"title": "Terraform Associate",
-					"desc": "Brief description to gives the user enough context to take the next step with confidence",
-					"starCount": 1,
-					"ctaLink": "certifications/terraform-associate",
-					"certDetails": [
-						"Product version tested: Terraform 1.12",
-						"Terraform basic concepts and skills",
-						"Terraform Associate value proposition"
-					]
-				},
-				{
-					"product": "terraform",
-					"title": "Terraform Authoring and Operations Professional",
-					"desc": "Brief description to gives the user enough context to take the next step with confidence",
-					"starCount": 3,
-					"ctaLink": "certifications/terraform-professional",
-					"certDetails": [
-						"Product version tested: Terraform 1.12",
-						"Terraform advanced concepts and skills",
-						"Terraform Professional value proposition"
-					]
-				}
-			],
-			"certData": [{ "uuid": "2" }, { "uuid": "3" }]
+			"certData": [
+				{ "id": "1900ebc8-15d5-46e0-8dc2-be8c9ce1fed1" },
+				{ "id": "0898551e-80b4-4a8b-815d-ca9e8fde8d19" }
+			]
 		},
 		{
 			"product": "Vault",
 			"containerDescription": "Earn an associate-level certification to validate your foundational Vault or Consul knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam.",
-			"tempCertData": [
-				{
-					"product": "vault",
-					"title": "Vault Associate",
-					"desc": "Brief description to gives the user enough context to take the next step with confidence",
-					"starCount": 1,
-					"ctaLink": "certifications/vault-associate",
-					"certDetails": [
-						"Product version tested: Vault 1.12",
-						"Vault basic concepts and skills",
-						"Vault Associate value proposition"
-					]
-				},
-				{
-					"product": "vault",
-					"title": "Vault Operations Professional",
-					"desc": "Brief description to gives the user enough context to take the next step with confidence",
-					"starCount": 3,
-					"ctaLink": "certifications/vault-professional",
-					"certDetails": [
-						"Product version tested: Vault 1.12",
-						"Vault advanced concepts and skills",
-						"Vault Professional value proposition"
-					]
-				}
-			],
-			"certData": [{ "uuid": "0" }, { "uuid": "1" }]
+			"certData": [
+				{ "id": "0d655aec-de48-4efb-a97a-9fd5a334afa2" },
+				{ "id": "cf7f5cb7-fe92-4cd9-a6b9-e9f10e7d66cc" }
+			]
 		}
 	]
 }
