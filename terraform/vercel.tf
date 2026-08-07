@@ -5,7 +5,7 @@ locals {
       sensitive      = false
       comment        = "Instana RUM/EUM beacon key for devdot."
       client_visible = true
-      targets = ["production", "preview", "development"]
+      targets        = ["production", "preview", "development"]
     }
   }
 }
