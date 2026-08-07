@@ -42,7 +42,10 @@ export function getBackToLink(
 		}
 	}
 
-	if (product.slug === 'well-architected-framework') {
+	if (
+		product.slug === 'well-architected-framework' ||
+		product.slug === 'validated-designs'
+	) {
 		return null
 	}
 
