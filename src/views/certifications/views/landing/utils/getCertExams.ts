@@ -22,7 +22,7 @@ export function getCertExams(): Exam[] {
 		for (const e of extractedExams) {
 			if (seenExamUUIDs.has(e.uuid)) {
 				throw new Error(
-					`Error: ${e.uuid} is a duplicate exam uid. Please update ${e.title} and/or the conflicting exam(s) so that each exam has a unique uid.`,
+					`Error: ${e.uuid} is a duplicate exam uuid. Please update ${e.title} and/or the conflicting exam(s) so that each exam has a unique uid.`,
 				)
 			}
 

@@ -18,7 +18,7 @@ export function findMatchingExams(
 ): Exam[] {
 	if (desiredExams.length === 0) {
 		throw new Error(
-			'Error: Missing array of desired UUIDs. Please check to see if `certData` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json is empty.',
+			'Error: Missing array of desired UUIDs. Please check to see if `certData` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
 		)
 	}
 
@@ -44,7 +44,7 @@ export function findMatchingExams(
 				`Error: Exam UUID ${desiredExam.uuid} was not found. Please ensure that the uuid is found in any of the exams within src/content/certifications/exams.`,
 			)
 		}
-		examFound = !examFound
+		examFound = false
 	}
 
 	return matchingExams
