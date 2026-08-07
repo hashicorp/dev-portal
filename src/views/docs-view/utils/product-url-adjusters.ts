@@ -136,6 +136,7 @@ export function rewriteDocsUrl(
 			SectionOption['well-architected-framework'],
 			SectionOption['validated-patterns'],
 			'validated-designs',
+			'validated-patterns',
 		].join('|')}(/tutorials)?)`
 	)
 
