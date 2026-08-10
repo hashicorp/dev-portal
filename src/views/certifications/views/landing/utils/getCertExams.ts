@@ -6,44 +6,29 @@ import path from 'path'
 const EXAMS_DIR = 'src/content/certifications/exams'
 
 /**  
-    Grabs all file contents from `src/content/certifications/exams`, turns each exam type into a singular array of JSON objects, and returns the array
+    Grabs all file contents from `src/content/certifications/exams`, checks for duplicate exams, and returns the array if valid
 	- Errors out if two or more exams have a duplicate ID
 */
 export function getCertExams(): Exam[] {
 	const examFiles = readLocalFilepaths(EXAMS_DIR)
-	const flattenedExams: Exam[] = []
+	const certExams: Exam[] = []
 	const seenExamIDs: Set<string> = new Set()
 
 	for (const f of examFiles) {
 		const examContent = readLocalFile(path.join(EXAMS_DIR, f))
-		const parsedExam: JSON = JSON.parse(examContent)
-		const extractedExams = extractExamsFromType(parsedExam)
+		const parsedExams: Exam[] = JSON.parse(examContent)
 
-		for (const e of extractedExams) {
+		for (const e of parsedExams) {
 			if (seenExamIDs.has(e.id)) {
 				throw new Error(
 					`Error: ${e.id} is a duplicate exam id. Please update ${e.title} and/or the conflicting exam(s) so that each exam has a unique id.`,
 				)
 			}
 
-			flattenedExams.push(e)
+			certExams.push(e)
 			seenExamIDs.add(e.id)
 		}
 	}
 
-	return flattenedExams
-}
-/**
- *
- * @param examJSON - JSON object with keys being exam types and values being an array of exam objects
- * @returns A singular array with every exam object from every exam type
- */
-function extractExamsFromType(examJSON: JSON): Exam[] {
-	const allExams = []
-	for (const examType in examJSON) {
-		const exams = examJSON[examType]
-		allExams.push(...exams)
-	}
-
-	return allExams
+	return certExams
 }

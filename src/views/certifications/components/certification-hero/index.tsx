@@ -48,10 +48,15 @@ function CertificationHero({
 						</Heading>
 						<Text className={s.heroDescriptionText}>{description}</Text>
 						<div className={s.ctaGroup}>
-							{leftCta && (
-								<ButtonLink text={leftCta.text} href={leftCta.link} size="small" className={s.buttonLink} />
+							{leftCta && leftCta.text && leftCta.link && (
+								<ButtonLink
+									text={leftCta.text}
+									href={leftCta.link}
+									size="small"
+									className={s.buttonLink}
+								/>
 							)}
-							{rightCta && (
+							{rightCta && rightCta.text && rightCta.link && (
 								<ButtonLink
 									text={rightCta.text}
 									href={rightCta.link}

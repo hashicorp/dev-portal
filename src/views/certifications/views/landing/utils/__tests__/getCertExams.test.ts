@@ -14,24 +14,18 @@ import { readLocalFilepaths } from 'lib/read-local-filepaths'
 import { readLocalFile } from 'lib/read-local-file'
 
 // DUMMY DATA
-const EXAM_A = JSON.stringify({
-	associate: [{ id: 'id-1', title: 'Exam A' }],
-})
-const EXAM_B = JSON.stringify({
-	associate: [{ id: 'id-2', title: 'Exam B' }],
-})
-const EXAM_DUPE = JSON.stringify({
-	associate: [{ id: 'id-1', title: 'Exam C' }],
-})
-const EXAM_MULTI_TYPE = JSON.stringify({
-	associate: [{ id: 'id-3', title: 'Exam E' }],
-	professional: [{ id: 'id-4', title: 'Exam F' }],
-})
+const EXAM_A = JSON.stringify([{ id: 'id-1', title: 'Exam A' }])
+const EXAM_B = JSON.stringify([{ id: 'id-2', title: 'Exam B' }])
+const EXAM_DUPE = JSON.stringify([{ id: 'id-1', title: 'Exam C' }])
+const EXAM_MULTI_TYPE = JSON.stringify([
+	{ id: 'id-3', title: 'Exam E' },
+	{ id: 'id-4', title: 'Exam F' },
+])
 
-const EXAM_DUPE_WITHIN = JSON.stringify({
-	associate: [{ id: 'id-5', title: 'Exam G' }],
-	professional: [{ id: 'id-5', title: 'Exam H' }],
-})
+const EXAM_DUPE_WITHIN = JSON.stringify([
+	{ id: 'id-5', title: 'Exam G' },
+	{ id: 'id-5', title: 'Exam H' },
+])
 
 describe('getCertExams', () => {
 	beforeEach(() => {

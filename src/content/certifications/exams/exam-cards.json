@@ -1,0 +1,54 @@
+[
+	{
+		"id": "terraform-associate",
+		"product": "terraform",
+		"title": "Terraform Associate",
+		"desc": "Brief description to gives the user enough context to take the next step with confidence",
+		"starCount": 1,
+		"ctaLink": "terraform-associate",
+		"certDetails": [
+			"Product version tested: Terraform 1.12",
+			"Terraform basic concepts and skills",
+			"Terraform Associate value proposition"
+		]
+	},
+	{
+		"id": "terraform-professional",
+		"product": "terraform",
+		"title": "Terraform Authoring and Operations Professional",
+		"desc": "Brief description to gives the user enough context to take the next step with confidence",
+		"starCount": 3,
+		"ctaLink": "terraform-professional",
+		"certDetails": [
+			"Product version tested: Terraform 1.12",
+			"Terraform advanced concepts and skills",
+			"Terraform Professional value proposition"
+		]
+	},
+	{
+		"id": "vault-associate",
+		"product": "vault",
+		"title": "Vault Associate",
+		"desc": "Brief description to gives the user enough context to take the next step with confidence",
+		"starCount": 1,
+		"ctaLink": "vault-associate",
+		"certDetails": [
+			"Product version tested: Vault 1.12",
+			"Vault basic concepts and skills",
+			"Vault Associate value proposition"
+		]
+	},
+	{
+		"id": "vault-professional",
+		"product": "vault",
+		"title": "Vault Operations Professional",
+		"desc": "Brief description to gives the user enough context to take the next step with confidence",
+		"starCount": 3,
+		"ctaLink": "vault-professional",
+		"certDetails": [
+			"Product version tested: Vault 1.12",
+			"Vault advanced concepts and skills",
+			"Vault Professional value proposition"
+		]
+	}
+]
