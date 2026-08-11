@@ -26,8 +26,6 @@ export interface PrimaryNavLinkProps {
 	}
 }
 
-// THIS IS BEING USED FOR NON DROPDOWN SUBNAV ITEMS
-// THIS IS WHY WE SEE OVERVIEW AND THE REGISTER BUTTON
 const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 	const { label, url, opensInNewTab, isPrimary, icon, iconPosition } = navItem
 	const currentProduct = useCurrentProduct()
@@ -49,7 +47,8 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 			currentPath.startsWith('/boundary/docs/domain-model')) &&
 		url === '/boundary/docs'
 	const certificationsEdgeCase =
-		currentPath.startsWith('/certifications') && currentPath !== '/certifications'
+		currentPath.startsWith('/certifications') &&
+		currentPath !== '/certifications'
 	const shouldLinkBeUnderlined =
 		isCurrentPageInPath &&
 		!vaultEdgeCase &&
@@ -64,7 +63,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				color={isPrimary ? 'primary' : 'secondary'}
 				href={url}
 				opensInNewTab={opensInNewTab}
-				icon={icon}
+				icon={icon ?? icon}
 				iconPosition={iconPosition ?? 'leading'}
 				text={label}
 				onClickCapture={() => {
