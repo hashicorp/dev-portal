@@ -5,14 +5,14 @@
 
 export interface CertificationHeroProps {
 	eyebrow?: string
-	heading: string
+	title: string
 	description: string
 	leftCta?: {
-		text: string,
-		link: string
+		text?: string
+		link?: string
 	}
 	rightCta?: {
-		text: string,
-		link: string
+		text?: string
+		link?: string
 	}
 }
