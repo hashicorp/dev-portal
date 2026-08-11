@@ -12,8 +12,6 @@ import { z } from 'zod'
  * when additional certification programs are added.
  */
 const ProgramSlugSchema = z.enum([
-	'infrastructure-automation', // this links to the certificationProgramSlugMap and that is used in a few places, so removing causes big issues
-	'security-automation', // same as above
 	'terraform-associate',
 	'terraform-professional',
 	'vault-associate',
