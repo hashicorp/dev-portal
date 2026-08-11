@@ -13,7 +13,7 @@
 			"title": "Vault Associate",
 			"examCode": "003",
 			"productSlug": "vault",
-			"versionTested": "Vault 1.16",
+			"versionTested": "Vault 1.19",
 			"description": "Prove your foundational Vault knowledge and skills in an hour-long multiple-choice exam.",
 			"links": {
 				"prepare": "/vault/tutorials/associate-cert-003",
