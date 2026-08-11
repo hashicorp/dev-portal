@@ -76,11 +76,7 @@ export function CertificationCardContainer({
 							desc={cert.desc ? cert.desc : ''}
 							starCount={cert.starCount ? cert.starCount : 0}
 							cta={cert?.cta}
-							// we need to prepend certifications for the landing page cards
-							// otherwise we'll redirect to something like dev.hashicorp.com/[blah], which doesn't exist
-							// this is a compromise for the related certs footer as we'll be nested in /certifications in the footer
-							// and setting ctaLink = certifications/[blah] would result in certifications/certifications/[blah], which also doesn't exist
-							ctaLink={`certifications/${cert.ctaLink}`}
+							ctaLink={cert.ctaLink}
 							certDetails={cert.certDetails ? cert.certDetails : []}
 						/>
 					))}

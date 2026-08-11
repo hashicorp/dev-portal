@@ -5,7 +5,7 @@
 		"title": "Terraform Associate",
 		"desc": "Brief description to gives the user enough context to take the next step with confidence",
 		"starCount": 1,
-		"ctaLink": "terraform-associate",
+		"ctaLink": "/certifications/terraform-associate",
 		"certDetails": [
 			"Product version tested: Terraform 1.12",
 			"Terraform basic concepts and skills",
@@ -18,7 +18,7 @@
 		"title": "Terraform Authoring and Operations Professional",
 		"desc": "Brief description to gives the user enough context to take the next step with confidence",
 		"starCount": 3,
-		"ctaLink": "terraform-professional",
+		"ctaLink": "/certifications/terraform-professional",
 		"certDetails": [
 			"Product version tested: Terraform 1.12",
 			"Terraform advanced concepts and skills",
@@ -31,7 +31,7 @@
 		"title": "Vault Associate",
 		"desc": "Brief description to gives the user enough context to take the next step with confidence",
 		"starCount": 1,
-		"ctaLink": "vault-associate",
+		"ctaLink": "/certifications/vault-associate",
 		"certDetails": [
 			"Product version tested: Vault 1.12",
 			"Vault basic concepts and skills",
@@ -44,7 +44,7 @@
 		"title": "Vault Operations Professional",
 		"desc": "Brief description to gives the user enough context to take the next step with confidence",
 		"starCount": 3,
-		"ctaLink": "vault-professional",
+		"ctaLink": "/certifications/vault-professional",
 		"certDetails": [
 			"Product version tested: Vault 1.12",
 			"Vault advanced concepts and skills",
