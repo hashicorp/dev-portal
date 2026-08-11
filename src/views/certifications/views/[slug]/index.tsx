@@ -29,12 +29,6 @@ import { findMatchingExams } from '../landing/utils/findMatchingExams'
 import { CertificationProgramViewProps } from './types'
 import s from './program-view.module.css'
 
-/* 
-	A lot of the components have their properties marked as optional -- Why?
-	It has to do with Zod's schema checking property: when we mark an zod object as optional, it infers the inner properties to be optional
-	This supposedly comes from having strict: false in tsconfig.json?
-	Might want to look into it unless we want all our types to have their properties marked as optional
-*/
 function CertificationProgramView({
 	pageContent,
 	slug,
