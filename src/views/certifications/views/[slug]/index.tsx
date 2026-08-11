@@ -73,6 +73,7 @@ function CertificationProgramView({
 					/>
 					<CertificationDetails
 						product={certificationDetails.product}
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 						// @ts-ignore schema should match; zod infers every property to be optional
 						data={certificationDetails.data}
 					/>
