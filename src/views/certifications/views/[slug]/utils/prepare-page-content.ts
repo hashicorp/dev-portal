@@ -14,7 +14,6 @@ import { RawCertificationProgram } from 'views/certifications/content/schemas/ce
 import { getFaqsFromMdx } from 'views/certifications/content/utils'
 import { serialize } from 'lib/next-mdx-remote/serialize'
 
-// Update DIRS to include objective dir/reuse exam faqs
 const OBJECTIVES_DIR = 'src/content/certifications/objectives'
 const RECERTIFICATIONS_DIR = 'src/content/certifications/recertifications'
 

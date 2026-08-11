@@ -8,11 +8,7 @@ import classNames from 'classnames'
 import s from './gradient-card.module.css'
 
 // Temporary type used to determine the theme of the gradient card
-type GradientCardTheme =
-	| 'terraform-associate'
-	| 'terraform-professional'
-	| 'vault-associate'
-	| 'vault-professional'
+type GradientCardTheme = 'terraform' | 'vault'
 
 /**
  * Renders a card with a pretty gradient drop shadow.
