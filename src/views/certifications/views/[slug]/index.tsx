@@ -73,6 +73,7 @@ function CertificationProgramView({
 					/>
 					<CertificationDetails
 						product={certificationDetails.product}
+						// @ts-ignore schema should match; zod infers every property to be optional
 						data={certificationDetails.data}
 					/>
 					<div className={s.examObjectivesSection}>

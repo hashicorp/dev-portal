@@ -7,11 +7,11 @@ import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 
 export interface AccordionMdxItem {
 	title?: string
-	mdxSource?: MDXRemoteSerializeResult
+	mdxSource: MDXRemoteSerializeResult
 }
 
 export interface AccordionWithMdxContentProps {
-	items?: AccordionMdxItem[]
+	items: AccordionMdxItem[]
 	className?: string
 	disclosureClassName?: string
 }

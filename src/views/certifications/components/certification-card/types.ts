@@ -8,12 +8,12 @@ export interface CertificationCardProps {
         Name of the HashiCorp associated product
         (e.g. "terraform", "vault", "consul", etc.)
     */
-	product?: string
+	product: string
 
 	/* 
         Exam title displayed at the top of the certification card
     */
-	title?: string
+	title: string
 
 	/* 
         Optional Exam description displayed below the title on the certification card
@@ -34,7 +34,7 @@ export interface CertificationCardProps {
 	/* 
         Link for the call to action - This redirects to the desired Certification Exam Page
     */
-	ctaLink?: string
+	ctaLink: string
 
 	/*
         Optional array of certification details to display on the certification card
