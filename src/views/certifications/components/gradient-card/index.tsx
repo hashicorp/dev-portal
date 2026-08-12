@@ -23,7 +23,10 @@ function GradientCard({
 	theme,
 }: {
 	children: ReactNode
-	theme?: GradientCardTheme | 'infrastructure-automation' | 'security-automation'
+	theme?:
+		| GradientCardTheme
+		| 'infrastructure-automation'
+		| 'security-automation'
 }) {
 	return (
 		<div className={s.root}>

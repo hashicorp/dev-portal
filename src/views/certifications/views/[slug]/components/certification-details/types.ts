@@ -8,7 +8,7 @@ export interface CertificationDetailsProps {
 	data: {
 		whoShouldTakeExam: {
 			title?: string
-			desc: string
+			description: string
 		}
 
 		examDetails: {
@@ -19,7 +19,7 @@ export interface CertificationDetailsProps {
 		prerequisites: {
 			title?: string
 			prereqs: string[]
-			bottomDesc?: string
+			bottomDescription?: string
 		}
 	}
 }

@@ -199,7 +199,7 @@ export function CertificationDetails({
 			<CertificationDetailsTopCard
 				product={product}
 				title={whoExamData?.title}
-				desc={whoExamData.desc}
+				desc={whoExamData.description}
 			/>
 			<div className={s.certDetailsBottom}>
 				<CertificationDetailsBottomLeftCard
@@ -211,7 +211,7 @@ export function CertificationDetails({
 					product={product}
 					title={prereqData?.title}
 					prereqs={prereqData.prereqs}
-					bottomDesc={prereqData?.bottomDesc}
+					bottomDesc={prereqData?.bottomDescription}
 				/>
 			</div>
 		</div>
