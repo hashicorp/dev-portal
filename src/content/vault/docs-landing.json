@@ -16,8 +16,13 @@
 				},
 				{
 					"iconName": "provider",
-					"text": "Native agent support",
-					"url": "/vault/docs/ai/agent-support"
+					"text": "Agentic IAM",
+					"url": "/vault/docs/ai/iam"
+				},
+				{
+					"iconName": "connection",
+					"text": "OAuth and RAR",
+					"url": "/vault/docs/ai/oauth-server"
 				}
 			]
 		},
