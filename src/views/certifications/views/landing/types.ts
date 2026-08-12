@@ -7,7 +7,7 @@ import { HeadMetadataProps } from 'components/head-metadata/types'
 import { CertificationCardProps as Exam } from 'views/certifications/components/certification-card/types'
 import { RawLandingPageContent } from 'views/certifications/content/schemas/landing-page'
 
-export type LandingPageContent = RawLandingPageContent
+type LandingPageContent = RawLandingPageContent
 
 export interface CertificationLandingProps {
 	/**
