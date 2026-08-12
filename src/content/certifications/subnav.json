@@ -9,11 +9,11 @@
 			"items": [
 				{
 					"label": "Terraform Associate",
-					"path": "/certifications/infrastructure-automation"
+					"path": "/certifications/terraform-associate"
 				},
 				{
 					"label": "Terraform Authoring and Operations Professional",
-					"path": "/certifications/professional"
+					"path": "/certifications/terraform-professional"
 				}
 			]
 		},
@@ -22,11 +22,11 @@
 			"items": [
 				{
 					"label": "Vault Associate",
-					"path": "/certifications/associate"
+					"path": "/certifications/vault-associate"
 				},
 				{
 					"label": "Vault Authoring and Operations Professional",
-					"path": "/certifications/professional"
+					"path": "/certifications/vault-professional"
 				}
 			]
 		}

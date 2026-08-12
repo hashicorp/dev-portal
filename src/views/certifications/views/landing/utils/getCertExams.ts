@@ -1,7 +1,15 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+// LOCAL PATHS
 import { readLocalFilepaths } from 'lib/read-local-filepaths'
 import { readLocalFile } from 'lib/read-local-file'
-import { CertificationCardProps as Exam } from 'views/certifications/components/certification-card/types'
 import path from 'path'
+
+// TYPES
+import { CertificationCardProps as Exam } from 'views/certifications/components/certification-card/types'
 
 const EXAMS_DIR = 'src/content/certifications/exams'
 

@@ -1,3 +1,9 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+// TYPES
 import { CertificationCardProps as Exam } from 'views/certifications/components/certification-card/types'
 
 interface desiredExamProp {
@@ -24,7 +30,7 @@ export function findMatchingExams(
 
 	if (exams.length === 0) {
 		throw new Error(
-			'Error: Missing array of exams. Please ensure that there are JSON files in `src/content/certifications/exams`, and that they have a `id` property.',
+			'Error: Missing array of exams. Please ensure that there is an exam-cards.json file in `src/content/certifications/exams`, and that each card has a `id` property.',
 		)
 	}
 
@@ -41,7 +47,7 @@ export function findMatchingExams(
 
 		if (!examFound) {
 			throw new Error(
-				`Error: Exam ID ${desiredExam.id} was not found. Please ensure that the id is found in any of the exams within src/content/certifications/exams.`,
+				`Error: Exam ID ${desiredExam.id} was not found. Please ensure that the id is found in any of the exams within exam-cards.json in src/content/certifications/exams.`,
 			)
 		}
 		examFound = false
