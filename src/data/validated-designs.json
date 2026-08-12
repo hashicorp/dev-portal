@@ -1,0 +1,14 @@
+{
+	"slug": "validated-designs",
+	"name": "Validated Designs",
+	"basePaths": ["docs"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "",
+			"basePathForLoader": "docs",
+			"productSlugForLoader": "validated-designs"
+		}
+	]
+}
