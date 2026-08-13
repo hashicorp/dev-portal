@@ -3,7 +3,32 @@
 	"marketingContentBlocks": [
 		{
 			"type": "section-heading",
-			"title": "Run Vault on the HashiCorp Cloud Platform (HCP)"
+			"title": "Use Vault with agentic AI"
+		},
+		{
+			"type": "icon-card-grid",
+			"key": "vault-ai",
+			"cards": [
+				{
+					"iconName": "server",
+					"text": "Vault MCP server",
+					"url": "/vault/docs/ai/mcp-server"
+				},
+				{
+					"iconName": "provider",
+					"text": "Agentic IAM",
+					"url": "/vault/docs/ai/iam"
+				},
+				{
+					"iconName": "connection",
+					"text": "OAuth and RAR",
+					"url": "/vault/docs/ai/oauth-server"
+				}
+			]
+		},
+		{
+			"type": "section-heading",
+			"title": "Run Vault on the HashiCorp Cloud Platform"
 		},
 		{
 			"type": "icon-card-grid",
