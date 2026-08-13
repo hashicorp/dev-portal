@@ -12,7 +12,6 @@ import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'boundary',
-	'consul',
 	'hcp',
 	'packer',
 	'terraform',
