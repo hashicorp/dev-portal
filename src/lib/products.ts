@@ -116,7 +116,16 @@ const productSlugsToHostNames: {
 	terraform: 'terraform.io',
 	vagrant: 'vagrantup.com',
 	vault: 'vaultproject.io',
-	'vault-radar': 'vaultproject.io',
+	/**
+	 * Vault Radar never had a dedicated "dot io" site of its own — it was
+	 * always served under HCP's shared docs, then migrated straight to
+	 * DevDot. Reusing vault's hostname here caused Object.keys().find()
+	 * lookups (see getIsRewriteableDocsLink) to always resolve to 'vault'
+	 * instead of 'vault-radar', since 'vault' comes first. Using the
+	 * RFC 2606-reserved '.invalid' TLD as a placeholder that can never
+	 * collide with a real product hostname.
+	 */
+	'vault-radar': 'vault-radar.invalid',
 	waypoint: 'waypointproject.io',
 }
 
