@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { Hero } from 'components/landing-hero/components/hero'
 import Heading from '@components/heading'
 import Text from '@components/text'
+import Image from 'next/image'
 import ButtonLink from '@components/button-link'
 import { Text as MDSText } from '@hashicorp/mds-react/components'
 // Types
@@ -16,6 +17,7 @@ import { CertificationHeroProps } from './types'
 import s from './certification-hero.module.css'
 // Icon
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
+import image from './assets/option-2.svg'
 
 /**
  * Render a styled hero for an individual program page.
@@ -30,6 +32,7 @@ function CertificationHero({
 	return (
 		<Hero
 			backgroundClassName={classNames(s.heroBackground)}
+			className={s.hero}
 			startSlot={
 				<>
 					<div className={s.heroStartSlot}>
@@ -70,6 +73,12 @@ function CertificationHero({
 						</div>
 					</div>
 				</>
+			}
+			endSlot={
+				<Image
+					src={image}
+					alt="test"
+				/>
 			}
 		/>
 	)

@@ -10,19 +10,9 @@
 	/* background and image elements may "bleed", prevent this from turning
 	   into viewport overflow */
 	overflow: hidden;
-	padding-top: 128px;
-	padding-bottom: 160px;
 
 	/* relative position allows background absolute position to cover the hero */
 	position: relative;
-
-	@media (--dev-dot-tablet) {
-		padding-top: 80px;
-	}
-
-	@media (--dev-dot-mobile) {
-		padding-top: 64px;
-	}
 }
 
 /**
@@ -35,7 +25,6 @@
 	position: absolute;
 	right: 0;
 	top: 0;
-	z-index: -1;
 }
 
 /**
@@ -64,6 +53,21 @@
 	&.hvdHero {
 		max-width: fit-content;
 	}
+
+	/* background and image elements may "bleed", prevent this from turning
+	   into viewport overflow */
+	padding-top: 128px;
+	padding-bottom: 160px;
+
+	@media (--dev-dot-tablet) {
+		padding-top: 80px;
+		padding-bottom: 0;
+	}
+
+	@media (--dev-dot-mobile) {
+		padding-top: 64px;
+		padding-bottom: 0;
+	}
 }
 
 .endSlot {
@@ -71,6 +75,9 @@
 	flex: 25em 1 1;
 	margin-left: auto;
 	min-width: 0;
+	display: flex;
+	align-items: end;
+	justify-content: center;
 }
 
 /**

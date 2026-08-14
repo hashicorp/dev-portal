@@ -5,17 +5,17 @@
 
 /* Keep this here now for reference, may be removed or edited once we have correct images for heroes */
 .heroBackground {
-	background: var(--background-image);
-	background-position: top center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	bottom: -10%;
-	left: -10%;
-	overflow: hidden;
-	position: absolute;
-	right: -10%;
-	top: -10%;
-	z-index: -1;
+	background-image: radial-gradient(
+		95.19% 95.19% at 100% 2.92%,
+		#121c31 0%,
+		rgba(53, 27, 83, 0) 99.54%
+	);
+	z-index: 0;
+}
+
+.hero {
+	z-index: 100;
+	position: relative;
 }
 
 .heroStartSlot {
@@ -27,7 +27,6 @@
 	margin-bottom: 8px;
 	font-size: 15px;
 	color: var(--mds-color-foreground-faint);
-
 }
 
 .heroHeadingText {
