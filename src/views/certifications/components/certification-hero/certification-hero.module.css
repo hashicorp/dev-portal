@@ -5,12 +5,15 @@
 
 /* Keep this here now for reference, may be removed or edited once we have correct images for heroes */
 .heroBackground {
-	background-image: radial-gradient(
-		95.19% 95.19% at 100% 2.92%,
-		#121c31 0%,
-		rgba(53, 27, 83, 0) 99.54%
-	);
+	background-image: url('./assets/background-gradient.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
 	z-index: 0;
+
+	@media (--dev-dot-tablet-down) {
+		background-position: 75% top;
+	}
 }
 
 .hero {
