@@ -42,7 +42,7 @@ The `certificationPrograms` array controls the list of certification programs sh
 |---|---|
 | `product` | The product name displayed as a heading for this group (e.g. `"Terraform"`) |
 | `containerDescription` | A short paragraph describing the certifications available for this product |
-| `certs` | A list of exam IDs to display within this group. Each entry is an object with a single `id` field. IDs must match a file in the [`examPages/`](./examPages/) folder and a card entry in [`exams/exam-cards.json`](./exams/exam-cards.json). |
+| `certs` | A list of exam IDs to display within this group. Each entry is an object with a single `id` field. IDs must match a card entry in [`exams/exam-cards.json`](./exams/exam-cards.json). |
 
 **Example `certs` entry:**
 ```json
@@ -64,7 +64,7 @@ The filename (without extension) must match the exam's ID in all three folders. 
 - `objectives/terraform-associate.mdx`
 - `recertifications/terraform-associate.mdx`
 
-Supported exam IDs are: `terraform-associate`, `terraform-professional`, `vault-associate`, `vault-professional`.
+Supported exam IDs are: `terraform-associate`, `terraform-professional`, `vault-associate`, `vault-professional`. More can be added in the future as new exams are launched.
 
 ---
 
@@ -144,7 +144,12 @@ Controls the related certifications section at the bottom of the page.
 |---|---|
 | `relatedCertsFooter.title` | The section heading |
 | `relatedCertsFooter.description` | Supporting text |
-| `relatedCertsFooter.certs` | A list of related exam IDs to display. Each entry is an object with a single `id` field matching a valid exam ID. |
+| `relatedCertsFooter.certs` | A list of exam IDs to display within this group. Each entry is an object with a single `id` field. IDs must match a card entry in [`exams/exam-cards.json`](./exams/exam-cards.json). |
+
+**Example `certs` entry:**
+```json
+{ "id": "terraform-associate" }
+```
 
 ---
 
@@ -168,7 +173,7 @@ This file defines the card displayed for each exam when it is referenced by ID (
 
 | Field | Description |
 |---|---|
-| `id` | A unique identifier for this exam. Must match the filenames used in `examPages/`, `objectives/`, and `recertifications/`. |
+| `id` | A unique identifier for this exam. |
 | `product` | The product this exam belongs to. Must be `"terraform"` or `"vault"`. |
 | `title` | The exam name shown on the card |
 | `desc` | A short description shown on the card |
