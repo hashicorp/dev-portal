@@ -50,6 +50,15 @@ describe('rewriteDocsUrl', () => {
 				expected:
 					'/validated-patterns/nomad/workload-modernization-with-traefik',
 			},
+			{
+				input: '/validated-designs/hvd-2.0-release',
+				expected: '/validated-designs/hvd-2.0-release',
+			},
+			{
+				input: '/validated-designs/vault/installation-guide/vms/introduction',
+				expected:
+					'/validated-designs/vault/installation-guide/vms/introduction',
+			},
 			// special case for non devdot 'waf' link
 			{
 				input: 'https://aws.amazon.com/architecture/well-architected/',
