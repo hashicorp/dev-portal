@@ -1,10 +1,18 @@
 locals {
   environment = {
+    INSTANA_AGENT_KEY = {
+      value          = var.instana_agent_key
+      sensitive      = true
+      comment        = "Agent key used to submit build metrics to Instana"
+      client_visible = false
+      targets        = ["production", "preview"]
+    }
     INSTANA_WEBSITE_MONITORING_KEY = {
       value          = instana_website_monitoring_config.devdot.id
-      sensitive      = true
+      sensitive      = false
       comment        = "Instana RUM/EUM beacon key for devdot."
       client_visible = true
+      targets        = ["production", "preview", "development"]
     }
   }
 }
