@@ -1,56 +1,220 @@
 # Certifications Authorable Content
 
-This folder contains the authorable content for Certifications pages.
+This folder contains all editable content for the HashiCorp Certifications pages.
 
-- [Landing Page](#landing-page), at `/certifications`
-  - Visit [/certifications](https://developer.hashicorp.com/certifications)
-- [Program Pages](#program-pages), at `/certifications/<program>`
-  - Visit for example [/certifications/security-automation](https://developer.hashicorp.com/certifications/security-automation)
-- [Sign in Page](#sign-in-page), at `/certifications/signin`
-  - Visit [/certifications/signin](https://developer.hashicorp.com/certifications/signin)
+- [Landing Page](#landing-page) — `/certifications`
+- [Exam Pages](#exam-pages) — `/certifications/<exam>` (e.g. `/certifications/terraform-associate`)
+- [Sign In Page](#sign-in-page) — `/certifications/signin`
+
+---
 
 ## Landing Page
 
+**File:** [`landing.json`](./landing.json)
+
+This file controls all content on the `/certifications` landing page.
+
 ### Hero
 
-The content for the landing page hero is managed in [content/certifications/landing.json](/src/content/certifications/landing.json).
+The `hero` object controls the banner at the top of the page.
 
-### Program Summaries
+| Field | Description |
+|---|---|
+| `hero.title` | The main heading text |
+| `hero.description` | The paragraph text beneath the heading |
 
-The `programSummaryOrder` array allows authors to control which programs are summarized on the landing page, and in what order those summaries appear. The content for program summaries on the landing page is driven by [content for each Program Page](#program-pages).
+### Announcement banner
 
-### FAQs
+The `announcement` object controls the announcement banner that appears on the page.
 
-The heading for the FAQ section on the landing page is managed by the `faqHeading` property in [content/certifications/landing.json](/src/content/certifications/landing.json).
+| Field | Description |
+|---|---|
+| `announcement.heading` | The bold heading in the banner |
+| `announcement.text` | The supporting text in the banner |
+| `announcement.cta` | The link label |
+| `announcement.ctaLink` | The URL the link points to |
 
-The content for the landing page's FAQ content is managed in [content/certifications/landing-faq.mdx](/src/content/certifications/landing-faq.mdx). FAQs are derived from this MDX file by extracting title text and content from each `## Heading Two` section.
+### Certification program listings
 
-## Program Pages
+The `certificationPrograms` array controls the list of certification programs shown on the landing page. Each entry in the array represents one product group (e.g. Terraform, Vault).
 
-Program pages at `/certifications/<slug>` are rendered based on the `<slug>.json` files present in the [content/certifications/programs](/src/content/certifications/programs) directory.
+| Field | Description |
+|---|---|
+| `product` | The product name displayed as a heading for this group (e.g. `"Terraform"`) |
+| `containerDescription` | A short paragraph describing the certifications available for this product |
+| `certs` | A list of exam IDs to display within this group. Each entry is an object with a single `id` field. IDs must match a card entry in [`exams/exam-cards.json`](./exams/exam-cards.json). |
 
-Each `<slug>.json` file in that directory controls the content for an individual program page. For example, [content/certifications/programs/security-automation.json](/src/content/certifications/programs/security-automation.json) controls the content for [/certifications/security-automation](https://developer.hashicorp.com/certifications/security-automation).
+**Example `certs` entry:**
+```json
+{ "id": "terraform-associate" }
+```
 
-### Copy for Programs and Exams
+---
 
-Most copy on program pages, including copy related to individual exams, is managed directly in each `<slug>.json` file. Details on the content schema can be found in [src/views/certifications/content/schemas/certification-program.ts](/src/views/certifications/content/schemas/certification-program.ts).
+## Exam Pages
 
-### Exam FAQs on Program Pages
+Each exam has its own page at `/certifications/<exam>`. Content for each exam page is split across three types of files:
 
-Each program page can specific one or many exams, in the `exams` array in each `<slug>.json` file.
+1. A **JSON file** in [`examPages/`](./examPages/) — controls most of the page's text content
+2. An **objectives MDX file** in [`objectives/`](./objectives/) — controls the exam objectives section
+3. A **recertifications MDX file** in [`recertifications/`](./recertifications/) — controls the recertification options section
 
-Each exam must reference an `.mdx` document within the `src/content/certifications/exam-faqs` directory, where FAQ content for each exam is authored. FAQs are derived from MDX files by extracting the FAQ title text and content from each `## Heading Two` section.
+The filename (without extension) must match the exam's ID in all three folders. For example, the Terraform Associate exam uses:
+- `examPages/terraform-associate.json`
+- `objectives/terraform-associate.mdx`
+- `recertifications/terraform-associate.mdx`
 
-For example, on the [/certifications/security-automation](https://developer.hashicorp.com/certifications/security-automation) we can see the exam FAQs for the `Vault Associate 002` exam. These FAQs are authored in [src/content/certifications/exam-faqs/vault-associate-002.mdx](/src/content/certifications/exam-faqs/vault-associate-002.mdx). This filepath is specified in the associated `exams` array item, specifically using the `faqSlug` attribute on the `Vault Associate 002` exam item within [src/content/certifications/programs/vault.json](/src/content/certifications/programs/vault.json).
+Supported exam IDs are: `terraform-associate`, `terraform-professional`, `vault-associate`, `vault-professional`. More can be added in the future as new exams are launched.
+
+---
+
+### Exam page JSON (`examPages/<exam>.json`)
+
+This file controls the majority of content on an exam page.
+
+#### `title`
+The name of the exam. Used as the page title.
+
+#### `hero`
+The banner at the top of the exam page.
+
+| Field | Description |
+|---|---|
+| `hero.eyebrow` | Small text above the main title (optional) |
+| `hero.title` | The main heading |
+| `hero.description` | The paragraph text beneath the heading |
+| `hero.leftCta.text` | Label for the left call-to-action button (optional) |
+| `hero.leftCta.link` | URL for the left call-to-action button (optional) |
+| `hero.rightCta.text` | Label for the right call-to-action button (optional) |
+| `hero.rightCta.link` | URL for the right call-to-action button (optional) |
+
+#### `announcement`
+Controls the announcement banner on the exam page.
+
+| Field | Description |
+|---|---|
+| `announcement.header` | The bold heading in the banner |
+| `announcement.text` | The supporting text in the banner |
+| `announcement.cta` | The link label |
+| `announcement.ctaLink` | The URL the link points to |
+
+#### `certificationDetails`
+Controls the details section of the exam page.
+
+| Field | Description |
+|---|---|
+| `certificationDetails.product` | The product this exam belongs to. Must be either `"terraform"` or `"vault"`. |
+| `certificationDetails.data.whoShouldTakeExam.title` | Section heading (optional) |
+| `certificationDetails.data.whoShouldTakeExam.description` | Paragraph describing who the exam is intended for |
+| `certificationDetails.data.examDetails.title` | Section heading (optional) |
+| `certificationDetails.data.examDetails.details` | A list of name/value pairs for exam logistics (e.g. format, duration, price). Each entry has a `name` and a `value` field. |
+| `certificationDetails.data.prerequisites.title` | Section heading (optional) |
+| `certificationDetails.data.prerequisites.prereqs` | A list of prerequisite statements, each as a plain text string |
+| `certificationDetails.data.prerequisites.bottomDescription` | Optional paragraph that appears below the prerequisites list |
+
+**Example `details` entry:**
+```json
+{
+	"name": "Duration",
+	"value": "1 hour"
+}
+```
+
+#### `objectives`
+Controls the heading for the exam objectives section. The actual objectives content is authored in the matching file in [`objectives/`](./objectives/).
+
+| Field | Description |
+|---|---|
+| `objectives.title` | The heading for the exam objectives section |
+
+#### `renewCertifications`
+Controls the heading and intro text for the recertification section. The detailed recertification options are authored in the matching file in [`recertifications/`](./recertifications/).
+
+| Field | Description |
+|---|---|
+| `renewCertifications.title` | The section heading |
+| `renewCertifications.description` | An introductory paragraph |
+
+#### `linkWithImage`
+Controls a featured link block (e.g. a link to the knowledge base).
+
+| Field | Description |
+|---|---|
+| `linkWithImage.title` | The heading for the block |
+| `linkWithImage.description` | Supporting text |
+| `linkWithImage.cta` | The link label |
+| `linkWithImage.ctaLink` | The URL the link points to |
+
+#### `relatedCertsFooter`
+Controls the related certifications section at the bottom of the page.
+
+| Field | Description |
+|---|---|
+| `relatedCertsFooter.title` | The section heading |
+| `relatedCertsFooter.description` | Supporting text |
+| `relatedCertsFooter.certs` | A list of exam IDs to display within this group. Each entry is an object with a single `id` field. IDs must match a card entry in [`exams/exam-cards.json`](./exams/exam-cards.json). |
+
+**Example `certs` entry:**
+```json
+{ "id": "terraform-associate" }
+```
+
+---
+
+### Exam objectives (`objectives/<exam>.mdx`)
+
+This file contains the full exam objectives content, rendered in the objectives section of the exam page. Write content using standard Markdown. Each `## Heading Two` section will be used to populate a tab or expandable section.
+
+---
+
+### Recertifications (`recertifications/<exam>.mdx`)
+
+This file contains the recertification scenarios and options, rendered in the "Renew Your Certification" section of the exam page. Content here is standard markdown.
+
+---
+
+## Exam Cards
+
+**File:** [`exams/exam-cards.json`](./exams/exam-cards.json)
+
+This file defines the card displayed for each exam when it is referenced by ID (e.g. on the landing page). Each card entry in the array represents one exam.
+
+| Field | Description |
+|---|---|
+| `id` | A unique identifier for this exam. |
+| `product` | The product this exam belongs to. Must be `"terraform"` or `"vault"`. |
+| `title` | The exam name shown on the card |
+| `desc` | A short description shown on the card |
+| `starCount` | A number indicating the level of the certification (e.g. `1` for Associate, `3` for Professional) |
+| `ctaLink` | The URL to the exam's detail page |
+| `certDetails` | A list of short bullet points shown on the card (e.g. product version tested, key skills) |
+
+---
 
 ## Sign In Page
 
-The sign in page is rendered based on the `signin.json` and `signin.mdx` files.
+**Files:** [`signin.json`](./signin.json) and [`signin.mdx`](./signin.mdx)
 
-### Page metadata
+### Page text (`signin.json`)
 
-The content for the page header and footer is from the `signin.json` file. It contains the `page_title`, `main_cta_title`, `main_cta_description`, `main_cta_link_text`, `main_cta_url`, `footer_title`, `footer_description`, `footer_cta`, and `footer_cta_url` categories. 
+This file controls the text content on the `/certifications/signin` page.
 
-### Copy for info cards
+| Field | Description |
+|---|---|
+| `page_title` | The main heading on the page |
+| `main_cta_title` | The heading on the primary call-to-action |
+| `main_cta_description` | Supporting text for the primary call-to-action |
+| `main_cta_link_text` | The link label for the primary call-to-action |
+| `main_cta_url` | The URL for the primary call-to-action link |
+| `footer_title` | The heading in the footer section |
+| `footer_description` | Supporting text in the footer section |
+| `footer_cta` | The link label in the footer section |
+| `footer_cta_url` | The URL for the footer link |
 
-Each info card is generated from each `## Heading Two` section in the `signin.mdx` file. Each section can contain a title, plain text content, bullets, and tooltips.
+### Info cards (`signin.mdx`)
+
+Each `## Heading Two` section in this file generates one info card on the sign in page. Cards can contain:
+
+- Plain text paragraphs
+- Bullet lists
+- `<Tooltip>` components with a `title` and `description` prop
