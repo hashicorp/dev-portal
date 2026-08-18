@@ -112,6 +112,14 @@ Controls the details section of the exam page.
 | `certificationDetails.data.prerequisites.prereqs` | A list of prerequisite statements, each as a plain text string |
 | `certificationDetails.data.prerequisites.bottomDescription` | Optional paragraph that appears below the prerequisites list |
 
+**Example `details` entry:**
+```json
+{
+	"name": "Duration",
+	"value": "1 hour"
+}
+```
+
 #### `objectives`
 Controls the heading for the exam objectives section. The actual objectives content is authored in the matching file in [`objectives/`](./objectives/).
 
