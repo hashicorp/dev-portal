@@ -90,3 +90,7 @@
 		color: var(--mds-color-foreground-strong);
 	}
 }
+
+.toggleImage {
+	display: flex;
+}

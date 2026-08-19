@@ -9,6 +9,10 @@ import Text from '@components/text'
 import Link from '@components/link'
 import Image from 'next/image'
 
+// Images
+import linkWithImageLight from './assets/images/link-with-image-light.svg'
+import linkWithImageDark from './assets/images/link-with-image-dark.svg'
+
 // Styles
 import s from './link-with-image.module.css'
 
@@ -20,19 +24,17 @@ export const LinkWithImage = ({
 	description,
 	cta,
 	ctaLink,
-	image,
 }: {
 	title: string
 	description: string
 	cta: string
 	ctaLink: string
-	image: string
 }) => {
 	return (
 		<div className={s.linkWithImage}>
 			<div className={s.content}>
 				<div className={s.textContent}>
-					<Heading className={s.title}level={2} size={500} weight="bold">
+					<Heading className={s.title} level={2} size={500} weight="bold">
 						{title}
 					</Heading>
 					<Text className={s.description}>{description}</Text>
@@ -43,7 +45,21 @@ export const LinkWithImage = ({
 				</Link>
 			</div>
 			<div className={s.image}>
-				<Image src={image} alt={title} fill={true} />
+				<span data-hide-on-theme="light">
+					<Image
+						src={linkWithImageDark}
+						alt={'Dark mode certification knowledge base image'}
+						fill
+					/>
+				</span>
+
+				<span data-hide-on-theme="dark">
+					<Image
+						src={linkWithImageLight}
+						alt={'Light mode certification knowledge base image'}
+						fill
+					/>
+				</span>
 			</div>
 		</div>
 	)

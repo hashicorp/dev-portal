@@ -3,10 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Hooks
-import { useState, useEffect } from 'react'
-import { useTheme } from 'next-themes'
-
 // Components
 import { Hero } from 'components/landing-hero/components/hero'
 import Heading from '@components/heading'
@@ -37,7 +33,6 @@ import vaultAssociateLight from './assets/images/vault-associate-light.svg'
 import vaultProfessionalDark from './assets/images/vault-professional-dark.svg'
 import vaultProfessionalLight from './assets/images/vault-professional-light.svg'
 
-
 const HERO_SVG_MAP = {
 	'homepage-light': homepageLight,
 	'homepage-dark': homepageDark,
@@ -62,24 +57,6 @@ function CertificationHero({
 	leftCta,
 	rightCta,
 }: CertificationHeroProps) {
-	const [mounted, setMounted] = useState(false)
-	const { theme, systemTheme } = useTheme()
-
-	/*
-		Safeguard to ensure SSR rendering of theme isn't undefined
-		Next.js renders components from the server first before hydrating (adding event listeners & rerunning effects)
-		This means the theme will be undefined since it exists only on the client on the first pass
-		So we can opt to render nothing on the server through the mounted state
-		Then, when we get to the client, we can run the useEffect to enable rendering now that theme is populated
-	*/
-	useEffect(() => {
-		setMounted(true)
-	}, [])
-
-	if (!mounted) {
-		return null
-	}
-
 	// Homepage does not have it's own product, so we manually assign product
 	if (!product) {
 		product = 'homepage'
@@ -88,7 +65,6 @@ function CertificationHero({
 
 	let SVG_MAP_QUERY: string = productName
 	SVG_MAP_QUERY += examType ? `-${examType}` : ''
-	SVG_MAP_QUERY += theme === 'system' ? `-${systemTheme}` : `-${theme}`
 
 	return (
 		<Hero
@@ -138,7 +114,22 @@ function CertificationHero({
 					</div>
 				</>
 			}
-			endSlot={<Image src={HERO_SVG_MAP[SVG_MAP_QUERY]} alt="Certification Hero Badge/Person" />}
+			endSlot={
+				<>
+					<span data-hide-on-theme="dark" className={s.toggleImage}>
+						<Image
+							src={HERO_SVG_MAP[`${SVG_MAP_QUERY}-light`]}
+							alt="Certification Hero Badge/Person"
+						/>
+					</span>
+					<span data-hide-on-theme="light" className={s.toggleImage}>
+						<Image
+							src={HERO_SVG_MAP[`${SVG_MAP_QUERY}-dark`]}
+							alt="Certification Hero Badge/Person"
+						/>
+					</span>
+				</>
+			}
 		/>
 	)
 }
