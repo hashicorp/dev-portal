@@ -17,7 +17,7 @@ import { CertificationHeroProps } from './types'
 import s from './certification-hero.module.css'
 // Icon
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
-import image from './assets/option-2.svg'
+import image from './assets/images/homepage-dark.svg'
 
 /**
  * Render a styled hero for an individual program page.
