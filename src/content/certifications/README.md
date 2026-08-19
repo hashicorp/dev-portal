@@ -20,6 +20,7 @@ The `hero` object controls the banner at the top of the page.
 
 | Field | Description |
 |---|---|
+| `hero.product` | Optional string for exam pages to indicate product & exam type (e.g. `"terraform-associate"`) |
 | `hero.title` | The main heading text |
 | `hero.description` | The paragraph text beneath the heading |
 
