@@ -37,12 +37,7 @@ import vaultAssociateLight from './assets/images/vault-associate-light.svg'
 import vaultProfessionalDark from './assets/images/vault-professional-dark.svg'
 import vaultProfessionalLight from './assets/images/vault-professional-light.svg'
 
-// Add a product prop to the CertsHero + update schemas for the corresponding views
-// Potential products = ["terraform-associate", "terraform-professional", "vault-associate", "vault-professional"]
-// Create a mapping from "product" -> SVG (e.g. "terraform-associate" -> imported image)
-// For the background gradient, we can create classes of background-gradient[-terraform/vault]
-// Split the product by "-" and take the first entry (e.g. terraform-associate -> ['terraform', 'associate'])
-// Add those to the CSS file + add to the classNames down in line 39
+
 const HERO_SVG_MAP = {
 	'homepage-light': homepageLight,
 	'homepage-dark': homepageDark,
@@ -59,11 +54,6 @@ const HERO_SVG_MAP = {
 /**
  * Render a styled hero for an individual program page.
  */
-
-// Maybe instead of passing in a product prop in multiple sections
-// we could parse and format the title into info that we can use
-// Other things to note: SVGs are not equal height, so they jump
-// Light mode SVGs look wonky because the bars don't show up...
 function CertificationHero({
 	product,
 	eyebrow,
@@ -73,7 +63,7 @@ function CertificationHero({
 	rightCta,
 }: CertificationHeroProps) {
 	const [mounted, setMounted] = useState(false)
-	const { theme } = useTheme()
+	const { theme, systemTheme } = useTheme()
 
 	/*
 		Safeguard to ensure SSR rendering of theme isn't undefined
@@ -98,7 +88,7 @@ function CertificationHero({
 
 	let SVG_MAP_QUERY: string = productName
 	SVG_MAP_QUERY += examType ? `-${examType}` : ''
-	SVG_MAP_QUERY += `-${theme}` // Need to add safeguard for when theme = "system"
+	SVG_MAP_QUERY += theme === 'system' ? `-${systemTheme}` : `-${theme}`
 
 	return (
 		<Hero
@@ -148,7 +138,7 @@ function CertificationHero({
 					</div>
 				</>
 			}
-			endSlot={<Image src={HERO_SVG_MAP[SVG_MAP_QUERY]} alt="test" />}
+			endSlot={<Image src={HERO_SVG_MAP[SVG_MAP_QUERY]} alt="Certification Hero Badge/Person" />}
 		/>
 	)
 }
