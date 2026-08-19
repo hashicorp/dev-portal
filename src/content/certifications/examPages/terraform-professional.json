@@ -1,6 +1,7 @@
 {
 	"title": "Terraform Associate",
 	"hero": {
+		"product": "terraform-professional",
 		"eyebrow": "Hashicorp Certified:",
 		"title": "Terraform Authoring and Operations Professional",
 		"description": "Current Exam Description: Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",

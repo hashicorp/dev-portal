@@ -32,7 +32,10 @@ function CertificationsLandingView({
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
-				<CertificationHero title={hero.title} description={hero.description} />
+				<CertificationHero
+					title={hero.title}
+					description={hero.description}
+				/>
 				<CertificationsMaxWidth>
 					<Announcement
 						heading={announcement.heading}

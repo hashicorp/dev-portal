@@ -1,6 +1,7 @@
 {
 	"title": "Vault Associate",
 	"hero": {
+		"product": "vault-associate",
 		"eyebrow": "Hashicorp Certified:",
 		"title": "Vault Associate",
 		"description": "Current Exam Description: Demonstrate your advanced, production-level Vault expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",

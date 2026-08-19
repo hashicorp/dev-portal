@@ -4,6 +4,7 @@
  */
 
 export interface CertificationHeroProps {
+	product?: string,
 	eyebrow?: string
 	title: string
 	description: string

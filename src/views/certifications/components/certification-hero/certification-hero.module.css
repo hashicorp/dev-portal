@@ -4,12 +4,61 @@
  */
 
 /* Keep this here now for reference, may be removed or edited once we have correct images for heroes */
-.heroBackground {
+
+/* .heroBackground {
 	background-image: url('./assets/gradients/homepage-gradient-dark.svg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: top center;
 	z-index: 0;
+
+	@media (--dev-dot-tablet-down) {
+		background-position: 75% top;
+	}
+} */
+
+.hero-gradient-homepage {
+	background-image: url('./assets/gradients/homepage-gradient-light.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
+	z-index: 0;
+
+	@nest html[data-theme='dark'] & {
+		background-image: url('./assets/gradients/homepage-gradient-dark.svg');
+	}
+
+	@media (--dev-dot-tablet-down) {
+		background-position: 75% top;
+	}
+}
+
+.hero-gradient-terraform {
+	background-image: url('./assets/gradients/terraform-gradient-light.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
+	z-index: 0;
+
+	@nest html[data-theme='dark'] & {
+		background-image: url('./assets/gradients/terraform-gradient-dark.svg');
+	}
+
+	@media (--dev-dot-tablet-down) {
+		background-position: 75% top;
+	}
+}
+
+.hero-gradient-vault {
+	background-image: url('./assets/gradients/vault-gradient-light.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
+	z-index: 0;
+
+	@nest html[data-theme='dark'] & {
+		background-image: url('./assets/gradients/vault-gradient-dark.svg');
+	}
 
 	@media (--dev-dot-tablet-down) {
 		background-position: 75% top;

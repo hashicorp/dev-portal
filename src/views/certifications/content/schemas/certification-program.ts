@@ -63,6 +63,7 @@ const relatedCertsExamSchema = z.object({
 export const CertificationProgramSchema = z.object({
 	title: z.string(),
 	hero: z.object({
+		product: z.string().optional(),
 		eyebrow: z.string().optional(),
 		title: z.string(),
 		description: z.string(),

@@ -51,6 +51,7 @@ function CertificationProgramView({
 			mobileMenuSlot={<MobileMenuLevelsGeneric />}
 		>
 			<CertificationHero
+				product={hero.product}
 				eyebrow={hero.eyebrow}
 				title={hero.title}
 				description={hero.description}
