@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import classNames from 'classnames'
 import Image from 'next/image'
 import svgHeroImage from './assets/certification-hero-image.svg'
 import s from './landing-hero.module.css'
@@ -27,7 +28,7 @@ function LandingHero({
 			className={className}
 			startSlot={
 				<HeroText
-					className={className}
+					className={classNames(className, s.heroText)}
 					heading={heading}
 					description={description ?? ''}
 					foreground="light"
