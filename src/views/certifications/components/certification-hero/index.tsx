@@ -22,18 +22,18 @@ import s from './certification-hero.module.css'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 
 // Images
-import homepageDark from './assets/images/homepage-dark.svg'
-import homepageLight from './assets/images/homepage-light.svg'
-import terraformAssociateDark from './assets/images/terraform-associate-dark.svg'
-import terraformAssociateLight from './assets/images/terraform-associate-light.svg'
-import terraformProfessionalDark from './assets/images/terraform-professional-dark.svg'
-import terraformProfessionalLight from './assets/images/terraform-professional-light.svg'
-import vaultAssociateDark from './assets/images/vault-associate-dark.svg'
-import vaultAssociateLight from './assets/images/vault-associate-light.svg'
-import vaultProfessionalDark from './assets/images/vault-professional-dark.svg'
-import vaultProfessionalLight from './assets/images/vault-professional-light.svg'
+import homepageDark from './assets/images/homepage-dark.png'
+import homepageLight from './assets/images/homepage-light.png'
+import terraformAssociateDark from './assets/images/terraform-associate-dark.png'
+import terraformAssociateLight from './assets/images/terraform-associate-light.png'
+import terraformProfessionalDark from './assets/images/terraform-professional-dark.png'
+import terraformProfessionalLight from './assets/images/terraform-professional-light.png'
+import vaultAssociateDark from './assets/images/vault-associate-dark.png'
+import vaultAssociateLight from './assets/images/vault-associate-light.png'
+import vaultProfessionalDark from './assets/images/vault-professional-dark.png'
+import vaultProfessionalLight from './assets/images/vault-professional-light.png'
 
-const HERO_SVG_MAP = {
+const HERO_PNG_MAP = {
 	'homepage-light': homepageLight,
 	'homepage-dark': homepageDark,
 	'terraform-associate-light': terraformAssociateLight,
@@ -118,13 +118,13 @@ function CertificationHero({
 				<>
 					<span data-hide-on-theme="dark" className={s.toggleImage}>
 						<Image
-							src={HERO_SVG_MAP[`${SVG_MAP_QUERY}-light`]}
+							src={HERO_PNG_MAP[`${SVG_MAP_QUERY}-light`]}
 							alt="Certification Hero Badge/Person"
 						/>
 					</span>
 					<span data-hide-on-theme="light" className={s.toggleImage}>
 						<Image
-							src={HERO_SVG_MAP[`${SVG_MAP_QUERY}-dark`]}
+							src={HERO_PNG_MAP[`${SVG_MAP_QUERY}-dark`]}
 							alt="Certification Hero Badge/Person"
 						/>
 					</span>

@@ -122,9 +122,13 @@
 .toggleImage {
 	display: flex;
 
-	@media (--dev-dot-mobile) {
-		& img {
-			height: 250px;
+	& img {
+		height: 100%;
+		width: 100%;
+
+		@media (--dev-dot-mobile) {
+			height: 175px;
+			width: auto;
 		}
 	}
 }

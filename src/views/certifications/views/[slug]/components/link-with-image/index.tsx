@@ -10,8 +10,8 @@ import Link from '@components/link'
 import Image from 'next/image'
 
 // Images
-import linkWithImageLight from './assets/images/link-with-image-light.svg'
-import linkWithImageDark from './assets/images/link-with-image-dark.svg'
+import linkWithImageLight from './assets/images/link-with-image-light.png'
+import linkWithImageDark from './assets/images/link-with-image-dark.png'
 
 // Styles
 import s from './link-with-image.module.css'
