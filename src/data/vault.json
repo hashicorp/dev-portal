@@ -145,7 +145,7 @@
 			"os": "linux"
 		}
 	],
-	"basePaths": ["docs", "api-docs", "tutorials", "downloads", "hcp-docs"],
+	"basePaths": ["docs", "api-docs", "tutorials", "downloads", "cloud"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -165,8 +165,9 @@
 		{
 			"iconName": "docs",
 			"name": "HCP Vault",
-			"path": "hcp-docs",
-			"productSlugForLoader": "hcp-vault"
+			"path": "cloud",
+			"productSlugForLoader": "vault-hcp",
+			"basePathForLoader": "hcp-docs"
 		}
 	],
 	"integrationsConfig": {
