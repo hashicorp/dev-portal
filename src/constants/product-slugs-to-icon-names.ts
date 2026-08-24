@@ -1,7 +1,7 @@
 import type { FlightIconName } from "@hashicorp/mds-react/components";
 import type { ProductSlug } from "types/products";
 
-export const PRODUCT_SLUGS_TO_ICON_NAMES: Record<ProductSlug | 'hcp-vault-secrets' | 'hcp-vault-radar', FlightIconName> = {
+export const PRODUCT_SLUGS_TO_ICON_NAMES: Record<ProductSlug | 'hcp-vault-secrets' | 'vault-radar-hcp', FlightIconName> = {
 	boundary: 'boundary-color',
 	consul: 'consul-color',
 	hcp: 'hcp',
@@ -11,7 +11,7 @@ export const PRODUCT_SLUGS_TO_ICON_NAMES: Record<ProductSlug | 'hcp-vault-secret
 	vagrant: 'vagrant-color',
 	vault: 'vault-color',
 	'vault-radar': 'vault-radar-square-color',
-	'hcp-vault-radar': 'vault-radar-square-color',
+	'vault-radar-hcp': 'vault-radar-square-color',
 	'hcp-vault-secrets': 'vault-secrets-square-color',
 	waypoint: 'waypoint-color',
 	sentinel: 'hcp',

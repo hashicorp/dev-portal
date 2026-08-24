@@ -39,7 +39,7 @@ describe('loadHashiConfigByEnvironment', () => {
 			    "terraform",
 			    "terraform-docs-common",
 			    "vault",
-			    "hcp-vault-radar",
+			    "vault-radar-hcp",
 			    "ptfe-releases",
 			    "well-architected-framework",
 			    "validated-designs",

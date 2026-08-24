@@ -28,7 +28,7 @@
 			"iconName": "docs",
 			"name": "HCP Vault Radar",
 			"path": "hcp-docs",
-			"productSlugForLoader": "hcp-vault-radar"
+			"productSlugForLoader": "vault-radar-hcp"
 		}
 	]
 }

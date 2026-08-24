@@ -150,7 +150,7 @@ const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'terraform-enterprise', path: 'website/redirects.js' },
 	{ repo: 'well-architected-framework', path: 'website/redirects.js' },
 	{ repo: 'hcp-docs', path: '/redirects.js' }, // private repo
-	{ repo: 'hcp-vault-radar', path: '/redirects.js' }, // private repo
+	{ repo: 'vault-radar-hcp', path: '/redirects.js' }, // private repo
 	{ repo: 'sentinel', path: 'website/redirects.js' }, // private repo
 	{ repo: 'validated-designs', path: '/redirects.js' },
 ]
