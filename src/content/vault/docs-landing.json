@@ -12,17 +12,17 @@
 				{
 					"iconName": "server",
 					"text": "Vault MCP server",
-					"url": "/vault/docs/ai/mcp-server"
+					"url": "/vault/ai/mcp-server"
 				},
 				{
 					"iconName": "provider",
 					"text": "Agentic IAM",
-					"url": "/vault/docs/ai/iam"
+					"url": "/vault/ai/iam"
 				},
 				{
 					"iconName": "connection",
 					"text": "OAuth and RAR",
-					"url": "/vault/docs/ai/oauth-server"
+					"url": "/vault/ai/oauth-server"
 				}
 			]
 		},
