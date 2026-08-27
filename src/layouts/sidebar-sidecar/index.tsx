@@ -17,11 +17,9 @@ import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import BaseLayout from 'layouts/base-layout'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
-import MobileMenuContainer, {
-	MobileAuthenticationControls,
-	MobileSubMenuContainer,
-} from 'components/mobile-menu-container'
+import { MobileSubMenuContainer } from 'components/mobile-menu-container'
 import Sidebar from 'components/sidebar'
+import MobileMenuLevelsGeneric from '@components/mobile-menu-levels-generic'
 
 // Local imports
 import { SidebarSidecarLayoutProps } from './types'
@@ -35,7 +33,7 @@ import s from './sidebar-sidecar-layout.module.css'
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
 	const navDataLevels = props.sidebarNavDataLevels
 	return (
-		<BaseLayout showFooterTopBorder>
+		<BaseLayout mobileMenuSlot={MobileMenuLevelsGeneric()} showFooterTopBorder>
 			<SidebarNavDataProvider navDataLevels={navDataLevels}>
 				<SidebarSidecarLayoutContent {...props} />
 			</SidebarNavDataProvider>
@@ -56,7 +54,6 @@ const SidebarSidecarLayoutContent = ({
 	alertBannerSlot,
 	docMetadata,
 }: SidebarSidecarLayoutProps) => {
-	const { isMobileMenuRendered, mobileMenuIsOpen } = useMobileMenu()
 	const mobileMenuContext = useMobileSubMenu()
 	const isMobileSubMenuRendered = mobileMenuContext.isMobileMenuRendered
 	const mobileSubMenuIsOpen = mobileMenuContext.mobileMenuIsOpen

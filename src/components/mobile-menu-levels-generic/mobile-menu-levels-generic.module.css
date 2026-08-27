@@ -8,8 +8,7 @@
 }
 
 .mobileMenuAuthContainer {
-	padding: 16px 16px 0 16px;
-	margin-bottom: 0;
+	padding: 24px 24px 0 24px;
 }
 
 .mobileMenuNavList {
@@ -17,4 +16,43 @@
 	margin: 0;
 	padding: 0;
 	width: 100%;
+}
+
+.mobileMenuButton {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 16px 24px;
+	border: none;
+	background: none;
+	border-top: 1px solid #656a761a;
+	border-bottom: 1px solid #656a761a;
+}
+
+.visible {
+	width: 100%;
+	display: flex;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: white;
+
+	> div {
+		justify-content: flex-start;
+		padding-top: 24px;
+
+		> div {
+			background: none;
+			padding-top: 0;
+			gap: 0;
+
+			> div > ul {
+				margin: 0;
+			}
+		}
+	}
+}
+
+.hidden {
+	display: none;
 }
