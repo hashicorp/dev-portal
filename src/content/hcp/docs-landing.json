@@ -14,7 +14,8 @@
 		{
 			"iconName": "vault-radar-color",
 			"name": "HCP Vault Radar",
-			"path": "docs/vault-radar"
+			"path": "docs/vault-radar",
+			"url": "/vault-radar/hcp-docs"
 		},
 		{
 			"iconName": "packer-color",
