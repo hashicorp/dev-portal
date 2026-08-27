@@ -65,7 +65,7 @@
 }
 
 .hero {
-	z-index: 2;
+	/* z-index: 2; */
 	position: relative;
 }
 
@@ -121,14 +121,33 @@
 
 .toggleImage {
 	display: flex;
+	position: relative;
 
 	& img {
-		height: 100%;
-		width: 100%;
-
 		@media (--dev-dot-mobile) {
-			height: 175px;
 			width: auto;
 		}
 	}
+}
+
+.toggleImageDark {
+	& img {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.heroImage {
+	z-index: 1;
+}
+
+.barGradient {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	mix-blend-mode: color-dodge;
+}
+
+.homepageGradient {
+	mix-blend-mode: normal;
 }

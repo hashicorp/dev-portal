@@ -24,14 +24,26 @@ import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 // Images
 import homepageDark from './assets/images/homepage-dark.png'
 import homepageLight from './assets/images/homepage-light.png'
-import terraformAssociateDark from './assets/images/terraform-associate-dark.png'
 import terraformAssociateLight from './assets/images/terraform-associate-light.png'
-import terraformProfessionalDark from './assets/images/terraform-professional-dark.png'
+import terraformAssociateDark from './assets/images/terraform-associate-dark.png'
 import terraformProfessionalLight from './assets/images/terraform-professional-light.png'
-import vaultAssociateDark from './assets/images/vault-associate-dark.png'
+import terraformProfessionalDark from './assets/images/terraform-professional-dark.png'
 import vaultAssociateLight from './assets/images/vault-associate-light.png'
-import vaultProfessionalDark from './assets/images/vault-professional-dark.png'
+import vaultAssociateDark from './assets/images/vault-associate-dark.png'
 import vaultProfessionalLight from './assets/images/vault-professional-light.png'
+import vaultProfessionalDark from './assets/images/vault-professional-dark.png'
+
+// Bar Gradients
+import homepageBarGradientLight from './assets/gradients/homepage-bar-gradient-light.svg'
+import homepageBarGradientDark from './assets/gradients/homepage-bar-gradient-dark.svg'
+import vaultBarGradientAssociateLight from './assets/gradients/vault-bar-gradient-associate-light.svg'
+import vaultBarGradientAssociateDark from './assets/gradients/vault-bar-gradient-associate-dark.svg'
+import vaultBarGradientProfessionalLight from './assets/gradients/vault-bar-gradient-professional-light.svg'
+import vaultBarGradientProfessionalDark from './assets/gradients/vault-bar-gradient-professional-dark.svg'
+import terraformBarGradientAssociateLight from './assets/gradients/terraform-bar-gradient-associate-light.svg'
+import terraformBarGradientAssociateDark from './assets/gradients/terraform-bar-gradient-associate-dark.svg'
+import terraformBarGradientProfessionalLight from './assets/gradients/terraform-bar-gradient-professional-light.svg'
+import terraformBarGradientProfessionalDark from './assets/gradients/terraform-bar-gradient-professional-dark.svg'
 
 const HERO_PNG_MAP = {
 	'homepage-light': homepageLight,
@@ -44,6 +56,19 @@ const HERO_PNG_MAP = {
 	'vault-associate-dark': vaultAssociateDark,
 	'vault-professional-light': vaultProfessionalLight,
 	'vault-professional-dark': vaultProfessionalDark,
+}
+
+const HERO_BAR_GRADIENT_MAP = {
+	'homepage-light': homepageBarGradientLight,
+	'homepage-dark': homepageBarGradientDark,
+	'vault-associate-light': vaultBarGradientAssociateLight,
+	'vault-associate-dark': vaultBarGradientAssociateDark,
+	'vault-professional-light': vaultBarGradientProfessionalLight,
+	'vault-professional-dark': vaultBarGradientProfessionalDark,
+	'terraform-associate-light': terraformBarGradientAssociateLight,
+	'terraform-associate-dark': terraformBarGradientAssociateDark,
+	'terraform-professional-light': terraformBarGradientProfessionalLight,
+	'terraform-professional-dark': terraformBarGradientProfessionalDark,
 }
 
 /**
@@ -118,13 +143,31 @@ function CertificationHero({
 				<>
 					<span data-hide-on-theme="dark" className={s.toggleImage}>
 						<Image
+							className={s.heroImage}
 							src={HERO_PNG_MAP[`${SVG_MAP_QUERY}-light`]}
 							alt="Certification Hero Badge/Person"
 						/>
-					</span>
-					<span data-hide-on-theme="light" className={s.toggleImage}>
 						<Image
+							className={s.barGradient}
+							src={HERO_BAR_GRADIENT_MAP[`${SVG_MAP_QUERY}-light`]}
+							alt="Certification Hero Badge/Person"
+						/>
+					</span>
+					<span
+						data-hide-on-theme="light"
+						className={classNames(s.toggleImage)}
+					>
+						<Image
+							className={s.heroImage}
 							src={HERO_PNG_MAP[`${SVG_MAP_QUERY}-dark`]}
+							alt="Certification Hero Badge/Person"
+						/>
+						<Image
+							className={classNames(
+								s.barGradient,
+								SVG_MAP_QUERY === 'homepage' ? s.homepageGradient : '',
+							)}
+							src={HERO_BAR_GRADIENT_MAP[`${SVG_MAP_QUERY}-dark`]}
 							alt="Certification Hero Badge/Person"
 						/>
 					</span>
