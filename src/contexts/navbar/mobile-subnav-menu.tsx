@@ -3,15 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import {
-	createContext,
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	useContext,
-	useEffect,
-	useState,
-} from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { MobileMenuContextState, MobileMenuProviderProps } from './types'
 import { useRouter } from 'next/router'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
@@ -21,32 +14,19 @@ import { useNoScrollBody } from 'hooks/use-no-scroll-body'
  */
 const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 924
 
-interface MobileMenuContextState {
-	/**
-	 * Whether or not the screen size indicates that we should be rendering the mobile menu
-	 */
-	isMobileMenuRendered: boolean
-	mobileMenuIsOpen: boolean
-	setMobileMenuIsOpen: Dispatch<SetStateAction<boolean>>
-}
-
-interface MobileMenuProviderProps {
-	children: ReactNode
-}
-
-const MobileMenuContext = createContext<MobileMenuContextState | undefined>(
-	undefined
+const MobileSubMenuContext = createContext<MobileMenuContextState | undefined>(
+	undefined,
 )
-MobileMenuContext.displayName = 'MobileMenuContext'
+MobileSubMenuContext.displayName = 'MobileSubMenuContext'
 
 /**
  * Provider for managing open/closed state of the mobile menu.
  */
-const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
+const MobileSubMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	const router = useRouter()
-	const [isMobileMenuRendered, setIsMobileMenuRendered] =
+	const [isMobileSubMenuRendered, setIsMobileSubMenuRendered] =
 		useState<boolean>(false)
-	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState<boolean>()
+	const [mobileSubMenuIsOpen, setMobileSubMenuIsOpen] = useState<boolean>()
 
 	/**
 	 * NOTE: We cannot use `useDeviceSize` here because the nav header
@@ -65,14 +45,14 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 
 		// Create a media query list object with the obtained breakpoint
 		const mediaQueryListObject = window.matchMedia(
-			`(min-width: ${desktopWidthBreakpoint}px)`
+			`(min-width: ${desktopWidthBreakpoint}px)`,
 		)
 
 		// Create a change listener for the media query list object
 		// Called when the breakpoint is crossed over in either direction
 		const handleChange = () => {
 			const shouldRenderMobileMenu = !mediaQueryListObject.matches
-			setIsMobileMenuRendered(shouldRenderMobileMenu)
+			setIsMobileSubMenuRendered(shouldRenderMobileMenu)
 		}
 
 		// Set the initial state based on the mediaQuery
@@ -90,23 +70,23 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	/**
 	 * Prevents scrolling on the rest of the page body
 	 */
-	useNoScrollBody(mobileMenuIsOpen)
+	useNoScrollBody(mobileSubMenuIsOpen)
 
 	/**
 	 * Handles closing the mobile menu in some cases.
 	 */
 	useEffect(() => {
 		// Don't need to listen for router events on Desktop
-		if (!isMobileMenuRendered) {
+		if (!isMobileSubMenuRendered) {
 			// Close the mobile menu if the viewport size has crossed the breakpoint
-			setMobileMenuIsOpen(false)
+			setMobileSubMenuIsOpen(false)
 			return
 		}
 
 		// Close the mobile menu if it's open on route change start
 		const handleRouteChange = () => {
-			if (mobileMenuIsOpen) {
-				setMobileMenuIsOpen(false)
+			if (mobileSubMenuIsOpen) {
+				setMobileSubMenuIsOpen(false)
 			}
 		}
 
@@ -119,31 +99,31 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 			router.events.off('routeChangeError', handleRouteChange)
 			router.events.off('hashChangeComplete', handleRouteChange)
 		}
-	}, [isMobileMenuRendered, mobileMenuIsOpen, router.events])
+	}, [isMobileSubMenuRendered, mobileSubMenuIsOpen, router.events])
 
 	const state: MobileMenuContextState = {
-		isMobileMenuRendered,
-		mobileMenuIsOpen,
-		setMobileMenuIsOpen,
+		isMobileMenuRendered: isMobileSubMenuRendered,
+		mobileMenuIsOpen: mobileSubMenuIsOpen,
+		setMobileMenuIsOpen: setMobileSubMenuIsOpen,
 	}
 
 	return (
-		<MobileMenuContext.Provider value={state}>
+		<MobileSubMenuContext.Provider value={state}>
 			{children}
-		</MobileMenuContext.Provider>
+		</MobileSubMenuContext.Provider>
 	)
 }
 
 /**
  * Hook for exposing menu state and the setter for updating the state.
  */
-const useMobileMenu = (): MobileMenuContextState => {
-	const context = useContext(MobileMenuContext)
+const useMobileSubMenu = (): MobileMenuContextState => {
+	const context = useContext(MobileSubMenuContext)
 	if (context === undefined) {
-		throw new Error('useMobileMenu must be used within a MobileMenuProvider')
+		throw new Error('useMobileSubMenu must be used within a MobileSubMenuProvider')
 	}
 
 	return context
 }
 
-export { MobileMenuProvider, useMobileMenu }
+export { MobileSubMenuProvider, useMobileSubMenu }

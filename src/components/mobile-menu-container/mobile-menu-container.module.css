@@ -31,6 +31,12 @@
 	}
 }
 
+/* left = 100% - (width of sidebar + extra padding) */
+.subMenuRoot {
+	left: calc(100% - 342px - 24px);
+	width: 342px;
+}
+
 .mobileAuthenticationControlsWrap {
 	margin-bottom: 24px;
 }

@@ -12,13 +12,14 @@ import { MAIN_ELEMENT_ID } from 'constants/element-ids'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useScroll } from 'framer-motion'
-import { SkipLinkContext, useMobileMenu } from 'contexts'
+import { SkipLinkContext, useMobileMenu, useMobileSubMenu } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import BaseLayout from 'layouts/base-layout'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import MobileMenuContainer, {
 	MobileAuthenticationControls,
+	MobileSubMenuContainer,
 } from 'components/mobile-menu-container'
 import Sidebar from 'components/sidebar'
 
@@ -55,13 +56,17 @@ const SidebarSidecarLayoutContent = ({
 	alertBannerSlot,
 	docMetadata,
 }: SidebarSidecarLayoutProps) => {
-	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
-		useMobileMenu()
+	const { isMobileMenuRendered, mobileMenuIsOpen } = useMobileMenu()
+	const mobileMenuContext = useMobileSubMenu()
+	const isMobileSubMenuRendered = mobileMenuContext.isMobileMenuRendered
+	const mobileSubMenuIsOpen = mobileMenuContext.mobileMenuIsOpen
+	const setMobileSubMenuIsOpen = mobileMenuContext.setMobileMenuIsOpen
+
 	const { currentLevel } = useSidebarNavData()
 	const { active: sandboxIsActive } = useInstruqtEmbed()
 	const sidebarRef = useRef<HTMLDivElement>()
 	const sidebarProps = sidebarNavDataLevels[currentLevel]
-	const sidebarIsVisible = !isMobileMenuRendered || mobileMenuIsOpen
+	const sidebarIsVisible = !isMobileSubMenuRendered || mobileSubMenuIsOpen
 	const contentRef = useRef(null)
 	const { setShowSkipLink } = useContext(SkipLinkContext)
 	const stickyNavHeaderHeight = getFullNavHeaderHeight()
@@ -85,9 +90,11 @@ const SidebarSidecarLayoutContent = ({
 	// Handles closing the sidebar if focus moves outside of it and it is open.
 	useOnFocusOutside(
 		[sidebarRef],
-		() => setMobileMenuIsOpen(false),
-		isMobileMenuRendered && sidebarIsVisible
+		() => setMobileSubMenuIsOpen(false),
+		isMobileSubMenuRendered && sidebarIsVisible,
 	)
+
+	console.log({ sidebarProps })
 
 	let sidebarContent = null
 	if (AlternateSidebar && !sidebarProps?.menuItems) {
@@ -109,31 +116,26 @@ const SidebarSidecarLayoutContent = ({
 		}
 	}
 
-	const shouldNotHaveSidePadding =
-		sidebarContent.props.title === 'Main Menu' ||
-		(AlternateSidebar && !sidebarProps?.menuItems)
+	console.log('Submenu open: ', mobileSubMenuIsOpen)
+	console.log(sidebarContent.props.title)
+	console.log(AlternateSidebar)
+
+	const shouldNotHaveSidePadding = sidebarContent.props.title === 'Main Menu'
 
 	return (
 		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
-			<MobileMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
+			<MobileSubMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
-					<MobileAuthenticationControls
-						className={classNames(
-							s.mobileAuthControlsContainer,
-							s.sidePadding,
-							{ [s.noMargin]: AlternateSidebar && !sidebarProps?.menuItems }
-						)}
-					/>
 					<div
 						className={classNames({
 							[s.sidePadding]:
-								!shouldNotHaveSidePadding || !isMobileMenuRendered,
+								!shouldNotHaveSidePadding || !isMobileSubMenuRendered,
 						})}
 					>
 						{sidebarContent}
 					</div>
 				</div>
-			</MobileMenuContainer>
+			</MobileSubMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
 				{alertBannerSlot}
 				<div

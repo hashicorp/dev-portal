@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
 import isThemedPath from 'lib/isThemedPath'
-import { useMobileMenu } from 'contexts'
+import { useMobileMenu, useMobileSubMenu } from 'contexts'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import ButtonLink from 'components/button-link'
@@ -31,6 +31,19 @@ const MOBILE_MENU_MOTION = {
 	},
 	hidden: {
 		left: '-150vw',
+		transitionEnd: {
+			display: 'none',
+		},
+	},
+}
+
+const MOBILE_SUBMENU_MOTION = {
+	visible: {
+		top: '128px', // double var(--navigation-header-height)
+		display: 'flex',
+	},
+	hidden: {
+		top: '128px',
 		transitionEnd: {
 			display: 'none',
 		},
@@ -91,7 +104,7 @@ const MobileAuthenticationControls = ({
 			className={classNames(
 				'g-show-with-mobile-menu',
 				s.mobileAuthenticationControlsWrap,
-				className
+				className,
 			)}
 		>
 			{content}
@@ -103,7 +116,7 @@ const MobileAuthenticationControls = ({
 const MobileMenuContainer = forwardRef(
 	(
 		{ children, className }: MobileMenuContainerProps,
-		ref: ForwardedRef<HTMLDivElement>
+		ref: ForwardedRef<HTMLDivElement>,
 	) => {
 		const { mobileMenuIsOpen } = useMobileMenu()
 		const shouldReduceMotion = useReducedMotion()
@@ -119,9 +132,32 @@ const MobileMenuContainer = forwardRef(
 				{children}
 			</m.div>
 		)
-	}
+	},
+)
+
+// eslint-disable-next-line react/display-name
+const MobileSubMenuContainer = forwardRef(
+	(
+		{ children, className }: MobileMenuContainerProps,
+		ref: ForwardedRef<HTMLDivElement>,
+	) => {
+		const { mobileMenuIsOpen } = useMobileSubMenu()
+		const shouldReduceMotion = useReducedMotion()
+
+		return (
+			<m.div
+				animate={mobileMenuIsOpen ? 'visible' : 'hidden'}
+				className={classNames(s.root, s.subMenuRoot, className)}
+				ref={ref}
+				transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
+				variants={MOBILE_SUBMENU_MOTION}
+			>
+				{children}
+			</m.div>
+		)
+	},
 )
 
 export type { MobileMenuContainerProps }
-export { MobileAuthenticationControls }
+export { MobileAuthenticationControls, MobileSubMenuContainer }
 export default MobileMenuContainer

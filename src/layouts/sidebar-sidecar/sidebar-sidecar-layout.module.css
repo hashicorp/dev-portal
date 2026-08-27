@@ -44,6 +44,16 @@ for further details.
 		position: sticky; /* fixed does not take up horiz. space the same */
 		width: var(--dev-dot-sidebar-width); /* custom width overwrite */
 	}
+
+	@media (--dev-dot-show-mobile-menu) {
+		border: 1px solid #656a7633;
+		border-radius: 8px;
+		box-shadow:
+			0 16px 16px -10px #656a7633,
+			0 2px 3px 0 #656a7626;
+		height: fit-content;
+		max-height: min(724px, calc(100vh - var(--sticky-bars-height)));
+	}
 }
 
 /* Pad content and create a scrollable area within .sidebarContainer. */
@@ -186,6 +196,10 @@ for further details.
 .sidePadding {
 	padding-left: 16px;
 	padding-right: 16px;
+
+	@media (--dev-dot-show-mobile-menu) {
+		padding: 24px 16px;
+	}
 }
 
 .servedFromBadge {
