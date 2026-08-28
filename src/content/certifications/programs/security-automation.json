@@ -2,11 +2,11 @@
 	"title": "Security Automation",
 	"summary": {
 		"heading": "Security<br />Automation Certifications",
-		"description": "Verify your security and networking automation expertise with our Vault certifications. Earn an associate-level certification to validate your foundational Vault knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam."
+		"description": "Verify your security and networking automation expertise with our Vault certifications. Earn an associate-level certification to validate your foundational Vault knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Advanced exam."
 	},
 	"hero": {
 		"heading": "Security<br />Automation Certifications",
-		"description": " Verify your security and networking automation expertise with our Vault certifications. Earn an associate-level certification to validate your foundational Vault knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam."
+		"description": " Verify your security and networking automation expertise with our Vault certifications. Earn an associate-level certification to validate your foundational Vault knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Advanced exam."
 	},
 	"exams": [
 		{
@@ -22,7 +22,7 @@
 			"faqSlug": "vault-associate-003"
 		},
 		{
-			"title": "Vault Operations Professional",
+			"title": "Vault Operations Advanced",
 			"examTier": "pro",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.16",
