@@ -2,9 +2,61 @@
 
 This folder contains all editable content for the HashiCorp Certifications pages.
 
+- [Subnav](#subnav) — Controls the sub navigation bar labels and dropdowns across all Certifications pages
 - [Landing Page](#landing-page) — `/certifications`
 - [Exam Pages](#exam-pages) — `/certifications/<exam>` (e.g. `/certifications/terraform-associate`)
 - [Sign In Page](#sign-in-page) — `/certifications/signin`
+
+---
+
+## Subnav
+
+**File:** [`subnav.json`](./subnav.json)
+
+This file controls the sub navigation bar that appears across all Certifications pages. It defines the link labels, top-level items, and dropdown selectors used to navigate between certification pages.
+
+The top-level key is `certSubNavItems`, an array where each entry is either a **direct link** or a **dropdown group**.
+
+### Direct link item
+
+A flat link with no dropdown. Use this for top-level pages such as the Overview.
+
+| Field | Description |
+|---|---|
+| `label` | The text displayed in the nav bar |
+| `url` | The URL this item links to |
+
+**Example:**
+```json
+{
+  "label": "Overview",
+  "url": "/certifications"
+}
+```
+
+### Dropdown group item
+
+A labeled group that expands into a list of links when clicked. Use this to group related exam pages under a product heading.
+
+| Field | Description |
+|---|---|
+| `label` | The text shown on the dropdown trigger button |
+| `items` | An array of link entries shown inside the dropdown |
+| `items[].label` | The display text for each dropdown link |
+| `items[].path` | The URL path each dropdown link navigates to |
+
+**Example:**
+```json
+{
+  "label": "Terraform Certification",
+  "items": [
+    { "label": "Terraform Associate", "path": "/certifications/terraform-associate" },
+    { "label": "Terraform Authoring and Operations Professional", "path": "/certifications/terraform-professional" }
+  ]
+}
+```
+
+> **Note:** A subnav item must have either `url` (direct link) **or** `items` (dropdown), not both.
 
 ---
 
