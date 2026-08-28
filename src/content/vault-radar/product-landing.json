@@ -17,7 +17,7 @@
 		"ctas": [
 			{
 				"text": "HCP Vault Radar Quick Start",
-				"url": "/hcp/tutorials/get-started-hcp-vault-radar/what-is-secret-scanning"
+				"url": "/vault-radar/tutorials/get-started-hcp-vault-radar/what-is-secret-scanning"
 			}
 		]
 	},
@@ -34,17 +34,17 @@
 				{
 					"heading": "Secret scanning",
 					"body": "Learn how HCP Vault Radar scans for exposed secrets across your systems.",
-					"url": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-secret-scanning"
+					"url": "/vault-radar/tutorials/get-started-hcp-vault-radar/vault-radar-secret-scanning"
 				},
 				{
 					"heading": "Alerting",
 					"body": "Learn how to set up alerts when HCP Vault Radar detects an exposed secret.",
-					"url": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-alert-setup"
+					"url": "/vault-radar/tutorials/get-started-hcp-vault-radar/vault-radar-alert-setup"
 				},
 				{
 					"heading": "Ticketing integration",
 					"body": "Learn how to connect HCP Vault Radar findings to your ticketing system.",
-					"url": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-ticketing-setup"
+					"url": "/vault-radar/tutorials/get-started-hcp-vault-radar/vault-radar-ticketing-setup"
 				}
 			]
 		}
