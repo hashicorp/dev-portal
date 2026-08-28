@@ -22,13 +22,14 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["hcp-docs"],
+	"basePaths": ["cloud"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
 			"name": "HCP Vault Radar",
-			"path": "hcp-docs",
-			"productSlugForLoader": "vault-radar-hcp"
+			"path": "cloud",
+			"productSlugForLoader": "vault-radar-hcp",
+			"basePathForLoader": "hcp-docs"
 		}
 	]
 }
