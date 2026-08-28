@@ -164,7 +164,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "HCP Vault",
+			"name": "HCP Vault Dedicated",
 			"path": "cloud",
 			"productSlugForLoader": "vault-hcp",
 			"basePathForLoader": "hcp-docs"
