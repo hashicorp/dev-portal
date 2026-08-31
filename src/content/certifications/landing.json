@@ -15,6 +15,7 @@
 			"containerDescription": "We offer Terraform certifications at two levels. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification.",
 			"certs": [
 				{ "id": "terraform-associate" },
+				{ "id": "terraform-professional" },
 				{ "id": "terraform-professional" }
 			]
 		},
