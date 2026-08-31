@@ -42,10 +42,10 @@
 
 .rootLayout {
 	display: flex;
-	flex-wrap: wrap;
 	gap: 64px;
 
-	@media (--dev-dot-mobile) {
+	@media (--dev-dot-tablet-down) {
+		flex-direction: column;
 		gap: 0;
 	}
 }
@@ -65,11 +65,13 @@
 	padding-bottom: 128px;
 
 	@media (--dev-dot-tablet) {
+		flex: none;
 		padding-top: 80px;
 		padding-bottom: 0;
 	}
 
 	@media (--dev-dot-mobile) {
+		flex: none;
 		padding-top: 64px;
 		padding-bottom: 0;
 	}
@@ -78,13 +80,13 @@
 .endSlot {
 	position: relative;
 	flex: 25em 1 1;
-	margin-left: auto;
 	min-width: 0;
 	display: flex;
 	align-items: end;
 
 	@media (--dev-dot-tablet-down) {
 		justify-content: center;
+		flex: none;
 	}
 }
 

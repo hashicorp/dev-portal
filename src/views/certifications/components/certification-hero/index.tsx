@@ -141,7 +141,13 @@ function CertificationHero({
 			}
 			endSlot={
 				<>
-					<span data-hide-on-theme="dark" className={s.toggleImage}>
+					<span
+						data-hide-on-theme="dark"
+						className={classNames(
+							s.toggleImage,
+							SVG_MAP_QUERY === 'homepage' && s.homepageMobileStyling,
+						)}
+					>
 						<Image
 							className={s.heroImage}
 							src={HERO_PNG_MAP[`${SVG_MAP_QUERY}-light`]}
@@ -155,7 +161,10 @@ function CertificationHero({
 					</span>
 					<span
 						data-hide-on-theme="light"
-						className={classNames(s.toggleImage)}
+						className={classNames(
+							s.toggleImage,
+							SVG_MAP_QUERY === 'homepage' && s.homepageMobileStyling,
+						)}
 					>
 						<Image
 							className={s.heroImage}
@@ -165,7 +174,7 @@ function CertificationHero({
 						<Image
 							className={classNames(
 								s.barGradient,
-								SVG_MAP_QUERY === 'homepage' ? s.homepageGradient : '',
+								SVG_MAP_QUERY === 'homepage' && s.homepageGradient,
 							)}
 							src={HERO_BAR_GRADIENT_MAP[`${SVG_MAP_QUERY}-dark`]}
 							alt="Certification Hero Badge/Person"

@@ -122,12 +122,6 @@
 .toggleImage {
 	display: flex;
 	position: relative;
-
-	& img {
-		@media (--dev-dot-mobile) {
-			width: auto;
-		}
-	}
 }
 
 .toggleImageDark {
@@ -139,6 +133,8 @@
 
 .heroImage {
 	z-index: 1;
+	height: 100%;
+	width: auto;
 }
 
 .barGradient {
@@ -150,4 +146,13 @@
 
 .homepageGradient {
 	mix-blend-mode: normal;
+}
+
+.homepageMobileStyling {
+	& img {
+		@media (--dev-dot-mobile) {
+			width: auto;
+			height: 200px;
+		}
+	}
 }
