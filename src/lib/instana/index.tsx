@@ -17,7 +17,8 @@ ineum('meta','env','${ENV}');
 ${COMMIT_SHA ? `ineum('meta','version','${COMMIT_SHA}');` : ''}
 ineum('trackSessions');
 ineum('autoPageDetection', true);
-ineum('ignoreErrorMessages', [/extension/i, /node_modules/i]);`
+ineum('ignoreErrorMessages', [/extension/i, /node_modules/i, /object not found matching id/i]);
+ineum('ignoreUrls', [/^chrome-extension:\\/\\//i, /^moz-extension:\\/\\//i]);`
 
 function InstanaHeadTag() {
 	return (
