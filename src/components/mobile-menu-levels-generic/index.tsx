@@ -6,6 +6,7 @@
 // Components
 import MobileMenuContainer, {
 	MobileAuthenticationControls,
+	MobileOptionMenuContainer,
 } from 'components/mobile-menu-container'
 import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
@@ -50,15 +51,17 @@ function MobileMenuOption({
 				</Text>
 				<IconChevronRight24 />
 			</button>
-			<div className={currentMobileSubOption === label ? s.visible : s.hidden}>
-				<ProductPanel
-					productCategories={productCategories}
-					promo={navPromo && navPromo}
-					sidePanel={sidePanelContent && sidePanelContent}
-					isPromoOnTop={isPromoOnTop && isPromoOnTop}
-					isDevPortal={true}
-				/>
-			</div>
+			<MobileOptionMenuContainer label={label}>
+				<div className={currentMobileSubOption === label ? s.visible : s.hidden}>
+					<ProductPanel
+						productCategories={productCategories}
+						promo={navPromo && navPromo}
+						sidePanel={sidePanelContent && sidePanelContent}
+						isPromoOnTop={isPromoOnTop && isPromoOnTop}
+						isDevPortal={true}
+					/>
+				</div>
+			</MobileOptionMenuContainer>
 		</>
 	)
 }
