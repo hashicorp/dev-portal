@@ -50,5 +50,11 @@
 			"Vault advanced concepts and skills",
 			"Vault Professional value proposition"
 		]
+	},
+	{
+		"id": "ibm-example",
+		"product": "ibm",
+		"title": "IBM Hybrid Cloud Architect Professional Certificate",
+		"ctaLink": "https://developer.ibm.com/"
 	}
 ]

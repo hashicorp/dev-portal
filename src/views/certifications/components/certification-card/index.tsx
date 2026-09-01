@@ -10,6 +10,7 @@ import { IconGuide16 } from "@hashicorp/flight-icons/svg-react/guide-16";
 import { IconTerminalScreen16 } from "@hashicorp/flight-icons/svg-react/terminal-screen-16";
 import { IconStarFill16 } from "@hashicorp/flight-icons/svg-react/star-fill-16";
 import { IconArrowRight16 } from "@hashicorp/flight-icons/svg-react/arrow-right-16";
+import { IconExternalLink16 } from "@hashicorp/flight-icons/svg-react/external-link-16";
 
 // Styles
 import s from "./certification-card.module.css";
@@ -82,7 +83,7 @@ function CertificationCardReduced ({ product, title, cta, ctaLink }: Certificati
             </div>
             <div className={s.cta}>
                 <Text size={100} weight={"medium"}>{cta}</Text>
-                <IconArrowRight16 />
+                {product === 'ibm' ? <IconExternalLink16 /> : <IconArrowRight16 />}
             </div>
         </Link>
     );
