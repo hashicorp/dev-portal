@@ -21,6 +21,7 @@
 
 	@media (--dev-dot-tablet-down) {
 		max-width: 100%;
+		flex: 0 0 calc(50% - 18px);
 	}
 }
 

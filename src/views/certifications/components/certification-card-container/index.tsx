@@ -24,7 +24,7 @@ interface CertificationCardContainerProps {
 	certs: CertificationCardProps[]
 }
 
-const MAX_NUM_CERTIFICATIONS = 2
+const MAX_NUM_CERTIFICATIONS = 3
 
 /**
  * This component is used to display a container for certification cards. It takes in a product name, a description for the container, and an array of certification card data. The component will render a maximum of MAX_NUM_CERTIFICATIONS certification cards.

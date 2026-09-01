@@ -5,12 +5,13 @@
 
  .certCardContainer {
     display: flex;
-    gap: 32px;
+    flex-direction: column;
+    gap: 48px;
     padding: 64px 0;
 
     @media (--dev-dot-tablet-down) {
-        flex-direction: column;
         padding: 40px 16px;
+        gap: 40px;
     }
 
     @media (--dev-dot-mobile) {
@@ -20,7 +21,7 @@
  }
 
  .certCardContainerHeader {
-    width: 33%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -52,6 +53,7 @@
 
     @media (--dev-dot-tablet) {
         width: 100%;
+        flex-wrap: wrap;
     }
 
     @media (--dev-dot-mobile) {
