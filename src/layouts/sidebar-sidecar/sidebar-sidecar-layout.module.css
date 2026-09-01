@@ -52,7 +52,7 @@ for further details.
 			0 16px 16px -10px #656a7633,
 			0 2px 3px 0 #656a7626;
 		height: fit-content;
-		max-height: min(724px, calc(100vh - var(--sticky-bars-height)));
+		max-height: min(724px, calc(95vh - var(--sticky-bars-height)));
 	}
 }
 

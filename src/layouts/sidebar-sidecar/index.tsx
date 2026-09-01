@@ -12,7 +12,7 @@ import { MAIN_ELEMENT_ID } from 'constants/element-ids'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useScroll } from 'framer-motion'
-import { SkipLinkContext, useMobileMenu, useMobileSubMenu } from 'contexts'
+import { SkipLinkContext, useMobileSubMenu } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import BaseLayout from 'layouts/base-layout'
 import BreadcrumbBar from 'components/breadcrumb-bar'
@@ -112,10 +112,6 @@ const SidebarSidecarLayoutContent = ({
 			)
 		}
 	}
-
-	console.log('Submenu open: ', mobileSubMenuIsOpen)
-	console.log(sidebarContent.props.title)
-	console.log(AlternateSidebar)
 
 	const shouldNotHaveSidePadding = sidebarContent.props.title === 'Main Menu'
 

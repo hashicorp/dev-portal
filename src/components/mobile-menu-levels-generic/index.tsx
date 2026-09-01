@@ -7,25 +7,26 @@
 import MobileMenuContainer, {
 	MobileAuthenticationControls,
 } from 'components/mobile-menu-container'
-import { useState } from 'react'
 import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { IconChevronRight24 } from '@hashicorp/flight-icons/svg-react/chevron-right-24'
 import Text from '@components/text'
 // Data
 import { mobileNavigationData, navPromo, sidePanelContent } from 'lib/products'
+import { useMobileMenu } from 'contexts'
 // Styles
 import s from './mobile-menu-levels-generic.module.css'
 
 // Types
 import { ProductCategoriesProps } from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 import { PromoProps } from '@hashicorp/react-components/src/components/nav-panel/components/promo'
+import { ProductSidePanel } from 'types/products'
 
 interface MobileMenuOptionProps {
 	label: string
 	productCategories?: ProductCategoriesProps
 	navPromo?: PromoProps
-	sidePanelContent?: any
+	sidePanelContent?: ProductSidePanel
 	isPromoOnTop?: boolean
 }
 
@@ -36,17 +37,20 @@ function MobileMenuOption({
 	sidePanelContent,
 	isPromoOnTop,
 }: MobileMenuOptionProps) {
-	const [isOpen, setIsOpen] = useState(false)
+	const { currentMobileSubOption, setCurrentMobileSubOption } = useMobileMenu()
 
 	return (
 		<>
-			<button className={s.mobileMenuButton} onClick={() => setIsOpen(true)}>
+			<button
+				className={s.mobileMenuButton}
+				onClick={() => setCurrentMobileSubOption(label)}
+			>
 				<Text size={300} weight={'semibold'}>
 					{label}
 				</Text>
 				<IconChevronRight24 />
 			</button>
-			<div className={isOpen ? s.visible : s.hidden}>
+			<div className={currentMobileSubOption === label ? s.visible : s.hidden}>
 				<ProductPanel
 					productCategories={productCategories}
 					promo={navPromo && navPromo}

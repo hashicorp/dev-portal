@@ -27,6 +27,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	const [isMobileMenuRendered, setIsMobileMenuRendered] =
 		useState<boolean>(false)
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState<boolean>()
+	const [currentMobileSubOption, setCurrentMobileSubOption] = useState<string>()
 
 	/**
 	 * NOTE: We cannot use `useDeviceSize` here because the nav header
@@ -80,6 +81,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		if (!isMobileMenuRendered) {
 			// Close the mobile menu if the viewport size has crossed the breakpoint
 			setMobileMenuIsOpen(false)
+			setCurrentMobileSubOption('')
 			return
 		}
 
@@ -87,6 +89,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		const handleRouteChange = () => {
 			if (mobileMenuIsOpen) {
 				setMobileMenuIsOpen(false)
+				setCurrentMobileSubOption('')
 			}
 		}
 
@@ -105,6 +108,8 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		isMobileMenuRendered,
 		mobileMenuIsOpen,
 		setMobileMenuIsOpen,
+		currentMobileSubOption,
+		setCurrentMobileSubOption,
 	}
 
 	return (
