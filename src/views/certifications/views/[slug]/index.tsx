@@ -10,7 +10,6 @@ import DevDotContent from 'components/dev-dot-content'
 import Heading from '@components/heading'
 import Text from '@components/text'
 import { MDSCard } from '@components/mds-card'
-import image from '../../../../../public/img/homepage/waypoint-slot-accent.svg'
 
 // Share certifications
 import {
@@ -51,6 +50,7 @@ function CertificationProgramView({
 			mobileMenuSlot={<MobileMenuLevelsGeneric />}
 		>
 			<CertificationHero
+				product={hero.product}
 				eyebrow={hero.eyebrow}
 				title={hero.title}
 				description={hero.description}
@@ -115,7 +115,6 @@ function CertificationProgramView({
 						description={linkWithImage.description}
 						cta={linkWithImage.cta}
 						ctaLink={linkWithImage.ctaLink}
-						image={image}
 					/>
 				</CertificationsMaxWidth>
 				<RelatedCertificationsFooter
