@@ -183,11 +183,11 @@ const MobileSubMenuContainer = forwardRef(
 		{ children, className }: MobileMenuContainerProps,
 		ref: ForwardedRef<HTMLDivElement>,
 	) => {
-		const { mobileMenuIsOpen } = useMobileSubMenu()
+		const { mobileSubMenuIsOpen } = useMobileSubMenu()
 
 		return (
 			<m.div
-				animate={mobileMenuIsOpen ? 'visible' : 'hidden'}
+				animate={mobileSubMenuIsOpen ? 'visible' : 'hidden'}
 				className={classNames(s.root, s.subMenuRoot, className)}
 				ref={ref}
 				transition={{ duration: 0 }}

@@ -54,10 +54,11 @@ const SidebarSidecarLayoutContent = ({
 	alertBannerSlot,
 	docMetadata,
 }: SidebarSidecarLayoutProps) => {
-	const mobileMenuContext = useMobileSubMenu()
-	const isMobileSubMenuRendered = mobileMenuContext.isMobileMenuRendered
-	const mobileSubMenuIsOpen = mobileMenuContext.mobileMenuIsOpen
-	const setMobileSubMenuIsOpen = mobileMenuContext.setMobileMenuIsOpen
+	const {
+		isMobileSubMenuRendered,
+		mobileSubMenuIsOpen,
+		setMobileSubMenuIsOpen,
+	} = useMobileSubMenu()
 
 	const { currentLevel } = useSidebarNavData()
 	const { active: sandboxIsActive } = useInstruqtEmbed()
@@ -90,8 +91,6 @@ const SidebarSidecarLayoutContent = ({
 		() => setMobileSubMenuIsOpen(false),
 		isMobileSubMenuRendered && sidebarIsVisible,
 	)
-
-	console.log({ sidebarProps })
 
 	let sidebarContent = null
 	if (AlternateSidebar && !sidebarProps?.menuItems) {

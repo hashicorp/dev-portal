@@ -25,19 +25,19 @@ import { IconChevronUp16 } from '@hashicorp/flight-icons/svg-react/chevron-up-16
  * the same for every page in the app.
  */
 function MobileSubMenuButton({ className }) {
-	const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileSubMenu()
-	const ariaLabel = `${mobileMenuIsOpen ? 'Close' : 'Open'} sub navigation menu`
+	const { mobileSubMenuIsOpen, setMobileSubMenuIsOpen } = useMobileSubMenu()
+	const ariaLabel = `${mobileSubMenuIsOpen ? 'Close' : 'Open'} sub navigation menu`
 	const iconSize = '12px'
+
+	function handleMenu() {
+		setMobileSubMenuIsOpen((prevState) => !prevState)
+	}
 
 	return (
 		<>
-			<button
-				aria-label={ariaLabel}
-				className={className}
-				onClick={() => setMobileMenuIsOpen((prevState) => !prevState)}
-			>
+			<button aria-label={ariaLabel} className={className} onClick={handleMenu}>
 				Menu{' '}
-				{mobileMenuIsOpen ? (
+				{mobileSubMenuIsOpen ? (
 					<IconChevronUp16 fontSize={iconSize} />
 				) : (
 					<IconChevronDown16 fontSize={iconSize} />

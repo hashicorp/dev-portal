@@ -15,6 +15,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import FilterInput from 'components/filter-input'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
+import { useMobileSubMenu } from 'contexts'
 import {
 	SidebarHorizontalRule,
 	SidebarNavLinkItem,
@@ -51,12 +52,13 @@ const Sidebar = ({
 	className,
 }: SidebarProps & JSX.IntrinsicElements['div']) => {
 	const currentProduct = useCurrentProduct()
+	const { mobileSubMenuIsOpen } = useMobileSubMenu()
 	const { shouldRenderMobileControls } = useSidebarNavData()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [filterValue, setFilterValue] = useState('')
 	const { itemsWithMetadata } = useMemo(
 		() => addNavItemMetaData(currentPath, menuItems),
-		[currentPath, menuItems]
+		[currentPath, menuItems],
 	)
 	const isProductPanel = shouldRenderMobileControls && title === 'Main Menu'
 
@@ -88,7 +90,7 @@ const Sidebar = ({
 				<FilterInput
 					value={filterValue}
 					onChange={setFilterValue}
-					placeholder="Filter sidebar"
+					placeholder={`Filter ${mobileSubMenuIsOpen ? 'menu' : 'sidebar'}`}
 				/>
 			</div>
 		)

@@ -4,7 +4,7 @@
  */
 
 import { createContext, useContext, useEffect, useState } from 'react'
-import { MobileMenuContextState, MobileMenuProviderProps } from './types'
+import { MobileSubMenuContextState, MobileMenuProviderProps } from './types'
 import { useRouter } from 'next/router'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
@@ -14,9 +14,9 @@ import { useNoScrollBody } from 'hooks/use-no-scroll-body'
  */
 const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 924
 
-const MobileSubMenuContext = createContext<MobileMenuContextState | undefined>(
-	undefined,
-)
+const MobileSubMenuContext = createContext<
+	MobileSubMenuContextState | undefined
+>(undefined)
 MobileSubMenuContext.displayName = 'MobileSubMenuContext'
 
 /**
@@ -83,7 +83,7 @@ const MobileSubMenuProvider = ({ children }: MobileMenuProviderProps) => {
 			return
 		}
 
-		// Close the mobile menu if it's open on route change start
+		// Close the mobile sub menu if it's open on route change start
 		const handleRouteChange = () => {
 			if (mobileSubMenuIsOpen) {
 				setMobileSubMenuIsOpen(false)
@@ -101,10 +101,10 @@ const MobileSubMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		}
 	}, [isMobileSubMenuRendered, mobileSubMenuIsOpen, router.events])
 
-	const state: MobileMenuContextState = {
-		isMobileMenuRendered: isMobileSubMenuRendered,
-		mobileMenuIsOpen: mobileSubMenuIsOpen,
-		setMobileMenuIsOpen: setMobileSubMenuIsOpen,
+	const state: MobileSubMenuContextState = {
+		isMobileSubMenuRendered,
+		mobileSubMenuIsOpen,
+		setMobileSubMenuIsOpen,
 	}
 
 	return (
@@ -117,10 +117,12 @@ const MobileSubMenuProvider = ({ children }: MobileMenuProviderProps) => {
 /**
  * Hook for exposing menu state and the setter for updating the state.
  */
-const useMobileSubMenu = (): MobileMenuContextState => {
+const useMobileSubMenu = (): MobileSubMenuContextState => {
 	const context = useContext(MobileSubMenuContext)
 	if (context === undefined) {
-		throw new Error('useMobileSubMenu must be used within a MobileSubMenuProvider')
+		throw new Error(
+			'useMobileSubMenu must be used within a MobileSubMenuProvider',
+		)
 	}
 
 	return context

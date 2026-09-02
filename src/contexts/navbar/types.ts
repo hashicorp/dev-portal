@@ -11,6 +11,15 @@ export interface MobileMenuContextState {
 	setCurrentMobileSubOption?: Dispatch<SetStateAction<string>>
 }
 
+export interface MobileSubMenuContextState {
+	/**
+	 * Whether or not the screen size indicates that we should be rendering the mobile menu
+	 */
+	isMobileSubMenuRendered: boolean
+	mobileSubMenuIsOpen: boolean
+	setMobileSubMenuIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
 export interface MobileMenuProviderProps {
 	children: ReactNode
 }
