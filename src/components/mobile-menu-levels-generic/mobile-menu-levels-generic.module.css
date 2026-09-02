@@ -17,6 +17,10 @@
 	padding: 0;
 	width: 100%;
 	border-top: 1px solid #656a761a;
+
+	@nest html[data-theme='dark'] & {
+		border-top: 1px solid #b2b6bd33;
+	}
 }
 
 .mobileMenuButton {
@@ -28,6 +32,11 @@
 	background: none;
 	border-top: 1px solid #656a761a;
 	border-bottom: 1px solid #656a761a;
+
+	@nest html[data-theme='dark'] & {
+		border-top: 1px solid #b2b6bd33;
+		border-bottom: 1px solid #b2b6bd33;
+	}
 }
 
 /** 
@@ -53,15 +62,15 @@
 
 			> div > ul {
 				margin: 0;
-			}
 
-			> div > ul > li > ul {
-				@media (--dev-dot-show-mobile-menu) {
-					grid-template-columns: repeat(2, 1fr);
-				}
+				> li > ul {
+					@media (--dev-dot-show-mobile-menu) {
+						grid-template-columns: repeat(2, 1fr);
+					}
 
-				@media (--dev-dot-mobile) {
-					grid-template-columns: 1fr;
+					@media (--dev-dot-mobile) {
+						grid-template-columns: 1fr;
+					}
 				}
 			}
 		}
