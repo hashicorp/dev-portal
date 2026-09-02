@@ -37,7 +37,7 @@ const MobileSubMenuProvider = ({ children }: MobileMenuProviderProps) => {
 			return
 		}
 
-		// Get the breakpoint value
+		// Get the breakpoint value - this is actually broken & defaults to DEFAULT_NAV_HEADER_DESKTOP_WIDTH
 		const desktopWidthBreakpoint =
 			(getCSSVariableFromDocument('--mobile-menu-breakpoint', {
 				asNumber: true,
@@ -78,7 +78,7 @@ const MobileSubMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	useEffect(() => {
 		// Don't need to listen for router events on Desktop
 		if (!isMobileSubMenuRendered) {
-			// Close the mobile menu if the viewport size has crossed the breakpoint
+			// Close the mobile sub menu if the viewport size has crossed the breakpoint
 			setMobileSubMenuIsOpen(false)
 			return
 		}

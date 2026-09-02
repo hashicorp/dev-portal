@@ -30,6 +30,10 @@
 	border-bottom: 1px solid #656a761a;
 }
 
+/** 
+ *	Div targeting is needed since the ProductPanel is a HashiCorp module component.
+ *  We cannot directly modify the component logic/styling, so we resort to this.
+ */
 .visible {
 	width: 100%;
 	display: flex;
@@ -49,6 +53,16 @@
 
 			> div > ul {
 				margin: 0;
+			}
+
+			> div > ul > li > ul {
+				@media (--dev-dot-show-mobile-menu) {
+					grid-template-columns: repeat(2, 1fr);
+				}
+
+				@media (--dev-dot-mobile) {
+					grid-template-columns: 1fr;
+				}
 			}
 		}
 	}

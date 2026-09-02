@@ -52,7 +52,10 @@ for further details.
 			0 16px 16px -10px #656a7633,
 			0 2px 3px 0 #656a7626;
 		height: fit-content;
-		max-height: min(724px, calc(95vh - var(--sticky-bars-height)));
+		max-height: min(
+			724px,
+			calc(95vh - calc(var(--navigation-header-height) * 2)) /* There should always be a subnav + top nav when the submenu is rendered */
+		);
 	}
 }
 
@@ -64,7 +67,7 @@ for further details.
 	position: relative;
 
 	@media (--dev-dot-hide-mobile-menu) {
-		padding-top: 24px;
+		padding: 24px 0;
 	}
 }
 

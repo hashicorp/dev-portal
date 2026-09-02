@@ -13,7 +13,7 @@ export interface MobileMenuContextState {
 
 export interface MobileSubMenuContextState {
 	/**
-	 * Whether or not the screen size indicates that we should be rendering the mobile menu
+	 * Whether or not the screen size indicates that we should be rendering the mobile sub menu
 	 */
 	isMobileSubMenuRendered: boolean
 	mobileSubMenuIsOpen: boolean

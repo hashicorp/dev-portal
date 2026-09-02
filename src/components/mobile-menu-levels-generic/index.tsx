@@ -40,19 +40,22 @@ function MobileMenuOption({
 }: MobileMenuOptionProps) {
 	const { currentMobileSubOption, setCurrentMobileSubOption } = useMobileMenu()
 
+	function handleMobileMenuOption() {
+		setCurrentMobileSubOption(label)
+	}
+
 	return (
 		<>
-			<button
-				className={s.mobileMenuButton}
-				onClick={() => setCurrentMobileSubOption(label)}
-			>
+			<button className={s.mobileMenuButton} onClick={handleMobileMenuOption}>
 				<Text size={300} weight={'semibold'}>
 					{label}
 				</Text>
 				<IconChevronRight24 />
 			</button>
 			<MobileOptionMenuContainer label={label}>
-				<div className={currentMobileSubOption === label ? s.visible : s.hidden}>
+				<div
+					className={currentMobileSubOption === label ? s.visible : s.hidden}
+				>
 					<ProductPanel
 						productCategories={productCategories}
 						promo={navPromo && navPromo}

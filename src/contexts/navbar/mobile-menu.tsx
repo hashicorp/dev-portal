@@ -38,7 +38,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 			return
 		}
 
-		// Get the breakpoint value
+		// Get the breakpoint value - this is actually broken & defaults to DEFAULT_NAV_HEADER_DESKTOP_WIDTH
 		const desktopWidthBreakpoint =
 			(getCSSVariableFromDocument('--mobile-menu-breakpoint', {
 				asNumber: true,

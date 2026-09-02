@@ -54,11 +54,11 @@ const MOBILE_OPTION_MENU_MOTION = {
 
 const MOBILE_SUBMENU_MOTION = {
 	visible: {
-		top: '128px', // double var(--navigation-header-height)
+		top: 'calc(var(--navigation-header-height) * 2)', // always two nav headers when submenu rendered
 		display: 'flex',
 	},
 	hidden: {
-		top: '128px',
+		top: 'var(--sticky-bars-height)',
 		transitionEnd: {
 			display: 'none',
 		},
@@ -127,7 +127,6 @@ const MobileAuthenticationControls = ({
 	)
 }
 
-// eslint-disable-next-line react/display-name
 const MobileMenuContainer = forwardRef(
 	(
 		{ children, className }: MobileMenuContainerProps,
@@ -150,7 +149,8 @@ const MobileMenuContainer = forwardRef(
 	},
 )
 
-// eslint-disable-next-line react/display-name
+MobileMenuContainer.displayName = 'MobileMenuContainer'
+
 const MobileOptionMenuContainer = forwardRef(
 	(
 		{ children, className, label }: MobileMenuContainerProps,
@@ -177,7 +177,8 @@ const MobileOptionMenuContainer = forwardRef(
 	},
 )
 
-// eslint-disable-next-line react/display-name
+MobileOptionMenuContainer.displayName = 'MobileOptionMenuContainer'
+
 const MobileSubMenuContainer = forwardRef(
 	(
 		{ children, className }: MobileMenuContainerProps,
@@ -198,6 +199,8 @@ const MobileSubMenuContainer = forwardRef(
 		)
 	},
 )
+
+MobileSubMenuContainer.displayName = 'MobileSubMenuContainer'
 
 export type { MobileMenuContainerProps }
 export {
