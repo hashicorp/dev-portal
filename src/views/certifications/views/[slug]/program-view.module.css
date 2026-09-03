@@ -53,6 +53,10 @@
 		/* Needs an important here or else the styles get overridden in the dev-dot-content styles */
 		max-width: 800px !important;
 	}
+
+	@media (--dev-dot-mobile) {
+		padding: 24px;
+	}
 }
 
 .renewCertSection {
