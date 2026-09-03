@@ -2,11 +2,11 @@
 	"title": "Infrastructure Automation",
 	"summary": {
 		"heading": "Infrastructure<br />Automation Certifications",
-		"description": "We offer Terraform certifications at two levels to help you showcase your infrastructure automation expertise. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification."
+		"description": "We offer Terraform certifications at two levels to help you showcase your infrastructure automation expertise. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Advanced certification."
 	},
 	"hero": {
 		"heading": "Infrastructure<br />Automation Certifications",
-		"description": "We offer Terraform certifications at two levels to help you showcase your infrastructure automation expertise. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification."
+		"description": "We offer Terraform certifications at two levels to help you showcase your infrastructure automation expertise. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Advanced certification."
 	},
 	"exams": [
 		{
@@ -22,7 +22,7 @@
 			"faqSlug": "terraform-associate-004"
 		},
 		{
-			"title": "Terraform Authoring and Operations Professional",
+			"title": "Terraform Authoring and Operations Advanced",
 			"examTier": "pro",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.6",
