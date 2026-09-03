@@ -38,7 +38,7 @@
 }
 
 .examObjectives {
-	padding: 24px;
+	padding: 32px;
 
 	& button,
 	div {
@@ -47,6 +47,11 @@
 
 	& span {
 		font-size: 18px;
+	}
+
+	& p {
+		/* Needs an important here or else the styles get overridden in the dev-dot-content styles */
+		max-width: 800px !important;
 	}
 }
 
