@@ -151,7 +151,7 @@ const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'well-architected-framework', path: 'website/redirects.js' },
 	{ repo: 'hcp-docs', path: '/redirects.js' }, // private repo
 	{ repo: 'sentinel', path: 'website/redirects.js' }, // private repo
-	{ repo: 'hvd-docs', path: '/redirects.js' }, // private repo
+	{ repo: 'validated-designs', path: '/redirects.js' },
 ]
 
 async function buildProductRedirects() {

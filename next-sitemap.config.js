@@ -15,7 +15,6 @@ module.exports = {
 			`${siteUrl}/server-sitemap.xml`,
 		],
 		policies: [
-			{ userAgent: 'GPTBot', disallow: '/validated-designs' },
 			{ userAgent: '*', allow: '/' }, // default policy
 		],
 	},

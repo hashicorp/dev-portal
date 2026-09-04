@@ -15,7 +15,6 @@ import CERTS_CONFIG from 'content/certifications/subnav.json'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'boundary',
-	'consul',
 	'hcp',
 	'packer',
 	'terraform',
@@ -50,7 +49,10 @@ export const getLeftSideNavItems = (
 	}
 
 	// Well-Architected Framework has no header nav items
-	if (currentProduct.slug === 'well-architected-framework') {
+	if (
+		currentProduct.slug === 'well-architected-framework' ||
+		currentProduct.slug === 'validated-designs'
+	) {
 		return []
 	}
 

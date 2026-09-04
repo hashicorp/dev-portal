@@ -88,7 +88,8 @@ const NavigationHeader = () => {
 	const shouldOnlyRenderHomeHeader =
 		(!currentProduct && !router.route.startsWith('/certifications')) ||
 		router.route === '/_error' ||
-		currentProduct?.slug === 'well-architected-framework'
+		currentProduct?.slug === 'well-architected-framework' ||
+		currentProduct?.slug === 'validated-designs'
 
 	return (
 		<>

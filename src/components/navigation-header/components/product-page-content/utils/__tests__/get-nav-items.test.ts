@@ -157,6 +157,19 @@ const testHCPData = {
 	],
 } as ProductData
 
+const testConsulData = {
+	slug: 'consul',
+	name: 'Consul',
+	rootDocsPaths: [
+		{
+			iconName: 'docs',
+			name: 'Documentation',
+			path: 'docs',
+			shortName: 'Docs',
+		},
+	],
+} as ProductData
+
 describe('getLeftSideNavItems', () => {
 	it('for most products, returns the standard set of items', () => {
 		expect(getLeftSideNavItems(testNomadData, isCertifications))
@@ -321,5 +334,8 @@ describe('getRightSideNavItems', () => {
 
 		// @ts-expect-error icon is always returned
 		expect(result[0].icon).toBeDefined()
+	})
+	it('for Consul, does not return a Try HCP Consul item', () => {
+		expect(getRightSideNavItems(testConsulData)).toMatchInlineSnapshot(`[]`)
 	})
 })

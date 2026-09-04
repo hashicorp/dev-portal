@@ -86,6 +86,10 @@
 			"text": "API",
 			"url": "/api-docs"
 		},
+				{
+			"text": "Agentic AI",
+			"url": "/ai"
+		},
 		{
 			"text": "Community",
 			"url": "/community"
@@ -145,12 +149,17 @@
 			"os": "linux"
 		}
 	],
-	"basePaths": ["docs", "api-docs", "tutorials", "downloads"],
+	"basePaths": ["docs", "api-docs", "ai", "tutorials", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
 			"name": "Documentation",
 			"path": "docs"
+		},
+		{
+			"iconName": "tools",
+			"name": "Agentic AI",
+			"path": "ai"
 		},
 		{
 			"iconName": "terminal-screen",
