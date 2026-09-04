@@ -59,7 +59,7 @@ export const tryHcpCalloutContent: Record<
 	},
 	'vault-radar': {
 		heading: 'HCP Vault Radar',
-		description: 'Monitor and analyze your Vault deployments',
+		description: 'Monitor secrets sprawl and detect exposure across environments',
 		ctaText: 'Try HCP Vault Radar for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 		image:
