@@ -1,0 +1,94 @@
+{
+	"title": "Terraform Associate",
+	"hero": {
+		"product": "terraform-professional",
+		"eyebrow": "Hashicorp Certified:",
+		"title": "Terraform Authoring and Operations Professional",
+		"description": "Current Exam Description: Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
+		"leftCta": {
+			"text": "Register for the exam",
+			"link": "/certifications"
+		},
+		"rightCta": {
+			"text": "Prepare for the exam",
+			"link": "/certifications"
+		}
+	},
+	"announcement": {
+		"header": "TechXchange is Coming",
+		"text": "Learn from certified instructors on how to boost your enterprise adoption of HashiCorp",
+		"cta": "Read more",
+		"ctaLink": "/certifications"
+	},
+	"certificationDetails": {
+		"product": "terraform",
+		"data": {
+			"whoShouldTakeExam": {
+				"title": "Who should take this exam",
+				"description": "You should take the Terraform Authoring and Operations Professional exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. You will need to demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
+			},
+			"examDetails": {
+				"title": "Exam Details",
+				"details": [
+					{
+						"name": "Assessment Type",
+						"value": "Multiple choice"
+					},
+					{ "name": "Format", "value": "Online Proctored" },
+					{ "name": "Credential Expiration", "value": "2 years" },
+					{ "name": "Language", "value": "English" },
+					{
+						"name": "Duration",
+						"value": "1 hour"
+					},
+					{
+						"name": "Price",
+						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
+					},
+					{
+						"name": "Keyboard",
+						"value": "US QWERTY only (contact certifications@hashicorp.com for other languages or layouts)"
+					}
+				]
+			},
+			"prerequisites": {
+				"title": "Prerequisites",
+				"prereqs": [
+					"Terraform Associate certification (strongly recommend, or equivalent experience required)",
+					"Linux skills, such as the ability to list and edit files via command terminal",
+					"Linux skills, such as the ability to list and edit files via command terminal",
+					"Experience using cloud credentials",
+					"Familiarity with YAML, JSON, HCL, and CSV formats",
+					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
+					"Advanced configuration authoring and a deep understanding of Terraform workflows"
+				],
+				"bottomDescription": "While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
+			}
+		}
+	},
+	"objectives": {
+		"title": "Exam Objectives"
+	},
+	"renewCertifications": {
+		"title": "Renew Your Certification",
+		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate)."
+	},
+	"linkWithImage": {
+		"title": "Title - knowledge base for FAQs ",
+		"description": "Donec ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nullam id dolor id nibh ultricies",
+		"cta": "Go to knowledge base",
+		"ctaLink": "/certifications"
+	},
+	"relatedCertsFooter": {
+		"title": "Related Certifications",
+		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
+		"certs": [
+			{
+				"id": "terraform-associate"
+			},
+			{
+				"id": "vault-professional"
+			}
+		]
+	}
+}

@@ -1,0 +1,34 @@
+{
+	"certSubNavItems": [
+		{
+			"label": "Overview",
+			"url": "/certifications"
+		},
+		{
+			"label": "Terraform Certification",
+			"items": [
+				{
+					"label": "Terraform Associate",
+					"path": "/certifications/terraform-associate"
+				},
+				{
+					"label": "Terraform Authoring and Operations Professional",
+					"path": "/certifications/terraform-professional"
+				}
+			]
+		},
+		{
+			"label": "Vault Certification",
+			"items": [
+				{
+					"label": "Vault Associate",
+					"path": "/certifications/vault-associate"
+				},
+				{
+					"label": "Vault Authoring and Operations Professional",
+					"path": "/certifications/vault-professional"
+				}
+			]
+		}
+	]
+}

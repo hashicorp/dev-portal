@@ -8,54 +8,55 @@ import BaseLayout from 'layouts/base-layout'
 // Shared components
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import {
-	AccordionWithMdxContent,
+	Announcement,
 	CertificationsMaxWidth,
 	SignupFormArea,
+	CertificationCardContainer,
+	CertificationHero,
 } from 'views/certifications/components'
+// Utils
+import { findMatchingExams } from './utils/findMatchingExams'
 // Local view
-import { CertificationProgramSummaryCard } from './components'
-import { CertificationLandingProps, CertificationProgramSummary } from './types'
+import { CertificationLandingProps } from './types'
 import s from './landing.module.css'
-import LandingHero from 'components/landing-hero'
 
 function CertificationsLandingView({
 	pageContent,
-	programSummaries,
-	faqItems,
+	exams,
 }: CertificationLandingProps) {
-	const { hero } = pageContent
+	const { hero, announcement, certificationPrograms } = pageContent
+
+	const terraformCerts = certificationPrograms[0]
+	const vaultCerts = certificationPrograms[1]
+
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
-				{/* Hero */}
-				<LandingHero heading={hero.heading} description={hero.description} />
-				{/* Program Summaries */}
-				<div className={s.programsSection}>
-					{programSummaries.map(
-						(programSummary: CertificationProgramSummary) => {
-							const { slug, heading, description, exams } = programSummary
-							return (
-								<CertificationsMaxWidth key={slug}>
-									<CertificationProgramSummaryCard
-										slug={slug}
-										heading={heading}
-										description={description}
-										exams={exams}
-									/>
-								</CertificationsMaxWidth>
-							)
-						}
-					)}
-				</div>
-				<div className={s.faqSignupSection}>
-					<CertificationsMaxWidth>
-						<h2 className={s.faqHeading}>{pageContent.faqHeading}</h2>
-						<AccordionWithMdxContent items={faqItems} />
-						<div className={s.signupForm}>
-							<SignupFormArea />
-						</div>
-					</CertificationsMaxWidth>
-				</div>
+				<CertificationHero
+					title={hero.title}
+					description={hero.description}
+				/>
+				<CertificationsMaxWidth>
+					<Announcement
+						heading={announcement.heading}
+						text={announcement.text}
+						cta={announcement.cta}
+						ctaLink={announcement.ctaLink}
+					/>
+					<CertificationCardContainer
+						product={terraformCerts.product}
+						containerDesc={terraformCerts.containerDescription}
+						certs={findMatchingExams(terraformCerts.certs, exams)}
+					/>
+					<CertificationCardContainer
+						product={vaultCerts.product}
+						containerDesc={vaultCerts.containerDescription}
+						certs={findMatchingExams(vaultCerts.certs, exams)}
+					/>
+					<div className={s.signupForm}>
+						<SignupFormArea />
+					</div>
+				</CertificationsMaxWidth>
 			</div>
 		</BaseLayout>
 	)

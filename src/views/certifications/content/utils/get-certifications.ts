@@ -9,7 +9,7 @@ import { CertificationProgramSchema } from '../schemas/certification-program'
 import { readLocalFile } from 'lib/read-local-file'
 import { readLocalFilepaths } from 'lib/read-local-filepaths'
 
-const CONTENT_DIR = 'src/content/certifications/programs'
+const CONTENT_DIR = 'src/content/certifications/examPages'
 const CONTENT_TYPE = '.json'
 
 /**
@@ -34,13 +34,16 @@ export function getAllCertificationProgramSlugs(): string[] {
 /**
  * Get data for a specific certification program.
  */
+
+// e.g. /certifications/terraform-associate -> slug="terraform-associate"
 export function getCertificationProgram(
-	slug: ProgramSlug
+	slug: ProgramSlug,
 ): RawCertificationProgramItem {
 	const fullPath = `${CONTENT_DIR}/${slug}.json`
 	const pageContent = CertificationProgramSchema.parse(
-		JSON.parse(readLocalFile(fullPath))
+		JSON.parse(readLocalFile(fullPath)),
 	)
+
 	return { slug, pageContent }
 }
 

@@ -257,6 +257,16 @@ async function buildDevPortalRedirects() {
 			destination: '/:path*',
 			permanent: true,
 		},
+		{
+			source: '/certifications/infrastructure-automation',
+			destination: '/certifications',
+			permanent: true,
+		},
+		{
+			source: '/certifications/security-automation',
+			destination: '/certifications',
+			permanent: true,
+		},
 		/**
 		 * Redirects from our former Packer Plugin library to our
 		 * new integrations library for Packer,

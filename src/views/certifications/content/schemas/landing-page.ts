@@ -12,8 +12,10 @@ import { z } from 'zod'
  * when additional certification programs are added.
  */
 const ProgramSlugSchema = z.enum([
-	'infrastructure-automation',
-	'security-automation',
+	'terraform-associate',
+	'terraform-professional',
+	'vault-associate',
+	'vault-professional',
 ])
 
 /**
@@ -27,16 +29,25 @@ export type ProgramSlug = z.infer<typeof ProgramSlugSchema>
  * Note that much of the landing page content will be derived from
  * content written for individual certification programs.
  */
+
+const certificationProgramsSchema = z.object({
+	product: z.string(),
+	containerDescription: z.string(),
+	certs: z.array(z.object({ id: z.string() })),
+})
+
 export const LandingPageSchema = z.object({
 	hero: z.object({
-		heading: z.string(),
+		title: z.string(),
 		description: z.string(),
 	}),
-	faqHeading: z.string(),
-	/**
-	 * Note: these must be valid ProgramSlug values.
-	 */
-	programSummaryOrder: z.array(ProgramSlugSchema),
+	announcement: z.object({
+		heading: z.string(),
+		text: z.string(),
+		cta: z.string(),
+		ctaLink: z.string(),
+	}),
+	certificationPrograms: z.array(certificationProgramsSchema),
 })
 
 /**

@@ -1,8 +1,28 @@
 {
 	"hero": {
-		"heading": "HashiCorp Cloud Engineer Certifications",
-		"description": "HashiCorp certifications help you communicate your skills and allow employers to verify your expertise. Each exam tests both conceptual understanding and real-world experience using HashiCorp multi-cloud tools."
+		"title": "HashiCorp Certifications",
+		"description": "Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results."
 	},
-	"programSummaryOrder": ["infrastructure-automation", "security-automation"],
-	"faqHeading": "Certification Program Details"
+	"announcement": {
+		"heading": "TechXchange is Coming",
+		"text": "Learn from certified instructors on how to boost your enterprise adoption of HashiCorp",
+		"cta": "Read more",
+		"ctaLink": "https://developer.hashicorp.com"
+	},
+	"certificationPrograms": [
+		{
+			"product": "Terraform",
+			"containerDescription": "We offer Terraform certifications at two levels. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification.",
+			"certs": [
+				{ "id": "terraform-associate" },
+				{ "id": "terraform-professional" },
+				{ "id": "terraform-professional" }
+			]
+		},
+		{
+			"product": "Vault",
+			"containerDescription": "Earn an associate-level certification to validate your foundational Vault or Consul knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam.",
+			"certs": [{ "id": "vault-associate" }, { "id": "vault-professional" }]
+		}
+	]
 }

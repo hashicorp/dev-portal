@@ -1,0 +1,158 @@
+/**
+ * Copyright IBM Corp. 2021, 2025
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/* Keep this here now for reference, may be removed or edited once we have correct images for heroes */
+
+.heroBackground {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
+	z-index: 0;
+
+	@media (--dev-dot-tablet-down) {
+		background-position: 75% top;
+	}
+}
+
+.hero-gradient-homepage {
+	background-image: url('./assets/gradients/homepage-gradient-light.svg');
+
+	@media (--dev-dot-tablet-down) {
+		background-image: url('./assets/gradients/homepage-gradient-light-mobile.svg');
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-image: url('./assets/gradients/homepage-gradient-dark.svg');
+
+		@media (--dev-dot-tablet-down) {
+			background-image: url('./assets/gradients/homepage-gradient-dark-mobile.svg');
+		}
+	}
+}
+
+.hero-gradient-terraform {
+	background-image: url('./assets/gradients/terraform-gradient-light.svg');
+
+	@media (--dev-dot-tablet-down) {
+		background-image: url('./assets/gradients/terraform-gradient-light-mobile.svg');
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-image: url('./assets/gradients/terraform-gradient-dark.svg');
+
+		@media (--dev-dot-tablet-down) {
+			background-image: url('./assets/gradients/terraform-gradient-dark-mobile.svg');
+		}
+	}
+}
+
+.hero-gradient-vault {
+	background-image: url('./assets/gradients/vault-gradient-light.svg');
+
+	@media (--dev-dot-tablet-down) {
+		background-image: url('./assets/gradients/vault-gradient-light-mobile.svg');
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-image: url('./assets/gradients/vault-gradient-dark.svg');
+
+		@media (--dev-dot-tablet-down) {
+			background-image: url('./assets/gradients/vault-gradient-dark-mobile.svg');
+		}
+	}
+}
+
+.hero {
+	/* z-index: 2; */
+	position: relative;
+}
+
+.heroStartSlot {
+	display: flex;
+	flex-direction: column;
+}
+
+.eyebrowText {
+	margin-bottom: 8px;
+	font-size: 15px;
+	color: var(--mds-color-foreground-faint);
+}
+
+.heroHeadingText {
+	font-size: 50px;
+	margin-bottom: 24px;
+
+	@media (--dev-dot-mobile) {
+		font-size: 40px;
+	}
+}
+
+.heroDescriptionText {
+	font-size: 18px;
+}
+
+.ctaGroup {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	margin-top: 24px;
+
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+	}
+}
+
+.buttonLink {
+	padding: 10px 16px;
+	font-size: 14px;
+}
+
+.rightCta {
+	color: var(--mds-color-foreground-strong);
+
+	&:hover:not(:disabled) {
+		background-color: transparent;
+		border-color: transparent;
+		color: var(--mds-color-foreground-strong);
+	}
+}
+
+.toggleImage {
+	display: flex;
+	position: relative;
+}
+
+.toggleImageDark {
+	& img {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.heroImage {
+	z-index: 1;
+	height: 100%;
+	width: auto;
+}
+
+.barGradient {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	mix-blend-mode: color-dodge;
+}
+
+.homepageGradient {
+	mix-blend-mode: normal;
+}
+
+.homepageMobileStyling {
+	& img {
+		@media (--dev-dot-mobile) {
+			width: auto;
+			height: 200px;
+		}
+	}
+}
