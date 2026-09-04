@@ -20,7 +20,9 @@ interface PageContent {
 	iconCardGridItems?: IconCardGridItem[]
 }
 
-type IconCardGridItem = Pick<RootDocsPath, 'iconName' | 'name' | 'path'>
+type IconCardGridItem = Pick<RootDocsPath, 'iconName' | 'name' | 'path'> & {
+	url?: string
+}
 
 interface GenerateGetStaticPropsArguments {
 	product: ProductData

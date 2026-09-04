@@ -18,7 +18,9 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
 export function getIconCards(product: ProductData) {
 	const iconCards = []
 
-	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
+	if (product.slug !== 'hcp' &&
+		product.slug !== 'waypoint' &&
+		product.slug !== 'vault-radar') {
 		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',
@@ -37,11 +39,23 @@ export function getIconCards(product: ProductData) {
 		})
 	}
 
-	// Add a "Documentation" link for all products
+	// Add a "Documentation" link for all products. Most products' primary
+	// docs live at /<slug>/docs. vault-radar is the only current product
+	// without a "docs" basePath — it only ever had HCP-hosted docs, never a
+	// separate self-hosted product, so its content lives at /<slug>/hcp-docs
+	// with only a redirect standing in for /<slug>/docs. Client-side
+	// next/link navigation doesn't go through next.config.js redirects
+	// (those only apply to full HTTP requests) — it matches the dynamic
+	// root-docs-path route directly and crashes, since "docs" isn't one of
+	// vault-radar's actual rootDocsPaths. So link straight to the real path
+	// whenever "docs" isn't a real basePath, instead of hardcoding by slug.
+	const hasDocsBasePath = product.basePaths?.includes('docs')
 	iconCards.push({
 		icon: <IconDocs16 />,
 		text: 'Documentation',
-		url: `/${product.slug}/docs`,
+		url: hasDocsBasePath
+			? `/${product.slug}/docs`
+			: `/${product.slug}/${product.rootDocsPaths?.[0]?.path}`,
 	})
 
 	// Add Integrations card if it's enabled for this product

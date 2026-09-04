@@ -1,0 +1,56 @@
+{
+	"hero": {
+		"heading": "Find and remediate exposed secrets",
+		"image": "https://www.datocms-assets.com/2885/1662767810-dev-dot-hcp-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is HCP Vault Radar?",
+		"body": "HCP Vault Radar scans source code, chat messages, and other systems to detect exposed secrets, and helps teams remediate them before they can be exploited.",
+		"cta": {
+			"text": "Learn more about HCP Vault Radar",
+			"url": "/vault-radar/cloud"
+		}
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Learn how to get started with HCP Vault Radar.",
+		"ctas": [
+			{
+				"text": "HCP Vault Radar Quick Start",
+				"url": "/vault-radar/tutorials/get-started-hcp-vault-radar"
+			},
+			{
+				"text": "HCP Vault Radar Developer Guide",
+				"url": "/vault-radar/tutorials/hcp-vault-radar-developer"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Learn HCP Vault Radar",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Operation guide",
+					"body": "Configure HCP Vault Radar to scan on-premises data sources and correlation with Vault.",
+					"url": "/vault-radar/tutorials/hcp-vault-radar-operations"
+				},
+				{
+					"heading": "IDE extension",
+					"body": "IDE extension helps devlopers identify and remove secrets from the application source code.",
+					"url": "/vault-radar/cloud/ide"
+				},
+				{
+					"heading": "Security model",
+					"body": "Review the security model for HCP Vault Radar.",
+					"url": "/vault-radar/cloud/security-model"
+				}
+			]
+		}
+	]
+}
