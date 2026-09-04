@@ -1,10 +1,10 @@
 {
-	"title": "Terraform Associate",
+	"title": "Terraform Authoring and Operations Advanced",
 	"hero": {
-		"product": "terraform-professional",
+		"product": "terraform-advanced",
 		"eyebrow": "Hashicorp Certified:",
-		"title": "Terraform Authoring and Operations Professional",
-		"description": "Current Exam Description: Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
+		"title": "Terraform Authoring and Operations Advanced",
+		"description": "Demonstrate your advanced, production-level Terraform expertise in this intensive, lab-based exam.",
 		"leftCta": {
 			"text": "Register for the exam",
 			"link": "/certifications"
@@ -25,7 +25,7 @@
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "You should take the Terraform Authoring and Operations Professional exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. You will need to demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
+				"description": "You should take the Terraform Authoring and Operations Advanced exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. You will need to demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
 			},
 			"examDetails": {
 				"title": "Exam Details",

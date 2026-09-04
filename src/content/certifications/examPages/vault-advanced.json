@@ -1,10 +1,10 @@
 {
-	"title": "Vault Professional",
+	"title": "Vault Advanced",
 	"hero": {
-		"product": "vault-professional",
+		"product": "vault-advanced",
 		"eyebrow": "Hashicorp Certified:",
-		"title": "Vault Authoring and Operations Professional",
-		"description": "Current Exam Description: Demonstrate your advanced, production-level Vault expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
+		"title": "Vault Authoring and Operations Advanced",
+		"description": "Demonstrate your production-level Vault expertise in this intensive, lab-based exam.",
 		"leftCta": {
 			"text": "Register for the exam",
 			"link": "/certifications"

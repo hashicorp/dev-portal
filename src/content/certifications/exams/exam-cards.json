@@ -13,16 +13,16 @@
 		]
 	},
 	{
-		"id": "terraform-professional",
+		"id": "terraform-advanced",
 		"product": "terraform",
-		"title": "Terraform Authoring and Operations Professional",
+		"title": "Terraform Authoring and Operations Advanced",
 		"desc": "Brief description to gives the user enough context to take the next step with confidence",
 		"starCount": 3,
-		"ctaLink": "/certifications/terraform-professional",
+		"ctaLink": "/certifications/terraform-advanced",
 		"certDetails": [
 			"Product version tested: Terraform 1.12",
 			"Terraform advanced concepts and skills",
-			"Terraform Professional value proposition"
+			"Terraform Advanced value proposition"
 		]
 	},
 	{
@@ -39,16 +39,16 @@
 		]
 	},
 	{
-		"id": "vault-professional",
+		"id": "vault-advanced",
 		"product": "vault",
-		"title": "Vault Operations Professional",
+		"title": "Vault Authoring and Operations Advanced",
 		"desc": "Brief description to gives the user enough context to take the next step with confidence",
 		"starCount": 3,
-		"ctaLink": "/certifications/vault-professional",
+		"ctaLink": "/certifications/vault-advanced",
 		"certDetails": [
 			"Product version tested: Vault 1.12",
 			"Vault advanced concepts and skills",
-			"Vault Professional value proposition"
+			"Vault Advanced value proposition"
 		]
 	},
 	{
