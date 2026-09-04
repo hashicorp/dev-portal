@@ -8,7 +8,7 @@
 		"body": "HCP Vault Radar scans source code, chat messages, and other systems to detect exposed secrets, and helps teams remediate them before they can be exploited.",
 		"cta": {
 			"text": "Learn more about HCP Vault Radar",
-			"url": "/hcp/docs/vault-radar"
+			"url": "/vault-radar/cloud"
 		}
 	},
 	"get_started": {
@@ -17,7 +17,7 @@
 		"ctas": [
 			{
 				"text": "HCP Vault Radar Quick Start",
-				"url": "/vault-radar/tutorials/get-started-hcp-vault-radar/what-is-secret-scanning"
+				"url": "/vault-radar/tutorials/get-started-hcp-vault-radar"
 			}
 		]
 	},
@@ -32,19 +32,19 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Secret scanning",
-					"body": "Learn how HCP Vault Radar scans for exposed secrets across your systems.",
-					"url": "/vault-radar/tutorials/get-started-hcp-vault-radar/vault-radar-secret-scanning"
+					"heading": "Developer guide",
+					"body": "Use HCP Vault Radar to detect secrets in code repositories and CI/CD pipelines.",
+					"url": "/vault-radar/tutorials/hcp-vault-radar-developer"
 				},
 				{
-					"heading": "Alerting",
-					"body": "Learn how to set up alerts when HCP Vault Radar detects an exposed secret.",
-					"url": "/vault-radar/tutorials/get-started-hcp-vault-radar/vault-radar-alert-setup"
+					"heading": "Operation guide",
+					"body": "Configure HCP Vault Radar to scan on-premises data sources and correlation with Vault.",
+					"url": "/vault-radar/tutorials/hcp-vault-radar-operations"
 				},
 				{
-					"heading": "Ticketing integration",
-					"body": "Learn how to connect HCP Vault Radar findings to your ticketing system.",
-					"url": "/vault-radar/tutorials/get-started-hcp-vault-radar/vault-radar-ticketing-setup"
+					"heading": "Security model",
+					"body": "Review the security model for HCP Vault Radar.",
+					"url": "/vault-radar/cloud/security-model"
 				}
 			]
 		}
