@@ -10,6 +10,8 @@ import { useRouter } from 'next/router'
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
+import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
+import Text from '@components/text'
 
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
@@ -68,7 +70,7 @@ const AuthenticationControls = () => {
 									href: '/sign-up',
 									label: 'Sign up',
 								},
-						  ]
+							]
 				}
 				user={user}
 			/>
@@ -84,18 +86,42 @@ const AuthenticationControls = () => {
 const NavigationHeader = () => {
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
+	const {
+		mobileMenuIsOpen,
+		isMobileMenuRendered,
+		currentMobileSubOption,
+		setCurrentMobileSubOption,
+	} = useMobileMenu()
 
+	// Render the subnav on mobile only for WAF & Validated Designs
 	const shouldOnlyRenderHomeHeader =
 		!currentProduct ||
 		router.route === '/_error' ||
-		currentProduct.slug === 'well-architected-framework' ||
-		currentProduct.slug === 'validated-designs'
+		(currentProduct.slug === 'well-architected-framework' &&
+			!isMobileMenuRendered) ||
+		(currentProduct.slug === 'validated-designs' && !isMobileMenuRendered)
+
+	function handleMobileBackButton() {
+		setCurrentMobileSubOption('')
+	}
 
 	return (
 		<>
 			<header className={s.mainHeader}>
 				<div className={s.leftSide}>
-					<HomePageHeaderContent />
+					{mobileMenuIsOpen && currentMobileSubOption !== '' ? (
+						<div className={s.mobileBackButtonContainer}>
+							<IconChevronLeft16 />
+							<button
+								className={s.mobileBackButton}
+								onClick={handleMobileBackButton}
+							>
+								<Text weight={'medium'}>Back</Text>
+							</button>
+						</div>
+					) : (
+						<HomePageHeaderContent />
+					)}
 				</div>
 				<div className={s.middle}>
 					<CommandBarActivator

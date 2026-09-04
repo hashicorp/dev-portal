@@ -3,15 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import {
-	createContext,
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	useContext,
-	useEffect,
-	useState,
-} from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { MobileMenuContextState, MobileMenuProviderProps } from './types'
 import { useRouter } from 'next/router'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
@@ -21,21 +14,8 @@ import { useNoScrollBody } from 'hooks/use-no-scroll-body'
  */
 const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 924
 
-interface MobileMenuContextState {
-	/**
-	 * Whether or not the screen size indicates that we should be rendering the mobile menu
-	 */
-	isMobileMenuRendered: boolean
-	mobileMenuIsOpen: boolean
-	setMobileMenuIsOpen: Dispatch<SetStateAction<boolean>>
-}
-
-interface MobileMenuProviderProps {
-	children: ReactNode
-}
-
 const MobileMenuContext = createContext<MobileMenuContextState | undefined>(
-	undefined
+	undefined,
 )
 MobileMenuContext.displayName = 'MobileMenuContext'
 
@@ -47,6 +27,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	const [isMobileMenuRendered, setIsMobileMenuRendered] =
 		useState<boolean>(false)
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState<boolean>()
+	const [currentMobileSubOption, setCurrentMobileSubOption] = useState<string>()
 
 	/**
 	 * NOTE: We cannot use `useDeviceSize` here because the nav header
@@ -57,7 +38,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 			return
 		}
 
-		// Get the breakpoint value
+		// Get the breakpoint value - this is actually broken & defaults to DEFAULT_NAV_HEADER_DESKTOP_WIDTH
 		const desktopWidthBreakpoint =
 			(getCSSVariableFromDocument('--mobile-menu-breakpoint', {
 				asNumber: true,
@@ -65,7 +46,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 
 		// Create a media query list object with the obtained breakpoint
 		const mediaQueryListObject = window.matchMedia(
-			`(min-width: ${desktopWidthBreakpoint}px)`
+			`(min-width: ${desktopWidthBreakpoint}px)`,
 		)
 
 		// Create a change listener for the media query list object
@@ -100,6 +81,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		if (!isMobileMenuRendered) {
 			// Close the mobile menu if the viewport size has crossed the breakpoint
 			setMobileMenuIsOpen(false)
+			setCurrentMobileSubOption('')
 			return
 		}
 
@@ -107,6 +89,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		const handleRouteChange = () => {
 			if (mobileMenuIsOpen) {
 				setMobileMenuIsOpen(false)
+				setCurrentMobileSubOption('')
 			}
 		}
 
@@ -125,6 +108,8 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		isMobileMenuRendered,
 		mobileMenuIsOpen,
 		setMobileMenuIsOpen,
+		currentMobileSubOption,
+		setCurrentMobileSubOption,
 	}
 
 	return (

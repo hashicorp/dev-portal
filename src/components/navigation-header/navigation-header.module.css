@@ -71,6 +71,21 @@
 	}
 }
 
+.mobileBackButtonContainer {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--mds-color-foreground-action);
+}
+
+.mobileBackButton {
+	background: none;
+	padding: 0;
+	margin: 0;
+	border: none;
+	color: var(--mds-color-foreground-action);
+}
+
 .authenticationControls {
 	/* properties */
 	align-items: center;
