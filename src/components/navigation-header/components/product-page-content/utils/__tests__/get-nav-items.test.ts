@@ -336,6 +336,6 @@ describe('getRightSideNavItems', () => {
 		expect(result[0].icon).toBeDefined()
 	})
 	it('for Consul, does not return a Try HCP Consul item', () => {
-		expect(getRightSideNavItems(testConsulData)).toMatchInlineSnapshot(`[]`)
+		expect(getRightSideNavItems(testConsulData, isCertifications)).toMatchInlineSnapshot(`[]`)
 	})
 })
