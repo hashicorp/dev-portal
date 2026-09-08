@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import path from 'path'
 import fs from 'fs'
 import { client, v1 } from '@datadog/datadog-api-client'
@@ -138,7 +139,7 @@ async function main() {
 		const timestamp = Math.round(Date.now() / 1e3)
 		const trace = await readNextTrace(process.cwd())
 
-		const environment = process.env.HASHI_ENV ?? 'local'
+		const environment = env.get('HASHI_ENV').default('local').asString()
 
 		const filteredEvents: BuildEvent[] = trace
 			.filter((event) => EVENTS.includes(event.name))
@@ -169,7 +170,8 @@ async function main() {
 			throw new AggregateError(failedSubmissions)
 		}
 	} catch (error) {
-		if (process.env.VERCEL_ENV === 'production') {
+		const VERCEL_ENV = env.get('VERCEL_ENV').asString()
+		if (VERCEL_ENV === 'production') {
 			throw error
 		}
 	}

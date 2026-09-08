@@ -92,8 +92,9 @@ module.exports = async () => {
 		webpack(config) {
 			config.plugins.push(HashiConfigPlugin(appConfig))
 
+			const DD_API_KEY = env.get('DD_API_KEY').asString()
 			if (
-				typeof process.env.DD_API_KEY !== 'undefined' &&
+				DD_API_KEY !== undefined &&
 				VERCEL_ENV &&
 				VERCEL_ENV !== 'development'
 			) {

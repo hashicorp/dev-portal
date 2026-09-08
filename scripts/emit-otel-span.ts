@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import crypto from 'node:crypto'
 
 /** Default `service.name` resource attribute spans are reported under. */
@@ -134,7 +135,7 @@ export function emitOtelSpan({
 	span,
 	serviceName = DEFAULT_SERVICE_NAME,
 	scopeName,
-	hostId = process.env.INSTANA_HOST_ID ?? serviceName,
+	hostId = env.get('INSTANA_HOST_ID').default(serviceName).asString(),
 	endpoint = process.env.INSTANA_OTLP_ENDPOINT,
 	agentKey = process.env.INSTANA_AGENT_KEY,
 }: EmitOtelSpanOptions): Promise<Response> {
