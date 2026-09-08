@@ -5,6 +5,7 @@
 
 import { ProductSlug } from 'types/products'
 import { Version } from './fetch-release-data'
+import env from 'env-var'
 
 /**
  * A segment analytics plugin to log out calls to track in a structured way. Includes the full event payload
@@ -20,7 +21,7 @@ const AnalyticsPluginEventLogger = {
 			'%ctrack',
 			'color:white;background:green;border-radius:4px;padding:2px 4px;',
 			ctx.event.event,
-			ctx.event.properties
+			ctx.event.properties,
 		)
 		console.log(ctx.event)
 		console.groupEnd()
@@ -35,10 +36,15 @@ const AnalyticsPluginEventLogger = {
  * Register the event logger plugin for track event logging during development.
  */
 export const makeDevAnalyticsLogger = () => {
+	const NODE_ENV = env.get('NODE_ENV').asString()
+	const NEXT_PUBLIC_ANALYTICS_LOG_LEVEL = env
+		.get('NEXT_PUBLIC_ANALYTICS_LOG_LEVEL')
+		.asString()
+
 	if (
-		process.env.NODE_ENV !== 'production' &&
+		NODE_ENV !== 'production' &&
 		typeof window !== 'undefined' &&
-		process.env.NEXT_PUBLIC_ANALYTICS_LOG_LEVEL !== '0'
+		NEXT_PUBLIC_ANALYTICS_LOG_LEVEL !== '0'
 	) {
 		try {
 			window.analytics.ready(() => {
@@ -64,7 +70,7 @@ export const canTrackAnalytics = (): boolean => {
  */
 const safeAnalyticsTrack = (
 	eventName: string,
-	properties: Record<string, unknown>
+	properties: Record<string, unknown>,
 ): void => {
 	if (canTrackAnalytics()) {
 		window.analytics.track(eventName, properties)

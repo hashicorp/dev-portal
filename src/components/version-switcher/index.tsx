@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import DropdownDisclosure, {
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureAnchorItem,
@@ -13,7 +14,8 @@ import { Alert, Separator } from '@hashicorp/mds-react/components'
 import { IconFileX16 } from '@hashicorp/flight-icons/svg-react/file-x-16'
 import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
 
-const IS_DEV = process.env.NODE_ENV !== 'production'
+const NODE_ENV = env.get('NODE_ENV').asString()
+const IS_DEV = NODE_ENV !== 'production'
 
 /**
  * Renders version links in a `Dropdown` within a `nav` element.

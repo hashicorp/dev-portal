@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import Button from 'components/button'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -12,8 +13,9 @@ export default function InteractiveLabButton() {
 	const ctx = useInstruqtEmbed()
 	const { tutorialLabId } = useTutorialContext()
 
+	const NODE_ENV = env.get('NODE_ENV').asString()
 	if (!tutorialLabId) {
-		if (process.env.NODE_ENV === 'development') {
+		if (NODE_ENV === 'development') {
 			console.log('[InteractiveLabButton] No tutorialLabId available')
 		}
 		return null
@@ -25,7 +27,7 @@ export default function InteractiveLabButton() {
 	const buttonText = `${isTutorialLabActive ? 'Hide' : 'Show'} Terminal`
 
 	const handleClick = () => {
-		if (process.env.NODE_ENV === 'development') {
+		if (NODE_ENV === 'development') {
 			console.log('[InteractiveLabButton] Click:', {
 				tutorialLabId,
 				isTutorialLabActive,

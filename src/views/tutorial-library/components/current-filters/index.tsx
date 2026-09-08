@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { useCurrentRefinements } from 'react-instantsearch'
 import Text from 'components/text'
 import Tag from 'components/tag'
@@ -22,7 +23,8 @@ interface CurrentFilterItemProps {
 	refine: (refinement: Refinement) => void
 }
 
-const IS_DEV = process.env.NODE_ENV !== 'production'
+const NODE_ENV = env.get('NODE_ENV').asString()
+const IS_DEV = NODE_ENV !== 'production'
 
 function CurrentFilterItem({ refinement, refine }: CurrentFilterItemProps) {
 	const { label, type, attribute } = refinement

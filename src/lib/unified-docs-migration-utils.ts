@@ -2,6 +2,7 @@
  * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
+import env from 'env-var'
 
 /**
  * Given a repository name,
@@ -76,11 +77,14 @@ function getContentApiBaseUrl(repoName: string): string {
  * remove this check if it never comes up.
  */
 function checkEnvVarsInDev() {
-	if (process.env.NODE_ENV === 'development') {
+	const NODE_ENV = env.get('NODE_ENV').asString()
+	if (NODE_ENV === 'development') {
 		const missingEnvVars = []
-		if (!process.env.MKTG_CONTENT_DOCS_API)
-			missingEnvVars.push('MKTG_CONTENT_DOCS_API')
-		if (!process.env.UNIFIED_DOCS_API) missingEnvVars.push('UNIFIED_DOCS_API')
+		const MKTG_CONTENT_DOCS_API = env.get('MKTG_CONTENT_DOCS_API').asString()
+		const UNIFIED_DOCS_API = env.get('UNIFIED_DOCS_API').asString()
+		
+		if (!MKTG_CONTENT_DOCS_API) missingEnvVars.push('MKTG_CONTENT_DOCS_API')
+		if (!UNIFIED_DOCS_API) missingEnvVars.push('UNIFIED_DOCS_API')
 		if (missingEnvVars.length > 0) {
 			const message = [
 				'Missing environment variable required to fetch remote content:',

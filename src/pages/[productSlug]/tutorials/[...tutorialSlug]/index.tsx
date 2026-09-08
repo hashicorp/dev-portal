@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import {
 	GetStaticPropsResult,
 	GetStaticPathsResult,
@@ -26,7 +27,8 @@ async function getStaticPaths(): Promise<
 
 	// For hashicorp/tutorials PR previews, skip the call to determine paths
 	// from analytics, and statically build all paths.
-	if (process.env.HASHI_ENV === 'tutorials-preview') {
+	const HASHI_ENV = env.get('HASHI_ENV').asString()
+	if (HASHI_ENV === 'tutorials-preview') {
 		return {
 			paths: validPaths,
 			fallback: false,

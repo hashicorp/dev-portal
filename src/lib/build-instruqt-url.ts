@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { SandboxLab } from 'types/sandbox'
 
 // SSR-safe dynamic import
@@ -41,7 +42,8 @@ const trackInstruqtUrlError = (
 		})
 	}
 
-	if (process.env.NODE_ENV === 'development') {
+	const NODE_ENV = env.get('NODE_ENV').asString()
+	if (NODE_ENV === 'development') {
 		console.error(`[InstruqtUrlBuilder] ${errorMessage}`, context)
 	}
 }

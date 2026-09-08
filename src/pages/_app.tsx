@@ -4,6 +4,7 @@
  */
 
 // Third-party imports
+import env from 'env-var'
 import React, { useEffect, useState } from 'react'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -50,7 +51,10 @@ import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 // Local imports
 import './style.css'
 
-if (typeof window !== 'undefined' && process.env.AXE_ENABLED === 'true') {
+const AXE_ENABLED = env.get('AXE_ENABLED').asBool()
+const NODE_ENV = env.get('NODE_ENV').asString()
+
+if (typeof window !== 'undefined' && AXE_ENABLED) {
 	import('react-dom').then((ReactDOM) => {
 		import('@axe-core/react').then((axe) => {
 			axe.default(React, ReactDOM, 1000)
@@ -143,7 +147,7 @@ export default function App({
 																(mod) => mod.default
 															)
 														}
-														strict={process.env.NODE_ENV === 'development'}
+														strict={NODE_ENV === 'development'}
 													>
 														<Component {...pageProps} />
 														<Toaster />

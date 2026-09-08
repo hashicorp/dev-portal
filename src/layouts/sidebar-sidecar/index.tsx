@@ -4,6 +4,7 @@
  */
 
 // Third-party imports
+import env from 'env-var'
 import { useContext, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 
@@ -97,7 +98,8 @@ const SidebarSidecarLayoutContent = ({
 	}
 
 	let servedFromBadge = null
-	if (docMetadata && process.env.HASHI_ENV === 'unified-docs-sandbox') {
+	const HASHI_ENV = env.get('HASHI_ENV').asString()
+	if (docMetadata && HASHI_ENV === 'unified-docs-sandbox') {
 		const servedFrom = docMetadata['served-from']
 		if (servedFrom === 'current build' || servedFrom === 'production') {
 			const icon = servedFrom === 'production' ? '🟢' : '🟡'
