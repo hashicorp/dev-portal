@@ -53,23 +53,58 @@
 
 	> div {
 		justify-content: flex-start;
-		padding-top: 24px;
+
+		@media (--dev-dot-tablet-down) {
+			padding-top: 24px;
+		}
 
 		> div {
 			background: none;
 			padding-top: 0;
 			gap: 0;
 
+			@media (--dev-dot-tablet) {
+				display: flex;
+				flex-direction: column-reverse;
+			}
+
 			> div > ul {
 				margin: 0;
 
-				> li > ul {
-					@media (--dev-dot-show-mobile-menu) {
-						grid-template-columns: repeat(2, 1fr);
+				> li {
+					> span {
+						padding-bottom: var(--mds-spacing-05);
+
+						@media (--dev-dot-mobile) {
+							padding-bottom: var(--mds-spacing-07);
+						}
 					}
 
+					> ul {
+						@media (--dev-dot-show-mobile-menu) {
+							grid-template-columns: repeat(2, 1fr);
+						}
+
+						@media (--dev-dot-mobile) {
+							grid-template-columns: 1fr;
+						}
+
+						> li {
+							@media (--dev-dot-mobile) {
+								margin-bottom: 8px;
+							}
+						}
+					}
+				}
+
+				/* stylelint-disable-next-line csstools/use-nesting */
+				> li:first-child {
+					margin-bottom: var(--mds-spacing-08) !important;
+					padding-bottom: var(--mds-spacing-08) !important;
+
 					@media (--dev-dot-mobile) {
-						grid-template-columns: 1fr;
+						margin-bottom: var(--mds-spacing-07) !important;
+						padding-bottom: var(--mds-spacing-05) !important;
 					}
 				}
 			}
