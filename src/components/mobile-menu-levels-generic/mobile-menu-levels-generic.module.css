@@ -58,6 +58,7 @@
 			padding-top: 24px;
 		}
 
+		/* Entire Panel for both Product & Learn */
 		> div {
 			background: none;
 			padding-top: 0;
@@ -68,10 +69,12 @@
 				flex-direction: column-reverse;
 			}
 
+			/* Spacing between Product & Promo */
 			> div > ul {
 				margin: 0;
-
+				
 				> li {
+					/* Product Grid Header spacing */
 					> span {
 						padding-bottom: var(--mds-spacing-05);
 
@@ -79,7 +82,8 @@
 							padding-bottom: var(--mds-spacing-07);
 						}
 					}
-
+					
+					/* Product Grid ordering */
 					> ul {
 						@media (--dev-dot-show-mobile-menu) {
 							grid-template-columns: repeat(2, 1fr);
@@ -88,7 +92,8 @@
 						@media (--dev-dot-mobile) {
 							grid-template-columns: 1fr;
 						}
-
+						
+						/* Product element spacing */
 						> li {
 							@media (--dev-dot-mobile) {
 								margin-bottom: 8px;
@@ -97,6 +102,7 @@
 					}
 				}
 
+				/* Spacing between Product Grid sections */
 				/* stylelint-disable-next-line csstools/use-nesting */
 				> li:first-child {
 					margin-bottom: var(--mds-spacing-08) !important;
@@ -106,6 +112,23 @@
 						margin-bottom: var(--mds-spacing-07) !important;
 						padding-bottom: var(--mds-spacing-05) !important;
 					}
+				}
+			}
+
+			/* Product Grid Section Sides */
+			> div:first-child {
+				margin: 0 var(--mds-spacing-10);
+
+				@media (--dev-dot-mobile) {
+					margin: 0 var(--mds-spacing-07);
+				}
+			}
+			
+			/* Promo Banner within Product */
+			> div:nth-child(2) {
+				@media (--dev-dot-tablet) {
+					margin-top: 0;
+					margin-bottom: var(--mds-spacing-08);
 				}
 			}
 		}
