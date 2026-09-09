@@ -3,26 +3,19 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { getHvdCategoryGroups } from 'views/validated-designs/server'
-import ValidatedDesignsLandingView from 'views/validated-designs'
+import { getStaticProps } from 'views/product-root-docs-path-landing/server'
+import ValidatedDesignsLanding from 'views/validated-designs'
 
-export async function getStaticProps() {
-	const categoryGroups = getHvdCategoryGroups()
-	if (!categoryGroups) {
-		return {
-			notFound: true,
+// Pre-configured getStaticProps for validated-designs/docs
+const getStaticPropsWrapped = async (context) => {
+	return getStaticProps({
+		...context,
+		params: {
+			productSlug: 'validated-designs',
+			rootDocsPath: ''
 		}
-	}
-
-	return {
-		props: {
-			metadata: {
-				title: 'HashiCorp Validated Designs',
-				description: 'HashiCorp Validated Designs',
-			},
-			categoryGroups,
-		},
-	}
+	})
 }
 
-export default ValidatedDesignsLandingView
+export { getStaticPropsWrapped as getStaticProps }
+export default ValidatedDesignsLanding

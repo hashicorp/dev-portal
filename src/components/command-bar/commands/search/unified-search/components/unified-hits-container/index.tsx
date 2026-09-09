@@ -32,7 +32,6 @@ export function UnifiedHitsContainer({
 	tabsData: UnifiedSearchTabContent[]
 	suggestedPages: SuggestedPageProps[]
 }) {
-
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs showAnchorLine={false} variant="compact">
@@ -60,11 +59,17 @@ export function UnifiedHitsContainer({
 									</div>
 									<div className={s.commandBarListWrapper}>
 										<CommandBarList ariaLabelledBy={resultsLabelId}>
-											{hits.map((hit: Hit) => (
-												<li key={hit.objectID}>
-													<UnifiedHit {...getUnifiedHitProps(hit)} />
-												</li>
-											))}
+											{hits.map((hit: Hit) => {
+												const unifiedHitProps = getUnifiedHitProps(hit)
+												if (unifiedHitProps.titleHtml === undefined) {
+													return
+												}
+												return (
+													<li key={hit.objectID}>
+														<UnifiedHit {...unifiedHitProps} />
+													</li>
+												)
+											})}
 										</CommandBarList>
 										{/* TODO: add suggested pages */}
 									</div>

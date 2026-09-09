@@ -32,6 +32,7 @@ export type PageSlugOption =
 	| ThemeOption.cloud
 	| 'well-architected-framework'
 	| 'validated-patterns'
+	| 'validated-designs'
 export async function getPage(
 	slug: PageSlugOption
 ): Promise<ClientProductPage> {

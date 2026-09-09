@@ -1,6 +1,6 @@
 #Instana website monitoring resource
 resource "instana_website_monitoring_config" "devdot" {
-  name = var.website_name
+  name = "${var.instana_dashboard_prefix} ${var.website_name}"
 }
 
 resource "instana_alerting_channel" "slack" {
@@ -61,10 +61,10 @@ resource "instana_website_alert_config" "js_errors" {
 }
 
 resource "instana_application_config" "devdot" {
-  label          = "web-devdot - ${var.github_repository}"
+  label          = "${var.instana_dashboard_prefix} ${var.github_repository}"
   boundary_scope = "INBOUND"
   scope          = "INCLUDE_IMMEDIATE_DOWNSTREAM_DATABASE_AND_MESSAGING"
-  tag_filter     = "service.name@dest EQUALS '${instana_website_monitoring_config.devdot.name}'"
+  tag_filter     = "service.name@dest EQUALS '${var.website_name}'"
 }
 
 

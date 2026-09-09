@@ -8,6 +8,15 @@
 	width: 100%;
 }
 
+/** 
+	Intended for the checkmark next to the current version in the version selector dropdown
+*/
+.link {
+	& span {
+		width: 100%;
+	}
+}
+
 .link,
 .button {
 	composes: g-focus-ring-from-box-shadow from global;

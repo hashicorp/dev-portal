@@ -63,7 +63,8 @@ const BaseLayout = ({
 	const shouldHaveTallerStickyBars =
 		currentProduct &&
 		router.route !== '/_error' &&
-		currentProduct.slug !== 'well-architected-framework'
+		currentProduct.slug !== 'well-architected-framework' &&
+		currentProduct.slug !== 'validated-designs'
 
 	useEffect(() => {
 		if (

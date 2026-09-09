@@ -82,7 +82,7 @@ import { NavItem } from '@hashicorp/react-components/src/components/nav-panel/st
 const productSlugsToNames: {
 	[slug in Exclude<
 		ProductSlug,
-		'well-architected-framework' | 'validated-patterns'
+		'well-architected-framework' | 'validated-patterns' | 'validated-designs'
 	>]: ProductName
 } = {
 	hcp: 'HashiCorp Cloud Platform',
@@ -103,7 +103,7 @@ const productSlugsToNames: {
 const productSlugsToHostNames: {
 	[slug in Exclude<
 		ProductSlug,
-		'well-architected-framework' | 'validated-patterns'
+		'well-architected-framework' | 'validated-patterns' | 'validated-designs'
 	>]: string
 } = {
 	boundary: 'boundaryproject.io',
@@ -264,10 +264,10 @@ const learnPanelContent: { navData: NavItem[] } = {
 					isDevPortal: true,
 				},
 				{
-					title: 'Validated Patterns',
-					url: '/validated-patterns',
-					description: 'Field-tested patterns for using HashiCorp products',
-					icon: 'learn',
+					title: 'Validated Designs',
+					url: '/validated-designs',
+					description: 'Customer-validated designs for HashiCorp products',
+					icon: 'shield-check',
 					iconGradient: 'Learn',
 					isDevPortal: true,
 				},
@@ -300,10 +300,10 @@ const sidePanelContent: ProductSidePanel = {
 			icon: 'learn',
 		},
 		{
-			title: 'Validated Patterns',
-			description: 'Field-tested patterns for using HashiCorp products',
-			url: '/validated-patterns',
-			icon: 'check-circle',
+			title: 'Validated Designs',
+			description: 'Customer-validated designs for HashiCorp products',
+			url: '/validated-designs',
+			icon: 'shield-check',
 		},
 		{
 			title: 'Well-Architected Framework',

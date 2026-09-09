@@ -5,7 +5,7 @@
 
 import { type ReactNode } from 'react'
 import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
-import { render, within } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { CurrentProductProvider } from 'contexts'
 import DocsVersionSwitcher from '.'
 import { setProjectForAriaLabel } from '.'
@@ -79,27 +79,22 @@ describe('DocsVersionSwitcher', () => {
 	})
 
 	it.each([
-		['/waypoint/docs', 'v0.9.x (latest)'],
-		['/waypoint/docs/v0.8.x', 'v0.8.x'],
-	])('given path "%s", hides "%s" from the dropdown', (asPath, exclude) => {
+		['/waypoint/docs'],
+		['/waypoint/docs/v0.8.x'],
+	])('given path "%s", checks for all versions in the dropdown', (asPath) => {
 		mockUserRouter.mockImplementation(() => ({
 			asPath: asPath,
 		}))
 
-		const { queryAllByRole, queryByRole } = render(
+		const { queryAllByRole } = render(
 			<DocsVersionSwitcher options={options} />,
 			{ wrapper }
 		)
 
-		// assert that only n-1 versions are shown in the dropdown
+		// assert that all n versions are shown in the dropdown
 		const links = queryAllByRole('link')
-		expect(links).toHaveLength(3)
+		expect(links).toHaveLength(4)
 
-		// assert that the currently selected version is not shown in the dropdown
-		const dropdown = queryByRole('list')
-		within(dropdown as HTMLUListElement).getAllByRole('link').forEach((link) => {
-			expect(link).not.toHaveTextContent(exclude)
-		})
 	})
 
 	it("passes `rel='nofollow'` to versioned links", () => {
@@ -113,7 +108,7 @@ describe('DocsVersionSwitcher', () => {
 		)
 
 		const links = queryAllByRole('link')
-		expect(links).toHaveLength(3)
+		expect(links).toHaveLength(4)
 
 		// link to latest
 		expect(links[1]).not.toHaveAttribute('rel')

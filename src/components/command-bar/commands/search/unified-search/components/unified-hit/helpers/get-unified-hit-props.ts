@@ -29,10 +29,10 @@ export function getUnifiedHitProps(hit: Hit): UnifiedHitProps {
 	// Title and description
 	const titleHtml = (
 		hit._highlightResult.page_title as HitAttributeHighlightResult
-	).value
+	)?.value
 	const descriptionHtml = (
 		hit._highlightResult.description as HitAttributeHighlightResult
-	).value
+	)?.value
 
 	// Default product
 	const productSlug = parseDefaultProductSlug(hit)

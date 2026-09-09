@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ReactPlayer from 'react-player/lazy'
 import classNames from 'classnames'
 import { VideoEmbedProps, VideoEmbedInnerProps } from './types'
@@ -122,19 +122,27 @@ function VideoEmbed({
 		setIsMounted(true)
 	}, [isMounted])
 
-	//  propagating aliased `start` prop down to the actual player config
-	const config = start
-		? {
-				youtube: {
-					playerVars: {
-						start,
-					},
-				},
-				wistia: {
-					options: { time: start },
-				},
-		  }
-		: {}
+	//  propagating aliased `start` prop down to the actual player config.
+	//  Memoized to prevent a new object reference on every render — a fresh
+	//  reference causes react-player to reinitialize the Wistia player, which
+	//  triggers a race in the HLS engine where `hls.config` is still null.
+	const config = useMemo(
+		() =>
+			start
+				? {
+						youtube: {
+							playerVars: {
+								start,
+							},
+						},
+						wistia: {
+							options: { time: start },
+						},
+				  }
+				: {},
+		[start]
+	)
+
 
 	return (
 		<div className={classNames(s.playerWrapper, className)}>
