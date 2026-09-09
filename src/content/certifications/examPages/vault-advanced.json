@@ -81,7 +81,7 @@
 	},
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
-		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
+		"description": "Expand your expertise with certifications that build on related skills and technologies. Explore the next step in your learning journey.",
 		"certs": [
 			{
 				"id": "vault-associate"
