@@ -4,14 +4,14 @@
 		"product": "terraform-advanced",
 		"eyebrow": "Hashicorp Certified:",
 		"title": "Terraform Authoring and Operations Advanced",
-		"description": "Demonstrate your advanced, production-level Terraform expertise in this intensive, lab-based exam.",
+		"description": "Demonstrate your advanced, production-level Terraform expertise in this intensive, lab-based exam. Choose either the AWS or Azure version of the exam to earn the same credential.",
 		"leftCta": {
 			"text": "Register for the exam",
-			"link": "/certifications"
+			"link": "/certifications/signin"
 		},
 		"rightCta": {
 			"text": "Prepare for the exam",
-			"link": "/certifications"
+			"link": "/terraform/tutorials/pro-cert"
 		}
 	},
 	"announcement": {
@@ -25,7 +25,7 @@
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "You should take the Terraform Authoring and Operations Advanced exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. You will need to demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
+				"description": "Earn the same certification using either cloud provider, AWS or Azure. You should take the Terraform Authoring & Operations Advanced exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. Demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
 			},
 			"examDetails": {
 				"title": "Exam Details",
@@ -62,7 +62,7 @@
 					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
 					"Advanced configuration authoring and a deep understanding of Terraform workflows"
 				],
-				"bottomDescription": "While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
+				"bottomDescription": "Experience with Terraform in a production setting is required."
 			}
 		}
 	},
@@ -75,9 +75,9 @@
 	},
 	"linkWithImage": {
 		"title": "Title - knowledge base for FAQs ",
-		"description": "Donec ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nullam id dolor id nibh ultricies",
+		"description": "Review and follow the rules and requirements for taking exams before you register for an exam appointment. You are responsible for following the identification, system, and physical space requirements.",
 		"cta": "Go to knowledge base",
-		"ctaLink": "/certifications"
+		"ctaLink": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125"
 	},
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
