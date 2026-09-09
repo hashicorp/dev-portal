@@ -16,16 +16,16 @@
 	},
 	"announcement": {
 		"header": "TechXchange is Coming",
-		"text": "Learn from certified instructors on how to boost your enterprise adoption of HashiCorp",
+		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
 		"cta": "Read more",
-		"ctaLink": "/certifications"
+		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
 	},
 	"certificationDetails": {
 		"product": "vault",
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "You should take the Vault Authoring and Operations Professional exam if you have advanced production-level Vault expertise in both configuration authoring and Vault workflows. You will need to demonstrate your professional-level skills implementing and authoring Vault modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
+				"description": "You should take the Vault Operations Advanced exam if you are a Cloud Engineer with advanced, production-level Vault operations expertise. You will need to demonstrate your ability to deploy, configure, manage, and monitor HashiCorp Vault, and you must also be able to evaluate Vault Enterprise functionality and use cases."
 			},
 			"examDetails": {
 				"title": "Exam Details",
@@ -55,14 +55,13 @@
 				"title": "Prerequisites",
 				"prereqs": [
 					"Vault Associate certification (strongly recommend, or equivalent experience required)",
-					"Linux skills, such as the ability to list and edit files via command terminal",
-					"Linux skills, such as the ability to list and edit files via command terminal",
-					"Experience using cloud credentials",
-					"Familiarity with YAML, JSON, HCL, and CSV formats",
-					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
-					"Advanced configuration authoring and a deep understanding of Vault workflows"
+					"Linux skills such as list and edit files via command terminal",
+					"Understanding of IP networking",
+					"Experience with Public Key Infrastructure (PKI), including PGP and TLS",
+					"Information security fundamentals such as network security and RBAC",
+					"Understand the concepts and functionality of infrastructure running in containers including starting and stopping services, and reading logs"
 				],
-				"bottomDescription": "While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
+				"bottomDescription": "Experience with Vault in a production setting is required."
 			}
 		}
 	},
@@ -75,9 +74,9 @@
 	},
 	"linkWithImage": {
 		"title": "Title - knowledge base for FAQs ",
-		"description": "Donec ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nullam id dolor id nibh ultricies",
+		"description": "Review and follow the rules and requirements for taking exams before you register for an exam appointment. You are responsible for following the identification, system, and physical space requirements.",
 		"cta": "Go to knowledge base",
-		"ctaLink": "/certifications"
+		"ctaLink": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125"
 	},
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
@@ -87,7 +86,7 @@
 				"id": "vault-associate"
 			},
 			{
-				"id": "terraform-professional"
+				"id": "terraform-advanced"
 			}
 		]
 	}
