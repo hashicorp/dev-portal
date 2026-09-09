@@ -29,7 +29,7 @@ export function getCertExams(): Exam[] {
 		for (const e of parsedExams) {
 			if (seenExamIDs.has(e.id)) {
 				throw new Error(
-					`Error: ${e.id} is a duplicate exam id. Please update ${e.title} and/or the conflicting exam(s) so that each exam has a unique id.`,
+					`${e.id} is a duplicate exam id. Please update ${e.title} and/or the conflicting exam(s) so that each exam has a unique id.`,
 				)
 			}
 

@@ -24,13 +24,13 @@ export function findMatchingExams(
 ): Exam[] {
 	if (desiredExams.length === 0) {
 		throw new Error(
-			'Error: Missing array of desired IDs. Please check to see if `certs` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
+			'Missing array of desired IDs. Please check to see if `certs` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
 		)
 	}
 
 	if (exams.length === 0) {
 		throw new Error(
-			'Error: Missing array of exams. Please ensure that there is an exam-cards.json file in `src/content/certifications/exams`, and that each card has a `id` property.',
+			'Missing array of exams. Please ensure that there is an exam-cards.json file in `src/content/certifications/exams`, and that each card has a `id` property.',
 		)
 	}
 
@@ -47,7 +47,7 @@ export function findMatchingExams(
 
 		if (!examFound) {
 			throw new Error(
-				`Error: Exam ID ${desiredExam.id} was not found. Please ensure that the id is found in any of the exams within exam-cards.json in src/content/certifications/exams.`,
+				`Exam ID ${desiredExam.id} was not found. Please ensure that the id is found in any of the exams within exam-cards.json in src/content/certifications/exams.`,
 			)
 		}
 		examFound = false
