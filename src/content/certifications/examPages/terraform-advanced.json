@@ -39,15 +39,15 @@
 					{ "name": "Language", "value": "English" },
 					{
 						"name": "Duration",
-						"value": "1 hour"
+						"value": "4 hours"
 					},
 					{
 						"name": "Price",
-						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
+						"value": "$295 USD, plus locally applicable taxes and fees. Free retake included."
 					},
 					{
 						"name": "Keyboard",
-						"value": "US QWERTY only (contact certifications@hashicorp.com for other languages or layouts)"
+						"value": "US QWERTY only"
 					}
 				]
 			},
@@ -81,7 +81,7 @@
 	},
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
-		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
+		"description": "Expand your expertise with certifications that build on related skills and technologies. Explore the next step in your learning journey.",
 		"certs": [
 			{
 				"id": "terraform-associate"

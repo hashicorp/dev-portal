@@ -52,9 +52,9 @@
 		]
 	},
 	{
-		"id": "ibm-example",
+		"id": "ibm-guardian",
 		"product": "ibm",
-		"title": "IBM Hybrid Cloud Architect Professional Certificate",
-		"ctaLink": "https://developer.ibm.com/"
+		"title": "IBM Certified Guardium Data Protection v12.x Administrator - Professional",
+		"ctaLink": "https://www.ibm.com/training/certification/ibm-certified-guardium-data-protection-v12x-administrator-professional-C9008300"
 	}
 ]
