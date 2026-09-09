@@ -106,7 +106,7 @@ export const generateProductLandingSidebarNavData = (
 	product: ProductData
 ): SidebarProps => {
 	const levelButtonProps = {
-		levelUpButtonText: 'Main Menu',
+		// levelUpButtonText: 'Main Menu',
 		levelDownButtonText: 'Previous',
 	}
 	const menuItems = generateProductLandingSidebarMenuItems(product)

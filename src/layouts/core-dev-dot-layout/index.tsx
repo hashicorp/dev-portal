@@ -7,7 +7,7 @@ import Head from 'next/head'
 import { ThemeProvider } from 'next-themes'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import { InstanaHeadTag, InstanaScriptTag } from 'lib/instana'
-import { MobileMenuProvider } from 'contexts'
+import { MobileMenuProvider, MobileSubMenuProvider } from 'contexts'
 import TabProvider from 'components/tabs/provider'
 import { CoreDevDotLayoutProps } from './types'
 import s from './core-dev-dot-layout.module.css'
@@ -15,15 +15,17 @@ import s from './core-dev-dot-layout.module.css'
 const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	return (
 		<MobileMenuProvider>
-			<TabProvider>
-				<Head>
-					<DatadogHeadTag />
-					<InstanaHeadTag />
-				</Head>
-				<div className={s.root}>{children}</div>
-				<DatadogScriptTag />
-				<InstanaScriptTag />
-			</TabProvider>
+			<MobileSubMenuProvider>
+				<TabProvider>
+					<Head>
+						<DatadogHeadTag />
+						<InstanaHeadTag />
+					</Head>
+					<div className={s.root}>{children}</div>
+					<DatadogScriptTag />
+					<InstanaScriptTag />
+				</TabProvider>
+			</MobileSubMenuProvider>
 		</MobileMenuProvider>
 	)
 }

@@ -53,6 +53,8 @@
 }
 
 .mobileMenuButton {
+	width: 38px;
+	height: 38px;
 	align-items: center;
 	background-color: transparent;
 	border-radius: 5px;
@@ -60,15 +62,33 @@
 	color: var(--mds-color-foreground-strong);
 	display: flex;
 	justify-content: center;
-	padding: 5px;
 
 	&:hover {
-		border: 1px solid var(--mds-color-border-strong);
+		border: 1px solid var(--mds-color-palette-neutral-400);
 	}
 
 	@media (--dev-dot-hide-mobile-menu) {
 		display: none;
 	}
+}
+
+.mobileMenuButtonActive {
+	border: 1px solid var(--mds-color-palette-neutral-400);
+}
+
+.mobileBackButtonContainer {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--mds-color-foreground-action);
+}
+
+.mobileBackButton {
+	background: none;
+	padding: 0;
+	margin: 0;
+	border: none;
+	color: var(--mds-color-foreground-action);
 }
 
 .authenticationControls {
