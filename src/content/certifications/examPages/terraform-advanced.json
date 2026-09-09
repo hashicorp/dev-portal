@@ -16,9 +16,9 @@
 	},
 	"announcement": {
 		"header": "TechXchange is Coming",
-		"text": "Learn from certified instructors on how to boost your enterprise adoption of HashiCorp",
+		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
 		"cta": "Read more",
-		"ctaLink": "/certifications"
+		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
 	},
 	"certificationDetails": {
 		"product": "terraform",
@@ -32,7 +32,7 @@
 				"details": [
 					{
 						"name": "Assessment Type",
-						"value": "Multiple choice"
+						"value": "Lab-based scenarios and multiple choice"
 					},
 					{ "name": "Format", "value": "Online Proctored" },
 					{ "name": "Credential Expiration", "value": "2 years" },
