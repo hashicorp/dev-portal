@@ -6,7 +6,7 @@ This folder contains all editable content for the HashiCorp Certifications pages
 - [Landing Page](#landing-page) — `/certifications`
 - [Exam Pages](#exam-pages) — `/certifications/<exam>` (e.g. `/certifications/terraform-associate`)
 - [Sign In Page](#sign-in-page) — `/certifications/signin`
-- [ProgramSlugSchema](#programslugschema)
+- [ProgramSlugSchema](#programslugschema) — Used to determine which JSON file to read content from
 
 ---
 
