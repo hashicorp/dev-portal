@@ -291,3 +291,31 @@ Each `## Heading Two` section in this file generates one info card on the sign i
 - Plain text paragraphs
 - Bullet lists
 - `<Tooltip>` components with a `title` and `description` prop
+
+---
+
+## ProgramSlugSchema
+
+**File:** [`src/views/certifications/content/schemas/landing-page.ts`](../../../src/views/certifications/content/schemas/landing-page.ts)
+
+`ProgramSlugSchema` lists every valid exam page slug. It is used to determine which JSON file to read from to render on the exam page. **This enum must be kept in sync with the exam pages that exist under `examPages/`.**
+
+Whenever you add, rename, or delete an exam page, update `ProgramSlugSchema` accordingly:
+
+- **Add an exam page** — add the new slug string to the `z.enum([...])` array.
+- **Rename an exam page** — change the old slug string to the new slug string.
+- **Delete an exam page** — remove the corresponding slug string from the array.
+
+**Example:** if you add a new `consul-associate` exam page, the schema should become:
+
+```ts
+const ProgramSlugSchema = z.enum([
+	'terraform-associate',
+	'terraform-advanced',
+	'vault-associate',
+	'vault-advanced',
+	'consul-associate', // add the new slug here
+])
+```
+
+> **Note:** Not updating `ProgramSlugSchema` will cause page content to not be displayed for your desired exam.

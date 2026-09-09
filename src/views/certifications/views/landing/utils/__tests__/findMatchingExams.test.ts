@@ -37,7 +37,7 @@ describe('findMatchingExams', () => {
 		const desiredExams = []
 		const exams = [EXAM_A, EXAM_B]
 		expect(() => findMatchingExams(desiredExams, exams)).toThrowError(
-			'Error: Missing array of desired IDs. Please check to see if `certs` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
+			'Missing array of desired IDs. Please check to see if `certs` in `src/content/certifications/landing.json` or `src/content/certifications/examPages/[product-type].json` is empty.',
 		)
 	})
 
@@ -45,7 +45,7 @@ describe('findMatchingExams', () => {
 		const desiredExams = [DESIRED_EXAM_1, DESIRED_EXAM_2]
 		const exams = []
 		expect(() => findMatchingExams(desiredExams, exams)).toThrowError(
-			'Error: Missing array of exams. Please ensure that there is an exam-cards.json file in `src/content/certifications/exams`, and that each card has a `id` property.',
+			'Missing array of exams. Please ensure that there is an exam-cards.json file in `src/content/certifications/exams`, and that each card has a `id` property.',
 		)
 	})
 
@@ -54,7 +54,7 @@ describe('findMatchingExams', () => {
 		const exams = [EXAM_A, EXAM_B]
 
 		expect(() => findMatchingExams(desiredExams, exams)).toThrowError(
-			`Error: Exam ID ${UNFOUND_EXAM.id} was not found. Please ensure that the id is found in any of the exams within exam-cards.json in src/content/certifications/exams.`,
+			`Exam ID ${UNFOUND_EXAM.id} was not found. Please ensure that the id is found in any of the exams within exam-cards.json in src/content/certifications/exams.`,
 		)
 	})
 
