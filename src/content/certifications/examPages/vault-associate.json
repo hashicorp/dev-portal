@@ -84,7 +84,7 @@
 		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
 		"certs": [
 			{
-				"id": "vault-professional"
+				"id": "vault-advanced"
 			},
 			{
 				"id": "terraform-associate"

@@ -13,7 +13,7 @@
 				},
 				{
 					"label": "Terraform Authoring and Operations Professional",
-					"path": "/certifications/terraform-professional"
+					"path": "/certifications/terraform-advanced"
 				}
 			]
 		},
@@ -26,7 +26,7 @@
 				},
 				{
 					"label": "Vault Authoring and Operations Professional",
-					"path": "/certifications/vault-professional"
+					"path": "/certifications/vault-advanced"
 				}
 			]
 		}

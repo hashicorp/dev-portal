@@ -13,9 +13,9 @@ import { z } from 'zod'
  */
 const ProgramSlugSchema = z.enum([
 	'terraform-associate',
-	'terraform-professional',
+	'terraform-advanced',
 	'vault-associate',
-	'vault-professional',
+	'vault-advanced',
 ])
 
 /**
