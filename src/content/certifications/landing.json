@@ -15,14 +15,14 @@
 			"containerDescription": "We offer Terraform certifications at two levels. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your advanced Terraform production experience with the Terraform Authoring and Operations Professional certification.",
 			"certs": [
 				{ "id": "terraform-associate" },
-				{ "id": "terraform-professional" },
-				{ "id": "terraform-professional" }
+				{ "id": "terraform-advanced" },
+				{ "id": "terraform-advanced" }
 			]
 		},
 		{
 			"product": "Vault",
 			"containerDescription": "Earn an associate-level certification to validate your foundational Vault or Consul knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam.",
-			"certs": [{ "id": "vault-associate" }, { "id": "vault-professional" }]
+			"certs": [{ "id": "vault-associate" }, { "id": "vault-advanced" }]
 		}
 	]
 }

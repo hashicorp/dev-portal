@@ -1,7 +1,7 @@
 {
 	"title": "Vault Professional",
 	"hero": {
-		"product": "vault-professional",
+		"product": "vault-advanced",
 		"eyebrow": "Hashicorp Certified:",
 		"title": "Vault Authoring and Operations Professional",
 		"description": "Current Exam Description: Demonstrate your advanced, production-level Vault expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
@@ -87,7 +87,7 @@
 				"id": "vault-associate"
 			},
 			{
-				"id": "terraform-professional"
+				"id": "terraform-advanced"
 			}
 		]
 	}

@@ -26,36 +26,36 @@ import homepageDark from './assets/images/homepage-dark.png'
 import homepageLight from './assets/images/homepage-light.png'
 import terraformAssociateLight from './assets/images/terraform-associate-light.png'
 import terraformAssociateDark from './assets/images/terraform-associate-dark.png'
-import terraformProfessionalLight from './assets/images/terraform-professional-light.png'
-import terraformProfessionalDark from './assets/images/terraform-professional-dark.png'
+import terraformAdvancedLight from './assets/images/terraform-advanced-light.png'
+import terraformAdvancedDark from './assets/images/terraform-advanced-dark.png'
 import vaultAssociateLight from './assets/images/vault-associate-light.png'
 import vaultAssociateDark from './assets/images/vault-associate-dark.png'
-import vaultProfessionalLight from './assets/images/vault-professional-light.png'
-import vaultProfessionalDark from './assets/images/vault-professional-dark.png'
+import vaultAdvancedLight from './assets/images/vault-advanced-light.png'
+import vaultAdvancedDark from './assets/images/vault-advanced-dark.png'
 
 // Bar Gradients
 import homepageBarGradientLight from './assets/gradients/homepage-bar-gradient-light.svg'
 import homepageBarGradientDark from './assets/gradients/homepage-bar-gradient-dark.svg'
 import vaultBarGradientAssociateLight from './assets/gradients/vault-bar-gradient-associate-light.svg'
 import vaultBarGradientAssociateDark from './assets/gradients/vault-bar-gradient-associate-dark.svg'
-import vaultBarGradientProfessionalLight from './assets/gradients/vault-bar-gradient-professional-light.svg'
-import vaultBarGradientProfessionalDark from './assets/gradients/vault-bar-gradient-professional-dark.svg'
+import vaultBarGradientAdvancedLight from './assets/gradients/vault-bar-gradient-advanced-light.svg'
+import vaultBarGradientAdvancedDark from './assets/gradients/vault-bar-gradient-advanced-dark.svg'
 import terraformBarGradientAssociateLight from './assets/gradients/terraform-bar-gradient-associate-light.svg'
 import terraformBarGradientAssociateDark from './assets/gradients/terraform-bar-gradient-associate-dark.svg'
-import terraformBarGradientProfessionalLight from './assets/gradients/terraform-bar-gradient-professional-light.svg'
-import terraformBarGradientProfessionalDark from './assets/gradients/terraform-bar-gradient-professional-dark.svg'
+import terraformBarGradientAdvancedLight from './assets/gradients/terraform-bar-gradient-advanced-light.svg'
+import terraformBarGradientAdvancedDark from './assets/gradients/terraform-bar-gradient-advanced-dark.svg'
 
 const HERO_PNG_MAP = {
 	'homepage-light': homepageLight,
 	'homepage-dark': homepageDark,
 	'terraform-associate-light': terraformAssociateLight,
 	'terraform-associate-dark': terraformAssociateDark,
-	'terraform-professional-light': terraformProfessionalLight,
-	'terraform-professional-dark': terraformProfessionalDark,
+	'terraform-advanced-light': terraformAdvancedLight,
+	'terraform-advanced-dark': terraformAdvancedDark,
 	'vault-associate-light': vaultAssociateLight,
 	'vault-associate-dark': vaultAssociateDark,
-	'vault-professional-light': vaultProfessionalLight,
-	'vault-professional-dark': vaultProfessionalDark,
+	'vault-advanced-light': vaultAdvancedLight,
+	'vault-advanced-dark': vaultAdvancedDark,
 }
 
 const HERO_BAR_GRADIENT_MAP = {
@@ -63,12 +63,12 @@ const HERO_BAR_GRADIENT_MAP = {
 	'homepage-dark': homepageBarGradientDark,
 	'vault-associate-light': vaultBarGradientAssociateLight,
 	'vault-associate-dark': vaultBarGradientAssociateDark,
-	'vault-professional-light': vaultBarGradientProfessionalLight,
-	'vault-professional-dark': vaultBarGradientProfessionalDark,
+	'vault-advanced-light': vaultBarGradientAdvancedLight,
+	'vault-advanced-dark': vaultBarGradientAdvancedDark,
 	'terraform-associate-light': terraformBarGradientAssociateLight,
 	'terraform-associate-dark': terraformBarGradientAssociateDark,
-	'terraform-professional-light': terraformBarGradientProfessionalLight,
-	'terraform-professional-dark': terraformBarGradientProfessionalDark,
+	'terraform-advanced-light': terraformBarGradientAdvancedLight,
+	'terraform-advanced-dark': terraformBarGradientAdvancedDark,
 }
 
 /**
