@@ -7,8 +7,9 @@ export interface MobileMenuContextState {
 	isMobileMenuRendered: boolean
 	mobileMenuIsOpen: boolean
 	setMobileMenuIsOpen: Dispatch<SetStateAction<boolean>>
-	currentMobileSubOption?: string
-	setCurrentMobileSubOption?: Dispatch<SetStateAction<string>>
+	currentMobileSubOption: string
+	mobileSubOptionIsOpen: boolean
+	setCurrentMobileSubOption: Dispatch<SetStateAction<string>>
 }
 
 export interface MobileSubMenuContextState {

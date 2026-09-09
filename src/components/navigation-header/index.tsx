@@ -19,6 +19,7 @@ import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
 import { CommandBarActivator } from 'components/command-bar'
 import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
+import classNames from 'classnames'
 
 // Local imports
 import { NavigationHeaderItem } from './types'
@@ -31,13 +32,16 @@ import s from './navigation-header.module.css'
  */
 const MobileMenuButton = () => {
 	const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
-	const ariaLabel = `${mobileMenuIsOpen ? 'Close' : 'Open'} navigation menu`
+	const ariaLabel = `${mobileMenuIsOpen ? 'Close' : 'Open'} mobile navigation menu`
 
 	return (
 		<>
 			<button
 				aria-label={ariaLabel}
-				className={s.mobileMenuButton}
+				className={classNames(
+					s.mobileMenuButton,
+					mobileMenuIsOpen && s.mobileMenuButtonActive,
+				)}
 				onClick={() => setMobileMenuIsOpen((prevState) => !prevState)}
 			>
 				{mobileMenuIsOpen ? <IconX24 /> : <IconMenu24 />}
@@ -89,7 +93,7 @@ const NavigationHeader = () => {
 	const {
 		mobileMenuIsOpen,
 		isMobileMenuRendered,
-		currentMobileSubOption,
+		mobileSubOptionIsOpen,
 		setCurrentMobileSubOption,
 	} = useMobileMenu()
 
@@ -109,7 +113,7 @@ const NavigationHeader = () => {
 		<>
 			<header className={s.mainHeader}>
 				<div className={s.leftSide}>
-					{mobileMenuIsOpen && currentMobileSubOption !== '' ? (
+					{mobileMenuIsOpen && mobileSubOptionIsOpen ? (
 						<div className={s.mobileBackButtonContainer}>
 							<IconChevronLeft16 />
 							<button
@@ -124,10 +128,12 @@ const NavigationHeader = () => {
 					)}
 				</div>
 				<div className={s.middle}>
-					<CommandBarActivator
-						leadingIcon={<IconSearch16 />}
-						visualLabel={'Search'}
-					/>
+					{!mobileSubOptionIsOpen && (
+						<CommandBarActivator
+							leadingIcon={<IconSearch16 />}
+							visualLabel={'Search'}
+						/>
+					)}
 				</div>
 				<div className={s.rightSide}>
 					<AuthenticationControls />

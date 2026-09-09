@@ -28,6 +28,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		useState<boolean>(false)
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState<boolean>()
 	const [currentMobileSubOption, setCurrentMobileSubOption] = useState<string>()
+	const mobileSubOptionIsOpen = currentMobileSubOption !== ''
 
 	/**
 	 * NOTE: We cannot use `useDeviceSize` here because the nav header
@@ -109,6 +110,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		mobileMenuIsOpen,
 		setMobileMenuIsOpen,
 		currentMobileSubOption,
+		mobileSubOptionIsOpen,
 		setCurrentMobileSubOption,
 	}
 

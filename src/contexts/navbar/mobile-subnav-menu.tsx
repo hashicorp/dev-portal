@@ -20,7 +20,7 @@ const MobileSubMenuContext = createContext<
 MobileSubMenuContext.displayName = 'MobileSubMenuContext'
 
 /**
- * Provider for managing open/closed state of the mobile menu.
+ * Provider for managing open/closed state of the mobile sub menu.
  */
 const MobileSubMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	const router = useRouter()
@@ -73,7 +73,7 @@ const MobileSubMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	useNoScrollBody(mobileSubMenuIsOpen)
 
 	/**
-	 * Handles closing the mobile menu in some cases.
+	 * Handles closing the mobile sub menu in some cases.
 	 */
 	useEffect(() => {
 		// Don't need to listen for router events on Desktop
