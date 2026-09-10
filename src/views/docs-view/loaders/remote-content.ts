@@ -5,6 +5,7 @@
 
 import { Pluggable } from 'unified'
 import moize, { Options } from 'moize'
+import env from 'env-var'
 import { GetStaticPropsContext } from 'next'
 import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import {
@@ -86,7 +87,7 @@ interface LoadStaticPropsReturn {
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedFetchVersionMetadataList = moize(
 	fetchVersionMetadataList,
-	moizeOpts
+	moizeOpts,
 )
 
 const determineLabel = (option: VersionMetadataItem) => {
@@ -112,7 +113,7 @@ const determineLabel = (option: VersionMetadataItem) => {
  * - Sorts by semver, descending
  */
 export function mapVersionList(
-	list: VersionMetadataItem[]
+	list: VersionMetadataItem[],
 ): VersionSelectItem[] {
 	const versions = list.map((versionOption: VersionMetadataItem) => {
 		const { isLatest, version, releaseStage } = versionOption
@@ -130,11 +131,11 @@ export function mapVersionList(
 	return versions
 }
 
+const ENABLE_VERSIONED_DOCS = env.get('ENABLE_VERSIONED_DOCS').asBool()
 export default class RemoteContentLoader implements DataLoader {
 	constructor(public opts: RemoteContentLoaderOpts) {
 		this.opts.enabledVersionedDocs =
-			this.opts.enabledVersionedDocs ??
-			process.env.ENABLE_VERSIONED_DOCS?.toString() === 'true'
+			this.opts.enabledVersionedDocs ?? ENABLE_VERSIONED_DOCS
 		this.opts.paramId = this.opts.paramId ?? DEFAULT_PARAM_ID
 		this.opts.mainBranch = this.opts.mainBranch ?? 'main'
 		this.opts.scope = this.opts.scope ?? {}
@@ -154,7 +155,7 @@ export default class RemoteContentLoader implements DataLoader {
 		const navDataResponse = await fetchNavData(
 			this.opts.product,
 			this.opts.navDataPrefix!,
-			latest
+			latest,
 		)
 		const navData = navDataResponse.navData
 		return getPathsFromNavData(navData, this.opts.paramId)
@@ -185,7 +186,7 @@ export default class RemoteContentLoader implements DataLoader {
 		// given: v0.5.x (latest), v0.4.x, v0.3.x
 		const [versionFromPath, paramsNoVersion] = stripVersionFromPathParams(
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			params![this.opts.paramId!] as string[]
+			params![this.opts.paramId!] as string[],
 		)
 
 		const mdxRenderer = (mdx) =>
@@ -230,15 +231,15 @@ export default class RemoteContentLoader implements DataLoader {
 		const navDataPromise = fetchNavData(
 			this.opts.product,
 			this.opts.navDataPrefix!,
-			versionToFetch
+			versionToFetch,
 		)
 
 		const [navData] = await Promise.all([navDataPromise])
 
 		// This case handles docs using an internal only product as the single
-		// source of truth. For these products, they will include an `import` field 
-		// in their nav-data which specifies the path to the content file to load 
-		// for a given page. If this field is present, we should use it instead 
+		// source of truth. For these products, they will include an `import` field
+		// in their nav-data which specifies the path to the content file to load
+		// for a given page. If this field is present, we should use it instead
 		// of attempting to resolve the content file path ourselves based on the URL.
 		const pathToCheck =
 			versionToFetch !== 'latest'
@@ -305,7 +306,7 @@ export default class RemoteContentLoader implements DataLoader {
 			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
 			 */
 			const isPrivateContentRepo = ['hcp-docs', 'sentinel'].includes(
-				this.opts.product
+				this.opts.product,
 			)
 
 			if (isLatest && !isPrivateContentRepo) {
@@ -317,7 +318,7 @@ export default class RemoteContentLoader implements DataLoader {
 		// Check if the product is in the unified docs sandbox and migrated
 		if (
 			__config.flags?.unified_docs_migrated_repos?.find(
-				(product) => product === document.product
+				(product) => product === document.product,
 			)
 		) {
 			githubFileUrl = `https://github.com/hashicorp/web-unified-docs/blob/${this.opts.mainBranch}/${document.githubFile}`

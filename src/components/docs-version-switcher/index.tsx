@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 import { ProductWithCurrentRootDocsPath } from 'types/products'
 import { getTargetPath } from 'lib/get-target-path'
@@ -15,7 +16,8 @@ import VersionSwitcher, {
 } from 'components/version-switcher'
 import { DocsVersionSwitcherOption, DocsVersionSwitcherProps } from './types'
 
-const IS_DEV = process.env.NODE_ENV !== 'production'
+const NODE_ENV = env.get('NODE_ENV').asString()
+const IS_DEV = NODE_ENV !== 'production'
 
 /**
  * Construct a project name to be used in ariaLabels for each option.

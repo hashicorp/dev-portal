@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+const env = require('env-var')
 const fs = require('fs')
 const path = require('path')
 const flat = require('flat')
@@ -46,9 +47,11 @@ async function getHashiConfig(configPath) {
 			extendsConfig = await getHashiConfig(extendsConfigPath)
 		}
 
-		if (process.env.VERCEL !== 'production') {
+		const VERCEL = env.get('VERCEL').asString()
+		const UNIFIED_DOCS_API = env.get('UNIFIED_DOCS_API').asString()
+		if (VERCEL !== 'production') {
 			// Fetch additional config from UNIFIED_DOCS_API if available
-			if (process.env.UNIFIED_DOCS_API) {
+			if (UNIFIED_DOCS_API) {
 				try {
 					if (!envConfig.flags) envConfig.flags = {}
 					if (!extendsConfig.flags) extendsConfig.flags = {}
@@ -58,7 +61,7 @@ async function getHashiConfig(configPath) {
 						...envConfig.flags?.unified_docs_migrated_repos
 					})
 
-					const response = await fetch(`${process.env.UNIFIED_DOCS_API}/api/supported-products`)
+					const response = await fetch(`${UNIFIED_DOCS_API}/api/supported-products`)
 					udrProducts = (await response.json()).result
 
 					// clear out any existing values and replace with fetched products
@@ -66,7 +69,7 @@ async function getHashiConfig(configPath) {
 					extendsConfig.flags.unified_docs_migrated_repos = []
 					envConfig.flags.unified_docs_migrated_repos = udrProducts
 				} catch (err) {
-					console.warn(`⛔️ Failed to fetch from "${process.env.UNIFIED_DOCS_API}/api/supported-products":`, err.message)
+					console.warn(`⛔️ Failed to fetch from "${UNIFIED_DOCS_API}/api/supported-products":`, err.message)
 					console.warn('⛔️ Defaulting to "config/production.json" list of UDR products')
 
 					const prodConfigPath = path.join(
@@ -92,7 +95,8 @@ async function getHashiConfig(configPath) {
 		// Because we are "flattening" the object, a simple spread should be sufficient here
 		finalConfig = { ...extendsFlattened, ...envFlattened }
 
-		if (process.env.DEBUG_CONFIG) {
+		const DEBUG_CONFIG = env.get('DEBUG_CONFIG').asBool()
+		if (DEBUG_CONFIG) {
 			console.log('[DEBUG_CONFIG]', finalConfig)
 		}
 

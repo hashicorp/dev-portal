@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { GetStaticPropsResult } from 'next'
 import OpenApiDocsPreviewView from 'views/open-api-docs-preview'
 
-const IS_PRODUCTION = process.env.HASHI_ENV === 'production'
+const HASHI_ENV = env.get('HASHI_ENV').asString()
+const IS_PRODUCTION = HASHI_ENV === 'production'
 
 /**
  * We don't actually need static props for this page,

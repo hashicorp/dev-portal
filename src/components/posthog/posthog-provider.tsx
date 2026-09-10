@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { useEffect } from 'react'
 import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
@@ -30,7 +31,8 @@ export function ConditionalPostHogProvider({
 					process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
 				// Enable debug mode in development
 				loaded: (posthog) => {
-					if (process.env.NODE_ENV === 'development') posthog.debug()
+					const NODE_ENV = env.get('NODE_ENV').asString()
+					if (NODE_ENV === 'development') posthog.debug()
 				},
 				// bootstrap,
 			})

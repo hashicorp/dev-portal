@@ -4,16 +4,21 @@
  */
 
 //@ts-check
+const env = require('env-var')
 
 function isPreview() {
-	return process.env.HASHI_ENV == 'preview'
+	const HASHI_ENV = env.get('HASHI_ENV').asString()
+	return HASHI_ENV === 'preview'
 }
 
 function isDeployPreview(productSlug) {
-	const isProductSlugMatching =
-		!productSlug || productSlug === process.env.PREVIEW_FROM_REPO
+	const PREVIEW_FROM_REPO = env.get('PREVIEW_FROM_REPO').asString()
+	const IS_CONTENT_PREVIEW = env.get('IS_CONTENT_PREVIEW').asBool()
 
-	return process.env.IS_CONTENT_PREVIEW && isProductSlugMatching
+	const isProductSlugMatching =
+		!productSlug || productSlug === PREVIEW_FROM_REPO
+
+	return IS_CONTENT_PREVIEW && isProductSlugMatching
 }
 
 /**
@@ -22,9 +27,13 @@ function isDeployPreview(productSlug) {
  * @returns {boolean}
  */
 function isVersionedDocsEnabled(productSlug) {
+	const ENABLE_VERSIONED_DOCS = env
+		.get('ENABLE_VERSIONED_DOCS')
+		.asString()
+
 	const enableVersionedDocs =
-		process.env.ENABLE_VERSIONED_DOCS &&
-		process.env.ENABLE_VERSIONED_DOCS !== 'false'
+		ENABLE_VERSIONED_DOCS && ENABLE_VERSIONED_DOCS !== 'false'
+
 	return enableVersionedDocs && !isDeployPreview(productSlug)
 }
 

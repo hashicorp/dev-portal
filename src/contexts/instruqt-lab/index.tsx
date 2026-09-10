@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import {
 	useState,
 	createContext,
@@ -28,7 +29,8 @@ function trackInstruqtError(
 	errorMessage: string,
 	context?: Record<string, unknown>,
 ) {
-	if (process.env.NODE_ENV === 'development') {
+	const NODE_ENV = env.get('NODE_ENV').asString()
+	if (NODE_ENV === 'development') {
 		if (_errorType.includes('warning') || _errorType.includes('storage')) {
 			console.warn(`[InstruqtContext] ${errorMessage}`, context)
 		} else {

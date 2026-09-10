@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
+
 interface GetCSSVariableFromDocumentOptions {
 	/**
 	 * Whether or not to attempt to coerce the value to an integer
@@ -31,7 +33,8 @@ export default function getCSSVariableFromDocument(
 	}
 
 	if (options.fallback && (value === '' || Number.isNaN(value))) {
-		if (process.env.NODE_ENV === 'development') {
+		const NODE_ENV = env.get('NODE_ENV').asString()
+		if (NODE_ENV === 'development') {
 			console.warn(
 				`Unable to read ${variableName}, falling back to static value.`
 			)

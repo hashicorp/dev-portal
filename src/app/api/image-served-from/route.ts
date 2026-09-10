@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { NextRequest } from 'next/server'
 
 interface ResponseBody {
@@ -10,7 +11,8 @@ interface ResponseBody {
 }
 
 export async function GET(request: NextRequest) {
-	if (process.env.HASHI_ENV !== 'unified-docs-sandbox') {
+	const HASHI_ENV = env.get('HASHI_ENV').asString()
+	if (HASHI_ENV !== 'unified-docs-sandbox') {
 		return Response.json({ error: 'Not found' }, { status: 404 })
 	}
 

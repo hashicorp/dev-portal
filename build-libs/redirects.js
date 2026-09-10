@@ -7,6 +7,7 @@
 
 const fs = require('fs')
 const path = require('path')
+const env = require('env-var')
 
 const { isDeployPreview } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
@@ -57,7 +58,8 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	/**
 	 * Note: These constants are declared for clarity in build context intent.
 	 */
-	const isDeveloperBuild = !process.env.IS_CONTENT_PREVIEW
+	const IS_CONTENT_PREVIEW = env.get('IS_CONTENT_PREVIEW').asBool()
+	const isDeveloperBuild = !IS_CONTENT_PREVIEW
 	const isLocalContentBuild = isDeployPreview(repoName)
 
 	/**
@@ -91,10 +93,8 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	 * The UDR docker image does not have access to the github token necessary to
 	 * fetch redirects from private repos so we return an empty array for those redirects
 	 */
-	if (
-		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
-		privateRepos.includes(repoName)
-	) {
+	const HASHI_ENV = env.get('HASHI_ENV').asString()
+	if (HASHI_ENV === 'unified-docs-sandbox' && privateRepos.includes(repoName)) {
 		return []
 	}
 
@@ -103,7 +103,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	 */
 	/** @type {string} */
 	let redirectsFileString
-	if (isDeveloperBuild || process.env.HASHI_ENV === 'unified-docs-sandbox') {
+	if (isDeveloperBuild || HASHI_ENV === 'unified-docs-sandbox') {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
 		// hvd-docs is not hosted on the content API, so we need to use main as the latest sha
 
@@ -158,7 +158,10 @@ async function buildProductRedirects() {
 	// Fetch author-oriented redirects from product repos,
 	// and merge those with dev-oriented redirects from
 	// within this repository
-	if (process.env.SKIP_BUILD_PRODUCT_REDIRECTS) {
+	const SKIP_BUILD_PRODUCT_REDIRECTS = env
+		.get('SKIP_BUILD_PRODUCT_REDIRECTS')
+		.asBool()
+	if (SKIP_BUILD_PRODUCT_REDIRECTS) {
 		return []
 	}
 
@@ -457,7 +460,9 @@ async function redirectsConfig() {
 	const { simpleRedirects, complexRedirects } =
 		splitRedirectsByType(allRedirects)
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
-	if (process.env.DEBUG_REDIRECTS) {
+
+	const DEBUG_REDIRECTS = env.get('DEBUG_REDIRECTS').asBool()
+	if (DEBUG_REDIRECTS) {
 		console.log(
 			'[DEBUG_REDIRECTS]',
 			JSON.stringify({
