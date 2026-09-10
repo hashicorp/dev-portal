@@ -4,7 +4,7 @@
 		"description": "Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. A HashiCorp certification communicates your proficiency and employers can quickly verify your results."
 	},
 	"announcement": {
-		"header": "TechXchange is Coming",
+		"heading": "TechXchange is Coming",
 		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
 		"cta": "Read more",
 		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
