@@ -10,6 +10,7 @@ import {
 	UseSearchBoxProps,
 } from 'react-instantsearch'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 
 import FilterInput from 'components/filter-input'
 import Dialog from 'components/dialog'
@@ -70,6 +71,7 @@ export default function TutorialLibraryView({
 						setQuery(value)
 						refine(value)
 					}}
+					IconComponent={IconSearch16}
 				/>
 				<MobileFiltersButton onClick={() => setShowMobileFilters(true)} />
 				<Dialog
