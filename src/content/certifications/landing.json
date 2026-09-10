@@ -1,18 +1,18 @@
 {
 	"hero": {
 		"title": "HashiCorp Certifications",
-		"description": "Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results."
+		"description": "Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. A HashiCorp certification communicates your proficiency and employers can quickly verify your results."
 	},
 	"announcement": {
-		"heading": "TechXchange is Coming",
-		"text": "Learn from certified instructors on how to boost your enterprise adoption of HashiCorp",
+		"header": "TechXchange is Coming",
+		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
 		"cta": "Read more",
-		"ctaLink": "https://developer.hashicorp.com"
+		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
 	},
 	"certificationPrograms": [
 		{
 			"product": "Terraform",
-			"containerDescription": "We offer Terraform certifications at three levels. Earn the Terraform Associate certification to validate your foundational Terraform knowledge and skills. Demonstrate your professional experience using Terraform with the Terraform Infrastructure Engineer certification, and prove your advanced production experience with the lab-based Terraform Authoring and Operations Advanced certification.",
+			"containerDescription": "We offer Terraform certifications at three levels. Validate foundational Terraform knowledge with Terraform Associate. Then, demonstrate professional and advanced experience with the Terraform Infrastructure Engineer and the lab-based Terraform Authoring and Operations Advanced certification.",
 			"certs": [
 				{ "id": "terraform-associate" },
 				{ "id": "terraform-advanced" }
@@ -20,7 +20,7 @@
 		},
 		{
 			"product": "Vault",
-			"containerDescription": "Earn an associate-level certification to validate your foundational Vault or Consul knowledge and skills. You can also demonstrate your product-ready Vault operational experience when you pass the Vault Operations Advanced exam.",
+			"containerDescription": "Earn an associate-level certification to validate foundational Vault knowledge and skills. Showcase your production-ready Vault operational experience when you pass the Vault Operations Advanced exam.",
 			"certs": [{ "id": "vault-associate" }, { "id": "vault-advanced" }]
 		}
 	]

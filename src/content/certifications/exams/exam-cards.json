@@ -21,8 +21,8 @@
 		"ctaLink": "/certifications/terraform-advanced",
 		"certDetails": [
 			"Product version tested: Terraform 1.6",
-			"Advanced, production-tested concepts and skills",
-			"Differentiate yourself as a seasoned Terraform infrastructure expert"
+			"Advanced production concepts and skills",
+			"Showcase your Terraform production-level expertise"
 		]
 	},
 	{
@@ -35,7 +35,7 @@
 		"certDetails": [
 			"Product version tested: Vault 1.19",
 			"Foundational Vault concepts and skills",
-			"Start your identity-based security journey with Vault"
+			"Start your security journey with Vault"
 		]
 	},
 	{
@@ -47,8 +47,8 @@
 		"ctaLink": "/certifications/vault-advanced",
 		"certDetails": [
 			"Product version tested: Vault 1.16",
-			"Advanced, production-tested concepts and skills",
-			"Differentiate yourself as a seasoned Vault security expert"
+			"Advanced production concepts and skills",
+			"Showcase your Vault production-level expertise"
 		]
 	},
 	{

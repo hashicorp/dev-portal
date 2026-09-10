@@ -7,11 +7,11 @@
 		"description": "Demonstrate your production-level Vault expertise in this intensive, lab-based exam.",
 		"leftCta": {
 			"text": "Register for the exam",
-			"link": "/certifications"
+			"link": "/certifications/signin"
 		},
 		"rightCta": {
 			"text": "Prepare for the exam",
-			"link": "/certifications"
+			"link": "/vault/tutorials/ops-pro-cert"
 		}
 	},
 	"announcement": {
@@ -25,7 +25,7 @@
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "You should take the Vault Operations Advanced exam if you are a Cloud Engineer with advanced, production-level Vault operations expertise. You will need to demonstrate your ability to deploy, configure, manage, and monitor HashiCorp Vault, and you must also be able to evaluate Vault Enterprise functionality and use cases."
+				"description": "You should take the Vault Operations Advanced exam if you are a Cloud Engineer with production-level Vault operations expertise. You will need to demonstrate your ability to deploy, configure, manage, and monitor HashiCorp Vault, and you must also be able to evaluate Vault Enterprise functionality and use cases."
 			},
 			"examDetails": {
 				"title": "Exam Details",
@@ -73,7 +73,7 @@
 		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate)."
 	},
 	"linkWithImage": {
-		"title": "Title - knowledge base for FAQs ",
+		"title": "Visit our knowledge base",
 		"description": "Review and follow the rules and requirements for taking exams before you register for an exam appointment. You are responsible for following the identification, system, and physical space requirements.",
 		"cta": "Go to knowledge base",
 		"ctaLink": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125"

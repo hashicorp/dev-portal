@@ -4,7 +4,7 @@
 		"product": "terraform-advanced",
 		"eyebrow": "Hashicorp Certified:",
 		"title": "Terraform Authoring and Operations Advanced",
-		"description": "Demonstrate your advanced, production-level Terraform expertise in this intensive, lab-based exam. Choose either the AWS or Azure version of the exam to earn the same credential.",
+		"description": "Demonstrate your production-level Terraform expertise in this intensive, lab-based exam. Choose either the AWS or Azure version of the exam to earn the same credential.",
 		"leftCta": {
 			"text": "Register for the exam",
 			"link": "/certifications/signin"
@@ -25,7 +25,7 @@
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "Earn the same certification using either cloud provider, AWS or Azure. You should take the Terraform Authoring & Operations Advanced exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. Demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
+				"description": "You should take the Terraform Authoring & Operations Advanced exam if you have production-tested Terraform expertise in both configuration authoring and Terraform workflows. Demonstrate your skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows. Earn the same certification using either the AWS or Azure provider with Terraform. "
 			},
 			"examDetails": {
 				"title": "Exam Details",
@@ -56,7 +56,6 @@
 				"prereqs": [
 					"Terraform Associate certification (strongly recommend, or equivalent experience required)",
 					"Linux skills, such as the ability to list and edit files via command terminal",
-					"Linux skills, such as the ability to list and edit files via command terminal",
 					"Experience using cloud credentials",
 					"Familiarity with YAML, JSON, HCL, and CSV formats",
 					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
@@ -74,7 +73,7 @@
 		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate)."
 	},
 	"linkWithImage": {
-		"title": "Title - knowledge base for FAQs ",
+		"title": "Visit our knowledge base",
 		"description": "Review and follow the rules and requirements for taking exams before you register for an exam appointment. You are responsible for following the identification, system, and physical space requirements.",
 		"cta": "Go to knowledge base",
 		"ctaLink": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125"

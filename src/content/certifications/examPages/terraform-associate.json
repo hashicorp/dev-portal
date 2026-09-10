@@ -4,14 +4,14 @@
 		"product": "terraform-associate",
 		"eyebrow": "Hashicorp Certified:",
 		"title": "Terraform Associate",
-		"description": "Current Exam Description: Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
+		"description": "Prove your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
 		"leftCta": {
 			"text": "Register for the exam",
-			"link": "/certifications"
+			"link": "/certifications/signin"
 		},
 		"rightCta": {
 			"text": "Prepare for the exam",
-			"link": "/certifications"
+			"link": "/terraform/tutorials/certification-004"
 		}
 	},
 	"announcement": {
@@ -24,7 +24,7 @@
 		"product": "terraform",
 		"data": {
 			"whoShouldTakeExam": {
-				"title": "Who should take this exam!",
+				"title": "Who should take this exam",
 				"description": "You should take the Terraform Associate certification exam if you are a Cloud Engineer with foundational Terraform knowledge and skills, who can identify Terraform Enterprise features and distinguish them from Community edition."
 			},
 			"examDetails": {
@@ -44,10 +44,6 @@
 					{
 						"name": "Price",
 						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
-					},
-					{
-						"name": "Keyboard",
-						"value": "US QWERTY only (contact certifications@hashicorp.com for other languages or layouts)"
 					}
 				]
 			},
@@ -69,7 +65,7 @@
 		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate)."
 	},
 	"linkWithImage": {
-		"title": "Title - knowledge base for FAQs ",
+		"title": "Visit our knowledge base",
 		"description": "Review and follow the rules and requirements for taking exams before you register for an exam appointment. You are responsible for following the identification, system, and physical space requirements.",
 		"cta": "Go to knowledge base",
 		"ctaLink": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125"
