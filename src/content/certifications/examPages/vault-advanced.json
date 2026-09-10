@@ -32,22 +32,22 @@
 				"details": [
 					{
 						"name": "Assessment Type",
-						"value": "Multiple choice"
+						"value": "Lab-based scenarios and multiple choice"
 					},
 					{ "name": "Format", "value": "Online Proctored" },
 					{ "name": "Credential Expiration", "value": "2 years" },
 					{ "name": "Language", "value": "English" },
 					{
 						"name": "Duration",
-						"value": "1 hour"
+						"value": "4 hours with one 15-min break"
 					},
 					{
 						"name": "Price",
-						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
+						"value": "$295 USD, plus locally applicable taxes and fees. Free retake included."
 					},
 					{
 						"name": "Keyboard",
-						"value": "US QWERTY only (contact certifications@hashicorp.com for other languages or layouts)"
+						"value": "US QWERTY only"
 					}
 				]
 			},

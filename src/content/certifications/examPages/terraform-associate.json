@@ -16,16 +16,16 @@
 	},
 	"announcement": {
 		"header": "TechXchange is Coming",
-		"text": "Learn from certified instructors on how to boost your enterprise adoption of HashiCorp",
+		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
 		"cta": "Read more",
-		"ctaLink": "/certifications"
+		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
 	},
 	"certificationDetails": {
 		"product": "terraform",
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam!",
-				"description": "You should take the Terraform Authoring and Operations Professional exam if you have advanced production-level Terraform expertise in both configuration authoring and Terraform workflows. You will need to demonstrate your professional-level skills implementing and authoring Terraform modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
+				"description": "You should take the Terraform Associate certification exam if you are a Cloud Engineer with foundational Terraform knowledge and skills, who can identify Terraform Enterprise features and distinguish them from Community edition."
 			},
 			"examDetails": {
 				"title": "Exam Details",
@@ -54,13 +54,8 @@
 			"prerequisites": {
 				"title": "Prerequisites",
 				"prereqs": [
-					"Terraform Associate certification (strongly recommend, or equivalent experience required)",
-					"Linux skills, such as the ability to list and edit files via command terminal",
-					"Linux skills, such as the ability to list and edit files via command terminal",
-					"Experience using cloud credentials",
-					"Familiarity with YAML, JSON, HCL, and CSV formats",
-					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
-					"Advanced configuration authoring and a deep understanding of Terraform workflows"
+					"Basic terminal skills",
+					"Understanding of on-premises and cloud architecture"
 				],
 				"bottomDescription": "While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
 			}
@@ -75,9 +70,9 @@
 	},
 	"linkWithImage": {
 		"title": "Title - knowledge base for FAQs ",
-		"description": "Donec ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nullam id dolor id nibh ultricies",
+		"description": "Review and follow the rules and requirements for taking exams before you register for an exam appointment. You are responsible for following the identification, system, and physical space requirements.",
 		"cta": "Go to knowledge base",
-		"ctaLink": "/certifications"
+		"ctaLink": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125"
 	},
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
@@ -87,7 +82,7 @@
 				"id": "terraform-advanced"
 			},
 			{
-				"id": "ibm-example"
+				"id": "vault-associate"
 			}
 		]
 	}
