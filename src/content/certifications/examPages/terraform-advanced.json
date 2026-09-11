@@ -61,7 +61,7 @@
 					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
 					"Advanced configuration authoring and a deep understanding of Terraform workflows"
 				],
-				"bottomDescription": "Experience with Terraform in a production setting is required."
+				"bottomDescription": "Experience with Terraform in a production setting is necessary."
 			}
 		}
 	},

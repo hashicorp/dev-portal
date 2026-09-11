@@ -61,7 +61,7 @@
 					"Information security fundamentals such as network security and RBAC",
 					"Understand the concepts and functionality of infrastructure running in containers including starting and stopping services, and reading logs"
 				],
-				"bottomDescription": "Experience with Vault in a production setting is required."
+				"bottomDescription": "Experience with Vault in a production setting is necessary."
 			}
 		}
 	},
