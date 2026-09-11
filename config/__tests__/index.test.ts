@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-const path = require('path')
-const { loadHashiConfigForEnvironment } = require('../index')
+import path from 'path'
 
 const fixtureDir = path.join(__dirname, '__fixtures__', 'config-loading')
 
@@ -18,6 +17,8 @@ describe('loadHashiConfigByEnvironment', () => {
 	})
 
 	test('loads configuration and handles extending', async () => {
+		vi.resetModules()
+		const { loadHashiConfigForEnvironment } = await import('../index')
 		vi.spyOn(process, 'cwd').mockReturnValue(fixtureDir)
 		expect(await loadHashiConfigForEnvironment()).toMatchInlineSnapshot(`
 			{
