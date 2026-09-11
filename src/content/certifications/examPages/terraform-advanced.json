@@ -46,6 +46,10 @@
 						"value": "$295 USD, plus locally applicable taxes and fees. Free retake included."
 					},
 					{
+						"name": "Version tested",
+						"value": "Terraform 1.12"
+					},
+					{
 						"name": "Keyboard",
 						"value": "US QWERTY only"
 					}
