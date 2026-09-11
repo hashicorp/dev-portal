@@ -3,58 +3,71 @@
 		"id": "terraform-associate",
 		"product": "terraform",
 		"title": "Terraform Associate",
-		"desc": "Brief description to gives the user enough context to take the next step with confidence",
+		"desc": "Prove your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
 		"starCount": 1,
 		"ctaLink": "/certifications/terraform-associate",
 		"certDetails": [
 			"Product version tested: Terraform 1.12",
-			"Terraform basic concepts and skills",
-			"Terraform Associate value proposition"
+			"Foundational Terraform knowledge and skills",
+			"Start your infrastructure journey with Terraform"
+		]
+	},
+	{
+		"id": "terraform-professional",
+		"product": "terraform",
+		"title": "Terraform Infrastructure Engineer Professional",
+		"desc": "Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam.",
+		"starCount": 2,
+		"ctaLink": "/certifications/terraform-infrastructure-engineer-professional",
+		"certDetails": [
+			"Product version tested: Terraform 1.15",
+			"Advanced production concepts and skills",
+			"Demonstrate your mid-career Terraform expertise"
 		]
 	},
 	{
 		"id": "terraform-advanced",
 		"product": "terraform",
-		"title": "Terraform Authoring and Operations Professional",
-		"desc": "Brief description to gives the user enough context to take the next step with confidence",
+		"title": "Terraform Authoring and Operations Advanced",
+		"desc": "Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam.",
 		"starCount": 3,
 		"ctaLink": "/certifications/terraform-advanced",
 		"certDetails": [
-			"Product version tested: Terraform 1.12",
-			"Terraform advanced concepts and skills",
-			"Terraform Professional value proposition"
+			"Product version tested: Terraform 1.6",
+			"Advanced production concepts and skills",
+			"Showcase your Terraform production-level expertise"
 		]
 	},
 	{
 		"id": "vault-associate",
 		"product": "vault",
 		"title": "Vault Associate",
-		"desc": "Brief description to gives the user enough context to take the next step with confidence",
+		"desc": "Prove your foundational Vault knowledge and skills in an hour-long multiple-choice exam.",
 		"starCount": 1,
 		"ctaLink": "/certifications/vault-associate",
 		"certDetails": [
-			"Product version tested: Vault 1.12",
-			"Vault basic concepts and skills",
-			"Vault Associate value proposition"
+			"Product version tested: Vault 1.19",
+			"Foundational Vault concepts and skills",
+			"Start your security journey with Vault"
 		]
 	},
 	{
 		"id": "vault-advanced",
 		"product": "vault",
-		"title": "Vault Operations Professional",
-		"desc": "Brief description to gives the user enough context to take the next step with confidence",
+		"title": "Vault Operations Advanced",
+		"desc": "Demonstrate your advanced, production-level Vault expertise in an intensive, lab-based exam.",
 		"starCount": 3,
 		"ctaLink": "/certifications/vault-advanced",
 		"certDetails": [
-			"Product version tested: Vault 1.12",
-			"Vault advanced concepts and skills",
-			"Vault Professional value proposition"
+			"Product version tested: Vault 1.16",
+			"Advanced production concepts and skills",
+			"Showcase your Vault production-level expertise"
 		]
 	},
 	{
-		"id": "ibm-example",
+		"id": "ibm-guardian",
 		"product": "ibm",
-		"title": "IBM Hybrid Cloud Architect Professional Certificate",
-		"ctaLink": "https://developer.ibm.com/"
+		"title": "IBM Certified Guardium Data Protection v12.x Administrator - Professional",
+		"ctaLink": "https://www.ibm.com/training/certification/ibm-certified-guardium-data-protection-v12x-administrator-professional-C9008300"
 	}
 ]

@@ -2,30 +2,30 @@
 	"title": "Vault Associate",
 	"hero": {
 		"product": "vault-associate",
-		"eyebrow": "Hashicorp Certified:",
-		"title": "Vault Associate",
-		"description": "Current Exam Description: Demonstrate your advanced, production-level Vault expertise in an intensive, lab-based exam. Feel free to update the description if there's a new one",
+		"eyebrow": "HashiCorp Certified:",
+		"title": "Vault Associate (003)",
+		"description": "Prove your foundational Vault knowledge and skills in an hour-long multiple-choice exam.",
 		"leftCta": {
 			"text": "Register for the exam",
-			"link": "/certifications"
+			"link": "/certifications/signin"
 		},
 		"rightCta": {
 			"text": "Prepare for the exam",
-			"link": "/certifications"
+			"link": "/vault/tutorials/associate-cert-003"
 		}
 	},
 	"announcement": {
 		"header": "TechXchange is Coming",
-		"text": "Learn from certified instructors on how to boost your enterprise adoption of HashiCorp",
+		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
 		"cta": "Read more",
-		"ctaLink": "/certifications"
+		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
 	},
 	"certificationDetails": {
 		"product": "vault",
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "You should take the Vault Authoring and Operations Associate exam if you have advanced production-level Vault expertise in both configuration authoring and Vault workflows. You will need to demonstrate your professional-level skills implementing and authoring Vault modules, developing dynamic HCL configuration, and establishing scalable, collaborative workflows."
+				"description": "You should take the Vault Associate certification exam if you are a Cloud Engineer with foundational Vault knowledge and skills. You may specialize in security, development, or operations."
 			},
 			"examDetails": {
 				"title": "Exam Details",
@@ -42,27 +42,25 @@
 						"value": "1 hour"
 					},
 					{
-						"name": "Price",
-						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
+						"name": "Version tested",
+						"value": "Vault 1.19"
 					},
 					{
-						"name": "Keyboard",
-						"value": "US QWERTY only (contact certifications@hashicorp.com for other languages or layouts)"
+						"name": "Price",
+						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
 					}
 				]
 			},
 			"prerequisites": {
 				"title": "Prerequisites",
 				"prereqs": [
-					"Vault Associate certification (strongly recommend, or equivalent experience required)",
-					"Linux skills, such as the ability to list and edit files via command terminal",
-					"Linux skills, such as the ability to list and edit files via command terminal",
-					"Experience using cloud credentials",
-					"Familiarity with YAML, JSON, HCL, and CSV formats",
-					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
-					"Advanced configuration authoring and a deep understanding of Vault workflows"
+					"Basic terminal skills",
+					"Understanding of on-premises/cloud architecture",
+					"Understanding of security",
+					"While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
+
 				],
-				"bottomDescription": "While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
+				"bottomDescription": ""
 			}
 		}
 	},
@@ -74,14 +72,14 @@
 		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate)."
 	},
 	"linkWithImage": {
-		"title": "Title - knowledge base for FAQs ",
-		"description": "Donec ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Nullam id dolor id nibh ultricies",
+		"title": "Visit our knowledge base",
+		"description": "Review and follow the rules and requirements for taking exams before you register for an exam appointment. You are responsible for following the identification, system, and physical space requirements.",
 		"cta": "Go to knowledge base",
-		"ctaLink": "/certifications"
+		"ctaLink": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125"
 	},
 	"relatedCertsFooter": {
 		"title": "Related Certifications",
-		"description": "Body copy, pharetra pellentesque sed elementum risus accumsan et. Tristique tortor, morbi vivamus nibh mollis. Ultrices aliquet sit nibh consequat quam vestibulum ipsum",
+		"description": "Expand your expertise with certifications that build on related skills and technologies. Explore the next step in your learning journey.",
 		"certs": [
 			{
 				"id": "vault-advanced"

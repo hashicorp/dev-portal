@@ -1,17 +1,17 @@
 {
-	"title": "Terraform Associate",
+	"title": "Terraform Infrastructure Engineer Professional",
 	"hero": {
-		"product": "terraform-associate",
+		"product": "terraform-professional",
 		"eyebrow": "HashiCorp Certified:",
-		"title": "Terraform Associate (004)",
-		"description": "Prove your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
+		"title": "Terraform Infrastructure Engineer Professional (002)",
+		"description": "Demonstrate your experience building and automating scalable infrastructure in production environments with Terraform in this multiple-choice exam.",
 		"leftCta": {
 			"text": "Register for the exam",
 			"link": "/certifications/signin"
 		},
 		"rightCta": {
 			"text": "Prepare for the exam",
-			"link": "/terraform/tutorials/certification-004"
+			"link": "/terraform/tutorials/pro-cert"
 		}
 	},
 	"announcement": {
@@ -25,7 +25,7 @@
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "You should take the Terraform Associate certification exam if you are a Cloud Engineer with foundational Terraform knowledge and skills, who can identify Terraform Enterprise features and distinguish them from Community edition."
+				"description": "You build, automate, secure, and maintain scalable infrastructure using Terraform across cloud, hybrid, and enterprise environments. You implement shared modules, manage remote state, integrate Terraform into CI/CD workflows, troubleshoot infrastructure issues, enforce governance and policy standards, and collaborate across development, operations, networking, and security teams. "
 			},
 			"examDetails": {
 				"title": "Exam Details",
@@ -39,26 +39,24 @@
 					{ "name": "Language", "value": "English" },
 					{
 						"name": "Duration",
-						"value": "1 hour"
-					},
-					{
-						"name": "Version tested",
-						"value": "Terraform 1.12"
+						"value": "90 minutes"
 					},
 					{
 						"name": "Price",
-						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
+						"value": "$200 USD, plus locally applicable taxes and fees. Free retake included"
+					},
+					{
+						"name": "Version tested",
+						"value": "Terraform 1.15"
 					}
 				]
 			},
 			"prerequisites": {
 				"title": "Prerequisites",
 				"prereqs": [
-					"Basic terminal skills",
-					"Understanding of on-premises and cloud architecture",
-					"While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
-				],
-				"bottomDescription": ""
+					"Terraform Associate certification (strongly recommend, or equivalent experience required)",
+					"Experience with Terraform in a production setting is necessary."
+				]
 			}
 		}
 	},
@@ -80,10 +78,10 @@
 		"description": "Expand your expertise with certifications that build on related skills and technologies. Explore the next step in your learning journey.",
 		"certs": [
 			{
-				"id": "terraform-advanced"
+				"id": "terraform-associate"
 			},
 			{
-				"id": "vault-associate"
+				"id": "terraform-advanced"
 			}
 		]
 	}
