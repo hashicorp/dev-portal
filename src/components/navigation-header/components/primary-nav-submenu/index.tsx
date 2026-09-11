@@ -12,7 +12,7 @@ import s from './primary-nav-submenu.module.css'
 export interface PrimaryNavSubmenuProps {
 	ariaLabel: string
 	navItem: {
-		iconColorTheme: ProductSlug
+		iconColorTheme?: ProductSlug
 		items: NavigationHeaderItem[]
 		label: string
 	}

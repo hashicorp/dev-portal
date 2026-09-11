@@ -11,7 +11,7 @@ import s from './accordion.module.css'
 /**
  * Renders a group of AccordionDisclosure items.
  */
-function Accordion({ className, items }: AccordionProps) {
+function Accordion({ className, items, disclosureClassName }: AccordionProps) {
 	const itemsCount = items.length
 	return (
 		<div className={classNames(s.root, className)}>
@@ -20,6 +20,7 @@ function Accordion({ className, items }: AccordionProps) {
 				return (
 					<AccordionDisclosure
 						key={title}
+						className={disclosureClassName}
 						title={title}
 						initialOpen={initialOpen}
 						groupData={{

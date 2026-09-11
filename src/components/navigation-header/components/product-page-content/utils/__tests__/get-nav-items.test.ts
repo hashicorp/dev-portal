@@ -6,6 +6,9 @@
 import { getLeftSideNavItems, getRightSideNavItems } from '../get-nav-items'
 import { ProductData } from 'types/products'
 
+// Might want to update tests to try Certifications subnav redirects
+const isCertifications = false
+
 const testNomadData = {
 	slug: 'nomad',
 	rootDocsPaths: [
@@ -169,7 +172,8 @@ const testConsulData = {
 
 describe('getLeftSideNavItems', () => {
 	it('for most products, returns the standard set of items', () => {
-		expect(getLeftSideNavItems(testNomadData)).toMatchInlineSnapshot(`
+		expect(getLeftSideNavItems(testNomadData, isCertifications))
+			.toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Install",
@@ -200,7 +204,8 @@ describe('getLeftSideNavItems', () => {
 	})
 
 	it('for Terraform, returns the standard set of items with a Documentation dropdown', () => {
-		expect(getLeftSideNavItems(testTerraformData)).toMatchInlineSnapshot(`
+		expect(getLeftSideNavItems(testTerraformData, isCertifications))
+			.toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Install",
@@ -275,7 +280,8 @@ describe('getLeftSideNavItems', () => {
 	})
 
 	it('for HCP, returns documentation nav link without dropdown', () => {
-		expect(getLeftSideNavItems(testHCPData)).toMatchInlineSnapshot(`
+		expect(getLeftSideNavItems(testHCPData, isCertifications))
+			.toMatchInlineSnapshot(`
 			[
 			  {
 			    "label": "Tutorials",
@@ -292,40 +298,44 @@ describe('getLeftSideNavItems', () => {
 
 describe('getRightSideNavItems', () => {
 	it('for most products, returns no items', () => {
-		expect(getRightSideNavItems(testNomadData)).toMatchInlineSnapshot(`[]`)
+		expect(
+			getRightSideNavItems(testNomadData, isCertifications),
+		).toMatchInlineSnapshot(`[]`)
 	})
 
 	it('for Terraform, returns a link to the Registry and a Try Cloud item', () => {
-		expect(getRightSideNavItems(testTerraformData)).toMatchInlineSnapshot(`
-			[
-			  {
-			    "label": "Registry",
-			    "opensInNewTab": true,
-			    "url": "https://registry.terraform.io/",
-			  },
-			  {
-			    "isPrimary": true,
-			    "label": "Try HCP undefined",
-			    "opensInNewTab": true,
-			    "url": "https://app.terraform.io/public/signup/account",
-			  },
-			]
-		`)
+		const result = getRightSideNavItems(testTerraformData, isCertifications)
+		expect(result).toHaveLength(2)
+		expect(result[0]).toMatchObject({
+			label: 'Registry',
+			opensInNewTab: true,
+			url: 'https://registry.terraform.io/',
+		})
+
+		// @ts-expect-error icon is always returned in src/components/navigation-header/components/product-page-content/utils/get-nav-items.tsx
+		expect(result[0].icon).toBeDefined()
+		expect(result[1]).toMatchObject({
+			isPrimary: true,
+			label: 'Try HCP undefined',
+			opensInNewTab: true,
+			url: 'https://app.terraform.io/public/signup/account',
+		})
 	})
 
 	it('for HCP, returns a Try Cloud item', () => {
-		expect(getRightSideNavItems(testHCPData)).toMatchInlineSnapshot(`
-			[
-			  {
-			    "isPrimary": true,
-			    "label": "Try Cloud",
-			    "opensInNewTab": true,
-			    "url": "https://portal.cloud.hashicorp.com/sign-up",
-			  },
-			]
-		`)
+		const result = getRightSideNavItems(testHCPData, isCertifications)
+		expect(result).toHaveLength(1)
+		expect(result[0]).toMatchObject({
+			isPrimary: true,
+			label: 'Try Cloud',
+			opensInNewTab: true,
+			url: 'https://portal.cloud.hashicorp.com/sign-up',
+		})
+
+		// @ts-expect-error icon is always returned
+		expect(result[0].icon).toBeDefined()
 	})
 	it('for Consul, does not return a Try HCP Consul item', () => {
-		expect(getRightSideNavItems(testConsulData)).toMatchInlineSnapshot(`[]`)
+		expect(getRightSideNavItems(testConsulData, isCertifications)).toMatchInlineSnapshot(`[]`)
 	})
 })

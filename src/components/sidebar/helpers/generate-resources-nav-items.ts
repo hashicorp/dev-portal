@@ -4,7 +4,6 @@
  */
 
 import { ProductSlug } from 'types/products'
-import { certificationProgramSlugMap } from 'views/certifications/content/utils/program-slug-map'
 import {
 	VALID_EDITION_SLUGS_FOR_FILTERING,
 	VALID_PRODUCT_SLUGS_FOR_FILTERING,
@@ -72,7 +71,7 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: {
  * nav items will be appended to the Resources section.
  */
 function generateAdditionalResources(
-	productSlug?: ProductSlug
+	productSlug?: ProductSlug,
 ): ResourceNavItem[] {
 	if (productSlug) {
 		try {
@@ -117,14 +116,14 @@ function getTutorialLibraryUrl(productSlug?: ProductSlug): string {
  */
 function getCertificationsLink(productSlug?: ProductSlug): ResourceNavLink[] {
 	// If this product does not have a certifications link, return an empty array
-	const programSlug = certificationProgramSlugMap[productSlug]
-	if (!programSlug) {
+	const products = ['terraform', 'vault']
+	if (!productSlug || !products.includes(productSlug)) {
 		return []
 	}
 	// If this product does have a certifications link, return a single-item array
 	const link = {
 		title: 'Certifications',
-		href: `/certifications/${programSlug}`,
+		href: `/certifications`,
 	}
 	return [link]
 }
@@ -134,7 +133,7 @@ function getCertificationsLink(productSlug?: ProductSlug): ResourceNavLink[] {
  * Optionally accepts a Product slug for customization of links.
  */
 function generateResourcesNavItems(
-	productSlug?: ProductSlug
+	productSlug?: ProductSlug,
 ): ResourceNavItem[] {
 	const additionalResources = generateAdditionalResources(productSlug)
 	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
@@ -158,7 +157,7 @@ function generateResourcesNavItems(
 						title: 'Sandbox',
 						href: `/${productSlug}/sandbox`,
 					},
-			  ]
+				]
 			: []),
 		{
 			title: 'Community Forum',
@@ -178,7 +177,7 @@ function generateResourcesNavItems(
 							? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
 							: DEFAULT_GITHUB_LINK,
 					},
-			  ]
+				]
 			: []),
 		...additionalResources,
 	]
