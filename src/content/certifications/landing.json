@@ -15,7 +15,7 @@
 			"containerDescription": "We offer Terraform certifications at three levels. Validate foundational Terraform knowledge with Terraform Associate. Then, demonstrate professional and advanced experience with the Terraform Infrastructure Engineer and the lab-based Terraform Authoring and Operations Advanced certification.",
 			"certs": [
 				{ "id": "terraform-associate" },
-				{ "id": "terraform-infrastructure-engineer-professional" },
+				{ "id": "terraform-professional" },
 				{ "id": "terraform-advanced" }
 			]
 		},
