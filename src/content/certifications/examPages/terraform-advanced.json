@@ -47,7 +47,7 @@
 					},
 					{
 						"name": "Version tested",
-						"value": "Terraform 1.12"
+						"value": "Terraform 1.6"
 					},
 					{
 						"name": "Keyboard",

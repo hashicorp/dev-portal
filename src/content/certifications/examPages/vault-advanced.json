@@ -46,6 +46,10 @@
 						"value": "$295 USD, plus locally applicable taxes and fees. Free retake included."
 					},
 					{
+						"name": "Version tested",
+						"value": "Vault 1.16"
+					},
+					{
 						"name": "Keyboard",
 						"value": "US QWERTY only"
 					}

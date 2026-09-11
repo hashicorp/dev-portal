@@ -42,6 +42,10 @@
 						"value": "1 hour"
 					},
 					{
+						"name": "Version tested",
+						"value": "Vault 1.19"
+					},
+					{
 						"name": "Price",
 						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
 					}
