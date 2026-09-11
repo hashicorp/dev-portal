@@ -4,13 +4,8 @@
  */
 
 import { isRestrictedDocsPath } from 'lib/is-restricted-docs-path'
+import { ContentClient } from 'lib/content-client/content-client'
 import { makeSitemapField } from './helpers'
-
-const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
-	? new Headers({
-			'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-		})
-	: new Headers()
 
 export async function allDocsFields(config: typeof __config) {
 	const contentAPIFilter = config.flags.unified_docs_migrated_repos.map(
@@ -28,9 +23,10 @@ export async function allDocsFields(config: typeof __config) {
 		return `products=${repo}`
 	})
 	const UDRFilterString = UDRFilter.join('&')
-	const getUDRDocsPaths = await fetch(
-		`${process.env.UNIFIED_DOCS_API}/api/all-docs-paths?${UDRFilterString}`,
-		{ headers },
+	const getUDRDocsPaths = await ContentClient(
+		`api/all-docs-paths?${UDRFilterString}`,
+		true,
+		false
 	)
 	const { result: udrDocsResult } = await getUDRDocsPaths.json()
 

@@ -4,7 +4,7 @@
  */
 
 import { GetStaticPaths, GetStaticProps, GetStaticPathsResult } from 'next'
-import { ContentApiError } from './content-api'
+import { ContentApiError } from './../../../lib/content-client/content-client'
 import FileSystemLoader from './file-system'
 import RemoteContentLoader from './remote-content'
 import { DataLoader, RemarkPlugins } from './types'
@@ -43,7 +43,7 @@ export function getStaticGenerationFunctions(
 				 * Defaults to "content/partials". */
 				localPartialsDir?: string
 		  } & BaseOpts &
-				Partial<ConstructorParameters<typeof FileSystemLoader>[0]>)
+				Partial<ConstructorParameters<typeof FileSystemLoader>[0]>),
 ): {
 	getStaticPaths: GetStaticPaths
 	getStaticProps: GetStaticProps

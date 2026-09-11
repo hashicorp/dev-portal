@@ -3,24 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
-export class ContentApiError extends Error {
-	name = 'ContentApiError' as const
-	constructor(
-		message: string,
-		public status: number,
-		public resource: 'nav-data' | 'doc' | 'version-metadata',
-		public resource_url: string,
-	) {
-		super(message)
-	}
-}
-
-const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
-	? new Headers({
-			'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-		})
-	: new Headers()
+import { ContentClient } from 'lib/content-client/content-client'
 
 /**
  * Retries an async operation with exponential backoff for transient 404 errors.
@@ -66,20 +49,9 @@ export async function fetchNavData(
 	version: string, //: string // v0.5.x
 ) {
 	return retryOn404(async () => {
-		const contentApiBaseUrl = getContentApiBaseUrl(product)
 		const fullPath = `nav-data/${version}/${basePath}`
-		const url = `${contentApiBaseUrl}/api/content/${product}/${fullPath}`
-
-		const response = await fetch(url, { headers })
-
-		if (response.status !== 200) {
-			throw new ContentApiError(
-				`Failed to fetch: ${url}`,
-				response.status,
-				'nav-data',
-				url,
-			)
-		}
+		const url = `api/content/${product}/${fullPath}`
+		const response = await ContentClient(url, true, true, product, 'nav-data')
 
 		const { result } = await response.json()
 		return result
@@ -88,18 +60,8 @@ export async function fetchNavData(
 
 export async function fetchDocument(product: string, fullPath: string) {
 	return retryOn404(async () => {
-		const contentApiBaseUrl = getContentApiBaseUrl(product)
-		const url = `${contentApiBaseUrl}/api/content/${product}/${fullPath}`
-		const response = await fetch(url, { headers })
-
-		if (response.status !== 200) {
-			throw new ContentApiError(
-				`Failed to fetch: ${url}`,
-				response.status,
-				'doc',
-				url,
-			)
-		}
+		const url = `api/content/${product}/${fullPath}`
+		const response = await ContentClient(url, true, true, product, 'doc')
 
 		const { result } = await response.json()
 		const docHeaders = Object.fromEntries(response.headers)
@@ -108,18 +70,14 @@ export async function fetchDocument(product: string, fullPath: string) {
 }
 
 export async function fetchVersionMetadataList(product: string) {
-	const contentApiBaseUrl = getContentApiBaseUrl(product)
-	const url = `${contentApiBaseUrl}/api/content/${product}/version-metadata?partial=true`
-	const response = await fetch(url, { headers })
-
-	if (response.status !== 200) {
-		throw new ContentApiError(
-			`Failed to fetch: ${url}`,
-			response.status,
-			'version-metadata',
-			url,
-		)
-	}
+	const url = `api/content/${product}/version-metadata?partial=true`
+	const response = await ContentClient(
+		url,
+		true,
+		true,
+		product,
+		'version-metadata',
+	)
 
 	const { result } = await response.json()
 	return result
