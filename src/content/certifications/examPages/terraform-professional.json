@@ -56,8 +56,8 @@
 				"prereqs": [
 					"Terraform Associate certification (strongly recommend, or equivalent experience required)",
 					"Experience with Terraform in a production setting is necessary."
-				],
-				"bottomDescription": ""
+				]
+			}
 		}
 	},
 	"objectives": {
