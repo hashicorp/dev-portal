@@ -213,7 +213,7 @@ export const getRightSideNavItems = (
 	/**
 	 * For Terraform, add a "Registry" item
 	 */
-	if (currentProduct.slug === 'terraform') {
+	if (currentProduct?.slug === 'terraform') {
 		items.push({
 			label: 'Registry',
 			url: 'https://registry.terraform.io/',
@@ -225,7 +225,7 @@ export const getRightSideNavItems = (
 	/**
 	 * For cloud products, add a "Try Cloud" item
 	 */
-	if (TRY_CLOUD_ITEM_PRODUCT_SLUGS.includes(currentProduct.slug)) {
+	if (TRY_CLOUD_ITEM_PRODUCT_SLUGS.includes(currentProduct?.slug)) {
 		const label =
 			currentProduct.slug === 'hcp'
 				? 'Try Cloud'

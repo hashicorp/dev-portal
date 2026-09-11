@@ -15,12 +15,12 @@ import { getRightSideNavItems, NavItem, getLeftSideNavItems } from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
 import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
-	const router = useRouter()
-	const isCertificationsRoute = router.route.startsWith('/certifications')
+	const pathname = usePathname()
+	const isCertificationsRoute = pathname.startsWith('/certifications')
 
 	const leftSideNavItems = getLeftSideNavItems(
 		currentProduct,
@@ -28,7 +28,7 @@ const ProductPageHeaderContent = () => {
 	)
 	const rightSideNavItems = getRightSideNavItems(
 		currentProduct,
-		isCertificationsRoute,
+		isCertificationsRoute && !pathname.includes('signin'), // this makes it so the register for exam button doesn't render on signin
 	)
 
 	// Check if the current product has sandbox support
