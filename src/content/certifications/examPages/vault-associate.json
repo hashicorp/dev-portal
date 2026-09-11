@@ -2,8 +2,8 @@
 	"title": "Vault Associate",
 	"hero": {
 		"product": "vault-associate",
-		"eyebrow": "Hashicorp Certified:",
-		"title": "Vault Associate",
+		"eyebrow": "HashiCorp Certified:",
+		"title": "Vault Associate (003)",
 		"description": "Prove your foundational Vault knowledge and skills in an hour-long multiple-choice exam.",
 		"leftCta": {
 			"text": "Register for the exam",
@@ -56,9 +56,11 @@
 				"prereqs": [
 					"Basic terminal skills",
 					"Understanding of on-premises/cloud architecture",
-					"Understanding of security"
+					"Understanding of security",
+					"While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
+
 				],
-				"bottomDescription": "While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
+				"bottomDescription": ""
 			}
 		}
 	},

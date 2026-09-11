@@ -2,8 +2,8 @@
 	"title": "Terraform Associate",
 	"hero": {
 		"product": "terraform-associate",
-		"eyebrow": "Hashicorp Certified:",
-		"title": "Terraform Associate",
+		"eyebrow": "HashiCorp Certified:",
+		"title": "Terraform Associate (004)",
 		"description": "Prove your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
 		"leftCta": {
 			"text": "Register for the exam",
@@ -55,9 +55,10 @@
 				"title": "Prerequisites",
 				"prereqs": [
 					"Basic terminal skills",
-					"Understanding of on-premises and cloud architecture"
+					"Understanding of on-premises and cloud architecture",
+					"While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
 				],
-				"bottomDescription": "While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup."
+				"bottomDescription": ""
 			}
 		}
 	},

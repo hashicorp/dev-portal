@@ -2,7 +2,7 @@
 	"title": "Terraform Authoring and Operations Advanced",
 	"hero": {
 		"product": "terraform-advanced",
-		"eyebrow": "Hashicorp Certified:",
+		"eyebrow": "HashiCorp Certified:",
 		"title": "Terraform Authoring and Operations Advanced",
 		"description": "Demonstrate your production-level Terraform expertise in this intensive, lab-based exam. Choose either the AWS or Azure version of the exam to earn the same credential.",
 		"leftCta": {
@@ -43,7 +43,7 @@
 					},
 					{
 						"name": "Price",
-						"value": "$295 USD, plus locally applicable taxes and fees. Free retake included."
+						"value": "$295 USD, plus locally applicable taxes and fees. Free retake included"
 					},
 					{
 						"name": "Version tested",
@@ -51,7 +51,7 @@
 					},
 					{
 						"name": "Keyboard",
-						"value": "US QWERTY only"
+						"value": "Common non-US QWERTY layouts supported by request"
 					}
 				]
 			},
@@ -63,10 +63,10 @@
 					"Experience using cloud credentials",
 					"Familiarity with YAML, JSON, HCL, and CSV formats",
 					"Understanding of the networking stack and networking protocols, including TCP/IP and UDP",
-					"Advanced configuration authoring and a deep understanding of Terraform workflows"
+					"Advanced configuration authoring and a deep understanding of Terraform workflows",
+					"Experience with Terraform in a production setting is necessary."
 				],
-				"bottomDescription": "Experience with Terraform in a production setting is necessary."
-			}
+				"bottomDescription": ""
 		}
 	},
 	"objectives": {

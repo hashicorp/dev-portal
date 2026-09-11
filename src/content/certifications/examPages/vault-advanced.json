@@ -2,7 +2,7 @@
 	"title": "Vault Advanced",
 	"hero": {
 		"product": "vault-advanced",
-		"eyebrow": "Hashicorp Certified:",
+		"eyebrow": "HashiCorp Certified:",
 		"title": "Vault Authoring and Operations Advanced",
 		"description": "Demonstrate your production-level Vault expertise in this intensive, lab-based exam.",
 		"leftCta": {
@@ -43,7 +43,7 @@
 					},
 					{
 						"name": "Price",
-						"value": "$295 USD, plus locally applicable taxes and fees. Free retake included."
+						"value": "$295 USD, plus locally applicable taxes and fees. Free retake included"
 					},
 					{
 						"name": "Version tested",
@@ -51,7 +51,7 @@
 					},
 					{
 						"name": "Keyboard",
-						"value": "US QWERTY only"
+						"value": "Common non-US QWERTY layouts supported by request"
 					}
 				]
 			},
@@ -63,9 +63,10 @@
 					"Understanding of IP networking",
 					"Experience with Public Key Infrastructure (PKI), including PGP and TLS",
 					"Information security fundamentals such as network security and RBAC",
-					"Understand the concepts and functionality of infrastructure running in containers including starting and stopping services, and reading logs"
+					"Understand the concepts and functionality of infrastructure running in containers including starting and stopping services, and reading logs",
+					"Experience with Vault in a production setting is necessary."
 				],
-				"bottomDescription": "Experience with Vault in a production setting is necessary."
+				"bottomDescription": ""
 			}
 		}
 	},
