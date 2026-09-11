@@ -12,6 +12,10 @@
 					"path": "/certifications/terraform-associate"
 				},
 				{
+					"label": "Terraform Infrastructure Engineer Professional",
+					"path": "/certifications/terraform-infrastructure-engineer-professional"
+				},
+				{
 					"label": "Terraform Authoring and Operations Advanced",
 					"path": "/certifications/terraform-advanced"
 				}

@@ -50,6 +50,8 @@ const HERO_PNG_MAP = {
 	'homepage-dark': homepageDark,
 	'terraform-associate-light': terraformAssociateLight,
 	'terraform-associate-dark': terraformAssociateDark,
+	'terraform-professional-light': terraformAssociateLight,
+	'terraform-professional-dark': terraformAssociateDark,
 	'terraform-advanced-light': terraformAdvancedLight,
 	'terraform-advanced-dark': terraformAdvancedDark,
 	'vault-associate-light': vaultAssociateLight,
@@ -67,6 +69,8 @@ const HERO_BAR_GRADIENT_MAP = {
 	'vault-advanced-dark': vaultBarGradientAdvancedDark,
 	'terraform-associate-light': terraformBarGradientAssociateLight,
 	'terraform-associate-dark': terraformBarGradientAssociateDark,
+	'terraform-professional-light': terraformBarGradientAssociateLight,
+	'terraform-professional-dark': terraformBarGradientAssociateDark,
 	'terraform-advanced-light': terraformBarGradientAdvancedLight,
 	'terraform-advanced-dark': terraformBarGradientAdvancedDark,
 }

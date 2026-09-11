@@ -13,6 +13,19 @@
 		]
 	},
 	{
+		"id": "terraform-professional",
+		"product": "terraform",
+		"title": "Terraform Infrastructure Engineer Professional",
+		"desc": "Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam.",
+		"starCount": 3,
+		"ctaLink": "/certifications/terraform-infrastructure-engineer-professional",
+		"certDetails": [
+			"Product version tested: Terraform 1.15",
+			"Advanced production concepts and skills",
+			"Demonstrate your mid-career Terraform expertise"
+		]
+	},
+	{
 		"id": "terraform-advanced",
 		"product": "terraform",
 		"title": "Terraform Authoring and Operations Advanced",
