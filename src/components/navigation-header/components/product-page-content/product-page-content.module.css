@@ -40,6 +40,11 @@
 	gap: 24px;
 	width: 100%;
 	min-width: 0;
+
+	@media (--dev-dot-show-mobile-menu) {
+		justify-content: space-between;
+		align-items: center;
+	}
 }
 
 .left {
@@ -52,4 +57,19 @@
 	align-items: center;
 	margin-left: auto;
 	gap: 16px;
+}
+
+.mobileSubMenuButton {
+	display: none;
+
+	@media (--dev-dot-show-mobile-menu) {
+		display: flex;
+		gap: 6px;
+		padding: 4px 0;
+		font-size: 13px;
+		color: var(--mds-color-foreground-strong);
+		margin: 0;
+		border: 0;
+		background: none;
+	}
 }

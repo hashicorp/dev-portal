@@ -4,25 +4,48 @@
  */
 
 // Global imports
-import { useCurrentProduct } from 'contexts'
+import { useCurrentProduct, useMobileSubMenu } from 'contexts'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 // Local imports
-import {
-	NavBarListContainer,
-	PrimaryNavLink,
-	PrimaryNavSubmenu,
-} from '..'
+import { NavBarListContainer, PrimaryNavLink, PrimaryNavSubmenu } from '..'
 import { ProductIconTextLink } from './components'
-import {
-	getRightSideNavItems,
-	NavItem,
-	getLeftSideNavItems,
-} from './utils'
+import { getRightSideNavItems, NavItem, getLeftSideNavItems } from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
 import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
+
+// Icons
+import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
+import { IconChevronUp16 } from '@hashicorp/flight-icons/svg-react/chevron-up-16'
+
+/**
+ * The header content displayed to the far right of the window. This content is
+ * the same for every page in the app.
+ */
+function MobileSubMenuButton({ className }) {
+	const { mobileSubMenuIsOpen, setMobileSubMenuIsOpen } = useMobileSubMenu()
+	const ariaLabel = `${mobileSubMenuIsOpen ? 'Close' : 'Open'} sub navigation menu`
+	const iconSize = '12px'
+
+	function handleMenu() {
+		setMobileSubMenuIsOpen((prevState) => !prevState)
+	}
+
+	return (
+		<>
+			<button aria-label={ariaLabel} className={className} onClick={handleMenu}>
+				Menu{' '}
+				{mobileSubMenuIsOpen ? (
+					<IconChevronUp16 fontSize={iconSize} />
+				) : (
+					<IconChevronDown16 fontSize={iconSize} />
+				)}
+			</button>
+		</>
+	)
+}
 
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
@@ -44,46 +67,55 @@ const ProductPageHeaderContent = () => {
 				/>
 				<NavBarListContainer>
 					<div className={s.left}>
-					{leftSideNavItems.map((navItem: NavItem) => {
-						const ariaLabel = `${currentProduct.name} ${navItem.label}`
-						const isSubmenu = 'items' in navItem
-						const isSandbox = navItem.label === 'Sandbox'
+						{leftSideNavItems.map((navItem: NavItem) => {
+							const ariaLabel = `${currentProduct.name} ${navItem.label}`
+							const isSubmenu = 'items' in navItem
+							const isSandbox = navItem.label === 'Sandbox'
 
-						if (isSandbox && hasSandbox) {
+							if (isSandbox && hasSandbox) {
+								return (
+									<li key={navItem.label}>
+										<div className={s.navDropdown}>
+											<NavigationMenu.Root>
+												<SandboxDropdown
+													ariaLabel={ariaLabel}
+													label="Sandbox"
+												/>
+											</NavigationMenu.Root>
+										</div>
+									</li>
+								)
+							}
+
 							return (
 								<li key={navItem.label}>
-									<div className={s.navDropdown}>
-										<NavigationMenu.Root>
-											<SandboxDropdown ariaLabel={ariaLabel} label="Sandbox" />
-										</NavigationMenu.Root>
-									</div>
+									{isSubmenu ? (
+										<PrimaryNavSubmenu
+											ariaLabel={ariaLabel}
+											navItem={navItem}
+										/>
+									) : (
+										<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
+									)}
 								</li>
 							)
-						}
+						})}
+					</div>
+					<div className={s.right}>
+						{rightSideNavItems.map(
+							(navItem: PrimaryNavLinkProps['navItem']) => {
+								const ariaLabel = `${currentProduct.name} ${navItem.label}`
 
-						return (
-							<li key={navItem.label}>
-								{isSubmenu ? (
-									<PrimaryNavSubmenu ariaLabel={ariaLabel} navItem={navItem} />
-								) : (
-									<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
-								)}
-							</li>
-						)
-					})}
-				</div>
-				<div className={s.right}>
-					{rightSideNavItems.map((navItem: PrimaryNavLinkProps['navItem']) => {
-						const ariaLabel = `${currentProduct.name} ${navItem.label}`
-
-						return (
-							<li key={navItem.label}>
-								<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
-							</li>
-						)
-					})}
-				</div>
+								return (
+									<li key={navItem.label}>
+										<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
+									</li>
+								)
+							},
+						)}
+					</div>
 				</NavBarListContainer>
+				<MobileSubMenuButton className={s.mobileSubMenuButton} />
 			</div>
 		</>
 	)

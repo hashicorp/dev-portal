@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
 import isThemedPath from 'lib/isThemedPath'
-import { useMobileMenu } from 'contexts'
+import { useMobileMenu, useMobileSubMenu } from 'contexts'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import ButtonLink from 'components/button-link'
@@ -31,6 +31,34 @@ const MOBILE_MENU_MOTION = {
 	},
 	hidden: {
 		left: '-150vw',
+		transitionEnd: {
+			display: 'none',
+		},
+	},
+}
+
+const MOBILE_OPTION_MENU_MOTION = {
+	visible: {
+		x: 0,
+		opacity: 1,
+		display: 'flex',
+	},
+	hidden: {
+		x: '20%',
+		opacity: 0,
+		transitionEnd: {
+			display: 'none',
+		},
+	},
+}
+
+const MOBILE_SUBMENU_MOTION = {
+	visible: {
+		top: 'calc(var(--navigation-header-height) * 2)', // always two nav headers when submenu rendered
+		display: 'flex',
+	},
+	hidden: {
+		top: 'var(--sticky-bars-height)',
 		transitionEnd: {
 			display: 'none',
 		},
@@ -91,7 +119,7 @@ const MobileAuthenticationControls = ({
 			className={classNames(
 				'g-show-with-mobile-menu',
 				s.mobileAuthenticationControlsWrap,
-				className
+				className,
 			)}
 		>
 			{content}
@@ -99,11 +127,10 @@ const MobileAuthenticationControls = ({
 	)
 }
 
-// eslint-disable-next-line react/display-name
 const MobileMenuContainer = forwardRef(
 	(
 		{ children, className }: MobileMenuContainerProps,
-		ref: ForwardedRef<HTMLDivElement>
+		ref: ForwardedRef<HTMLDivElement>,
 	) => {
 		const { mobileMenuIsOpen } = useMobileMenu()
 		const shouldReduceMotion = useReducedMotion()
@@ -119,9 +146,66 @@ const MobileMenuContainer = forwardRef(
 				{children}
 			</m.div>
 		)
-	}
+	},
 )
 
+MobileMenuContainer.displayName = 'MobileMenuContainer'
+
+const MobileOptionMenuContainer = forwardRef(
+	(
+		{ children, className, label }: MobileMenuContainerProps,
+		ref: ForwardedRef<HTMLDivElement>,
+	) => {
+		const { currentMobileSubOption } = useMobileMenu()
+		const shouldReduceMotion = useReducedMotion()
+
+		return (
+			<m.div
+				animate={currentMobileSubOption === label ? 'visible' : 'hidden'}
+				className={classNames(s.root, s.optionMenuRoot, className)}
+				initial="hidden"
+				ref={ref}
+				transition={{
+					duration: shouldReduceMotion ? 0 : 0.3,
+					ease: 'easeInOut',
+				}}
+				variants={MOBILE_OPTION_MENU_MOTION}
+			>
+				{children}
+			</m.div>
+		)
+	},
+)
+
+MobileOptionMenuContainer.displayName = 'MobileOptionMenuContainer'
+
+const MobileSubMenuContainer = forwardRef(
+	(
+		{ children, className }: MobileMenuContainerProps,
+		ref: ForwardedRef<HTMLDivElement>,
+	) => {
+		const { mobileSubMenuIsOpen } = useMobileSubMenu()
+
+		return (
+			<m.div
+				animate={mobileSubMenuIsOpen ? 'visible' : 'hidden'}
+				className={classNames(s.root, s.subMenuRoot, className)}
+				ref={ref}
+				transition={{ duration: 0 }}
+				variants={MOBILE_SUBMENU_MOTION}
+			>
+				{children}
+			</m.div>
+		)
+	},
+)
+
+MobileSubMenuContainer.displayName = 'MobileSubMenuContainer'
+
 export type { MobileMenuContainerProps }
-export { MobileAuthenticationControls }
+export {
+	MobileAuthenticationControls,
+	MobileSubMenuContainer,
+	MobileOptionMenuContainer,
+}
 export default MobileMenuContainer
