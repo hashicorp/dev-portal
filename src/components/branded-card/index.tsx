@@ -21,7 +21,10 @@ import patternWaypoint from './img/waypoint.png'
 import s from './branded-card.module.css'
 
 const PATTERN_IMG_MAP: Record<
-	Exclude<ProductSlug, 'well-architected-framework' | 'validated-patterns'>,
+	Exclude<
+		ProductSlug,
+		'well-architected-framework' | 'validated-patterns' | 'validated-designs'
+	>,
 	StaticImageData
 > = {
 	boundary: patternBoundary,

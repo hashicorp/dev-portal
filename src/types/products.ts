@@ -20,7 +20,7 @@ type ProductName =
 	| 'Waypoint'
 	| 'HCP Vault Secrets'
 
-type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'well-architected-framework'
+type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'well-architected-framework' | 'validated-designs'
 
 type TerraformSubProducts = `${Extract<ProductSlug, 'terraform'>}-${
 	| 'cdk'
@@ -39,7 +39,7 @@ interface Product extends ProductMeta {
 	slug: ProductSlug
 }
 
-type LearnProductSlug = Exclude<ProductSlug, 'hcp' | 'well-architected-framework'>
+type LearnProductSlug = Exclude<ProductSlug, 'hcp' | 'well-architected-framework' | 'validated-designs'>
 
 /**
  * This is needed so that `LearnProductData` can extend both `ProductData` and
@@ -56,7 +56,7 @@ type HcpProductName = Exclude<
 
 type HcpProductSlug = Exclude<
 	ProductSlug,
-	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant' | 'well-architected-framework'
+	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant' | 'well-architected-framework' | 'validated-designs'
 >
 
 /**

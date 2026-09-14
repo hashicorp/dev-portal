@@ -13,7 +13,7 @@ import { productSlugs } from 'lib/products'
  */
 const getStaticPaths = async () => {
 	// Exclude products that have custom index pages at the root level
-	const excludedProducts = ['well-architected-framework']
+	const excludedProducts = ['well-architected-framework', 'validated-designs']
 	
 	const paths = productSlugs
 		.filter((productSlug: ProductSlug) => !excludedProducts.includes(productSlug))
