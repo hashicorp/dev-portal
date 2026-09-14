@@ -1,3 +1,6 @@
+# Copyright IBM Corp. 2022, 2026
+# SPDX-License-Identifier: MPL-2.0
+
 terraform {
   required_version = ">= 1.15.0"
 
