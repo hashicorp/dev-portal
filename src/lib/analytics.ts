@@ -5,7 +5,7 @@
 
 import { ProductSlug } from 'types/products'
 import { Version } from './fetch-release-data'
-import env from 'env-var'
+import { from } from 'env-var'
 
 /**
  * A segment analytics plugin to log out calls to track in a structured way. Includes the full event payload
@@ -36,9 +36,15 @@ const AnalyticsPluginEventLogger = {
  * Register the event logger plugin for track event logging during development.
  */
 export const makeDevAnalyticsLogger = () => {
-	const NODE_ENV = env.get('NODE_ENV').asString()
-	const NEXT_PUBLIC_ANALYTICS_LOG_LEVEL =
-		process.env.NEXT_PUBLIC_ANALYTICS_LOG_LEVEL
+	const envConfig = from({
+		NODE_ENV: process.env.NODE_ENV,
+		NEXT_PUBLIC_ANALYTICS_LOG_LEVEL:
+			process.env.NEXT_PUBLIC_ANALYTICS_LOG_LEVEL,
+	})
+	const NODE_ENV = envConfig.get('NODE_ENV').asString()
+	const NEXT_PUBLIC_ANALYTICS_LOG_LEVEL = envConfig
+		.get('NEXT_PUBLIC_ANALYTICS_LOG_LEVEL')
+		.asString()
 
 	if (
 		NODE_ENV !== 'production' &&

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
+import { from } from 'env-var'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import path from 'path'
 import fs from 'fs'
@@ -27,7 +27,11 @@ if (typeof window !== 'undefined') {
 		posthog = module.default
 	})
 }
-const NODE_ENV = env.get('NODE_ENV').asString()
+
+const envConfig = from({
+	NODE_ENV: process.env.NODE_ENV,
+})
+const NODE_ENV = envConfig.get('NODE_ENV').asString()
 
 /**
  * Tracks sandbox page errors with PostHog and development logging

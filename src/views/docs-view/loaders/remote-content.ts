@@ -5,7 +5,7 @@
 
 import { Pluggable } from 'unified'
 import moize, { Options } from 'moize'
-import env from 'env-var'
+import { from } from 'env-var'
 import { GetStaticPropsContext } from 'next'
 import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import {
@@ -131,7 +131,10 @@ export function mapVersionList(
 	return versions
 }
 
-const ENABLE_VERSIONED_DOCS = env.get('ENABLE_VERSIONED_DOCS').asBool()
+const envConfig = from({
+	ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS,
+})
+const ENABLE_VERSIONED_DOCS = envConfig.get('ENABLE_VERSIONED_DOCS').asBool()
 export default class RemoteContentLoader implements DataLoader {
 	constructor(public opts: RemoteContentLoaderOpts) {
 		this.opts.enabledVersionedDocs =

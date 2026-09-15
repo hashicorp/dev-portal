@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
+import { from } from 'env-var'
 import { SandboxLab } from 'types/sandbox'
 
 // SSR-safe dynamic import
@@ -30,7 +30,7 @@ interface BasicLab {
 const trackInstruqtUrlError = (
 	errorType: string,
 	errorMessage: string,
-	context?: Record<string, unknown>
+	context?: Record<string, unknown>,
 ) => {
 	if (typeof window !== 'undefined' && posthog?.capture) {
 		posthog.capture('instruqt_url_build_error', {
@@ -41,8 +41,10 @@ const trackInstruqtUrlError = (
 			...context,
 		})
 	}
-
-	const NODE_ENV = env.get('NODE_ENV').asString()
+	const envConfig = from({
+		NODE_ENV: process.env.NODE_ENV,
+	})
+	const NODE_ENV = envConfig.get('NODE_ENV').asString()
 	if (NODE_ENV === 'development') {
 		console.error(`[InstruqtUrlBuilder] ${errorMessage}`, context)
 	}
@@ -56,14 +58,14 @@ const trackInstruqtUrlError = (
  */
 export function buildLabId(
 	lab: BasicLab | SandboxLab,
-	customTokens?: InstruqtTokens
+	customTokens?: InstruqtTokens,
 ): string {
 	try {
 		if (!lab) {
 			trackInstruqtUrlError(
 				'null_lab_config',
 				'Lab configuration is null or undefined',
-				{ custom_tokens_provided: Boolean(customTokens) }
+				{ custom_tokens_provided: Boolean(customTokens) },
 			)
 			return ''
 		}
@@ -75,7 +77,7 @@ export function buildLabId(
 				{
 					lab_id: lab.labId,
 					lab_has_scenario: Boolean(lab.scenario),
-				}
+				},
 			)
 			return lab.labId || ''
 		}
@@ -99,7 +101,7 @@ export function buildLabId(
 				lab_id: lab?.labId,
 				instruqt_track: lab?.instruqtTrack,
 				has_scenario: Boolean(lab?.scenario),
-			}
+			},
 		)
 		return lab?.labId || ''
 	}
@@ -121,7 +123,7 @@ export function buildLabIdWithConfig(lab: BasicLab | SandboxLab): string {
 				lab_id: lab?.labId,
 				instruqt_track: lab?.instruqtTrack,
 				has_scenario: !!lab?.scenario,
-			}
+			},
 		)
 		return lab?.labId || ''
 	}

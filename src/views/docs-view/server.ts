@@ -6,7 +6,7 @@
 // Third-party imports
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import path from 'node:path'
-import env, { from } from 'env-var'
+import { from } from 'env-var'
 import { Pluggable } from 'unified'
 import slugify from 'slugify'
 

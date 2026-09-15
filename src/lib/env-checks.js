@@ -30,7 +30,7 @@ function isDeployPreview(productSlug) {
  * @returns {boolean}
  */
 function isVersionedDocsEnabled(productSlug) {
-	const ENABLE_VERSIONED_DOCS = env.get('ENABLE_VERSIONED_DOCS').asString()
+	const ENABLE_VERSIONED_DOCS = process.env.ENABLE_VERSIONED_DOCS
 
 	const enableVersionedDocs =
 		ENABLE_VERSIONED_DOCS && ENABLE_VERSIONED_DOCS !== 'false'
