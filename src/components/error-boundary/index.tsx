@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
 import React, {
 	Component,
 	ErrorInfo,
@@ -98,7 +97,7 @@ export class ErrorBoundary extends Component<
 						}}
 					>
 						<strong>Something went wrong.</strong>
-						{env.get('NODE_ENV').asString() === 'development' && this.state.error && (
+						{process.env.NODE_ENV === 'development' && this.state.error && (
 							<details style={{ marginTop: '8px' }}>
 								<summary>Error details (development only)</summary>
 								<pre style={{ fontSize: '12px', overflow: 'auto' }}>

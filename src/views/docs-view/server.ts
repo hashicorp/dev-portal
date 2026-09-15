@@ -6,7 +6,7 @@
 // Third-party imports
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import path from 'node:path'
-import env from 'env-var'
+import env, { from } from 'env-var'
 import { Pluggable } from 'unified'
 import slugify from 'slugify'
 
@@ -306,8 +306,16 @@ export function getStaticGenerationFunctions({
 				if (error.status === 404) {
 					// Only emit to Instana from Vercel production to avoid noise from
 					// preview/development builds.
-					const VERCEL_ENV = env.get('VERCEL_ENV').asString()
-					const HASHI_ENV = env.get('HASHI_ENV').default('local').asString()
+					const envConfig = from({
+						VERCEL_ENV: process.env.VERCEL_ENV,
+						HASHI_ENV: process.env.HASHI_ENV,
+					})
+					const VERCEL_ENV = envConfig.get('VERCEL_ENV').asString()
+					const HASHI_ENV = envConfig
+						.get('HASHI_ENV')
+						.default('local')
+						.asString()
+
 					if (VERCEL_ENV === 'production') {
 						emitOtelSpan({
 							span: {

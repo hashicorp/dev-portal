@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
 import InlineAlert from 'components/inline-alert'
 import { withErrorBoundary } from 'components/error-boundary'
 import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
@@ -94,8 +93,7 @@ export const MdxInlineAlert = withErrorBoundary(
 			})
 		}
 
-		const NODE_ENV = env.get('NODE_ENV').asString()
-		if (NODE_ENV === 'development') {
+		if (process.env.NODE_ENV === 'development') {
 			console.warn('MdxInlineAlert validation error:', error.message, errorInfo)
 		}
 	}

@@ -37,9 +37,8 @@ const AnalyticsPluginEventLogger = {
  */
 export const makeDevAnalyticsLogger = () => {
 	const NODE_ENV = env.get('NODE_ENV').asString()
-	const NEXT_PUBLIC_ANALYTICS_LOG_LEVEL = env
-		.get('NEXT_PUBLIC_ANALYTICS_LOG_LEVEL')
-		.asString()
+	const NEXT_PUBLIC_ANALYTICS_LOG_LEVEL =
+		process.env.NEXT_PUBLIC_ANALYTICS_LOG_LEVEL
 
 	if (
 		NODE_ENV !== 'production' &&

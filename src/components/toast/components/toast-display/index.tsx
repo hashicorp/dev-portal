@@ -3,14 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
 import classNames from 'classnames'
 import { ToastColor, ToastDisplayProps } from './types'
 import CloseButton from '../close-button'
 import s from './toast-display.module.css'
 
-const NODE_ENV = env.get('NODE_ENV').asString()
-const IS_DEV = NODE_ENV !== 'production'
+const IS_DEV = process.env.NODE_ENV !== 'production'
 
 /**
  * Display component for use with a toast library,

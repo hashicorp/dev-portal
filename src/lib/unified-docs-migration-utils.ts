@@ -80,8 +80,8 @@ function checkEnvVarsInDev() {
 	const NODE_ENV = env.get('NODE_ENV').asString()
 	if (NODE_ENV === 'development') {
 		const missingEnvVars = []
-		const MKTG_CONTENT_DOCS_API = env.get('MKTG_CONTENT_DOCS_API').asString()
 		const UNIFIED_DOCS_API = env.get('UNIFIED_DOCS_API').asString()
+		const MKTG_CONTENT_DOCS_API = process.env.MKTG_CONTENT_DOCS_API
 		
 		if (!MKTG_CONTENT_DOCS_API) missingEnvVars.push('MKTG_CONTENT_DOCS_API')
 		if (!UNIFIED_DOCS_API) missingEnvVars.push('UNIFIED_DOCS_API')

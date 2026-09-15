@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import {
 	Collection as ApiCollection,
@@ -24,7 +23,7 @@ export async function getStaticProps({
 > {
 	try {
 		const props = await getValidatedPatternsTutorialViewProps(
-			params.tutorialSlug
+			params.tutorialSlug,
 		)
 
 		// If the tutorial doesn't exist, hit the 404
@@ -41,7 +40,7 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
 	const allCollections = await getCollectionsBySection(
-		validatedPatternsData.slug
+		validatedPatternsData.slug,
 	)
 	let paths = []
 	allCollections.forEach((c: ApiCollection) => {
@@ -51,14 +50,13 @@ export async function getStaticPaths() {
 				params: {
 					tutorialSlug: [collectionSlug, splitProductFromFilename(slug)],
 				},
-			})
+			}),
 		)
 	})
 
 	// For hashicorp/tutorials PR previews, skip the call to determine paths
 	// from analytics, and statically build all paths.
-	const HASHI_ENV = env.get('HASHI_ENV').asString()
-	if (HASHI_ENV === 'tutorials-preview') {
+	if (process.env.HASHI_ENV === 'tutorials-preview') {
 		return {
 			paths: paths,
 			fallback: false,

@@ -58,7 +58,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	/**
 	 * Note: These constants are declared for clarity in build context intent.
 	 */
-	const IS_CONTENT_PREVIEW = env.get('IS_CONTENT_PREVIEW').asBool()
+	const IS_CONTENT_PREVIEW = process.env.IS_CONTENT_PREVEW
 	const isDeveloperBuild = !IS_CONTENT_PREVIEW
 	const isLocalContentBuild = isDeployPreview(repoName)
 
@@ -93,7 +93,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	 * The UDR docker image does not have access to the github token necessary to
 	 * fetch redirects from private repos so we return an empty array for those redirects
 	 */
-	const HASHI_ENV = env.get('HASHI_ENV').asString()
+	const HASHI_ENV = process.env.HASHI_ENV
 	if (HASHI_ENV === 'unified-docs-sandbox' && privateRepos.includes(repoName)) {
 		return []
 	}

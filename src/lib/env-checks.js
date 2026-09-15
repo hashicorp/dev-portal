@@ -7,13 +7,16 @@
 const env = require('env-var')
 
 function isPreview() {
-	const HASHI_ENV = env.get('HASHI_ENV').asString()
-	return HASHI_ENV === 'preview'
+	return process.env.HASHI_ENV === 'preview'
 }
 
 function isDeployPreview(productSlug) {
-	const PREVIEW_FROM_REPO = env.get('PREVIEW_FROM_REPO').asString()
-	const IS_CONTENT_PREVIEW = env.get('IS_CONTENT_PREVIEW').asBool()
+	const envConfig = env.from({
+		PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
+		IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
+	})
+	const PREVIEW_FROM_REPO = envConfig.get('PREVIEW_FROM_REPO').asString()
+	const IS_CONTENT_PREVIEW = envConfig.get('IS_CONTENT_PREVIEW').asBool()
 
 	const isProductSlugMatching =
 		!productSlug || productSlug === PREVIEW_FROM_REPO
@@ -27,9 +30,7 @@ function isDeployPreview(productSlug) {
  * @returns {boolean}
  */
 function isVersionedDocsEnabled(productSlug) {
-	const ENABLE_VERSIONED_DOCS = env
-		.get('ENABLE_VERSIONED_DOCS')
-		.asString()
+	const ENABLE_VERSIONED_DOCS = env.get('ENABLE_VERSIONED_DOCS').asString()
 
 	const enableVersionedDocs =
 		ENABLE_VERSIONED_DOCS && ENABLE_VERSIONED_DOCS !== 'false'

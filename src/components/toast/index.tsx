@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 import { default as reactHotToast, Toast } from 'react-hot-toast'
@@ -95,8 +94,7 @@ function toast({
  * A toast that only renders in non 'production' environments.
  */
 const developmentToast = (...args: Parameters<typeof toast>) => {
-	const NODE_ENV = env.get('NODE_ENV').asString()
-	if (NODE_ENV !== 'production') {
+	if (process.env.NODE_ENV !== 'production') {
 		return toast(...args)
 	}
 }

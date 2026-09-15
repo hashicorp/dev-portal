@@ -4,7 +4,6 @@
  */
 
 // Third-party imports
-import env from 'env-var'
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import { HTMLAttributes, useEffect, useState } from 'react'
@@ -68,8 +67,8 @@ const BaseLayout = ({
 		currentProduct.slug !== 'validated-designs'
 
 	useEffect(() => {
-		const NODE_ENV = env.get('NODE_ENV').asString()
-		const HASHI_ENV = env.get('HASHI_ENV').asString()
+		const NODE_ENV = process.env.NODE_ENV
+		const HASHI_ENV = process.env.HASHI_ENV
 		if (
 			NODE_ENV === 'development' &&
 			HASHI_ENV === 'unified-docs-sandbox'

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
 import { useRouter } from 'next/router'
 import HashiHead from '@hashicorp/react-head'
 import { useCurrentProduct } from 'contexts'
@@ -61,8 +60,8 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 	/**
 	 * Set a custom favicon based on the environment.
 	 */
-	const HASHI_ENV = env.get('HASHI_ENV').asString()
-	const NODE_ENV = env.get('NODE_ENV').asString()
+	const HASHI_ENV = process.env.HASHI_ENV
+	const NODE_ENV = process.env.NODE_ENV
 	const isDev =
 		(HASHI_ENV === 'preview' || HASHI_ENV === 'development') &&
 		NODE_ENV === 'development'

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
+import env, { from } from 'env-var'
 import path from 'path'
 import fs from 'fs'
 import { client, v1 } from '@datadog/datadog-api-client'
@@ -139,7 +139,11 @@ async function main() {
 		const timestamp = Math.round(Date.now() / 1e3)
 		const trace = await readNextTrace(process.cwd())
 
-		const environment = env.get('HASHI_ENV').default('local').asString()
+		const envConfig = from({
+			HASHI_ENV: process.env.HASHI_ENV,
+		})
+
+		const environment = envConfig.get('HASHI_ENV').default('local').asString()
 
 		const filteredEvents: BuildEvent[] = trace
 			.filter((event) => EVENTS.includes(event.name))

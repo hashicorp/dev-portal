@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import env from 'env-var'
 import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 import type { MenuItem } from 'components/sidebar'
 import { getParentRootDocsPath } from 'lib/docs/get-parent-root-docs-path'
@@ -11,8 +10,7 @@ import { ProductData } from 'types/products'
 import { BreadcrumbLink } from '..'
 import getFallbackTitle from './get-fallback-title'
 
-const NODE_ENV = env.get('NODE_ENV').asString()
-const IS_DEV = NODE_ENV !== 'production'
+const IS_DEV = process.env.NODE_ENV !== 'production'
 
 interface GetPathBreadcrumbsOpts {
 	/**
