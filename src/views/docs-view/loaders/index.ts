@@ -4,7 +4,7 @@
  */
 
 import { GetStaticPaths, GetStaticProps, GetStaticPathsResult } from 'next'
-import { ContentApiError } from './../../../lib/content-client/content-client'
+import { ContentApiError } from '../../../lib/fetch-docs-content/fetch-docs-content'
 import FileSystemLoader from './file-system'
 import RemoteContentLoader from './remote-content'
 import { DataLoader, RemarkPlugins } from './types'

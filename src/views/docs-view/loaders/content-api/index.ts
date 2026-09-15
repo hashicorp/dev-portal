@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ContentClient } from 'lib/content-client/content-client'
+import { fetchDocsContent } from 'lib/fetch-docs-content/fetch-docs-content'
 
 /**
  * Retries an async operation with exponential backoff for transient 404 errors.
@@ -51,7 +51,13 @@ export async function fetchNavData(
 	return retryOn404(async () => {
 		const fullPath = `nav-data/${version}/${basePath}`
 		const url = `api/content/${product}/${fullPath}`
-		const response = await ContentClient(url, true, true, product, 'nav-data')
+		const response = await fetchDocsContent({
+			url,
+			includeBypassHeader: true,
+			useOldMarketingContentAPI: true,
+			product,
+			resource: 'nav-data',
+		})
 
 		const { result } = await response.json()
 		return result
@@ -61,7 +67,13 @@ export async function fetchNavData(
 export async function fetchDocument(product: string, fullPath: string) {
 	return retryOn404(async () => {
 		const url = `api/content/${product}/${fullPath}`
-		const response = await ContentClient(url, true, true, product, 'doc')
+		const response = await fetchDocsContent({
+			url,
+			includeBypassHeader: true,
+			useOldMarketingContentAPI: true,
+			product,
+			resource: 'doc',
+		})
 
 		const { result } = await response.json()
 		const docHeaders = Object.fromEntries(response.headers)
@@ -71,13 +83,13 @@ export async function fetchDocument(product: string, fullPath: string) {
 
 export async function fetchVersionMetadataList(product: string) {
 	const url = `api/content/${product}/version-metadata?partial=true`
-	const response = await ContentClient(
+	const response = await fetchDocsContent({
 		url,
-		true,
-		true,
+		includeBypassHeader: true,
+		useOldMarketingContentAPI: true,
 		product,
-		'version-metadata',
-	)
+		resource: 'version-metadata',
+	})
 
 	const { result } = await response.json()
 	return result

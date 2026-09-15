@@ -6,7 +6,7 @@
 import fs from 'fs'
 import path from 'path'
 import flat from 'flat'
-import { ContentClient } from '../src/lib/content-client/content-client'
+import { fetchDocsContent } from '../src/lib/fetch-docs-content/fetch-docs-content'
 
 // Cache the final config to avoid re-reading files multiple times
 let finalConfig: Record<string, unknown>
@@ -59,11 +59,10 @@ async function getHashiConfig(configPath: string) {
 						...envConfig.flags?.unified_docs_migrated_repos,
 					})
 
-					const response = await ContentClient(
-						'api/supported-products',
-						false,
-						false,
-					)
+					const response = await fetchDocsContent({
+						url: 'api/supported-products',
+						includeBypassHeader: false,
+					})
 					udrProducts = (await response.json()).result
 
 					// clear out any existing values and replace with fetched products
@@ -84,7 +83,9 @@ async function getHashiConfig(configPath: string) {
 						'config',
 						'production.json',
 					)
-					const prodConfig = JSON.parse(fs.readFileSync(prodConfigPath, 'utf-8'))
+					const prodConfig = JSON.parse(
+						fs.readFileSync(prodConfigPath, 'utf-8'),
+					)
 
 					envConfig.flags.unified_docs_migrated_repos = []
 					extendsConfig.flags.unified_docs_migrated_repos = []
@@ -101,7 +102,10 @@ async function getHashiConfig(configPath: string) {
 		})
 
 		// Because we are "flattening" the object, a simple spread should be sufficient here
-		finalConfig = { ...extendsFlattened, ...envFlattened } as Record<string, unknown>
+		finalConfig = { ...extendsFlattened, ...envFlattened } as Record<
+			string,
+			unknown
+		>
 
 		if (process.env.DEBUG_CONFIG) {
 			console.log('[DEBUG_CONFIG]', finalConfig)

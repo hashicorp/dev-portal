@@ -4,7 +4,7 @@
  */
 
 import { isRestrictedDocsPath } from 'lib/is-restricted-docs-path'
-import { ContentClient } from 'lib/content-client/content-client'
+import { fetchDocsContent } from 'lib/fetch-docs-content/fetch-docs-content'
 import { makeSitemapField } from './helpers'
 
 export async function allDocsFields(config: typeof __config) {
@@ -23,11 +23,10 @@ export async function allDocsFields(config: typeof __config) {
 		return `products=${repo}`
 	})
 	const UDRFilterString = UDRFilter.join('&')
-	const getUDRDocsPaths = await ContentClient(
-		`api/all-docs-paths?${UDRFilterString}`,
-		true,
-		false
-	)
+	const getUDRDocsPaths = await fetchDocsContent({
+		url: `api/all-docs-paths?${UDRFilterString}`,
+		includeBypassHeader: true,
+	})
 	const { result: udrDocsResult } = await getUDRDocsPaths.json()
 
 	const allDocsData = [...contentAPIDocsResult, ...udrDocsResult].filter(

@@ -7,7 +7,7 @@ import fs from 'fs'
 import path from 'path'
 
 import { isDeployPreview } from '../src/lib/env-checks'
-import { ContentClient } from '../src/lib/content-client/content-client'
+import { fetchDocsContent } from '../src/lib/fetch-docs-content/fetch-docs-content'
 import fetchGithubFile from './fetch-github-file'
 import getLatestContentShaForProduct from './get-latest-content-sha-for-product'
 import { getTutorialRedirects } from './tutorial-redirects'
@@ -68,11 +68,10 @@ async function getRedirectsFromContentRepo(
 	if (
 		(config['flags.unified_docs_migrated_repos'] as string[]).includes(repoName)
 	) {
-		const getUDRRedirects = await ContentClient(
-			`api/content/${repoName}/redirects`,
-			true,
-			false,
-		)
+		const getUDRRedirects = await fetchDocsContent({
+			url: `api/content/${repoName}/redirects`,
+			includeBypassHeader: true,
+		})
 
 		if (getUDRRedirects.ok) {
 			const udrRedirects = await getUDRRedirects.json()
@@ -385,7 +384,10 @@ function normalizeRedirectSource(source: string): string {
  */
 function groupSimpleRedirects(
 	redirects: Redirect[],
-): Record<string, Record<string, { destination: string; permanent?: boolean }>> {
+): Record<
+	string,
+	Record<string, { destination: string; permanent?: boolean }>
+> {
 	const groupedRedirects: Record<
 		string,
 		Record<string, { destination: string; permanent?: boolean }>
