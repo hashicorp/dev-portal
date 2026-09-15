@@ -11,6 +11,7 @@ loadEnvConfig(projectDir)
 
 const fs = require('fs')
 const path = require('path')
+const env = require('env-var')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const { redirectsConfig } = require('./build-libs/redirects')
 
@@ -42,7 +43,13 @@ const hideWaypointTipContent = {
 let alreadyLoggedUDRInfo = false
 
 module.exports = async () => {
-	process.env.VERCEL_ENV = process.env.VERCEL_ENV || 'development'
+	const VERCEL_ENV = env.get('VERCEL_ENV').default('development').asString()
+	const HASHI_ENV = env.get('HASHI_ENV').default('development').asString()
+	const NODE_ENV = env.get('NODE_ENV').default('development').asString()
+	const ENABLE_VERSIONED_DOCS = env
+		.get('ENABLE_VERSIONED_DOCS')
+		.default('false')
+		.asString()
 
 	const appConfig = await loadHashiConfigForEnvironment()
 
@@ -85,10 +92,11 @@ module.exports = async () => {
 		webpack(config) {
 			config.plugins.push(HashiConfigPlugin(appConfig))
 
+			const DD_API_KEY = env.get('DD_API_KEY').asString()
 			if (
-				typeof process.env.DD_API_KEY !== 'undefined' &&
-				process.env.VERCEL_ENV &&
-				process.env.VERCEL_ENV !== 'development'
+				DD_API_KEY !== undefined &&
+				VERCEL_ENV &&
+				VERCEL_ENV !== 'development'
 			) {
 				config.devtool = 'hidden-source-map'
 			}
@@ -110,11 +118,11 @@ module.exports = async () => {
 		env: {
 			ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
 			// Enable AXE only in development environment
-			AXE_ENABLED: process.env.VERCEL_ENV === 'development' ? 'true' : 'false',
+			AXE_ENABLED: VERCEL_ENV === 'development' ? 'true' : 'false',
 			DEV_IO: process.env.DEV_IO,
 			PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
-			ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || 'false',
-			HASHI_ENV: process.env.HASHI_ENV || 'development',
+			ENABLE_VERSIONED_DOCS: ENABLE_VERSIONED_DOCS,
+			HASHI_ENV: HASHI_ENV,
 			IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
 			MKTG_CONTENT_DOCS_API: process.env.MKTG_CONTENT_DOCS_API,
 			// TODO: determine if DevDot needs this or not
@@ -122,7 +130,7 @@ module.exports = async () => {
 			// PostHog project API keys are safe to be public
 			// https://posthog.com/docs/privacy#is-it-ok-for-my-api-key-to-be-exposed-and-public
 			POSTHOG_PROJECT_API_KEY:
-				process.env.VERCEL_ENV !== 'production'
+				VERCEL_ENV !== 'production'
 					? 'phc_pRGNydYDY8FoITb4x6f26rhfVSBWjauc30dPwoDun7u' // Dev
 					: 'phc_WyEB0tt2Cd9QMWvT2tbWhDcR3yP1AJS4INRpYKbrovj', // Prod
 		},
@@ -140,8 +148,7 @@ module.exports = async () => {
 					hostname: process.env.UNIFIED_DOCS_API.replace(/^https?:\/\//, ''),
 				},
 				// only allow localhost in development mode
-				...(process.env.NODE_ENV === 'development' &&
-				process.env.HASHI_ENV !== 'preview'
+				...(NODE_ENV === 'development' && HASHI_ENV !== 'preview'
 					? [{ protocol: 'http', hostname: 'localhost' }]
 					: []),
 			],
