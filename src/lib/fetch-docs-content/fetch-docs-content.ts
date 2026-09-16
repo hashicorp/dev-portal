@@ -5,8 +5,8 @@
 
 import { getContentApiBaseUrl } from '../unified-docs-migration-utils'
 
-export class ContentApiError extends Error {
-	name = 'ContentApiError' as const
+export class DocsContentAPIError extends Error {
+	name = 'DocsContentAPIError' as const
 	constructor(
 		message: string,
 		public status: number,
@@ -45,7 +45,7 @@ interface fetchDocsContentProps {
  * @param resource - The type of resource being fetched (`"nav-data"`,
  *   `"doc"`, or `"version-metadata"`). Only relevant when
  *   `useOldMarketingContentAPI` is `true`; used to populate the typed
- *   `ContentApiError` on non-200 responses.
+ *   `DocsContentAPIError` on non-200 responses.
  */
 export const fetchDocsContent = async ({
 	url,
@@ -55,7 +55,7 @@ export const fetchDocsContent = async ({
 	resource,
 }: fetchDocsContentProps): Promise<Response> => {
 	let API_BASE_URL = ''
-	// builder headers
+	// build headers w/ bypass token if needed
 	const headers =
 		includeBypassHeader && process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
 			? new Headers({
@@ -74,20 +74,28 @@ export const fetchDocsContent = async ({
 	// 2. Form fetch query
 	const QUERY_URL = `${API_BASE_URL}/${url}`
 
-	// 3. Fetch the query
-	const response = await fetch(QUERY_URL, { headers })
-
-	// 4. For content API calls, throw a typed error on non-200 so callers get
-	//    structured error info. For non-content-API calls, return the response
-	//    and let the caller inspect .ok / .status as needed.
-	if (useOldMarketingContentAPI && response.status !== 200) {
-		throw new ContentApiError(
+	// 3. Try to fetch the query
+	try {
+		const response = await fetch(QUERY_URL, { headers })
+		// 4. For Marketing Content API calls, throw a typed error on non-200 so callers get
+		//    structured error info. For non-content-API calls, return the response
+		//    and let the caller inspect .ok / .status as needed.
+		if (useOldMarketingContentAPI && response.status !== 200) {
+			throw new DocsContentAPIError(
+				`Failed to fetch: ${QUERY_URL}`,
+				response.status,
+				resource,
+				QUERY_URL,
+			)
+		}
+		return response
+	} catch (e) {
+		// 5. Throw a docs specific error if fetch fails
+		throw new DocsContentAPIError(
 			`Failed to fetch: ${QUERY_URL}`,
-			response.status,
-			resource,
+			e.status,
+			resource ? resource : 'doc',
 			QUERY_URL,
 		)
 	}
-
-	return response
 }

@@ -4,7 +4,7 @@
  */
 
 import { GetStaticPaths, GetStaticProps, GetStaticPathsResult } from 'next'
-import { ContentApiError } from '../../../lib/fetch-docs-content/fetch-docs-content'
+import { DocsContentAPIError } from '../../../lib/fetch-docs-content/fetch-docs-content'
 import FileSystemLoader from './file-system'
 import RemoteContentLoader from './remote-content'
 import { DataLoader, RemarkPlugins } from './types'
@@ -81,7 +81,7 @@ export function getStaticGenerationFunctions(
 			} catch (err) {
 				console.error(`Failed to generate static props:`, err)
 
-				if (err instanceof ContentApiError) {
+				if (err instanceof DocsContentAPIError) {
 					if (err.status === 404) {
 						return {
 							notFound: true,
