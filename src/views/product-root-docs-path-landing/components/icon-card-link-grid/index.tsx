@@ -26,18 +26,19 @@ const ProductRootDocsPathLandingIconCardLinkGrid = ({
 	return (
 		<ul className={s.root}>
 			{items.map(
-				({ iconName, path, name }: IconCardGridItem | RootDocsPath) => {
+				({ iconName, path, name, ...rest }: IconCardGridItem | RootDocsPath) => {
+					const urlOverride = 'url' in rest ? rest.url : undefined
 					if (currentProduct.currentRootDocsPath.path === path) {
 						return null
 					}
-
+	
 					return (
 						<li key={path}>
 							<IconCardLink
 								icon={SUPPORTED_ICONS[iconName]}
 								productSlug={currentProduct.slug}
 								text={name}
-								url={`/${currentProduct.slug}/${path}`}
+								url={urlOverride ?? `/${currentProduct.slug}/${path}`}
 							/>
 						</li>
 					)

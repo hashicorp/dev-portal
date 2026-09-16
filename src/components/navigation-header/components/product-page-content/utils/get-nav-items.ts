@@ -99,7 +99,11 @@ export const getLeftSideNavItems = (
 	/**
 	 * Install
 	 */
-	if (currentProduct.slug !== 'hcp' && currentProduct.slug !== 'waypoint') {
+	if (
+		currentProduct.slug !== 'hcp' && 
+		currentProduct.slug !== 'waypoint' &&
+		currentProduct.slug !== 'vault-radar'
+	) {
 		items.push({
 			label: 'Install',
 			url: currentProduct.slug === 'boundary'

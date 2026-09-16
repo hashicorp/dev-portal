@@ -13,6 +13,7 @@ import sentinelData from 'data/sentinel.json'
 import terraformData from 'data/terraform.json'
 import vagrantData from 'data/vagrant.json'
 import vaultData from 'data/vault.json'
+import vaultRadarData from 'data/vault-radar.json'
 import waypointData from 'data/waypoint.json'
 
 export const PRODUCT_DATA_MAP = {
@@ -25,5 +26,6 @@ export const PRODUCT_DATA_MAP = {
 	terraform: terraformData,
 	vagrant: vagrantData,
 	vault: vaultData,
+	'vault-radar': vaultRadarData,
 	waypoint: waypointData,
 } as Record<string, ProductData>
