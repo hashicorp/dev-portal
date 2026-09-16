@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-const env = require('env-var')
-const fs = require('fs')
-const path = require('path')
-const flat = require('flat')
+import fs from 'fs'
+import path from 'path'
+import flat from 'flat'
+import env from 'env-var'
+import { fetchDocsContent } from '../src/lib/fetch-docs-content/fetch-docs-content'
 
 // Cache the final config to avoid re-reading files multiple times
-let finalConfig;
+let finalConfig: Record<string, unknown>
 
 /**
  * Load an environment config for the current environment, which is controlled by
@@ -25,15 +26,15 @@ async function loadHashiConfigForEnvironment() {
 /**
  * Load an environment config from a specific path.
  */
-async function getHashiConfig(configPath) {
+async function getHashiConfig(configPath: string) {
 	if (finalConfig) {
 		return finalConfig
 	}
 
 	try {
 		const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
-		const baseConfig = JSON.parse(fs.readFileSync(baseConfigPath))
-		const envConfig = JSON.parse(fs.readFileSync(configPath))
+		const baseConfig = JSON.parse(fs.readFileSync(baseConfigPath, 'utf-8'))
+		const envConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
 
 		// Load the extended config, if no extends property is defined use the base config
 		let extendsConfig = baseConfig
@@ -42,7 +43,7 @@ async function getHashiConfig(configPath) {
 			const extendsConfigPath = path.join(
 				process.cwd(),
 				'config',
-				`${envConfig.extends}.json`
+				`${envConfig.extends}.json`,
 			)
 			extendsConfig = await getHashiConfig(extendsConfigPath)
 		}
@@ -58,10 +59,13 @@ async function getHashiConfig(configPath) {
 
 					let udrProducts = Object.values({
 						...extendsConfig.flags?.unified_docs_migrated_repos,
-						...envConfig.flags?.unified_docs_migrated_repos
+						...envConfig.flags?.unified_docs_migrated_repos,
 					})
 
-					const response = await fetch(`${UNIFIED_DOCS_API}/api/supported-products`)
+					const response = await fetchDocsContent({
+						url: 'api/supported-products',
+						includeBypassHeader: false,
+					})
 					udrProducts = (await response.json()).result
 
 					// clear out any existing values and replace with fetched products
@@ -69,19 +73,27 @@ async function getHashiConfig(configPath) {
 					extendsConfig.flags.unified_docs_migrated_repos = []
 					envConfig.flags.unified_docs_migrated_repos = udrProducts
 				} catch (err) {
-					console.warn(`⛔️ Failed to fetch from "${UNIFIED_DOCS_API}/api/supported-products":`, err.message)
-					console.warn('⛔️ Defaulting to "config/production.json" list of UDR products')
+					console.warn(
+						`⛔️ Failed to fetch from "${UNIFIED_DOCS_API}/api/supported-products":`,
+						err.message,
+					)
+					console.warn(
+						'⛔️ Defaulting to "config/production.json" list of UDR products',
+					)
 
 					const prodConfigPath = path.join(
 						process.cwd(),
 						'config',
-						'production.json'
+						'production.json',
 					)
-					const prodConfig = JSON.parse(fs.readFileSync(prodConfigPath))
+					const prodConfig = JSON.parse(
+						fs.readFileSync(prodConfigPath, 'utf-8'),
+					)
 
 					envConfig.flags.unified_docs_migrated_repos = []
 					extendsConfig.flags.unified_docs_migrated_repos = []
-					envConfig.flags.unified_docs_migrated_repos = prodConfig.flags.unified_docs_migrated_repos
+					envConfig.flags.unified_docs_migrated_repos =
+						prodConfig.flags.unified_docs_migrated_repos
 				}
 			}
 		}
@@ -93,7 +105,10 @@ async function getHashiConfig(configPath) {
 		})
 
 		// Because we are "flattening" the object, a simple spread should be sufficient here
-		finalConfig = { ...extendsFlattened, ...envFlattened }
+		finalConfig = { ...extendsFlattened, ...envFlattened } as Record<
+			string,
+			unknown
+		>
 
 		const DEBUG_CONFIG = env.get('DEBUG_CONFIG').asBool()
 		if (DEBUG_CONFIG) {
@@ -106,4 +121,4 @@ async function getHashiConfig(configPath) {
 	}
 }
 
-module.exports = { loadHashiConfigForEnvironment }
+export { loadHashiConfigForEnvironment }

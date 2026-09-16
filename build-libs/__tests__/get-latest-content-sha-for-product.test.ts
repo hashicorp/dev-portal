@@ -11,35 +11,37 @@ import { loadHashiConfigForEnvironment } from '../../config'
 describe.skip('getLatestContentShaForProduct', async () => {
 	const config = await loadHashiConfigForEnvironment()
 
-	PRODUCT_REDIRECT_ENTRIES
-		.filter(({ repo }) => !config['flags.unified_docs_migrated_repos'].includes(repo)) // skip repos we don't have access to
+	PRODUCT_REDIRECT_ENTRIES.filter(
+		({ repo }) =>
+			!(config['flags.unified_docs_migrated_repos'] as string[]).includes(repo),
+	) // skip repos we don't have access to
 		.forEach(({ repo, path }) => {
 			if (repo === 'hvd-docs') {
 				console.log(`Skipping test for repo "${repo}"`)
 			} else {
 				it(`fetches the latest SHA for the "${repo}" repo`, async () => {
-				const latestSha = await getLatestContentShaForProduct(repo)
-				expect(typeof latestSha).toBe('string')
-			})
-		}
-		if (
-			['hcp-docs', 'sentinel', 'terraform-enterprise', 'hvd-docs'].includes(
-				repo
-			)
-		) {
-			console.log(`Skipping test for private repo "${repo}"`)
-		} else {
-			it(`fetches the latest SHA for the "${repo}" repo, then validates the SHA by fetching redirects`, async () => {
-				const latestSha = await getLatestContentShaForProduct(repo)
-				expect(typeof latestSha).toBe('string')
-				const redirectsFileString = await fetchGithubFile({
-					owner: 'hashicorp',
-					repo: repo,
-					path: path,
-					ref: latestSha,
+					const latestSha = await getLatestContentShaForProduct(repo)
+					expect(typeof latestSha).toBe('string')
 				})
-				expect(typeof redirectsFileString).toBe('string')
-			})
-		}
-	})
+			}
+			if (
+				['hcp-docs', 'sentinel', 'terraform-enterprise', 'hvd-docs'].includes(
+					repo,
+				)
+			) {
+				console.log(`Skipping test for private repo "${repo}"`)
+			} else {
+				it(`fetches the latest SHA for the "${repo}" repo, then validates the SHA by fetching redirects`, async () => {
+					const latestSha = await getLatestContentShaForProduct(repo)
+					expect(typeof latestSha).toBe('string')
+					const redirectsFileString = await fetchGithubFile({
+						owner: 'hashicorp',
+						repo: repo,
+						path: path,
+						ref: latestSha,
+					})
+					expect(typeof redirectsFileString).toBe('string')
+				})
+			}
+		})
 })

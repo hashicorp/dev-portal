@@ -3,28 +3,25 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-//@ts-check
+import fs from 'fs'
+import path from 'path'
+import env from "env-var"
 
-const fs = require('fs')
-const path = require('path')
-const env = require('env-var')
+import { isDeployPreview } from '../src/lib/env-checks'
+import { fetchDocsContent } from '../src/lib/fetch-docs-content/fetch-docs-content'
+import fetchGithubFile from './fetch-github-file'
+import getLatestContentShaForProduct from './get-latest-content-sha-for-product'
+import { getTutorialRedirects } from './tutorial-redirects'
+import { getDocsDotHashiCorpRedirects } from './docs-dot-hashicorp-redirects'
+import { packerPluginRedirects } from './integration-packer-redirects'
+import { loadHashiConfigForEnvironment } from '../config'
 
-const { isDeployPreview } = require('../src/lib/env-checks')
-const fetchGithubFile = require('./fetch-github-file')
-const getLatestContentShaForProduct = require('./get-latest-content-sha-for-product')
-const { getTutorialRedirects } = require('./tutorial-redirects')
-const {
-	getDocsDotHashiCorpRedirects,
-} = require('./docs-dot-hashicorp-redirects')
-const { packerPluginRedirects } = require('./integration-packer-redirects')
-const { loadHashiConfigForEnvironment } = require('../config')
+import 'isomorphic-unfetch'
 
-require('isomorphic-unfetch')
-
-/** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
+import type { Redirect } from 'next/dist/lib/load-custom-routes'
 
 // copied from src/constants/hostname-map.ts so it's usable at build-time in the next config
-const HOSTNAME_MAP = {
+const HOSTNAME_MAP: Record<string, string> = {
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
 }
@@ -54,7 +51,11 @@ const HOSTNAME_MAP = {
  * @param {string} redirectsPath Path within the repo to the redirects file.
  * @returns {Promise<Redirect[]>}
  */
-async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
+async function getRedirectsFromContentRepo(
+	repoName: string,
+	redirectsPath: string,
+	config: Record<string, unknown>,
+): Promise<Redirect[]> {
 	/**
 	 * Note: These constants are declared for clarity in build context intent.
 	 */
@@ -66,18 +67,14 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	 * Load redirects from the unified docs repo if it's in the list of migrated repos.
 	 * Return early if there are not any redirects found for that specific repo.
 	 */
-	if (config['flags.unified_docs_migrated_repos'].includes(repoName)) {
-		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
-			? new Headers({
-					'x-vercel-protection-bypass':
-						process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-				})
-			: new Headers()
+	if (
+		(config['flags.unified_docs_migrated_repos'] as string[]).includes(repoName)
+	) {
+		const getUDRRedirects = await fetchDocsContent({
+			url: `api/content/${repoName}/redirects`,
+			includeBypassHeader: true,
+		})
 
-		const getUDRRedirects = await fetch(
-			`${process.env.UNIFIED_DOCS_API}/api/content/${repoName}/redirects`,
-			{ headers },
-		)
 		if (getUDRRedirects.ok) {
 			const udrRedirects = await getUDRRedirects.json()
 			return udrRedirects
@@ -101,9 +98,8 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	/**
 	 * Load redirects from the target repo (or return early for non-target repos).
 	 */
-	/** @type {string} */
-	let redirectsFileString
-	if (isDeveloperBuild || HASHI_ENV === 'unified-docs-sandbox') {
+	let redirectsFileString: string
+	if (isDeveloperBuild || process.env.HASHI_ENV === 'unified-docs-sandbox') {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
 		// hvd-docs is not hosted on the content API, so we need to use main as the latest sha
 
@@ -128,18 +124,16 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	/**
 	 * Evaluate the redirects file string, filter invalid redirects.
 	 */
-	/** @type {Redirect[]} */
-	const parsedRedirects = eval(redirectsFileString) ?? []
+	const parsedRedirects: Redirect[] = eval(redirectsFileString) ?? []
 	const validRedirects = filterInvalidRedirects(parsedRedirects, repoName)
 	return validRedirects
 }
 
 /**
- * @type {{ repo: string, path: string}[]} An array of redirect
- * entries. Each entry specifies a repo and the path within that repo to the
- * redirects file.
+ * An array of redirect entries. Each entry specifies a repo and the path
+ * within that repo to the redirects file.
  */
-const PRODUCT_REDIRECT_ENTRIES = [
+const PRODUCT_REDIRECT_ENTRIES: { repo: string; path: string }[] = [
 	{ repo: 'boundary', path: 'website/redirects.js' },
 	{ repo: 'nomad', path: 'website/redirects.js' },
 	{ repo: 'vault', path: 'website/redirects.js' },
@@ -278,15 +272,15 @@ async function buildDevPortalRedirects() {
  * which exceeded Vercel's limits for built-in redirects handling.
  * For further details see: https://vercel.com/guides/how-can-i-increase-the-limit-of-redirects-or-use-dynamic-redirects-on-vercel
  *
- * @param {Redirect[]} redirects
+ * @param redirects
  * @returns {{ simpleRedirects: Redirect[], complexRedirects: Redirect[] }}
  */
-function splitRedirectsByType(redirects) {
-	/** @type {Redirect[]} */
-	const simpleRedirects = []
-
-	/** @type {Redirect[]} */
-	const complexRedirects = []
+function splitRedirectsByType(redirects: Redirect[]): {
+	simpleRedirects: Redirect[]
+	complexRedirects: Redirect[]
+} {
+	const simpleRedirects: Redirect[] = []
+	const complexRedirects: Redirect[] = []
 
 	redirects.forEach((redirect) => {
 		const isGlobRedirect = ['(', ')', '{', '}', ':', '*', '+', '?'].some(
@@ -313,15 +307,18 @@ function splitRedirectsByType(redirects) {
  *
  * Invalid redirects will be filtered out and ignored.
  *
- * @param {Redirect[]} redirects
- * @param {string} repoSlug
+ * @param redirects
+ * @param repoSlug
  * @returns {Redirect[]}
  */
-function filterInvalidRedirects(redirects, repoSlug) {
+function filterInvalidRedirects(
+	redirects: Redirect[],
+	repoSlug: string,
+): Redirect[] {
 	/**
 	 * Normalize the repoSlug into a productSlug.
 	 */
-	const productSlugsByRepo = {
+	const productSlugsByRepo: Record<string, string> = {
 		/** @deprecated - terraform-website is now archived and redirects have been moved to `terraform-docs-common` */
 		'terraform-website': 'terraform',
 		'terraform-docs-common': 'terraform',
@@ -331,8 +328,7 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	}
 	const productSlug = productSlugsByRepo[repoSlug] ?? repoSlug
 
-	/** @type {Redirect[]} */
-	const invalidRedirects = []
+	const invalidRedirects: Redirect[] = []
 
 	/**
 	 * Filter out any redirects not prefixed with the `product` slug.
@@ -373,10 +369,10 @@ function filterInvalidRedirects(redirects, repoSlug) {
  * without text between them. This normalizes patterns like `(regex):name`
  * (unnamed capture immediately followed by named param) to `:name(regex[^/]+)`.
  *
- * @param {string} source
+ * @param source
  * @returns {string}
  */
-function normalizeRedirectSource(source) {
+function normalizeRedirectSource(source: string): string {
 	// Match an unnamed capture group followed immediately by a named parameter,
 	// e.g. `((?!get$)):slug` → `:slug((?!get$)[^/]+)`
 	return source.replace(
@@ -388,13 +384,20 @@ function normalizeRedirectSource(source) {
 /**
  * Groups simple redirects into an object keyed by the product slug they apply
  * to (as determined by the `host` property).
- * @param {Redirect[]} redirects
  */
-function groupSimpleRedirects(redirects) {
-	/** @type {Record<string, Record<string, { destination: string, permanent?: boolean }>>} */
-	const groupedRedirects = {}
+function groupSimpleRedirects(
+	redirects: Redirect[],
+): Record<
+	string,
+	Record<string, { destination: string; permanent?: boolean }>
+> {
+	const groupedRedirects: Record<
+		string,
+		Record<string, { destination: string; permanent?: boolean }>
+	> = {}
+
 	redirects.forEach((redirect) => {
-		let product
+		let product: string | undefined
 		if (redirect.has && redirect.has.length > 0) {
 			if (redirect.has[0].type === 'host') {
 				const hasHostValue = redirect.has[0].value
@@ -478,7 +481,7 @@ async function redirectsConfig() {
 	}
 }
 
-module.exports = {
+export {
 	PRODUCT_REDIRECT_ENTRIES,
 	redirectsConfig,
 	splitRedirectsByType,
