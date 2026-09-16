@@ -24,6 +24,12 @@ export function getAlgoliaFilters(
 	let typeFilter = ''
 	if (resultType && resultType !== SearchContentTypes.GLOBAL) {
 		typeFilter = `type:${resultType}`
+	} else if (resultType === SearchContentTypes.GLOBAL || !resultType) {
+		const allowedTypes = Object.values(SearchContentTypes)
+			.filter((type) => type !== SearchContentTypes.GLOBAL)
+			.map((type) => `type:${type}`)
+			.join(' OR ')
+		typeFilter = allowedTypes
 	}
 
 	/**

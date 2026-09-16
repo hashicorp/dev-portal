@@ -36,7 +36,6 @@ export enum SearchContentTypes {
 	DOCS = 'docs',
 	INTEGRATION = 'integration',
 	TUTORIAL = 'tutorial',
-	KNOWLEDGEBASE = 'knowledgebase',
 }
 
 export type UnifiedSearchResults = Record<
