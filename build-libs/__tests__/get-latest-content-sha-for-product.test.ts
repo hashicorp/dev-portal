@@ -8,40 +8,61 @@ import fetchGithubFile from '@build-libs/fetch-github-file'
 import { PRODUCT_REDIRECT_ENTRIES } from '@build-libs/redirects'
 import { loadHashiConfigForEnvironment } from '../../config'
 
-describe.skip('getLatestContentShaForProduct', async () => {
-	const config = await loadHashiConfigForEnvironment()
+describe('getLatestContentShaForProduct', () => {
+	let entries: { repo: string; path: string }[] = []
 
-	PRODUCT_REDIRECT_ENTRIES.filter(
-		({ repo }) =>
-			!(config['flags.unified_docs_migrated_repos'] as string[]).includes(repo),
-	) // skip repos we don't have access to
-		.forEach(({ repo, path }) => {
-			if (repo === 'hvd-docs') {
-				console.log(`Skipping test for repo "${repo}"`)
-			} else {
-				it(`fetches the latest SHA for the "${repo}" repo`, async () => {
-					const latestSha = await getLatestContentShaForProduct(repo)
-					expect(typeof latestSha).toBe('string')
-				})
-			}
-			if (
-				['hcp-docs', 'sentinel', 'terraform-enterprise', 'hvd-docs'].includes(
+	beforeAll(async () => {
+		const config = await loadHashiConfigForEnvironment()
+		entries = PRODUCT_REDIRECT_ENTRIES.filter(
+			({ repo }) =>
+				!(config['flags.unified_docs_migrated_repos'] as string[]).includes(
 					repo,
-				)
-			) {
-				console.log(`Skipping test for private repo "${repo}"`)
-			} else {
-				it(`fetches the latest SHA for the "${repo}" repo, then validates the SHA by fetching redirects`, async () => {
-					const latestSha = await getLatestContentShaForProduct(repo)
-					expect(typeof latestSha).toBe('string')
-					const redirectsFileString = await fetchGithubFile({
-						owner: 'hashicorp',
-						repo: repo,
-						path: path,
-						ref: latestSha,
-					})
-					expect(typeof redirectsFileString).toBe('string')
-				})
+				),
+		)
+
+		console.log(PRODUCT_REDIRECT_ENTRIES)
+		console.log(config['flags.unified_docs_migrated_repos'] as string[])
+	})
+
+	it.each(PRODUCT_REDIRECT_ENTRIES.filter(({ repo }) => repo !== 'hvd-docs'))(
+		'fetches the latest SHA for the "$repo" repo',
+		async ({ repo }) => {
+			// Skip repos that were filtered out by the config (entries not populated yet
+			// at collection time, so we skip at runtime if not in the allowed set)
+			if (!entries.find((e) => e.repo === repo)) {
+				return
 			}
-		})
+			const latestSha = await getLatestContentShaForProduct(repo)
+			expect(typeof latestSha).toBe('string')
+		},
+	)
+
+	const PRIVATE_REPOS = [
+		'hcp-docs',
+		'sentinel',
+		'terraform-enterprise',
+		'hvd-docs',
+	]
+
+	it.each(
+		PRODUCT_REDIRECT_ENTRIES.filter(
+			({ repo }) => !PRIVATE_REPOS.includes(repo),
+		),
+	)(
+		'fetches the latest SHA for the "$repo" repo, then validates the SHA by fetching redirects',
+		async ({ repo, path }) => {
+			if (!entries.find((e) => e.repo === repo)) {
+				return
+			}
+			const latestSha = await getLatestContentShaForProduct(repo)
+			expect(typeof latestSha).toBe('string')
+			const redirectsFileString = await fetchGithubFile({
+				owner: 'hashicorp',
+				repo: repo,
+				path: path,
+				ref: latestSha,
+			})
+			expect(typeof redirectsFileString).toBe('string')
+		},
+	)
 })
