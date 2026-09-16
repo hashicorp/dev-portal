@@ -14,12 +14,14 @@
 	"get_started": {
 		"heading": "Getting Started",
 		"body": "Learn how to get started with HCP Vault Radar.",
-		"ctas": [
+		"iconCardLinks": [
 			{
+				"icon": "hcp",
 				"text": "HCP Vault Radar Quick Start",
 				"url": "/vault-radar/tutorials/get-started-hcp-vault-radar"
 			},
 			{
+				"icon": "hcp",
 				"text": "HCP Vault Radar Developer Guide",
 				"url": "/vault-radar/tutorials/hcp-vault-radar-developer"
 			}
