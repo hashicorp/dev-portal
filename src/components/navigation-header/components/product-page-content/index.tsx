@@ -15,6 +15,7 @@ import { getRightSideNavItems, NavItem, getLeftSideNavItems } from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
 import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
+import { usePathname } from 'next/navigation'
 
 // Icons
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -49,26 +50,35 @@ function MobileSubMenuButton({ className }) {
 
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
-	const leftSideNavItems = getLeftSideNavItems(currentProduct)
-	const rightSideNavItems = getRightSideNavItems(currentProduct)
+	const pathname = usePathname()
+	const isCertificationsRoute = pathname.startsWith('/certifications')
+
+	const leftSideNavItems = getLeftSideNavItems(
+		currentProduct,
+		isCertificationsRoute,
+	)
+	const rightSideNavItems = getRightSideNavItems(
+		currentProduct,
+		isCertificationsRoute && !pathname.includes('signin'), // this makes it so the register for exam button doesn't render on signin
+	)
 
 	// Check if the current product has sandbox support
 	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
 	const hasSandbox =
 		SANDBOX_CONFIG.labs?.length > 0 &&
-		supportedSandboxProducts.includes(currentProduct.slug)
+		supportedSandboxProducts.includes(currentProduct?.slug)
 
 	return (
 		<>
 			<div className={s.productLinkAndNav}>
 				<ProductIconTextLink
-					name={currentProduct.name}
-					slug={currentProduct.slug}
+					name={isCertificationsRoute ? 'Certifications' : currentProduct.name}
+					slug={isCertificationsRoute ? 'certifications' : currentProduct.slug}
 				/>
 				<NavBarListContainer>
 					<div className={s.left}>
 						{leftSideNavItems.map((navItem: NavItem) => {
-							const ariaLabel = `${currentProduct.name} ${navItem.label}`
+							const ariaLabel = `${currentProduct?.name} ${navItem.label}`
 							const isSubmenu = 'items' in navItem
 							const isSandbox = navItem.label === 'Sandbox'
 
@@ -104,7 +114,7 @@ const ProductPageHeaderContent = () => {
 					<div className={s.right}>
 						{rightSideNavItems.map(
 							(navItem: PrimaryNavLinkProps['navItem']) => {
-								const ariaLabel = `${currentProduct.name} ${navItem.label}`
+								const ariaLabel = `${currentProduct?.name} ${navItem.label}`
 
 								return (
 									<li key={navItem.label}>

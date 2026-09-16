@@ -3,6 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.heroText {
+	padding-bottom: 32px;
+
+	@media (--dev-dot-tablet-down) {
+		padding-bottom: 160px;
+	}
+}
+
 .heroBackground {
 	background: url('./assets/certifications-hero-gradient.svg'),
 		var(--mds-color-foreground-strong);

@@ -54,8 +54,8 @@ function CertificationsSignInView({ jsonContent, mdxItems }: CertificationSignIn
 						// Alternate themes for the gradient cards
 						const theme =
 							index % 2 === 0
-								? 'infrastructure-automation'
-								: 'security-automation'
+								? 'terraform'
+								: 'vault'
 						return (
 							<GradientCard key={item.title} theme={theme}>
 								<div className={s.cardContent}>

@@ -12,10 +12,7 @@ import { z } from 'zod'
  * This schema, and components that use the CertificationProductSlug type,
  * will need to be expanded when additional certification programs are added.
  */
-export const productsWithCertifications = [
-	'terraform',
-	'vault',
-] as const
+export const productsWithCertifications = ['terraform', 'vault'] as const
 
 const CertificationProductSlugSchema = z.enum(productsWithCertifications)
 
@@ -27,59 +24,84 @@ export type CertificationProductSlug = z.infer<
 >
 
 /**
- * Each exam can optionally define a tier.
- * - associate (shows 1 start on badges)
- * - pro (shows 2 stars on badges)
- * Generally, the `associate` tier is used as the default.
- */
-const ExamTierSchema = z.enum(['associate', 'pro'])
-
-/**
- * Export the ExamTier enum as a type.
- */
-export type ExamTier = z.infer<typeof ExamTierSchema>
-
-/**
- * Content schema for an exam.
- *
- * Each certification program can reference multiple exams.
- * For example, the Security Automation certification program
- * contains both the Vault Associate and Vault Professional exams.
- */
-export const CertificationExamSchema = z.object({
-	title: z.string(),
-	examCode: z.string().optional(),
-	examTier: ExamTierSchema.optional(),
-	productSlug: CertificationProductSlugSchema,
-	versionTested: z.string(),
-	description: z.string(),
-	faqSlug: z.string(),
-	links: z
-		.object({
-			prepare: z.string().optional(),
-			register: z.string().optional(),
-		})
-		.optional(),
-})
-
-/**
  * Content schema for an individual certification program.
  *
  * Certification programs are oriented around solution areas, such as
  * "Infrastructure Automation". Each certification program can contain
  * multiple specific exams.
  */
+const ctaSchema = z.object({
+	text: z.string(),
+	link: z.string(),
+})
+
+const whoShouldTakeExamSchema = z.object({
+	title: z.string().optional(),
+	description: z.string(),
+})
+
+const prerequisitesSchema = z.object({
+	title: z.string().optional(),
+	prereqs: z.array(z.string()),
+	bottomDescription: z.string().optional(),
+})
+
+const examDetailSchema = z.object({
+	name: z.string(),
+	value: z.string(),
+})
+
+const examDetailsSchema = z.object({
+	title: z.string().optional(),
+	details: z.array(examDetailSchema),
+})
+
+const relatedCertsExamSchema = z.object({
+	id: z.string(),
+})
+
 export const CertificationProgramSchema = z.object({
 	title: z.string(),
 	hero: z.object({
-		heading: z.string(),
+		product: z.string().optional(),
+		eyebrow: z.string().optional(),
+		title: z.string(),
+		description: z.string(),
+		leftCta: ctaSchema.optional(),
+		rightCta: ctaSchema.optional(),
+	}),
+	announcement: z.object({
+		header: z.string(),
+		text: z.string(),
+		cta: z.string(),
+		ctaLink: z.string(),
+	}),
+	certificationDetails: z.object({
+		product: CertificationProductSlugSchema,
+		data: z.object({
+			whoShouldTakeExam: whoShouldTakeExamSchema,
+			examDetails: examDetailsSchema,
+			prerequisites: prerequisitesSchema,
+		}),
+	}),
+	objectives: z.object({
+		title: z.string(),
+	}),
+	renewCertifications: z.object({
+		title: z.string(),
 		description: z.string(),
 	}),
-	summary: z.object({
-		heading: z.string(),
+	linkWithImage: z.object({
+		title: z.string(),
 		description: z.string(),
+		cta: z.string(),
+		ctaLink: z.string(),
 	}),
-	exams: z.array(CertificationExamSchema),
+	relatedCertsFooter: z.object({
+		title: z.string(),
+		description: z.string(),
+		certs: z.array(relatedCertsExamSchema),
+	}),
 })
 
 /**
@@ -89,8 +111,3 @@ export const CertificationProgramSchema = z.object({
  * It may need to be transformed before it can be used at the view level.
  */
 export type RawCertificationProgram = z.infer<typeof CertificationProgramSchema>
-
-/**
- * Raw content for an individual exam item.
- */
-export type RawCertificationExam = z.infer<typeof CertificationExamSchema>

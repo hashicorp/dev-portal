@@ -99,11 +99,11 @@ const NavigationHeader = () => {
 
 	// Render the subnav on mobile only for WAF & Validated Designs
 	const shouldOnlyRenderHomeHeader =
-		!currentProduct ||
+		(!currentProduct && !router.route.startsWith('/certifications')) ||
 		router.route === '/_error' ||
-		(currentProduct.slug === 'well-architected-framework' &&
+		(currentProduct?.slug === 'well-architected-framework' &&
 			!isMobileMenuRendered) ||
-		(currentProduct.slug === 'validated-designs' && !isMobileMenuRendered)
+		(currentProduct?.slug === 'validated-designs' && !isMobileMenuRendered)
 
 	function handleMobileBackButton() {
 		setCurrentMobileSubOption('')
