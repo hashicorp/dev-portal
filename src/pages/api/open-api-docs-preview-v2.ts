@@ -5,6 +5,7 @@
 
 import fs from 'fs'
 import path from 'path'
+import env from 'env-var'
 import { randomUUID } from 'crypto'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -13,7 +14,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
  * Setup for temporary file storage
  */
 // Determine if we're deploying to Vercel, this affects the temporary directory
-const IS_VERCEL_DEPLOY = typeof process.env.VERCEL_ENV === 'string'
+const VERCEL_ENV = env.get('VERCEL_ENV').asString()
+const IS_VERCEL_DEPLOY = VERCEL_ENV !== undefined
 // Determine the temporary directory to use, based on Vercel deploy or not
 const TMP_DIR = IS_VERCEL_DEPLOY ? '/tmp' : path.join(process.cwd(), '.tmp')
 // Ensure the temporary directory exists, so we can stash files
@@ -51,7 +53,7 @@ const reqHandlers = {
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	const handle = reqHandlers[req.method]
 	if (handle) {
@@ -148,7 +150,7 @@ async function deleteOldFiles(directoryPath: string, maxAgeMs: number) {
 				// console.log(`Deleting old file: ${file}`)
 				fs.promises.unlink(`${directoryPath}/${file}`)
 			}
-		})
+		}),
 	)
 }
 

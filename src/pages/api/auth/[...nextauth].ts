@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import createFetch from '@vercel/fetch'
 import NextAuth from 'next-auth'
 import { URL } from 'url'
@@ -13,7 +14,8 @@ import isJwtExpired from 'lib/auth/is-jwt-expired'
 
 const fetch = createFetch()
 
-const isDev = process.env.NODE_ENV === 'development'
+const NODE_ENV = env.get('NODE_ENV').asString()
+const isDev = NODE_ENV === 'development'
 
 export default NextAuth({
 	session: {

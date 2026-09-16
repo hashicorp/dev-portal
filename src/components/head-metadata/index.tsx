@@ -60,12 +60,13 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 	/**
 	 * Set a custom favicon based on the environment.
 	 */
+	const HASHI_ENV = process.env.HASHI_ENV
+	const NODE_ENV = process.env.NODE_ENV
 	const isDev =
-		(process.env.HASHI_ENV === 'preview' ||
-			process.env.HASHI_ENV === 'development') &&
-		process.env.NODE_ENV === 'development'
+		(HASHI_ENV === 'preview' || HASHI_ENV === 'development') &&
+		NODE_ENV === 'development'
 	const isPreview =
-		process.env.HASHI_ENV === 'preview' && process.env.NODE_ENV === 'production'
+		HASHI_ENV === 'preview' && NODE_ENV === 'production'
 	let favIconHref: string
 	let favIconSvgHref: string
 	if (isDev) {

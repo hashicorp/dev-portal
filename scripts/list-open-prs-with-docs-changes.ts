@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import yargs from 'yargs'
 import { Octokit } from '@octokit/rest'
 
@@ -77,12 +78,13 @@ const main = async () => {
 	const result = new Set()
 
 	// Initialize Octokit for interacting with GitHub REST API client
-	if (!process.env.GITHUB_TOKEN) {
+	const GITHUB_TOKEN = env.get('GITHUB_TOKEN').asString()
+	if (!GITHUB_TOKEN) {
 		console.warn(
 			'No GITHUB_TOKEN env variable found. Provide it to avoid rate limits with the GitHub REST API.',
 		)
 	}
-	const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
+	const octokit = new Octokit({ auth: GITHUB_TOKEN })
 
 	// Get a list of open PRs in the given repo.
 	const { data: pulls } = await octokit.request(

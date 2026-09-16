@@ -127,9 +127,10 @@ function Image({
 }: ImageProps): ReactElement {
 	const [servedFrom, setServedFrom] = useState<string | null>(null)
 
+	const HASHI_ENV = process.env.HASHI_ENV
 	// In order to display the "Served from" badge, we need to fetch the headers for the image, which re-requesting the image as the html tag <img> loading is handled by the browser and we don't have access to the response headers.
 	useEffect(() => {
-		if (process.env.HASHI_ENV !== 'unified-docs-sandbox') return
+		if (HASHI_ENV !== 'unified-docs-sandbox') return
 
 		let isCancelled = false
 
@@ -171,7 +172,7 @@ function Image({
 	const theme = getTheme(src)
 
 	let servedFromBadge = null
-	if (process.env.HASHI_ENV === 'unified-docs-sandbox') {
+	if (HASHI_ENV === 'unified-docs-sandbox') {
 		if (servedFrom === 'current build' || servedFrom === 'production') {
 			const icon = servedFrom === 'production' ? '🟢' : '🟡'
 			servedFromBadge = (

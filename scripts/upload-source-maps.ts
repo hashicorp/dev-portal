@@ -2,10 +2,14 @@
  * Copyright IBM Corp. 2021, 2025
  * SPDX-License-Identifier: MPL-2.0
  */
+import env from 'env-var'
 import { execSync } from 'child_process'
 
+const DD_API_KEY = env.get('DD_API_KEY').asString()
+const VERCEL_ENV = env.get('VERCEL_ENV').asString()
+
 const sensitiveKeys = [
-	process.env.DD_API_KEY,
+	DD_API_KEY,
 ]
 
 const redactSensitiveKeys = (string: string) => {
@@ -17,24 +21,24 @@ const redactSensitiveKeys = (string: string) => {
  */
 const main = () => {
 	if (
-		typeof process.env.DD_API_KEY === 'undefined' ||
-		typeof process.env.VERCEL_ENV === 'undefined' ||
-		process.env.VERCEL_ENV === 'development'
+		DD_API_KEY === undefined ||
+		VERCEL_ENV === undefined ||
+		VERCEL_ENV === 'development'
 	) {
 		return
 	}
 
 	const LATEST_SHA = process.env.VERCEL_GIT_COMMIT_SHA
 	const PATH_PREFIX =
-		process.env.VERCEL_ENV === 'production'
+		VERCEL_ENV === 'production'
 			? 'https://developer.hashicorp.com/_next/static/'
 			: `https://${process.env.VERCEL_BRANCH_URL}/_next/static/`
 	const SERVICE =
-		process.env.VERCEL_ENV === 'production'
+		VERCEL_ENV === 'production'
 			? 'developer.hashicorp.com'
 			: 'non-prod.developer.hashicorp.com'
 
-	const DATADOG_API_KEY = process.env.DD_API_KEY
+	const DATADOG_API_KEY = DD_API_KEY
 
 	try {
 		execSync(

@@ -4,6 +4,7 @@
  */
 
 import * as path from 'path'
+import env from 'env-var'
 import { visitParents } from 'unist-util-visit-parents'
 
 import type { Plugin } from 'unified'
@@ -52,14 +53,15 @@ export function remarkRewriteAssets(args: {
 						if (isInUDR) {
 							let domain
 
-							if (process.env.NODE_ENV === 'development') {
+							const NODE_ENV = env.get('NODE_ENV').asString()
+							if (NODE_ENV === 'development') {
 								domain = `http://localhost:${process.env.UNIFIED_DOCS_PORT}`
 							} else {
 								domain = process.env.UNIFIED_DOCS_API
 							}
 
 							url = new URL(
-								`${domain}/api/assets/${product}/${version}${node.url}`
+								`${domain}/api/assets/${product}/${version}${node.url}`,
 							)
 						} else {
 							const asset = path.posix.join(...getAssetPathParts(originalUrl))
@@ -77,7 +79,7 @@ export function remarkRewriteAssets(args: {
 - Found: ${originalUrl}
 - Replaced with: ${node.url}
 
-If this is a net-new asset, you'll need to commit and push it to GitHub.\n`
+If this is a net-new asset, you'll need to commit and push it to GitHub.\n`,
 						)
 
 						// if the image is wrapped in a link, and shares the same url as the original image, then update the link's url to the new asset url
@@ -92,7 +94,7 @@ If this is a net-new asset, you'll need to commit and push it to GitHub.\n`
 							}
 						}
 					}
-				}
+				},
 			)
 		}
 	}
@@ -101,7 +103,8 @@ If this is a net-new asset, you'll need to commit and push it to GitHub.\n`
 // A simple cache & util to prevent logging the same message multiple times
 const cache = new Map<string, boolean>()
 const logOnce = (id: string, message: string) => {
-	if (process.env.CI) {
+	const CI = env.get('CI').asBool()
+	if (CI) {
 		return
 	}
 	if (cache.get(id)) {
