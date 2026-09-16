@@ -15,10 +15,10 @@
 		}
 	},
 	"announcement": {
-		"header": "TechXchange is Coming",
-		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
-		"cta": "Read more",
-		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
+		"header": "Upcoming webinar!",
+		"text": "Learn more about the Professional and Advanced certifications.",
+		"cta": "Register today",
+		"ctaLink": "https://ibm.webcasts.com/starthere.jsp?ei=1774309&tp_key=1ded2d16d3"
 	},
 	"certificationDetails": {
 		"product": "terraform",
