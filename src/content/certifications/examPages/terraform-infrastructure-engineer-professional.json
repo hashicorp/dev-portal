@@ -6,12 +6,12 @@
 		"title": "Terraform Infrastructure Engineer Professional (002)",
 		"description": "Demonstrate your experience building and automating scalable infrastructure in production environments with Terraform in this multiple-choice exam.",
 		"leftCta": {
-			"text": "Register for the exam",
-			"link": "/certifications/signin"
+			"text": "Coming Soon",
+			"link": ""
 		},
 		"rightCta": {
-			"text": "Prepare for the exam",
-			"link": "/terraform/tutorials/pro-cert"
+			"text": "",
+			"link": ""
 		}
 	},
 	"announcement": {
