@@ -14,8 +14,15 @@ import { ProductIconTextLink } from './components'
 import { getRightSideNavItems, NavItem, getLeftSideNavItems } from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
 import SandboxDropdown from '../sandbox-dropdown'
-import s from './product-page-content.module.css'
 import { usePathname } from 'next/navigation'
+import { MobileSubMenuContainer } from '@components/mobile-menu-container'
+import {
+	SidebarNavMenuItem,
+	SidebarNavSubmenuItem,
+} from '@components/sidebar/components'
+import { SidebarNavMenuItemProps } from '@components/sidebar/components/sidebar-nav-menu-item/types'
+import { MenuItem } from '@components/sidebar'
+import s from './product-page-content.module.css'
 
 // Icons
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -45,6 +52,50 @@ function MobileSubMenuButton({ className }) {
 				)}
 			</button>
 		</>
+	)
+}
+
+function CertificationsMobileMenu({ className, navItems }) {
+	// convert NavItem type into SidebarNavMenuItemProps
+	const formattedNavItems: SidebarNavMenuItemProps[] = navItems.map(
+		(navItem: NavItem): SidebarNavMenuItemProps => {
+			// Format for submenu item
+			if ('items' in navItem) {
+				return {
+					item: {
+						title: navItem.label,
+						isOpen: true,
+						routes: navItem.items.map(
+							(subItem): MenuItem => ({
+								title: subItem.label,
+								fullPath: subItem.path,
+							}),
+						),
+					},
+				}
+			}
+
+			// Format for single menu item
+			return {
+				item: {
+					title: navItem.label,
+					fullPath: navItem.url,
+				},
+			}
+		},
+	)
+
+	// Render submenu if there are additional routes; otherwise, render a single menu item
+	return (
+		<MobileSubMenuContainer className={className}>
+			{formattedNavItems.map(({ item }) =>
+				item.routes ? (
+					<SidebarNavSubmenuItem key={item.title} item={item} />
+				) : (
+					<SidebarNavMenuItem key={item.title} item={item} />
+				),
+			)}
+		</MobileSubMenuContainer>
 	)
 }
 
@@ -126,6 +177,12 @@ const ProductPageHeaderContent = () => {
 					</div>
 				</NavBarListContainer>
 				<MobileSubMenuButton className={s.mobileSubMenuButton} />
+				{isCertificationsRoute && (
+					<CertificationsMobileMenu
+						className={s.certsMobileMenu}
+						navItems={leftSideNavItems}
+					/>
+				)}
 			</div>
 		</>
 	)

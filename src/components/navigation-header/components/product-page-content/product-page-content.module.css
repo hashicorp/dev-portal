@@ -73,3 +73,51 @@
 		background: none;
 	}
 }
+
+.certsMobileMenu {
+	display: none;
+
+	@media (--dev-dot-show-mobile-menu) {
+		display: flex;
+		position: absolute;
+		left: calc(100% - 327px - 24px);
+		width: 327px;
+		height: fit-content !important;
+		max-height: min(
+			440px,
+			calc(95vh - calc(var(--navigation-header-height) * 2))
+				/* There should always be a subnav + top nav when the submenu is rendered */
+		) !important ;
+		z-index: -1 !important;
+		border-radius: 8px;
+		font-size: 14px;
+		padding: 16px 0;
+
+		/* Overview Button */
+		> li > a {
+			padding: 8px 24px;
+			color: var(--mds-color-foreground-strong);
+		}
+
+		/* Terraform/Vault Submenu */
+		> ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+
+			/* Submenu link items */
+			> li > a {
+				padding: 8px 32px;
+
+				> li > a:hover {
+					background-color: transparent;
+				}
+			}
+		}
+
+		/* Terraform/Vault Submenu Button */
+		> button {
+			padding: 8px 24px;
+		}
+	}
+}
