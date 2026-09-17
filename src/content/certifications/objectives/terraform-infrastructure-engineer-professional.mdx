@@ -1,64 +1,55 @@
 ## 1. Scalable Terraform Configuration Design
 
-- 1a Propose a fix to an existing module
-- 1b Trace an output back to a resource
-- 1c Design the structure to configure multiple environments from a single VCS repository
+- 1a Translate business requirements into infrastructure code
+- 1b Predictable and secure Terraform configuration
+- 1c Trace input variables, local values, and outputs to identify the source of a configuration issue
 - 1d Trace dynamic resources created with for_each
-- 1e Translate business requirements into infrastructure code
-- 1f Identify configuration that should be in a module vs workspace
-- 1g Predict the value of an expression that uses a terraform function
-- 1h Implement advanced configurations (expressions, pre & post conditions)
-- 1i Configure Terraform Providers (Versioning, alias and credentials)
+- 1e Predict the value of an expression that uses a Terraform function
+- 1f Implement advanced configurations
+- 1g Configure Terraform providers
+- 1h Use the Terraform MCP server to enhance development with AI coding agents
 
-## 2. Terraform State & Backend Operations
+## 2. Terraform State and Backend Operations
 
-- 2a Create and manage remote backend and remote state configuration
-- 2b Manage remote state and remediate drift
+- 2a Create and manage Remote Backend and Remote State Configuration
+- 2b Manage state and remediate drift
 - 2c Identify dependency chains before upgrades
-- 2d Upgrade terraform versions across environments
+- 2d Upgrade Terraform versions across environments
 - 2e Inspect Terraform state
-- 2f Locate a remote state file given an existing remote state declaration
-- 2g Migrate from local to remote state
 
-## 3. Infrastructure Lifecycle & Operations
+## 3. Infrastructure Lifecycle and Operations
 
-- 3a Understand the purpose of a Terraform unit test
-- 3b Respond to infrastructure requests to create/update/scale resources
-- 3c Inspect plan output and identify unintended changes
-- 3d Bring an existing infrastructure project under Terraform's control without downtime
-- 3e Troubleshoot and resolve a failed apply
-- 3f Configure resource lifecycle
-- 3g Manage infrastructure lifecycle across multiple environments
-- 3h Determine why an input variable validation error occurred
-- 3i Trace the path of an input variable through to a final resource attribute value
-- 3j Import an existing resource
+- 3a Manage and scale infrastructure projects
+- 3b Plan changes to infrastructure
+- 3c Apply changes to infrastructure
+- 3d Import existing infrastructure to an infrastructure project
+- 3e Manage infrastructure lifecycle
+- 3f Manage multiple infrastructure environments
+- 3g Troubleshoot deployment issues
+- 3h Input and output data from infrastructure projects
+- 3i Manage provider and module versions
 
 ## 4. CI/CD and Automation Workflows
 
-- 4a Manage CI/CD pipeline functionality (including failures)
+- 4a Manage CI/CD pipeline functionality
 - 4b Understand deployment strategies
 - 4c Manage multiple sets of dynamic provider credentials across teams, projects, and workspaces
 - 4d Overwrite Terraform variables using auto.tfvars / .tfvars
-- 4e Identify over-provisioned CI/CD pipeline service accounts
-- 4f Understand how GitOps workflows are applied
 
-## 5. Terraform Security & Governance
+## 5. Terraform Security and Governance
 
-- 5a Secret rotation and integration with secrets management tools
-- 5b Examine code changes and identify risky infrastructure changes
-- 5c Compare secret management strategies for pipelines
-- 5d Establish core compliance/policy rules along with team/project specific policies
-- 5e Identify best practices for secrets
-- 5f Understand authentication methods (OIDC, JWT, K8s, IAM)
-- 5g Design a least-privilege IAM model for CI/CD pipeline service accounts
+- 5a Identify best practices for secrets
+- 5b Use secret rotation and integration with secrets management tools
+- 5c Secure CI/CD pipeline identities and access
+- 5d Establish core compliance/policy rules along with Team/Project specific policies
+- 5e Identify and mitigate risky infrastructure changes
 
-## 6. Advanced Module Usage & Registry Practices
+## 6. Advanced Module Usage and Registry Practices
 
 - 6a Understand when to refactor a Terraform configuration into a module
 - 6b Understand the contract of a Terraform module
-- 6c Create registry documentation for a module (inputs/outputs/constraints)
-- 6d Use the Terraform registry to build or update a configuration
-- 6e Write Terraform configuration using public/private registry modules
+- 6c Use the Terraform registry to build or update a configuration
+- 6d Validate modules with Terraform unit tests
 
 ## 7. HCP Terraform / Enterprise Operations
 
@@ -66,4 +57,4 @@
 - 7b Track resource usage and cost
 - 7c Implement multi-environment configuration
 - 7d Upgrade Terraform versions across workspaces
-- 7e Define Sentinel policy as code in a CI/CD pipeline
+- 7e Define Policy as Code in a CI/CD pipeline
