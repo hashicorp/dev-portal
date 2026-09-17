@@ -25,7 +25,7 @@
 		"data": {
 			"whoShouldTakeExam": {
 				"title": "Who should take this exam",
-				"description": "You build, automate, secure, and maintain scalable infrastructure using Terraform across cloud, hybrid, and enterprise environments. You implement shared modules, manage remote state, integrate Terraform into CI/CD workflows, troubleshoot infrastructure issues, enforce governance and policy standards, and collaborate across development, operations, networking, and security teams. "
+				"description": "You should take this exam if you build, automate, secure, and maintain scalable infrastructure using Terraform across cloud, hybrid, and enterprise environments. You implement shared modules, manage remote state, integrate Terraform into CI/CD workflows, troubleshoot infrastructure issues, enforce governance and policy standards, and collaborate across development, operations, networking, and security teams. "
 			},
 			"examDetails": {
 				"title": "Exam Details",
