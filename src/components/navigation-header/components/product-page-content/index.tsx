@@ -55,7 +55,7 @@ function MobileSubMenuButton({ className }) {
 	)
 }
 
-function CertificationsMobileMenu({ className, navItems }) {
+function CertificationsMobileMenu({ className, navItems, isCertifications }) {
 	// convert NavItem type into SidebarNavMenuItemProps
 	const formattedNavItems: SidebarNavMenuItemProps[] = navItems.map(
 		(navItem: NavItem): SidebarNavMenuItemProps => {
@@ -87,7 +87,7 @@ function CertificationsMobileMenu({ className, navItems }) {
 
 	// Render submenu if there are additional routes; otherwise, render a single menu item
 	return (
-		<MobileSubMenuContainer className={className}>
+		<MobileSubMenuContainer className={className} isCertifications={isCertifications}>
 			{formattedNavItems.map(({ item }) =>
 				item.routes ? (
 					<SidebarNavSubmenuItem key={item.title} item={item} />
@@ -181,6 +181,7 @@ const ProductPageHeaderContent = () => {
 					<CertificationsMobileMenu
 						className={s.certsMobileMenu}
 						navItems={leftSideNavItems}
+						isCertifications={isCertificationsRoute}
 					/>
 				)}
 			</div>

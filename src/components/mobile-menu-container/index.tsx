@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import { getUserMenuItems } from 'lib/auth/user'
 import isThemedPath from 'lib/isThemedPath'
 import { useMobileMenu, useMobileSubMenu } from 'contexts'
+import { usePathname } from 'next/navigation'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import ButtonLink from 'components/button-link'
@@ -55,6 +56,19 @@ const MOBILE_OPTION_MENU_MOTION = {
 const MOBILE_SUBMENU_MOTION = {
 	visible: {
 		top: 'calc(var(--navigation-header-height) * 2)', // always two nav headers when submenu rendered
+		display: 'flex',
+	},
+	hidden: {
+		top: 'var(--sticky-bars-height)',
+		transitionEnd: {
+			display: 'none',
+		},
+	},
+}
+
+const MOBILE_CERTS_SUBMENU_MOTION = {
+	visible: {
+		top: 'calc(var(--navigation-header-height))', // positioned under the subnav
 		display: 'flex',
 	},
 	hidden: {
@@ -181,7 +195,7 @@ MobileOptionMenuContainer.displayName = 'MobileOptionMenuContainer'
 
 const MobileSubMenuContainer = forwardRef(
 	(
-		{ children, className }: MobileMenuContainerProps,
+		{ children, className, isCertifications }: MobileMenuContainerProps,
 		ref: ForwardedRef<HTMLDivElement>,
 	) => {
 		const { mobileSubMenuIsOpen } = useMobileSubMenu()
@@ -192,7 +206,9 @@ const MobileSubMenuContainer = forwardRef(
 				className={classNames(s.root, s.subMenuRoot, className)}
 				ref={ref}
 				transition={{ duration: 0 }}
-				variants={MOBILE_SUBMENU_MOTION}
+				variants={
+					isCertifications ? MOBILE_CERTS_SUBMENU_MOTION : MOBILE_SUBMENU_MOTION
+				}
 			>
 				{children}
 			</m.div>
