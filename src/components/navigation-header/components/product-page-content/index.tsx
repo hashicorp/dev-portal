@@ -5,6 +5,8 @@
 
 // Global imports
 import { useCurrentProduct, useMobileSubMenu } from 'contexts'
+import { useRef } from 'react'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
@@ -56,6 +58,15 @@ function MobileSubMenuButton({ className }) {
 }
 
 function CertificationsMobileMenu({ className, navItems, isCertifications }) {
+	// Needed to handle closing the menu when clicking outside (e.g. top level nav menu)
+	const { isMobileSubMenuRendered, setMobileSubMenuIsOpen } = useMobileSubMenu()
+	const certsMobileMenuRef = useRef<HTMLDivElement>()
+	useOnFocusOutside(
+		[certsMobileMenuRef],
+		() => setMobileSubMenuIsOpen(false),
+		isMobileSubMenuRendered,
+	)
+
 	// convert NavItem type into SidebarNavMenuItemProps
 	const formattedNavItems: SidebarNavMenuItemProps[] = navItems.map(
 		(navItem: NavItem): SidebarNavMenuItemProps => {
@@ -87,7 +98,11 @@ function CertificationsMobileMenu({ className, navItems, isCertifications }) {
 
 	// Render submenu if there are additional routes; otherwise, render a single menu item
 	return (
-		<MobileSubMenuContainer className={className} isCertifications={isCertifications}>
+		<MobileSubMenuContainer
+			className={className}
+			isCertifications={isCertifications}
+			ref={certsMobileMenuRef}
+		>
 			{formattedNavItems.map(({ item }) =>
 				item.routes ? (
 					<SidebarNavSubmenuItem key={item.title} item={item} />
