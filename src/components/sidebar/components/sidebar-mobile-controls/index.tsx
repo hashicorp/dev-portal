@@ -102,9 +102,8 @@ const SidebarMobileControls = ({
 		useSidebarNavData()
 
 	// Show `LevelUpButton` on all levels but the first one
-	// Update this to be the Level down button? Remove justify content
 	let levelUpButton
-	if (hasManyLevels && !isFirstLevel && levelUpButtonText) {
+	if (hasManyLevels && !isFirstLevel) {
 		levelUpButton = (
 			<LevelUpButton
 				text={levelUpButtonText}

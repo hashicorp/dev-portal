@@ -33,7 +33,6 @@ import {
 } from './helpers'
 import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
-import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
 import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
 import { OpenApiNavItem } from 'views/open-api-docs-view/types'
@@ -41,7 +40,6 @@ import { OpenApiNavItem } from 'views/open-api-docs-view/types'
 const Sidebar = ({
 	backToLinkProps,
 	children,
-	levelButtonProps,
 	menuItems,
 	overviewItemHref,
 	showFilterInput = true,
@@ -62,15 +60,8 @@ const Sidebar = ({
 	)
 	const isProductPanel = shouldRenderMobileControls && title === 'Main Menu'
 
-	let backToElement
-	if (shouldRenderMobileControls && levelButtonProps) {
-		backToElement = (
-			<SidebarMobileControls
-				levelUpButtonText={levelButtonProps.levelUpButtonText}
-				levelDownButtonText={levelButtonProps.levelDownButtonText}
-			/>
-		)
-	} else if (backToLinkProps) {
+	let backToElement = null;
+	 if (backToLinkProps) {
 		const { text, href } = backToLinkProps
 		backToElement = (
 			<div className={s.backToLinkWrapper}>
