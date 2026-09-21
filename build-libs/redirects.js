@@ -266,7 +266,7 @@ async function buildDevPortalRedirects() {
 		},
 		{
 			source: '/hcp/docs/vault-radar',
-			destination: '/vault-radar/hcp-docs',
+			destination: '/vault-radar/cloud',
 			permanent: true,
 		},
 		{
