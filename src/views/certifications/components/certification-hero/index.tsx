@@ -9,6 +9,7 @@ import Heading from '@components/heading'
 import Text from '@components/text'
 import Image from 'next/image'
 import ButtonLink from '@components/button-link'
+import Button from '@components/button'
 import { Text as MDSText } from '@hashicorp/mds-react/components'
 
 // Types
@@ -116,14 +117,23 @@ function CertificationHero({
 						</Heading>
 						<Text className={s.heroDescriptionText}>{description}</Text>
 						<div className={s.ctaGroup}>
-							{leftCta && leftCta.text && leftCta.link && (
-								<ButtonLink
-									text={leftCta.text}
-									href={leftCta.link}
-									size="small"
-									className={s.buttonLink}
-								/>
-							)}
+							{leftCta &&
+								leftCta.text &&
+								(leftCta.link ? (
+									<ButtonLink
+										text={leftCta.text}
+										href={leftCta.link}
+										size="small"
+										className={s.buttonLink}
+									/>
+								) : (
+									<Button
+										text={leftCta.text}
+										size="small"
+										className={s.buttonLink}
+										disabled={true}
+									/>
+								))}
 							{rightCta && rightCta.text && rightCta.link && (
 								<ButtonLink
 									text={rightCta.text}
