@@ -56,7 +56,7 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "api-docs", "downloads", "hcp-docs"],
+	"basePaths": ["docs", "api-docs", "downloads", "cloud"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -82,8 +82,9 @@
 		{
 			"iconName": "docs",
 			"name": "HCP Boundary",
-			"path": "hcp-docs",
-			"productSlugForLoader": "hcp-boundary"
+			"path": "cloud",
+			"productSlugForLoader": "boundary-hcp",
+			"basePathForLoader": "hcp-docs"
 		}
 	]
 }
