@@ -144,6 +144,7 @@ const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'boundary-hcp', path: 'redirects.jsonc' },
 	{ repo: 'nomad', path: 'website/redirects.js' },
 	{ repo: 'vault', path: 'website/redirects.js' },
+	{ repo: 'vault-hcp', path: 'redirects.jsonc' },
 	{ repo: 'vagrant', path: 'website/redirects.js' },
 	{ repo: 'packer', path: 'website/redirects.js' },
 	{ repo: 'consul', path: 'website/redirects.js' },
