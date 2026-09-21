@@ -8,7 +8,7 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 
 const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
 	'boundary',
-	'hcp-docs'
+	'cloud'
 )
 
 export { getStaticProps, getStaticPaths }

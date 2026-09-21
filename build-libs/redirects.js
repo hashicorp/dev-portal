@@ -141,6 +141,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
  */
 const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'boundary', path: 'website/redirects.js' },
+	{ repo: 'boundary-hcp', path: 'redirects.jsonc' },
 	{ repo: 'nomad', path: 'website/redirects.js' },
 	{ repo: 'vault', path: 'website/redirects.js' },
 	{ repo: 'vagrant', path: 'website/redirects.js' },
@@ -256,6 +257,11 @@ async function buildDevPortalRedirects() {
 		{
 			source: '/:path*/index',
 			destination: '/:path*',
+			permanent: true,
+		},
+		{
+			source: '/hcp/docs/boundary/:path*',
+			destination: '/boundary/cloud/:path*',
 			permanent: true,
 		},
 		{
