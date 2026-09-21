@@ -5,15 +5,8 @@
 		"indexName": "product_VAULT-RADAR"
 	},
 	"metadata": {
-		"title": "Vault Radar by HashiCorp"
-	},
-	"alertBannerActive": true,
-	"alertBanner": {
-		"tag": "HashiDays",
-		"url": "https://hashicorp.com/conferences/hashidays",
-		"text": "One conference. Three cities.",
-		"linkText": "Find a city near you",
-		"expirationDate": "2024-06-14T00:00:00-08:00"
+		"title": "Vault Radar by HashiCorp",
+		"description": "Vault Radar automates the detection and identification of unmanaged secrets in your code."
 	},
 	"subnavItems": [
 		{
