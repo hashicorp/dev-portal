@@ -152,6 +152,7 @@ const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'terraform-enterprise', path: 'website/redirects.js' },
 	{ repo: 'well-architected-framework', path: 'website/redirects.js' },
 	{ repo: 'hcp-docs', path: '/redirects.js' }, // private repo
+	{ repo: 'vault-radar-hcp', path: '/redirects.js' }, // private repo
 	{ repo: 'sentinel', path: 'website/redirects.js' }, // private repo
 	{ repo: 'validated-designs', path: '/redirects.js' },
 ]
@@ -262,6 +263,11 @@ async function buildDevPortalRedirects() {
 		{
 			source: '/hcp/docs/boundary/:path*',
 			destination: '/boundary/cloud/:path*',
+			permanent: true,
+		},
+		{
+			source: '/hcp/docs/vault-radar',
+			destination: '/vault-radar',
 			permanent: true,
 		},
 		/**

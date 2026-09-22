@@ -46,7 +46,9 @@ export const generateProductLandingSidebarMenuItems = (
 	 * We should refactor to drive this via global config https://app.asana.com/0/1204807665183200/1205002760871766/f
 	 */
 
-	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
+	if (product.slug !== 'hcp' && 
+		product.slug !== 'waypoint'&&
+		product.slug !== 'vault-radar') {
 		menuItems.push({
 			title: 'Install',
 			fullPath: product.slug === 'boundary'

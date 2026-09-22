@@ -43,6 +43,23 @@
 			]
 		},
 		{
+			"name": "HCP Vault Radar",
+			"items": [
+				{
+					"name": "Quickstart",
+					"collectionSlug": "vault-radar/get-started-hcp-vault-radar"
+				},
+				{
+					"name": "Operations",
+					"collectionSlug": "vault-radar/hcp-vault-radar-operations"
+				},
+				{
+					"name": "Developer",
+					"collectionSlug": "vault-radar/hcp-vault-radar-developer"
+				}
+			]
+		},
+		{
 			"name": "HCP Waypoint",
 			"items": [
 				{

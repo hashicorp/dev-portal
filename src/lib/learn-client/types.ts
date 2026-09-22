@@ -227,6 +227,7 @@ export enum ProductOption {
 	terraform = 'terraform',
 	vagrant = 'vagrant',
 	vault = 'vault',
+	'vault-radar' = 'vault-radar',
 	waypoint = 'waypoint',
 	sentinel = 'sentinel',
 }
