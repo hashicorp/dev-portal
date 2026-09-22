@@ -3,19 +3,16 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-const { loadEnvConfig } = require('@next/env')
+import fs from 'fs'
+import path from 'path'
+import { loadEnvConfig } from '@next/env'
+import withHashicorp from '@hashicorp/platform-nextjs-plugin'
+import { redirectsConfig } from './build-libs/redirects'
+import HashiConfigPlugin from './config/plugin'
+import { loadHashiConfigForEnvironment } from './config/index'
 
 // Load environment variables, as they are not normally available in the next.config.js file. (https://nextjs.org/docs/app/guides/environment-variables#loading-environment-variables-with-nextenv)
-const projectDir = process.cwd()
-loadEnvConfig(projectDir)
-
-const fs = require('fs')
-const path = require('path')
-const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
-const { redirectsConfig } = require('./build-libs/redirects')
-
-const HashiConfigPlugin = require('./config/plugin')
-const { loadHashiConfigForEnvironment } = require('./config/index')
+loadEnvConfig(process.cwd())
 
 /**
  * @type {import('next/dist/lib/load-custom-routes').Header}
@@ -41,7 +38,7 @@ const hideWaypointTipContent = {
 
 let alreadyLoggedUDRInfo = false
 
-module.exports = async () => {
+export default async () => {
 	process.env.VERCEL_ENV = process.env.VERCEL_ENV || 'development'
 
 	const appConfig = await loadHashiConfigForEnvironment()
