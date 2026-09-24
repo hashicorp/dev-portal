@@ -25,6 +25,11 @@
 				"url": "/vault/tutorials/get-started-hcp-vault-dedicated"
 			},
 			{
+				"icon": "vault-radar-color",
+				"text": "HCP Vault Radar",
+				"url": "/vault-radar/tutorials/get-started-hcp-vault-radar"
+			},
+			{
 				"icon": "packer-color",
 				"text": "HCP Packer",
 				"url": "/packer/tutorials/hcp-get-started"
@@ -50,6 +55,10 @@
 			"size": 400
 		},
 		{
+			"type": "collection_cards",
+			"collectionSlugs": ["vault-radar/get-started-hcp-vault-radar"]
+		},
+		{
 			"type": "linked_cards",
 			"cards": [
 				{
@@ -73,6 +82,7 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
+				"vault-radar/what-is-secret-scanning",
 				"boundary/hcp-getting-started-create",
 				"packer/golden-image-with-hcp-packer",
 				"consul/kubernetes-api-gateway"
