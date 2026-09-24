@@ -61,8 +61,8 @@ const productSlugsToIcons = {
 		24: IconVault24,
 	},
 	'vault-radar': {
-		16: IconVault16,
-		24: IconVault24,
+		16: IconVaultRadarSquareColor16,
+		24: IconVaultRadarSquareColor24,
 	},
 	'vault-radar-hcp': {
 		16: IconVaultRadarSquareColor16,
@@ -111,7 +111,8 @@ const ProductIcon = ({
 		productSlug === 'hcp' ||
 		productSlug === 'sentinel' ||
 		productSlug === 'well-architected-framework' ||
-		productSlug === 'validated-designs'
+		productSlug === 'validated-designs' ||
+		productSlug === 'vault-radar'
 			? undefined
 			: `var(--token-color-${productSlug}-brand)`
 
