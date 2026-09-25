@@ -40,8 +40,6 @@ export function buildUrlPath(searchHit: Hit): string {
 			organization: { slug: organization_slug } as $TSFixMe,
 			slug,
 		} as $TSFixMe)
-	} else if (searchHit.type === SearchContentTypes.KNOWLEDGEBASE) {
-		return `https://support.hashicorp.com/hc/${searchHit.slug}`
 	} else {
 		/**
 		 * Something's gone wrong, this should never happen in our indexing.
