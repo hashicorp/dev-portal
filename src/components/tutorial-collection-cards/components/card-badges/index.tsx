@@ -22,6 +22,7 @@ const PRODUCT_ICON_MAP: Record<ProductOption, FlightIconName> = {
 	vagrant: 'vagrant-color',
 	waypoint: 'waypoint-color',
 	sentinel: 'hcp',
+	'vault-radar': 'vault-radar-color',
 }
 /**
  * Map all card badge options to icons
@@ -45,6 +46,7 @@ const PRODUCT_LABEL_MAP: Record<ProductOption, string> = {
 	vagrant: 'Vagrant',
 	waypoint: 'Waypoint',
 	sentinel: 'Sentinel',
+	'vault-radar': 'Vault Radar',
 }
 /**
  * Map all card badge options to badge labels
