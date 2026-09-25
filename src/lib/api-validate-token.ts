@@ -9,9 +9,11 @@ import type {
 	NextApiResponse,
 } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
+import env from 'env-var'
 
-const __DEV__ = process.env.NODE_ENV === 'development'
-const __TEST__ = process.env.NODE_ENV === 'test'
+const NODE_ENV = env.get('NODE_ENV').asString()
+const __DEV__ = NODE_ENV === 'development'
+const __TEST__ = NODE_ENV === 'test'
 
 interface ValidateTokenOptions {
 	/**

@@ -5,6 +5,7 @@
 
 import fs from 'fs'
 import path from 'path'
+import env from "env-var"
 
 import { isDeployPreview } from '../src/lib/env-checks'
 import { fetchDocsContent } from '../src/lib/fetch-docs-content/fetch-docs-content'
@@ -58,7 +59,8 @@ async function getRedirectsFromContentRepo(
 	/**
 	 * Note: These constants are declared for clarity in build context intent.
 	 */
-	const isDeveloperBuild = !process.env.IS_CONTENT_PREVIEW
+	const IS_CONTENT_PREVIEW = process.env.IS_CONTENT_PREVEW
+	const isDeveloperBuild = !IS_CONTENT_PREVIEW
 	const isLocalContentBuild = isDeployPreview(repoName)
 
 	/**
@@ -88,10 +90,8 @@ async function getRedirectsFromContentRepo(
 	 * The UDR docker image does not have access to the github token necessary to
 	 * fetch redirects from private repos so we return an empty array for those redirects
 	 */
-	if (
-		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
-		privateRepos.includes(repoName)
-	) {
+	const HASHI_ENV = process.env.HASHI_ENV
+	if (HASHI_ENV === 'unified-docs-sandbox' && privateRepos.includes(repoName)) {
 		return []
 	}
 
@@ -152,7 +152,10 @@ async function buildProductRedirects() {
 	// Fetch author-oriented redirects from product repos,
 	// and merge those with dev-oriented redirects from
 	// within this repository
-	if (process.env.SKIP_BUILD_PRODUCT_REDIRECTS) {
+	const SKIP_BUILD_PRODUCT_REDIRECTS = env
+		.get('SKIP_BUILD_PRODUCT_REDIRECTS')
+		.asBool()
+	if (SKIP_BUILD_PRODUCT_REDIRECTS) {
 		return []
 	}
 
@@ -460,7 +463,9 @@ async function redirectsConfig() {
 	const { simpleRedirects, complexRedirects } =
 		splitRedirectsByType(allRedirects)
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
-	if (process.env.DEBUG_REDIRECTS) {
+
+	const DEBUG_REDIRECTS = env.get('DEBUG_REDIRECTS').asBool()
+	if (DEBUG_REDIRECTS) {
 		console.log(
 			'[DEBUG_REDIRECTS]',
 			JSON.stringify({
