@@ -4,28 +4,17 @@
  */
 
 import Image, { ImageProps } from 'next/image'
-import { CertificationProductSlug, ExamTier } from 'views/certifications/types'
-import svgTerraformBadgeAssociate from './assets/terraform-badge-mini-associate.svg'
-import svgTerraformBadgePro from './assets/terraform-badge-mini-pro.svg'
-import svgVaultBadgeAssociate from './assets/vault-badge-mini-associate.svg'
-import svgVaultBadgePro from './assets/vault-badge-mini-pro.svg'
+import { CertificationProductSlug } from 'views/certifications/types'
+import svgTerraformBadge from "./assets/mini-terraform-badge.svg"
+import svgVaultBadge from "./assets/mini-vault-badge.svg"
 import s from './exam-badge.module.css'
 
 /**
  * Map a product slug to a badge SVG.
  */
-const BADGE_SVG_MAP: Record<
-	CertificationProductSlug,
-	Record<ExamTier, ImageProps['src']>
-> = {
-	terraform: {
-		associate: svgTerraformBadgeAssociate,
-		pro: svgTerraformBadgePro,
-	},
-	vault: {
-		associate: svgVaultBadgeAssociate,
-		pro: svgVaultBadgePro,
-	},
+const BADGE_SVG_MAP: Record<CertificationProductSlug, ImageProps['src']> = {
+	terraform: svgTerraformBadge,
+	vault: svgVaultBadge,
 }
 
 /**
@@ -33,18 +22,17 @@ const BADGE_SVG_MAP: Record<
  */
 function ExamBadge({
 	productSlug,
-	examTier = 'associate',
 }: {
 	productSlug: CertificationProductSlug
-	examTier?: ExamTier
 }) {
+
 	return (
 		<Image
 			alt=""
 			className={s.root}
-			src={BADGE_SVG_MAP[productSlug][examTier]}
-			width={48}
-			height={56}
+			src={BADGE_SVG_MAP[productSlug]}
+			width={36}
+			height={42}
 		/>
 	)
 }

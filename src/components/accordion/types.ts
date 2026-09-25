@@ -14,4 +14,5 @@ export type AccordionContentItem = {
 export type AccordionProps = {
 	className?: string
 	items: AccordionContentItem[]
+	disclosureClassName?: string
 }

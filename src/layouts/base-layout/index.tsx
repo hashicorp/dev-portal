@@ -121,8 +121,8 @@ const BaseLayout = ({
 						<div className={s.header}>
 							<NavigationHeader />
 						</div>
+						{mobileMenuSlot}
 						<div className={s.contentArea}>
-							{mobileMenuSlot}
 							{children}
 						</div>
 						<div

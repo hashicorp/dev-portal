@@ -15,6 +15,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import FilterInput from 'components/filter-input'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
+import { useMobileSubMenu } from 'contexts'
 import {
 	SidebarHorizontalRule,
 	SidebarNavLinkItem,
@@ -32,7 +33,6 @@ import {
 } from './helpers'
 import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
-import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
 import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
 import { OpenApiNavItem } from 'views/open-api-docs-view/types'
@@ -40,7 +40,6 @@ import { OpenApiNavItem } from 'views/open-api-docs-view/types'
 const Sidebar = ({
 	backToLinkProps,
 	children,
-	levelButtonProps,
 	menuItems,
 	overviewItemHref,
 	showFilterInput = true,
@@ -51,24 +50,18 @@ const Sidebar = ({
 	className,
 }: SidebarProps & JSX.IntrinsicElements['div']) => {
 	const currentProduct = useCurrentProduct()
+	const { mobileSubMenuIsOpen } = useMobileSubMenu()
 	const { shouldRenderMobileControls } = useSidebarNavData()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [filterValue, setFilterValue] = useState('')
 	const { itemsWithMetadata } = useMemo(
 		() => addNavItemMetaData(currentPath, menuItems),
-		[currentPath, menuItems]
+		[currentPath, menuItems],
 	)
 	const isProductPanel = shouldRenderMobileControls && title === 'Main Menu'
 
-	let backToElement
-	if (shouldRenderMobileControls && levelButtonProps) {
-		backToElement = (
-			<SidebarMobileControls
-				levelUpButtonText={levelButtonProps.levelUpButtonText}
-				levelDownButtonText={levelButtonProps.levelDownButtonText}
-			/>
-		)
-	} else if (backToLinkProps) {
+	let backToElement = null;
+	 if (backToLinkProps) {
 		const { text, href } = backToLinkProps
 		backToElement = (
 			<div className={s.backToLinkWrapper}>
@@ -88,7 +81,7 @@ const Sidebar = ({
 				<FilterInput
 					value={filterValue}
 					onChange={setFilterValue}
-					placeholder="Filter sidebar"
+					placeholder={`Filter ${mobileSubMenuIsOpen ? 'menu' : 'sidebar'}`}
 				/>
 			</div>
 		)

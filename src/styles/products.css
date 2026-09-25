@@ -37,4 +37,8 @@
 	& .waypoint {
 		--product-color: var(--token-color-waypoint-brand);
 	}
+
+	& .ibm {
+		--product-color: #1754cf;
+	}
 }
