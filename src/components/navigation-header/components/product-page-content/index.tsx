@@ -15,12 +15,21 @@ import { getRightSideNavItems, NavItem, getLeftSideNavItems } from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
 import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
+
+const EXAM_BUTTON_EXCLUSION_ROUTES = ['signin', 'terraform-associate']
+
+function shouldIncludeExamButton(pathname: string) {
+	return EXAM_BUTTON_EXCLUSION_ROUTES.every(
+		(route) => !pathname.includes(route),
+	)
+}
 
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
-	const router = useRouter()
-	const isCertificationsRoute = router.route.startsWith('/certifications')
+	const pathname = usePathname()
+	const isCertificationsRoute = pathname.startsWith('/certifications')
+	const includeExamButton = shouldIncludeExamButton(pathname)
 
 	const leftSideNavItems = getLeftSideNavItems(
 		currentProduct,
@@ -28,7 +37,7 @@ const ProductPageHeaderContent = () => {
 	)
 	const rightSideNavItems = getRightSideNavItems(
 		currentProduct,
-		isCertificationsRoute,
+		isCertificationsRoute && includeExamButton, // this makes it so the register for exam button doesn't render on certain pages
 	)
 
 	// Check if the current product has sandbox support
