@@ -104,8 +104,6 @@ function CertificationHero({
 	let SVG_MAP_QUERY: string = productName
 	SVG_MAP_QUERY += examType ? `-${examType}` : ''
 
-	console.log(SVG_MAP_QUERY)
-
 	return (
 		<Hero
 			backgroundClassName={classNames(
