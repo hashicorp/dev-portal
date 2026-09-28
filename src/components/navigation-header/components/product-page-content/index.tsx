@@ -17,7 +17,10 @@ import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
 import { usePathname } from 'next/navigation'
 
-const EXAM_BUTTON_EXCLUSION_ROUTES = ['signin', 'terraform-professional']
+const EXAM_BUTTON_EXCLUSION_ROUTES = [
+	'signin',
+	'terraform-infrastructure-engineer-professional',
+]
 
 function shouldIncludeExamButton(pathname: string) {
 	return EXAM_BUTTON_EXCLUSION_ROUTES.every(
