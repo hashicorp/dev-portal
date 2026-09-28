@@ -4,7 +4,7 @@
 		"product": "terraform-professional",
 		"eyebrow": "HashiCorp Certified:",
 		"title": "Terraform Infrastructure Engineer Professional (002)",
-		"description": "Demonstrate your experience building and automating scalable infrastructure in production environments with Terraform in this multiple-choice exam.",
+		"description": "This exam will launch at IBM TechXchange 2026 in Atlanta. Demonstrate your experience building and automating scalable infrastructure in production environments with Terraform in this multiple-choice exam.",
 		"leftCta": {
 			"text": "Register for the exam",
 			"link": ""
@@ -46,6 +46,9 @@
 						"value": "$200 USD, plus locally applicable taxes and fees. Free retake included"
 					},
 					{
+						"name": "Launch Date",
+						"value": "October 2026. Online registration opens soon."
+					}{
 						"name": "Version tested",
 						"value": "Terraform 1.15"
 					}
