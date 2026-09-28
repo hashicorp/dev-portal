@@ -48,7 +48,8 @@
 					{
 						"name": "Launch Date",
 						"value": "October 2026. Online registration opens soon."
-					}{
+					},
+					{
 						"name": "Version tested",
 						"value": "Terraform 1.15"
 					}
