@@ -111,8 +111,7 @@ const ProductIcon = ({
 		productSlug === 'hcp' ||
 		productSlug === 'sentinel' ||
 		productSlug === 'well-architected-framework' ||
-		productSlug === 'validated-designs' ||
-		productSlug === 'vault-radar'
+		productSlug === 'validated-designs'
 			? undefined
 			: `var(--token-color-${productSlug}-brand)`
 
