@@ -259,6 +259,26 @@ async function buildDevPortalRedirects() {
 			destination: '/vault-radar',
 			permanent: true,
 		},
+		{
+			source: '/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-introduction',
+			destination: '/vault-radar/tutorials/get-started-hcp-vault-radar/what-is-secret-scanning',
+			permanent: true,
+		},
+		{
+			source: '/hcp/tutorials/get-started-hcp-vault-radar/:slug*',
+			destination: '/vault-radar/tutorials/get-started-hcp-vault-radar/:slug*',
+			permanent: true,
+		},
+		{
+			source: '/hcp/tutorials/hcp-vault-radar-operations/:slug*',
+			destination: '/vault-radar/tutorials/hcp-vault-radar-operations/:slug*',
+			permanent: true,
+		},
+		{
+			source: '/hcp/tutorials/hcp-vault-radar-developer/:slug*',
+			destination: '/vault-radar/tutorials/hcp-vault-radar-developer/:slug*',
+			permanent: true,
+		},
 		/**
 		 * Redirects from our former Packer Plugin library to our
 		 * new integrations library for Packer,
