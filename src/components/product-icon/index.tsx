@@ -61,8 +61,8 @@ const productSlugsToIcons = {
 		24: IconVault24,
 	},
 	'vault-radar': {
-		16: IconVaultRadarSquareColor16,
-		24: IconVaultRadarSquareColor24,
+		16: IconVault16,
+		24: IconVault24,
 	},
 	'vault-radar-hcp': {
 		16: IconVaultRadarSquareColor16,
