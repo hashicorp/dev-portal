@@ -135,8 +135,10 @@ async function getRedirectsFromContentRepo(
  */
 const PRODUCT_REDIRECT_ENTRIES: { repo: string; path: string }[] = [
 	{ repo: 'boundary', path: 'website/redirects.js' },
+	{ repo: 'boundary-hcp', path: 'redirects.jsonc' },
 	{ repo: 'nomad', path: 'website/redirects.js' },
 	{ repo: 'vault', path: 'website/redirects.js' },
+	{ repo: 'vault-hcp', path: 'redirects.jsonc' },
 	{ repo: 'vagrant', path: 'website/redirects.js' },
 	{ repo: 'packer', path: 'website/redirects.js' },
 	{ repo: 'consul', path: 'website/redirects.js' },
@@ -144,6 +146,7 @@ const PRODUCT_REDIRECT_ENTRIES: { repo: string; path: string }[] = [
 	{ repo: 'terraform-enterprise', path: 'website/redirects.js' },
 	{ repo: 'well-architected-framework', path: 'website/redirects.js' },
 	{ repo: 'hcp-docs', path: '/redirects.js' }, // private repo
+	{ repo: 'vault-radar-hcp', path: '/redirects.js' }, // private repo
 	{ repo: 'sentinel', path: 'website/redirects.js' }, // private repo
 	{ repo: 'validated-designs', path: '/redirects.js' },
 ]
@@ -249,6 +252,11 @@ async function buildDevPortalRedirects() {
 		{
 			source: '/:path*/index',
 			destination: '/:path*',
+			permanent: true,
+		},
+		{
+			source: '/hcp/docs/vault-radar',
+			destination: '/vault-radar',
 			permanent: true,
 		},
 		/**

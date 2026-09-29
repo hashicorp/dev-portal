@@ -33,6 +33,7 @@ const DEFAULT_SUGGESTED_PAGES = [
 		'terraform',
 		'packer',
 		'vault',
+		'vault-radar',
 		'boundary',
 		'consul',
 		'nomad',
@@ -213,6 +214,23 @@ const EXTRA_PAGES: Record<
 		},
 	],
 	vault: [
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Boundary',
+			url: '/hcp/docs/boundary',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Connect to Your First Target',
+			url: '/boundary/docs/getting-started/connect-to-target',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Concepts',
+			url: '/boundary/docs/concepts',
+		},
+	],
+	'vault-radar': [
 		{
 			icon: <IconDocs16 />,
 			text: 'HCP Boundary',
