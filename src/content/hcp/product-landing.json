@@ -27,7 +27,7 @@
 			{
 				"icon": "vault-radar-color",
 				"text": "HCP Vault Radar",
-				"url": "/vault/tutorials/radar-foundations"
+				"url": "/vault-radar/tutorials/get-started-hcp-vault-radar"
 			},
 			{
 				"icon": "packer-color",
@@ -56,7 +56,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": ["cloud/get-started-hcp-vault-radar"]
+			"collectionSlugs": ["vault-radar/get-started-hcp-vault-radar"]
 		},
 		{
 			"type": "linked_cards",
@@ -82,7 +82,7 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"cloud/what-is-secret-scanning",
+				"vault-radar/what-is-secret-scanning",
 				"boundary/hcp-getting-started-create",
 				"packer/golden-image-with-hcp-packer",
 				"consul/kubernetes-api-gateway"

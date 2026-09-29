@@ -45,13 +45,14 @@ const COMMUNITY_LINKS_BY_PRODUCT: {
 	terraform: 'https://discuss.hashicorp.com/c/terraform-core/27',
 	vagrant: 'https://discuss.hashicorp.com/c/vagrant/24',
 	vault: 'https://discuss.hashicorp.com/c/vault/30',
+	'vault-radar': 'https://discuss.hashicorp.com/c/vault-radar/52',
 	waypoint: 'https://discuss.hashicorp.com/c/waypoint/51',
 }
 
 const GITHUB_LINKS_BY_PRODUCT_SLUG: {
 	[key in Exclude<
 		ProductSlug,
-		'waypoint' | 'well-architected-framework' | 'validated-patterns' | 'validated-designs'
+		'waypoint' | 'well-architected-framework' | 'validated-patterns' | 'validated-designs' | 'vault-radar'
 	>]: string
 } = {
 	boundary: 'https://github.com/hashicorp/boundary',
@@ -170,7 +171,7 @@ function generateResourcesNavItems(
 			title: 'Support',
 			href: DEFAULT_SUPPORT_LINK,
 		},
-		...(productSlug !== 'waypoint'
+		...(productSlug !== 'waypoint' && productSlug !== 'vault-radar'
 			? [
 					{
 						title: 'GitHub',
