@@ -5,13 +5,11 @@
 
 // Icons
 import { IconDot16 } from '@hashicorp/flight-icons/svg-react/dot-16'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 // Components
 import Text from 'components/text'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
 import LinkRegion from 'components/link-region'
-import { Snippet } from 'react-instantsearch'
 import { FlightIcon } from '@hashicorp/mds-react/components'
 // Content (icons by content type)
 import { tabContentByType } from '../../content'
@@ -19,7 +17,6 @@ import { tabContentByType } from '../../content'
 import { UnifiedHitProps } from './types'
 // Styles
 import s from './unified-hit.module.css'
-import { SearchContentTypes } from '../../types'
 
 /**
  * Render a card-like link item to a search hit.
