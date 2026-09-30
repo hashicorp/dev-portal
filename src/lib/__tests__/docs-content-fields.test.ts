@@ -31,9 +31,12 @@ describe('allDocsFields', () => {
 		global.fetch = vi
 			.fn()
 			.mockResolvedValueOnce({
+				status: 200,
 				json: vi.fn().mockResolvedValue({ result: mockContentAPIDocsResult }),
 			})
 			.mockResolvedValueOnce({
+				status: 200,
+				ok: true,
 				json: vi.fn().mockResolvedValue({ result: mockUDRDocsResult }),
 			})
 
@@ -84,9 +87,12 @@ describe('allDocsFields', () => {
 		global.fetch = vi
 			.fn()
 			.mockResolvedValueOnce({
+				status: 200,
 				json: vi.fn().mockResolvedValue({ result: mockContentAPIDocsResult }),
 			})
 			.mockResolvedValueOnce({
+				status: 200,
+				ok: true,
 				json: vi.fn().mockResolvedValue({ result: mockUDRDocsResult }),
 			})
 

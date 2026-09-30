@@ -251,8 +251,9 @@ describe('getRedirectsFromContentRepo', () => {
 			},
 		]
 		global.fetch = vi.fn().mockResolvedValue({
-			json: () => new Promise((resolve) => resolve(mockData)),
+			status: 200,
 			ok: true,
+			json: () => new Promise((resolve) => resolve(mockData)),
 		})
 
 		const redirects = await getRedirectsFromContentRepo(
