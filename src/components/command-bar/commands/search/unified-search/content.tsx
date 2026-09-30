@@ -33,8 +33,4 @@ export const tabContentByType: Record<
 		heading: 'Integrations',
 		icon: 'pipeline',
 	},
-	knowledgebase: {
-		heading: 'Support',
-		icon: 'support',
-	},
 }
