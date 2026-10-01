@@ -43,7 +43,7 @@
 					},
 					{
 						"name": "Price",
-						"value": "$200 USD, plus locally applicable taxes and fees. Free retake included"
+						"value": "Coming soon."
 					},
 					{
 						"name": "Launch Date",
@@ -58,6 +58,8 @@
 			"prerequisites": {
 				"title": "Prerequisites",
 				"prereqs": [
+					"Basic terminal skills",
+					"Understanding of on-premises and cloud architecture",
 					"Terraform Associate certification (strongly recommend, or equivalent experience required)",
 					"Experience with Terraform in a production setting is necessary"
 				]
