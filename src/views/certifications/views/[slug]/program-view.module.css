@@ -45,10 +45,6 @@
 		padding: 0;
 	}
 
-	> div > div > ul {
-		margin-top: 16px !important;
-	}
-
 	& span {
 		font-size: 18px;
 	}
@@ -97,7 +93,7 @@
 }
 
 .renewCertCard {
-	padding: 0px 32px;
+	padding: 0 32px;
 	padding-top: 8px;
 	padding-bottom: 24px;
 
@@ -106,7 +102,7 @@
 	}
 
 	@media (--dev-dot-mobile) {
-		padding-top: 0px;
+		padding-top: 0;
 		padding-bottom: 16px;
 	}
 }
