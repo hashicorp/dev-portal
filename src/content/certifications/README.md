@@ -6,6 +6,7 @@ This folder contains all editable content for the HashiCorp Certifications pages
 - [Landing Page](#landing-page) — `/certifications`
 - [Exam Pages](#exam-pages) — `/certifications/<exam>` (e.g. `/certifications/terraform-associate`)
 - [Sign In Page](#sign-in-page) — `/certifications/signin`
+- [Exam Button Exclusion Routes](#exam-button-exclusion-routes) — Controls on which pages the "Register for Exam" nav button is hidden
 - [ProgramSlugSchema](#programslugschema) — Used to determine which JSON file to read content from
 
 ---
@@ -150,9 +151,38 @@ The banner at the top of the exam page.
 | `hero.title`         | The main heading                                                                     |
 | `hero.description`   | The paragraph text beneath the heading                                               |
 | `hero.leftCta.text`  | Label for the left call-to-action button (optional)                                  |
-| `hero.leftCta.link`  | URL for the left call-to-action button (optional)                                    |
+| `hero.leftCta.link`  | URL for the left call-to-action button (optional — see note below)                   |
 | `hero.rightCta.text` | Label for the right call-to-action button (optional)                                 |
-| `hero.rightCta.link` | URL for the right call-to-action button (optional)                                   |
+| `hero.rightCta.link` | URL for the right call-to-action button (**required** to display the button)         |
+
+> **`leftCta` vs `rightCta` link behaviour**
+>
+> These two buttons have different rendering rules:
+>
+> - **`leftCta`** — if `text` is provided but `link` is an empty string, the button is still displayed as a **disabled** button. This is useful for "coming soon" states where you want to signal that a registration link is not yet available without removing the button entirely.
+> - **`rightCta`** — requires **both** `text` and `link` to be present. If either is missing the button is not rendered at all.
+>
+> **Example — "coming soon" left CTA (no link):**
+>
+> ```json
+> "leftCta": {
+>   "text": "Coming soon",
+>   "link": ""
+> }
+> ```
+>
+> This renders a visible but non-interactive disabled button.
+>
+> **Example — right CTA (link required):**
+>
+> ```json
+> "rightCta": {
+>   "text": "Prepare for the exam",
+>   "link": "/certifications"
+> }
+> ```
+>
+> Omitting or emptying `rightCta.link` hides the button entirely.
 
 #### `announcement`
 
@@ -292,6 +322,33 @@ Each `## Heading Two` section in this file generates one info card on the sign i
 - Plain text paragraphs
 - Bullet lists
 - `<Tooltip>` components with a `title` and `description` prop
+
+---
+
+## Exam Button Exclusion Routes
+
+**File:** [`src/components/navigation-header/components/product-page-content/index.tsx`](../../../src/components/navigation-header/components/product-page-content/index.tsx)
+
+The navigation header on Certifications pages includes a **"Register for Exam"** button in the right side of the nav bar. This button should not appear on every Certifications route — for example, it would be redundant on the sign-in page and on exam pages that already have a prominent registration CTA in the hero.
+
+`EXAM_BUTTON_EXCLUSION_ROUTES` is a constant array of route substrings used to suppress this button. If the current URL **contains any of the listed substrings**, the button is not rendered.
+
+```ts
+const EXAM_BUTTON_EXCLUSION_ROUTES = ['signin']
+```
+
+### When to update this list
+
+- **Add a route** — if a new exam page or Certifications sub-page should not show the nav button (e.g. because the page itself has a dedicated registration CTA), add a substring of that route's path to the array.
+- **Remove a route** — if an excluded route should now show the nav button, remove its substring from the array.
+
+**Example:** to also suppress the button on `/certifications/vault-associate`, add `'vault-associate'` to the array:
+
+```ts
+const EXAM_BUTTON_EXCLUSION_ROUTES = ['signin', 'vault-associate']
+```
+
+> **Note:** The match is a substring check, not an exact match. Keep the substrings specific enough that they do not accidentally exclude unintended routes.
 
 ---
 

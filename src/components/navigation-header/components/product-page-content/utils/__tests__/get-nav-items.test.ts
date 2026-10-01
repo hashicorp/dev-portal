@@ -6,7 +6,6 @@
 import { getLeftSideNavItems, getRightSideNavItems } from '../get-nav-items'
 import { ProductData } from 'types/products'
 
-// Might want to update tests to try Certifications subnav redirects
 const isCertifications = false
 
 const testNomadData = {

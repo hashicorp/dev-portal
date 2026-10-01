@@ -16,7 +16,6 @@ import { ProductIconTextLink } from './components'
 import { getRightSideNavItems, NavItem, getLeftSideNavItems } from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
 import SandboxDropdown from '../sandbox-dropdown'
-import { usePathname } from 'next/navigation'
 import { MobileSubMenuContainer } from '@components/mobile-menu-container'
 import {
 	SidebarNavMenuItem,
@@ -25,6 +24,18 @@ import {
 import { SidebarNavMenuItemProps } from '@components/sidebar/components/sidebar-nav-menu-item/types'
 import { MenuItem } from '@components/sidebar'
 import s from './product-page-content.module.css'
+import { usePathname } from 'next/navigation'
+
+const EXAM_BUTTON_EXCLUSION_ROUTES = [
+	'signin',
+	'terraform-infrastructure-engineer-professional',
+]
+
+function shouldIncludeExamButton(pathname: string) {
+	return EXAM_BUTTON_EXCLUSION_ROUTES.every(
+		(route) => !pathname.includes(route),
+	)
+}
 
 // Icons
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -118,6 +129,7 @@ const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
 	const pathname = usePathname()
 	const isCertificationsRoute = pathname.startsWith('/certifications')
+	const includeExamButton = shouldIncludeExamButton(pathname)
 
 	const leftSideNavItems = getLeftSideNavItems(
 		currentProduct,
@@ -125,7 +137,7 @@ const ProductPageHeaderContent = () => {
 	)
 	const rightSideNavItems = getRightSideNavItems(
 		currentProduct,
-		isCertificationsRoute && !pathname.includes('signin'), // this makes it so the register for exam button doesn't render on signin
+		isCertificationsRoute && includeExamButton, // this makes it so the register for exam button doesn't render on certain pages
 	)
 
 	// Check if the current product has sandbox support

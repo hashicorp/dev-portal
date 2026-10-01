@@ -57,6 +57,11 @@
 	@media (--dev-dot-mobile) {
 		padding: 24px;
 	}
+
+	& ul {
+		list-style: none;
+		padding-left: 8px;
+	}
 }
 
 .renewCertSection {

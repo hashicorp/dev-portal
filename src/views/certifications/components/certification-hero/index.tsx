@@ -9,6 +9,7 @@ import Heading from '@components/heading'
 import Text from '@components/text'
 import Image from 'next/image'
 import ButtonLink from '@components/button-link'
+import Button from '@components/button'
 import { Text as MDSText } from '@hashicorp/mds-react/components'
 
 // Types
@@ -26,6 +27,8 @@ import homepageDark from './assets/images/homepage-dark.png'
 import homepageLight from './assets/images/homepage-light.png'
 import terraformAssociateLight from './assets/images/terraform-associate-light.png'
 import terraformAssociateDark from './assets/images/terraform-associate-dark.png'
+import terraformInfrastructureEngineerProfessionalLight from './assets/images/terraform-infrastructure-engineer-professional-light.png'
+import terraformInfrastructureEngineerProfessionalDark from './assets/images/terraform-infrastructure-engineer-professional-dark.png'
 import terraformAdvancedLight from './assets/images/terraform-advanced-light.png'
 import terraformAdvancedDark from './assets/images/terraform-advanced-dark.png'
 import vaultAssociateLight from './assets/images/vault-associate-light.png'
@@ -42,6 +45,8 @@ import vaultBarGradientAdvancedLight from './assets/gradients/vault-bar-gradient
 import vaultBarGradientAdvancedDark from './assets/gradients/vault-bar-gradient-advanced-dark.svg'
 import terraformBarGradientAssociateLight from './assets/gradients/terraform-bar-gradient-associate-light.svg'
 import terraformBarGradientAssociateDark from './assets/gradients/terraform-bar-gradient-associate-dark.svg'
+import terraformBarGradientInfrastructureEngineerProfessionalLight from './assets/gradients/terraform-bar-gradient-professional-light.png'
+import terraformBarGradientInfrastructureEngineerProfessionalDark from './assets/gradients/terraform-bar-gradient-professional-dark.png'
 import terraformBarGradientAdvancedLight from './assets/gradients/terraform-bar-gradient-advanced-light.svg'
 import terraformBarGradientAdvancedDark from './assets/gradients/terraform-bar-gradient-advanced-dark.svg'
 
@@ -50,6 +55,10 @@ const HERO_PNG_MAP = {
 	'homepage-dark': homepageDark,
 	'terraform-associate-light': terraformAssociateLight,
 	'terraform-associate-dark': terraformAssociateDark,
+	'terraform-professional-light':
+		terraformInfrastructureEngineerProfessionalLight,
+	'terraform-professional-dark':
+		terraformInfrastructureEngineerProfessionalDark,
 	'terraform-advanced-light': terraformAdvancedLight,
 	'terraform-advanced-dark': terraformAdvancedDark,
 	'vault-associate-light': vaultAssociateLight,
@@ -67,6 +76,10 @@ const HERO_BAR_GRADIENT_MAP = {
 	'vault-advanced-dark': vaultBarGradientAdvancedDark,
 	'terraform-associate-light': terraformBarGradientAssociateLight,
 	'terraform-associate-dark': terraformBarGradientAssociateDark,
+	'terraform-professional-light':
+		terraformBarGradientInfrastructureEngineerProfessionalLight,
+	'terraform-professional-dark':
+		terraformBarGradientInfrastructureEngineerProfessionalDark,
 	'terraform-advanced-light': terraformBarGradientAdvancedLight,
 	'terraform-advanced-dark': terraformBarGradientAdvancedDark,
 }
@@ -116,14 +129,23 @@ function CertificationHero({
 						</Heading>
 						<Text className={s.heroDescriptionText}>{description}</Text>
 						<div className={s.ctaGroup}>
-							{leftCta && leftCta.text && leftCta.link && (
-								<ButtonLink
-									text={leftCta.text}
-									href={leftCta.link}
-									size="small"
-									className={s.buttonLink}
-								/>
-							)}
+							{leftCta &&
+								leftCta.text &&
+								(leftCta.link ? (
+									<ButtonLink
+										text={leftCta.text}
+										href={leftCta.link}
+										size="small"
+										className={s.buttonLink}
+									/>
+								) : (
+									<Button
+										text={leftCta.text}
+										size="small"
+										className={s.buttonLink}
+										disabled={true}
+									/>
+								))}
 							{rightCta && rightCta.text && rightCta.link && (
 								<ButtonLink
 									text={rightCta.text}

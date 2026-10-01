@@ -137,6 +137,7 @@
 }
 
 .certDetailsBottomRightCard {
+	display: flex;
 	width: 50%;
 
 	@media (--dev-dot-tablet-down) {
