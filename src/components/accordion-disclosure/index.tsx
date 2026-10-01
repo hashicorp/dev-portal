@@ -51,7 +51,7 @@ const AccordionDisclosure = ({
 	 * adjacent AccordionDisclosure items.
 	 */
 	const generateContainerClassName = (isOpen: boolean) => {
-		return classNames(s.root, {
+		return classNames(s.root, className, {
 			[s.isOpen]: isOpen,
 			[s.isHovered]: isHovered,
 			[s.isNested]: isNested,
@@ -67,10 +67,7 @@ const AccordionDisclosure = ({
 				containerClassName={generateContainerClassName}
 				initialOpen={initialOpen}
 			>
-				<DisclosureActivator
-					className={classNames(s.button, className)}
-					ref={hoverRef}
-				>
+				<DisclosureActivator className={s.button} ref={hoverRef}>
 					<span className={s.labelContainer}>
 						{typeof title === 'string' ? (
 							<Text asElement="span" className={s.title} weight="semibold">

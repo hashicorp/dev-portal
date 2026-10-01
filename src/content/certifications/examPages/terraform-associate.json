@@ -1,0 +1,90 @@
+{
+	"title": "Terraform Associate",
+	"hero": {
+		"product": "terraform-associate",
+		"eyebrow": "HashiCorp Certified:",
+		"title": "Terraform Associate (004)",
+		"description": "Prove your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
+		"leftCta": {
+			"text": "Register for the exam",
+			"link": "/certifications/signin"
+		},
+		"rightCta": {
+			"text": "Prepare for the exam",
+			"link": "/terraform/tutorials/certification-004"
+		}
+	},
+	"announcement": {
+		"header": "TechXchange is Coming",
+		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
+		"cta": "Read more",
+		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
+	},
+	"certificationDetails": {
+		"product": "terraform",
+		"data": {
+			"whoShouldTakeExam": {
+				"title": "Who should take this exam",
+				"description": "You should take the Terraform Associate certification exam if you are a Cloud Engineer with foundational Terraform knowledge and skills, who can identify Terraform Enterprise features and distinguish them from Community edition."
+			},
+			"examDetails": {
+				"title": "Exam Details",
+				"details": [
+					{
+						"name": "Assessment Type",
+						"value": "Multiple choice"
+					},
+					{ "name": "Format", "value": "Online Proctored" },
+					{ "name": "Credential Expiration", "value": "2 years" },
+					{ "name": "Language", "value": "English" },
+					{
+						"name": "Duration",
+						"value": "1 hour"
+					},
+					{
+						"name": "Version tested",
+						"value": "Terraform 1.12"
+					},
+					{
+						"name": "Price",
+						"value": "$70.50 USD, plus locally applicable taxes and fees. Free retake not included."
+					}
+				]
+			},
+			"prerequisites": {
+				"title": "Prerequisites",
+				"prereqs": [
+					"Basic terminal skills",
+					"Understanding of on-premises and cloud architecture",
+					"While professional experience is recommended, you can also prepare by practicing the exam objectives in a personal demo setup"
+				],
+				"bottomDescription": ""
+			}
+		}
+	},
+	"objectives": {
+		"title": "Exam Objectives"
+	},
+	"renewCertifications": {
+		"title": "Renew Your Certification",
+		"description": "Understand your recertification options. Start by finding the scenario that applies to you and then evaluate your options. Know which exam version you passed by the 3-digit code on your credentials (badge and certificate)."
+	},
+	"linkWithImage": {
+		"title": "Visit our knowledge base",
+		"description": "Review and follow the rules and requirements for taking exams before you register for an exam appointment. You are responsible for following the identification, system, and physical space requirements.",
+		"cta": "Go to knowledge base",
+		"ctaLink": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/26234761626125"
+	},
+	"relatedCertsFooter": {
+		"title": "Related Certifications",
+		"description": "Expand your expertise with certifications that build on related skills and technologies. Explore the next step in your learning journey.",
+		"certs": [
+			{
+				"id": "terraform-professional"
+			},
+			{
+				"id": "vault-associate"
+			}
+		]
+	}
+}

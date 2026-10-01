@@ -255,6 +255,16 @@ async function buildDevPortalRedirects() {
 			permanent: true,
 		},
 		{
+			source: '/certifications/infrastructure-automation',
+			destination: '/certifications',
+			permanent: true,
+		},
+		{
+			source: '/certifications/security-automation',
+			destination: '/certifications',
+			permanent: true,
+		},
+		{
 			source: '/hcp/docs/vault-radar',
 			destination: '/vault-radar',
 			permanent: true,
