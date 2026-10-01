@@ -5,7 +5,7 @@
 			"url": "/certifications"
 		},
 		{
-			"label": "Terraform Certification",
+			"label": "Terraform Certifications",
 			"items": [
 				{
 					"label": "Terraform Associate",
@@ -22,7 +22,7 @@
 			]
 		},
 		{
-			"label": "Vault Certification",
+			"label": "Vault Certifications",
 			"items": [
 				{
 					"label": "Vault Associate",
