@@ -44,6 +44,10 @@
 	div {
 		padding: 0;
 	}
+	
+	> div > div > ul {
+		margin-top: 16px !important;
+	}
 
 	& span {
 		font-size: 18px;
