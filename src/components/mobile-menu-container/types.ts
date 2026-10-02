@@ -10,6 +10,8 @@ type NativeDivElement = JSX.IntrinsicElements['div']
 interface MobileMenuContainerProps {
 	children: ReactNode
 	className?: NativeDivElement['className']
+	label?: string
+	isCertifications?: boolean
 }
 
 export type { MobileMenuContainerProps }
