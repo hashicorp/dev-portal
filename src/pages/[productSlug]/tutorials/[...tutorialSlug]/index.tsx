@@ -55,7 +55,7 @@ async function getStaticPaths(): Promise<
 
 						return result
 					})
-				})
+				}),
 			)
 		).flat()
 	} catch {

@@ -12,6 +12,7 @@
  */
 
 import path from 'path'
+import env from 'env-var'
 import flatMap from 'unist-util-flatmap'
 import { is } from 'unist-util-is'
 
@@ -61,14 +62,14 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				return [node]
 			}
 
+			const VERCEL_ENV = env.get('VERCEL_ENV').asString()
 			const isVercelBuild =
-				process.env.VERCEL_ENV === 'production' ||
-				process.env.VERCEL_ENV === 'preview'
+				VERCEL_ENV === 'production' || VERCEL_ENV === 'preview'
 			const newUrl = new URL(ASSET_API_ENDPOINT)
 			// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
 			const { hash, pathname } = new URL(
 				node.url,
-				'https://developer.hashicorp.com'
+				'https://developer.hashicorp.com',
 			)
 
 			/**
@@ -83,7 +84,8 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 			 * For the local tutorials repo workflow, a custom asset server hosts
 			 * the images, so we don't adjust the path.
 			 */
-			if (!isVercelBuild && process.env.TUTORIALS_LOCAL === 'true') {
+			const TUTORIALS_LOCAL = env.get('TUTORIALS_LOCAL').asBool()
+			if (!isVercelBuild && TUTORIALS_LOCAL) {
 				newUrl.pathname = path.join(newUrl.pathname, pathname)
 			} else {
 				/**

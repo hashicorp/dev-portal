@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { NextResponse } from 'next/server'
 import { type NextFetchEvent, type NextRequest, userAgent } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
@@ -64,13 +65,14 @@ export async function proxy(req: NextRequest, ev: NextFetchEvent) {
 	// 		JSON.stringify(bootstrapData.featureFlags)
 	// 	)
 	// }
+	const DEBUG_REDIRECTS = env.get('DEBUG_REDIRECTS').asBool()
 
-	if (process.env.DEBUG_REDIRECTS) {
+	if (DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
 	}
 	if (redirects[product] && req.nextUrl.pathname in redirects[product]) {
 		const { destination, permanent } = redirects[product][req.nextUrl.pathname]
-		if (process.env.DEBUG_REDIRECTS) {
+		if (DEBUG_REDIRECTS) {
 			console.log(
 				`[DEBUG_REDIRECTS] redirecting ${req.nextUrl.pathname} to ${destination}`,
 			)
@@ -80,7 +82,7 @@ export async function proxy(req: NextRequest, ev: NextFetchEvent) {
 			// Apply geo cookie + posthog bootstrap cookie to the response
 			const finalResponse = setGeoCookie(req, res)
 			// if (bootstrapData) {
-				// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+			// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
 			// }
 			return finalResponse
 		}
@@ -100,7 +102,7 @@ export async function proxy(req: NextRequest, ev: NextFetchEvent) {
 		// Apply geo cookie + posthog bootstrap cookie to the response
 		const finalResponse = setGeoCookie(req, res)
 		// if (bootstrapData) {
-			// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+		// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
 		// }
 		return finalResponse
 	}
@@ -173,7 +175,7 @@ export async function proxy(req: NextRequest, ev: NextFetchEvent) {
 	// Apply geo cookie + posthog bootstrap cookie to the response
 	const finalResponse = setGeoCookie(req, response)
 	// if (bootstrapData) {
-		// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
+	// setBootstrapCookieOnResponse(bootstrapData, finalResponse)
 	// }
 	return finalResponse
 }

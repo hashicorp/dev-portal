@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 import { NextRequest } from 'next/server'
 
 type ClientRes = {
@@ -39,11 +40,11 @@ function sendMessageToAllClients(obj: $TSFixMe): void {
 	}
 }
 
+const NODE_ENV = env.get('NODE_ENV').asString()
+const HASHI_ENV = process.env.HASHI_ENV
+
 export async function POST() {
-	if (
-		process.env.NODE_ENV !== 'development' ||
-		process.env.HASHI_ENV !== 'unified-docs-sandbox'
-	) {
+	if (NODE_ENV !== 'development' || HASHI_ENV !== 'unified-docs-sandbox') {
 		return new Response('Not Found', { status: 404 })
 	}
 
@@ -52,10 +53,7 @@ export async function POST() {
 }
 
 export async function GET(req: NextRequest) {
-	if (
-		process.env.NODE_ENV !== 'development' ||
-		process.env.HASHI_ENV !== 'unified-docs-sandbox'
-	) {
+	if (NODE_ENV !== 'development' || HASHI_ENV !== 'unified-docs-sandbox') {
 		return new Response('Not Found', { status: 404 })
 	}
 

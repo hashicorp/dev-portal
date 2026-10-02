@@ -1,3 +1,4 @@
+import env from 'env-var'
 import { PostHog } from 'posthog-node'
 import { v4 as uuidv4 } from 'uuid'
 import { NextRequest, NextResponse } from 'next/server'
@@ -112,7 +113,8 @@ const getGeo = (req: PosthogRequest) => {
  * @returns boolean indicating if the user can be made to opt-out by default
  */
 const canUseOptOutPolicy = (req: PosthogRequest): boolean => {
-	const isDev = process.env.NODE_ENV === 'development'
+	const NODE_ENV = env.get('NODE_ENV').asString()
+	const isDev = NODE_ENV === 'development'
 	if (isDev) {
 		return true
 	}
@@ -312,7 +314,8 @@ export const setBootstrapCookieOnResponse = (
 	bootstrapData: BootstrapData,
 	res: NextResponse,
 ): NextResponse => {
-	const isDev = process.env.NODE_ENV === 'development'
+	const NODE_ENV = env.get('NODE_ENV').asString()
+	const isDev = NODE_ENV === 'development'
 	if (isDev) {
 		console.log(
 			`bootstrapped feature flag data: ${JSON.stringify(bootstrapData)}`,
@@ -321,7 +324,7 @@ export const setBootstrapCookieOnResponse = (
 	res.cookies.set(POSTHOG_BOOTSTRAP_COOKIE_KEY, JSON.stringify(bootstrapData), {
 		expires: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000), // 45 days
 		sameSite: 'lax',
-		secure: process.env.NODE_ENV === 'production',
+		secure: NODE_ENV === 'production',
 	})
 	return res
 }
