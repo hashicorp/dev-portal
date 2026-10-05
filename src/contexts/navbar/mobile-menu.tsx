@@ -6,13 +6,8 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { MobileMenuContextState, MobileMenuProviderProps } from './types'
 import { useRouter } from 'next/router'
-import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
-
-/**
- * Should correspond to --dev-dot-hide-mobile-menu
- */
-const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 924
+import { DEFAULT_NAV_HEADER_DESKTOP_WIDTH } from './constants'
 
 const MobileMenuContext = createContext<MobileMenuContextState | undefined>(
 	undefined,
@@ -39,11 +34,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 			return
 		}
 
-		// Get the breakpoint value - this is actually broken & defaults to DEFAULT_NAV_HEADER_DESKTOP_WIDTH
-		const desktopWidthBreakpoint =
-			(getCSSVariableFromDocument('--mobile-menu-breakpoint', {
-				asNumber: true,
-			}) as number) || DEFAULT_NAV_HEADER_DESKTOP_WIDTH
+		const desktopWidthBreakpoint = DEFAULT_NAV_HEADER_DESKTOP_WIDTH
 
 		// Create a media query list object with the obtained breakpoint
 		const mediaQueryListObject = window.matchMedia(
