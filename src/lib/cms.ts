@@ -96,12 +96,6 @@ interface ProductData {
 	analyticsConfig?: AnalyticsConfig
 
 	/**
-	 * The configuration for <meta> tags.
-	 * @see {@link Metadata}
-	 */
-	metadata: Metadata
-
-	/**
 	 * Whether the AlertBanner should be displayed on every page.
 	 */
 	alertBannerActive: boolean
@@ -141,11 +135,6 @@ interface ProductData {
 	 * @see {@link PackageManager}
 	 */
 	packageManagers?: PackageManager[]
-
-	/**
-	 * A read-only Dato token used to query for product-specific data.
-	 */
-	datoToken?: string
 }
 
 interface AlertBanner {
@@ -200,49 +189,6 @@ interface AnalyticsConfig {
 	 */
 	segmentWriteKey: string
 }
-
-interface Metadata {
-	/**
-	 * The text to use as the defaut content for the <title> element for pages
-	 * using this product configuration.
-	 */
-	title: string
-
-	/**
-	 * The text to use as the defaut content for the description element for
-	 * pages using this product configuration.
-	 */
-	description: string
-
-	/**
-	 * The URL to an image to use in OpenGraph and Twitter meta tags.
-	 */
-	image: string
-
-	/**
-	 * A list of Icons to include in the <head> element.
-	 * @see {@link Icon}
-	 */
-	icon: Icon[]
-}
-
-interface Icon {
-	/**
-	 * The URL to an image to use as a favicon
-	 */
-	href: string
-
-	/**
-	 * The mimetype for the image located at href.
-	 */
-	type?: string
-
-	/**
-	 * The dimensions of the image located at href in WxH form.
-	 */
-	sizes?: string
-}
-
 interface PackageManager {
 	/**
 	 * A human-friendly label used for this package manager.
