@@ -15,10 +15,10 @@
 		}
 	},
 	"announcement": {
-		"header": "Upcoming webinar!",
-		"text": "Learn more about the Professional and Advanced certifications.",
-		"cta": "Register today",
-		"ctaLink": "https://ibm.webcasts.com/starthere.jsp?ei=1774309&tp_key=1ded2d16d3"
+		"header": "Exam launch!",
+		"text": "Be one of the first to take the exam at IBM TechXchange 2026.",
+		"cta": "Get ready",
+		"ctaLink": "https://reg.tools.ibm.com/flow/ibm/techxchange26/sessioncatalog/page/sessioncatalog/session/1787935238141001Txrr"
 	},
 	"certificationDetails": {
 		"product": "terraform",
@@ -43,7 +43,7 @@
 					},
 					{
 						"name": "Price",
-						"value": "Coming soon."
+						"value": "Coming soon"
 					},
 					{
 						"name": "Launch Date",

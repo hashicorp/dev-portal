@@ -15,10 +15,10 @@
 		}
 	},
 	"announcement": {
-		"header": "Upcoming webinar!",
-		"text": "Learn more about the Professional and Advanced certifications.",
-		"cta": "Register today",
-		"ctaLink": "https://ibm.webcasts.com/starthere.jsp?ei=1774309&tp_key=1ded2d16d3"
+		"header": "TechXchange is Coming",
+		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
+		"cta": "Read more",
+		"ctaLink": "https://reg.tools.ibm.com/flow/ibm/techxchange26/sessioncatalog/page/sessioncatalog?search=terraform%20advanced&tab.sessioncatalogtabs=option_1601178495160&search.activitytype=1715790731874001qQHK"
 	},
 	"certificationDetails": {
 		"product": "terraform",
