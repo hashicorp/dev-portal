@@ -93,7 +93,7 @@ function CertificationDetailsBottomLeftCard({
 					<ul className={s.certDetailsBottomLeftCardList}>
 						{examDetails.map((detail, index) => (
 							<li
-								key={`exam-detail-${index}`}
+								key={`exam-detail-${detail.name}`}
 								className={s.certDetailsBottomLeftCardListItem}
 							>
 								<Heading
@@ -150,9 +150,9 @@ function CertificationDetailsBottomRightCard({
 						{title}
 					</Heading>
 					<ul className={s.certDetailsBottomRightCardList}>
-						{prereqs.map((prereq, index) => (
+						{prereqs.map((prereq) => (
 							<li
-								key={`prereq-${index}`}
+								key={`prereq-${prereq}`}
 								className={s.certDetailsBottomRightCardListItem}
 							>
 								<Text weight={'semibold'} className={s.descTextSize}>
