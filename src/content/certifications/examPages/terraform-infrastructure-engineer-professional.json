@@ -10,8 +10,8 @@
 			"link": ""
 		},
 		"rightCta": {
-			"text": "",
-			"link": ""
+			"text": "Prepare for the exam",
+			"link": "/terraform/tutorials/certification-infra-professional"
 		}
 	},
 	"announcement": {
