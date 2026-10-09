@@ -54,7 +54,7 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: {
 		'waypoint' | 'well-architected-framework' | 'validated-patterns' | 'validated-designs' | 'vault-radar'
 	>]: string
 } = {
-	boundary: 'https://github.com/hashicorp/boundary',
+	boundary: 'https://github.com/hashicorp/boundary-enterprise',
 	consul: 'https://github.com/hashicorp/consul',
 	hcp: DEFAULT_GITHUB_LINK,
 	nomad: 'https://github.com/hashicorp/nomad',

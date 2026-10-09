@@ -30,7 +30,7 @@ const BASE_URL = '/boundary/api-docs'
 
 /**
  * The path to read from when running local preview in the context
- * of the `hashicorp/boundary` repository.
+ * of the `hashicorp/boundary-enterprise` repository.
  */
 const TARGET_LOCAL_FILE = '../../internal/gen/controller.swagger.json'
 
@@ -43,7 +43,7 @@ function getVersionData(): ApiDocsVersionData[] {
 		? TARGET_LOCAL_FILE
 		: {
 				owner: 'hashicorp',
-				repo: 'boundary',
+				repo: 'boundary-enterprise',
 				path: 'internal/gen/controller.swagger.json',
 				ref: 'main',
 		  }
