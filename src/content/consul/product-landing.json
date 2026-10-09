@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Service Networking Automations Across Clouds",
-		"image": "https://www.datocms-assets.com/2885/1662767788-dev-dot-consul-landing-hero-2x.png"
+		"image": "/img/consul/landing-hero-graphic.png"
 	},
 	"overview": {
 		"heading": "What is Consul?",
@@ -11,8 +11,8 @@
 			"url": "/consul/docs/intro"
 		},
 		"image": {
-			"light": "https://www.datocms-assets.com/2885/1679095130-devdot-consul_lm.png",
-			"dark": "https://www.datocms-assets.com/2885/1679087694-devdot-consul_dm.png"
+			"light": "/img/consul/overview-light.png",
+			"dark": "/img/consul/overview-dark.png"
 		}
 	},
 	"get_started": {

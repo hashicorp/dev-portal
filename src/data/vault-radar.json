@@ -4,10 +4,6 @@
 	"algoliaConfig": {
 		"indexName": "product_VAULT-RADAR"
 	},
-	"metadata": {
-		"title": "Vault Radar by HashiCorp",
-		"description": "Vault Radar automates the detection and identification of unmanaged secrets in your code."
-	},
 	"subnavItems": [
 		{
 			"text": "Overview",

@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Find and remediate exposed secrets",
-		"image": "https://www.datocms-assets.com/2885/1662767810-dev-dot-hcp-landing-hero-2x.png"
+		"image": "/img/hcp/landing-hero-graphic.png"
 	},
 	"overview": {
 		"heading": "What is HCP Vault Radar?",

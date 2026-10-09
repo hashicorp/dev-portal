@@ -9,16 +9,6 @@
 		"includedDomains": "waypointproject.io www.waypointproject.io",
 		"segmentWriteKey": "9mlIVayJbNtJW2EOdAFKHNKcdLAgEDlV"
 	},
-	"metadata": {
-		"title": "Waypoint by HashiCorp",
-		"description": "Waypoint provides a modern workflow for build, deploy, and release across platforms.",
-		"image": "https://www.waypointproject.io/waypoint-public/img/og-image.png",
-		"icon": [
-			{
-				"href": "/waypoint-public/_favicon.ico"
-			}
-		]
-	},
 	"alertBannerActive": true,
 	"alertBanner": {
 		"tag": "HashiDays",

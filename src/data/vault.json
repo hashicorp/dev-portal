@@ -11,34 +11,6 @@
 		"includedDomains": "vaultproject.io www.vaultproject.io",
 		"segmentWriteKey": "OdSFDq9PfujQpmkZf03dFpcUlywme4sC"
 	},
-	"datoToken": "88b4984480dad56295a8aadae6caad",
-	"metadata": {
-		"title": "Vault by HashiCorp",
-		"description": "Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, auditing, and provides secrets as a service through a unified API.",
-		"image": "https://www.vaultproject.io/vault-public/img/og-image.png",
-		"icon": [
-			{
-				"href": "https://www.datocms-assets.com/2885/1676497447-vault-favicon-color.png?h=16&w=16",
-				"type": "image/png",
-				"sizes": "16x16"
-			},
-			{
-				"href": "https://www.datocms-assets.com/2885/1676497447-vault-favicon-color.png?h=32&w=32",
-				"type": "image/png",
-				"sizes": "32x32"
-			},
-			{
-				"href": "https://www.datocms-assets.com/2885/1676497447-vault-favicon-color.png?h=96&w=96",
-				"type": "image/png",
-				"sizes": "96x96"
-			},
-			{
-				"href": "https://www.datocms-assets.com/2885/1676497447-vault-favicon-color.png?h=192&w=192",
-				"type": "image/png",
-				"sizes": "192x192"
-			}
-		]
-	},
 	"alertBannerActive": true,
 	"alertBanner": {
 		"tag": "HashiDays",

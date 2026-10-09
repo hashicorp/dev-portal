@@ -9,17 +9,6 @@
 		"includedDomains": "vagrantup.com www.vagrantup.com",
 		"segmentWriteKey": "wFMyBE4PJCZttWfu0pNhYdWr7ygW0io4"
 	},
-	"datoToken": "88b4984480dad56295a8aadae6caad",
-	"metadata": {
-		"title": "Vagrant by HashiCorp",
-		"description": "Vagrant enables users to create and configure lightweight, reproducible, and portable development environments.",
-		"image": "https://www.vagrantup.com/vagrant/img/og-image.png",
-		"icon": [
-			{
-				"href": "/vagrant-public/favicon.ico"
-			}
-		]
-	},
 	"alertBannerActive": true,
 	"alertBanner": {
 		"tag": "HashiDays",

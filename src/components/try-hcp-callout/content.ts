@@ -31,7 +31,7 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try HCP Terraform for free',
 		ctaUrl: 'https://app.terraform.io/public/signup/account',
 		image:
-			'https://www.datocms-assets.com/2885/1721073680-devdot-try-hcp-callout-ui-mock-terraform.svg',
+			'img/terraform/try-hcp-callout.svg',
 	},
 	boundary: {
 		heading: 'HCP Boundary',
@@ -39,7 +39,7 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try HCP Boundary for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 		image:
-			'https://www.datocms-assets.com/2885/1721073666-devdot-try-hcp-callout-ui-mock-boundary.svg',
+			'img/boundary/try-hcp-callout.svg',
 	},
 	packer: {
 		heading: 'HCP Packer',
@@ -47,7 +47,7 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try HCP Packer for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 		image:
-			'https://www.datocms-assets.com/2885/1721073676-devdot-try-hcp-callout-ui-mock-packer.svg',
+			'img/packer/try-hcp-callout.svg',
 	},
 	vault: {
 		heading: 'HCP Vault Dedicated',
@@ -55,7 +55,7 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try HCP Vault Dedicated for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 		image:
-			'https://www.datocms-assets.com/2885/1721073685-devdot-try-hcp-callout-ui-mock-vault.svg',
+			'img/vault/try-hcp-callout.svg',
 	},
 	'vault-radar': {
 		heading: 'HCP Vault Radar',
@@ -63,7 +63,7 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try HCP Vault Radar for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 		image:
-			'https://www.datocms-assets.com/2885/1721073685-devdot-try-hcp-callout-ui-mock-vault.svg',
+			'img/vault/try-hcp-callout.svg',
 	},
 	waypoint: {
 		heading: 'HCP Waypoint',
@@ -71,7 +71,7 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try HCP Waypoint for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 		image:
-			'https://www.datocms-assets.com/2885/1721073687-devdot-try-hcp-callout-ui-mock-waypoint.svg',
+			'img/waypoint/try-hcp-callout.svg',
 	},
 	hcp: {
 		heading: 'HashiCorp Cloud Platform',
@@ -79,7 +79,7 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try cloud for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 		image:
-			'https://www.datocms-assets.com/2885/1721073685-devdot-try-hcp-callout-ui-mock-vault.svg',
+			'img/vault/try-hcp-callout.svg',
 	},
 	vagrant: {
 		heading: 'HCP Vagrant Registry',
@@ -88,6 +88,6 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try HCP Vagrant Registry for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/vagrant/discover',
 		image:
-			'https://www.datocms-assets.com/2885/1721073683-devdot-try-hcp-callout-ui-mock-vagrant.svg',
+			'img/vagrant/try-hcp-callout.svg',
 	},
 }
