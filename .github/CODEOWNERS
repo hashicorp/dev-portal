@@ -9,4 +9,4 @@
 /src/content/boundary/**/* @hashicorp/boundary-education-approvers
 
 # Certifications
-/src/content/certifications/**/* @lszpunar
+/src/content/certifications/**/* @lszpunar @glarizza

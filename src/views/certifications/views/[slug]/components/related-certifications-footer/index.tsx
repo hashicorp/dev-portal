@@ -56,7 +56,7 @@ export function RelatedCertificationsFooter({
 						{relatedCertifications &&
 							relatedCertifications.map((certification, index) => (
 								<CertificationCardDisplay
-									key={`related-certification-${index}`}
+									key={`related-certification-${certification.title}`}
 									isReduced={true}
 									product={certification.product}
 									title={certification.title}
