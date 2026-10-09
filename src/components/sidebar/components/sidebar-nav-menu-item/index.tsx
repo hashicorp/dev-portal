@@ -74,7 +74,7 @@ const SidebarNavMenuItemBadge = ({
 }: SidebarNavMenuItemBadgeProps) => {
 	if (color !== 'highlight' && color !== 'neutral') {
 		throw new Error(
-			`[SidebarNavMenuItemBadge] Only the "highlight" and "neutral" colors are supported for Badges, but was given ${color}.`
+			`[SidebarNavMenuItemBadge] Only the "highlight" and "neutral" colors are supported for Badges, but was given ${color}.`,
 		)
 	}
 
@@ -207,7 +207,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 		item.isOpen ||
 			item.hasActiveChild ||
 			item.hasChildrenMatchingFilter ||
-			item.matchesFilter
+			item.matchesFilter,
 	)
 	const hasBadge = !!(item as $TSFixMe).badge
 
@@ -221,7 +221,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 			item.isOpen ||
 				item.hasActiveChild ||
 				item.hasChildrenMatchingFilter ||
-				item.matchesFilter
+				item.matchesFilter,
 		)
 	}, [
 		item.isOpen,
