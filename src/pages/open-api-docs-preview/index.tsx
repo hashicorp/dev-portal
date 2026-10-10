@@ -6,7 +6,8 @@
 import { GetStaticPropsResult } from 'next'
 import OpenApiDocsPreviewView from 'views/open-api-docs-preview'
 
-const IS_PRODUCTION = process.env.HASHI_ENV === 'production'
+const HASHI_ENV = process.env.HASHI_ENV
+const IS_PRODUCTION = HASHI_ENV === 'production'
 
 /**
  * We don't actually need static props for this page,

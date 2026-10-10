@@ -67,9 +67,11 @@ const BaseLayout = ({
 		currentProduct.slug !== 'validated-designs'
 
 	useEffect(() => {
+		const NODE_ENV = process.env.NODE_ENV
+		const HASHI_ENV = process.env.HASHI_ENV
 		if (
-			process.env.NODE_ENV === 'development' &&
-			process.env.HASHI_ENV === 'unified-docs-sandbox'
+			NODE_ENV === 'development' &&
+			HASHI_ENV === 'unified-docs-sandbox'
 		) {
 			const clientId = crypto.randomUUID()
 			const eventSource = new EventSource(`/api/refresh?id=${clientId}`)
