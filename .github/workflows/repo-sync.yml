@@ -41,7 +41,7 @@ jobs:
           result-encoding: string
           script: |
             const { owner, repo } = context.repo
-            const head = 'repo-sync'
+            const head = 'hashicorp:repo-sync'
             const base = 'main'
 
             async function closePullRequest(prNumber) {
@@ -67,12 +67,12 @@ jobs:
             }
 
             try {
-              const { data } = await github.rest.repos.compareCommits({
+              const { data } = await github.rest.repos.compareCommitsWithBasehead({
                 owner,
                 repo,
-                head,
-                base,
+                basehead: `${base}...${head}`,
               })
+
               const { files } = data
               console.log(`File changes between ${head} and ${base}:`, files)
               if (!files.length) {
@@ -114,19 +114,6 @@ jobs:
               throw err
             }
 
-            console.log('Locking conversations to prevent spam')
-            try {
-              await github.rest.issues.lock({
-                ...context.repo,
-                issue_number: pull_number,
-                lock_reason: 'spam'
-              })
-              console.log('Locked the pull request to prevent spam')
-            } catch (error) {
-              console.error('Failed to lock the pull request.', error)
-              // Don't fail the workflow
-            }
-
             console.log('Counting files changed')
             const { data: prFiles } = await github.rest.pulls.listFiles({ owner, repo, pull_number })
             if (prFiles.length) {
@@ -140,6 +127,7 @@ jobs:
             console.log('Checking for merge conflicts')
             if (pull.mergeable_state === 'dirty') {
               console.log('Pull request has a conflict', pull.html_url)
+              await closePullRequest(pull_number)
               throw new Error('Pull request has a conflict, please resolve manually')
             }
             console.log('No detected merge conflicts')

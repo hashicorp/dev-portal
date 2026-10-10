@@ -4,7 +4,6 @@
  */
 
 import { ProductSlug } from 'types/products'
-import { certificationProgramSlugMap } from 'views/certifications/content/utils/program-slug-map'
 import {
 	VALID_EDITION_SLUGS_FOR_FILTERING,
 	VALID_PRODUCT_SLUGS_FOR_FILTERING,
@@ -45,13 +44,14 @@ const COMMUNITY_LINKS_BY_PRODUCT: {
 	terraform: 'https://discuss.hashicorp.com/c/terraform-core/27',
 	vagrant: 'https://discuss.hashicorp.com/c/vagrant/24',
 	vault: 'https://discuss.hashicorp.com/c/vault/30',
+	'vault-radar': 'https://discuss.hashicorp.com/c/vault-radar/52',
 	waypoint: 'https://discuss.hashicorp.com/c/waypoint/51',
 }
 
 const GITHUB_LINKS_BY_PRODUCT_SLUG: {
 	[key in Exclude<
 		ProductSlug,
-		'waypoint' | 'well-architected-framework' | 'validated-patterns' | 'validated-designs'
+		'waypoint' | 'well-architected-framework' | 'validated-patterns' | 'validated-designs' | 'vault-radar'
 	>]: string
 } = {
 	boundary: 'https://github.com/hashicorp/boundary',
@@ -72,7 +72,7 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: {
  * nav items will be appended to the Resources section.
  */
 function generateAdditionalResources(
-	productSlug?: ProductSlug
+	productSlug?: ProductSlug,
 ): ResourceNavItem[] {
 	if (productSlug) {
 		try {
@@ -117,14 +117,14 @@ function getTutorialLibraryUrl(productSlug?: ProductSlug): string {
  */
 function getCertificationsLink(productSlug?: ProductSlug): ResourceNavLink[] {
 	// If this product does not have a certifications link, return an empty array
-	const programSlug = certificationProgramSlugMap[productSlug]
-	if (!programSlug) {
+	const products = ['terraform', 'vault']
+	if (!productSlug || !products.includes(productSlug)) {
 		return []
 	}
 	// If this product does have a certifications link, return a single-item array
 	const link = {
 		title: 'Certifications',
-		href: `/certifications/${programSlug}`,
+		href: `/certifications`,
 	}
 	return [link]
 }
@@ -134,7 +134,7 @@ function getCertificationsLink(productSlug?: ProductSlug): ResourceNavLink[] {
  * Optionally accepts a Product slug for customization of links.
  */
 function generateResourcesNavItems(
-	productSlug?: ProductSlug
+	productSlug?: ProductSlug,
 ): ResourceNavItem[] {
 	const additionalResources = generateAdditionalResources(productSlug)
 	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
@@ -158,7 +158,7 @@ function generateResourcesNavItems(
 						title: 'Sandbox',
 						href: `/${productSlug}/sandbox`,
 					},
-			  ]
+				]
 			: []),
 		{
 			title: 'Community Forum',
@@ -170,7 +170,7 @@ function generateResourcesNavItems(
 			title: 'Support',
 			href: DEFAULT_SUPPORT_LINK,
 		},
-		...(productSlug !== 'waypoint'
+		...(productSlug !== 'waypoint' && productSlug !== 'vault-radar'
 			? [
 					{
 						title: 'GitHub',
@@ -178,7 +178,7 @@ function generateResourcesNavItems(
 							? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
 							: DEFAULT_GITHUB_LINK,
 					},
-			  ]
+				]
 			: []),
 		...additionalResources,
 	]
