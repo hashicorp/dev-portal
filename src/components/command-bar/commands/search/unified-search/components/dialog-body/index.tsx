@@ -102,7 +102,6 @@ function SearchResults({
 			docs: { hits: [] },
 			integration: { hits: [] },
 			tutorial: { hits: [] },
-			knowledgebase: { hits: [] },
 		})
 	/**
 	 * `setHitData` allows easy updating of hits for a specific content type

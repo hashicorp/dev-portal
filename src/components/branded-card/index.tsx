@@ -34,6 +34,7 @@ const PATTERN_IMG_MAP: Record<
 	terraform: patternTerraform,
 	vagrant: patternVagrant,
 	vault: patternVault,
+	'vault-radar': patternVault,
 	waypoint: patternWaypoint,
 	hcp: patternGeneric,
 	sentinel: patternGeneric,

@@ -1,0 +1,28 @@
+{
+	"name": "Vault Radar",
+	"slug": "vault-radar",
+	"algoliaConfig": {
+		"indexName": "product_VAULT-RADAR"
+	},
+	"metadata": {
+		"title": "Vault Radar by HashiCorp",
+		"description": "Vault Radar automates the detection and identification of unmanaged secrets in your code."
+	},
+	"subnavItems": [
+		{
+			"text": "Overview",
+			"url": "/",
+			"type": "inbound"
+		}
+	],
+	"basePaths": ["cloud"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "cloud",
+			"productSlugForLoader": "vault-radar-hcp",
+			"basePathForLoader": "hcp-docs"
+		}
+	]
+}

@@ -63,6 +63,7 @@ const productsToPrimitives: Record<
 	terraform: { ProviderTable },
 	vagrant: { Button },
 	vault: { Columns, Tag: InlineTag },
+	'vault-radar': { Columns, Tag: InlineTag },
 	waypoint: { Placement },
 }
 

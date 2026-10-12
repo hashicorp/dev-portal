@@ -4,17 +4,20 @@
 		{
 			"iconName": "boundary-color",
 			"name": "HCP Boundary",
-			"path": "docs/boundary"
+			"path": "docs/boundary",
+			"url": "/boundary/cloud"
 		},
 		{
 			"iconName": "vault-color",
 			"name": "HCP Vault Dedicated",
-			"path": "docs/vault"
+			"path": "docs/vault",
+			"url": "/vault/cloud"
 		},
 		{
 			"iconName": "vault-radar-color",
 			"name": "HCP Vault Radar",
-			"path": "docs/vault-radar"
+			"path": "docs/vault-radar",
+			"url": "/vault-radar/cloud"
 		},
 		{
 			"iconName": "packer-color",

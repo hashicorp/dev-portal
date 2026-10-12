@@ -72,13 +72,13 @@ const NavigationHeaderDropdownMenu = ({
 			setIsOpen(false)
 			activatorButtonRef.current.focus()
 		},
-		isOpen
+		isOpen,
 	)
 
 	// Check for a visible icon or label
 	if (!label && !hasLeadingIcon) {
 		throw new Error(
-			'`NavigationHeaderDropdownMenu` needs either the `label` or `leadingIcon` prop.'
+			'`NavigationHeaderDropdownMenu` needs either the `label` or `leadingIcon` prop.',
 		)
 	}
 
@@ -92,7 +92,7 @@ const NavigationHeaderDropdownMenu = ({
 	const accessibleLabel = ariaLabel || label
 	if (leadingIcon && !accessibleLabel) {
 		throw new Error(
-			'`NavigationHeaderDropdownMenu` needs either the `ariaLabel` or `label` prop to have an accessible label.'
+			'`NavigationHeaderDropdownMenu` needs either the `ariaLabel` or `label` prop to have an accessible label.',
 		)
 	}
 
@@ -260,7 +260,7 @@ const NavigationHeaderDropdownMenu = ({
 														<span
 															className={classNames(
 																s.leftAlignedItemLinkContentIcon,
-																iconClassName
+																iconClassName,
 															)}
 														>
 															{icon}
@@ -294,11 +294,7 @@ const NavigationHeaderDropdownMenu = ({
 															href={linkHref}
 															onKeyDown={handleKeyDown}
 															onClickCapture={() => {
-																trackNavClickEvent(
-																	item.label,
-																	linkHref,
-																	label
-																)
+																trackNavClickEvent(item.label, linkHref, label)
 															}}
 														>
 															{anchorContent}
@@ -315,13 +311,13 @@ const NavigationHeaderDropdownMenu = ({
 													)}
 												</li>
 											)
-										}
+										},
 									)}
 								</ul>
 								{showDivider && <hr className={s.itemGroupDivider} />}
 							</Fragment>
 						)
-					}
+					},
 				)}
 			</div>
 		)
@@ -329,9 +325,7 @@ const NavigationHeaderDropdownMenu = ({
 
 	return (
 		<div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
-			<div
-				className={s.activatorWrapper}
-			>
+			<div className={s.activatorWrapper}>
 				<button
 					aria-controls={menuId}
 					aria-expanded={isOpen}

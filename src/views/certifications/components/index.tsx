@@ -4,10 +4,13 @@
  */
 
 export * from './accordion-with-mdx-content'
+export * from './announcement'
 export * from './certifications-max-width'
 export * from './cta-group'
 export * from './exam-badge'
 export * from './gradient-card'
 export * from './signup-form-area'
-export * from './split-card-section'
 export * from './standalone-link-contents'
+export * from './certification-card'
+export * from './certification-card-container'
+export * from './certification-hero'
