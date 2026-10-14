@@ -171,7 +171,10 @@ function Image({
 	const theme = getTheme(src)
 
 	let servedFromBadge = null
-	if (process.env.HASHI_ENV === 'unified-docs-sandbox') {
+	if (
+		process.env.HASHI_ENV === 'unified-docs-sandbox' ||
+		process.env.HASHI_ENV === 'development'
+	) {
 		if (servedFrom === 'current build' || servedFrom === 'production') {
 			const icon = servedFrom === 'production' ? '🟢' : '🟡'
 			servedFromBadge = (

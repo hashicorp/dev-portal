@@ -100,7 +100,11 @@ const SidebarSidecarLayoutContent = ({
 	}
 
 	let servedFromBadge = null
-	if (docMetadata && process.env.HASHI_ENV === 'unified-docs-sandbox') {
+	if (
+		docMetadata &&
+		(process.env.HASHI_ENV === 'unified-docs-sandbox' ||
+			process.env.HASHI_ENV === 'development')
+	) {
 		const servedFrom = docMetadata['served-from']
 		if (servedFrom === 'current build' || servedFrom === 'production') {
 			const icon = servedFrom === 'production' ? '🟢' : '🟡'
