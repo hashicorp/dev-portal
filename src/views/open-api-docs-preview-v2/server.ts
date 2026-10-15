@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import env from 'env-var'
 // Utilities
 import getPropsFromPreviewData from './utils/get-props-from-preview-data'
 // Constants
@@ -17,7 +18,8 @@ import { OpenApiDocsPreviewV2Props } from '.'
  * We expect the `HASHI_ENV` environment variable to be set to `production`
  * only if we're actually in production.
  */
-const IS_PRODUCTION = process.env.VERCEL_ENV === 'production'
+const VERCEL_ENV = env.get('VERCEL_ENV').asString()
+const IS_PRODUCTION = VERCEL_ENV === 'production'
 
 /**
  * For reference on Vercel system environment variables, see:
@@ -27,7 +29,7 @@ const IS_PRODUCTION = process.env.VERCEL_ENV === 'production'
  * where NextJS decides to start on a different port (eg if 3000 is in use),
  * but I couldn't find a way to detect that, and for now, this seems sufficient.
  */
-const IS_VERCEL_DEPLOY = typeof process.env.VERCEL_ENV === 'string'
+const IS_VERCEL_DEPLOY = VERCEL_ENV !== undefined
 const BASE_URL = IS_VERCEL_DEPLOY
 	? `https://${process.env.VERCEL_URL}`
 	: 'http://localhost:3000'
