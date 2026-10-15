@@ -126,7 +126,6 @@ export default async () => {
 		images: {
 			formats: ['image/avif', 'image/webp'],
 			remotePatterns: [
-				{ protocol: 'https', hostname: 'www.datocms-assets.com' },
 				{
 					protocol: 'https',
 					hostname: 'mktg-content-api-hashicorp.vercel.app',

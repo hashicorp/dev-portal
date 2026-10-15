@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Automate Infrastructure on Any Cloud",
-		"image": "https://www.datocms-assets.com/2885/1663105398-dev-dot-terraform-landing-hero-2x.png"
+		"image": "/img/terraform/landing-hero-graphic.png"
 	},
 	"overview": {
 		"heading": "What is Terraform?",
@@ -11,8 +11,8 @@
 			"url": "/terraform/intro"
 		},
 		"image": {
-			"light": "https://www.datocms-assets.com/2885/1679095195-devdot-terraform_lm.png",
-			"dark": "https://www.datocms-assets.com/2885/1679087761-devdot-terraform_dm.png"
+			"light": "/img/terraform/overview-light.png",
+			"dark": "/img/terraform/overview-dark.png"
 		}
 	},
 	"get_started": {

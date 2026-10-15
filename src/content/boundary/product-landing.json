@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Simple and secure remote access",
-		"image": "https://www.datocms-assets.com/2885/1662767785-dev-dot-boundary-landing-hero-2x.png"
+		"image": "/img/boundary/landing-hero-graphic.png"
 	},
 	"overview": {
 		"heading": "What is Boundary?",
@@ -11,8 +11,8 @@
 			"url": "/boundary/docs/overview/what-is-boundary"
 		},
 		"image": {
-			"light": "https://www.datocms-assets.com/2885/1679095102-devdot-boundary_lm.png",
-			"dark": "https://www.datocms-assets.com/2885/1679087672-devdot-boundary_dm.png"
+			"light": "/img/boundary/overview-light.png",
+			"dark": "/img/boundary/overview-dark.png"
 		}
 	},
 	"get_started": {

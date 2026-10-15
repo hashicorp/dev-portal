@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Internal developer platform made easy",
-		"image": "https://www.datocms-assets.com/2885/1662767806-dev-dot-waypoint-landing-hero-2x.png"
+		"image": "/img/waypoint/landing-hero-graphic.png"
 	},
 	"overview": {
 		"heading": "What is HCP Waypoint?",
@@ -11,8 +11,8 @@
 			"url": "/hcp/docs/waypoint"
 		},
 		"image": {
-			"light": "https://www.datocms-assets.com/2885/1679095382-devdot-waypoint_lm.png",
-			"dark": "https://www.datocms-assets.com/2885/1679087832-devdot-waypoint_dm.png"
+			"light": "/img/waypoint/overview-light.png",
+			"dark": "/img/waypoint/overview-dark.png"
 		}
 	},
 	"get_started": {
