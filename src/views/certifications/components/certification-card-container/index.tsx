@@ -68,9 +68,9 @@ export function CertificationCardContainer({
 			</div>
 			<div className={s.certCardContainerContent}>
 				{certs &&
-					certs.map((cert, index) => (
+					certs.map((cert) => (
 						<CertificationCardDisplay
-							key={`certCard-${index}`}
+							key={`certCard-${cert.title}`}
 							product={cert.product}
 							title={cert.title}
 							desc={cert.desc ? cert.desc : ''}
