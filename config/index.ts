@@ -6,6 +6,7 @@
 import fs from 'fs'
 import path from 'path'
 import flat from 'flat'
+import env from 'env-var'
 import { fetchDocsContent } from '../src/lib/fetch-docs-content/fetch-docs-content'
 
 // Cache the final config to avoid re-reading files multiple times
@@ -47,9 +48,11 @@ async function getHashiConfig(configPath: string) {
 			extendsConfig = await getHashiConfig(extendsConfigPath)
 		}
 
-		if (process.env.VERCEL_ENV !== 'production') {
+		const VERCEL_ENV = env.get('VERCEL_ENV').asString()
+		const UNIFIED_DOCS_API = env.get('UNIFIED_DOCS_API').asString()
+		if (VERCEL_ENV !== 'production') {
 			// Fetch additional config from UNIFIED_DOCS_API if available
-			if (process.env.UNIFIED_DOCS_API) {
+			if (UNIFIED_DOCS_API) {
 				try {
 					if (!envConfig.flags) envConfig.flags = {}
 					if (!extendsConfig.flags) extendsConfig.flags = {}
@@ -71,8 +74,8 @@ async function getHashiConfig(configPath: string) {
 					envConfig.flags.unified_docs_migrated_repos = udrProducts
 				} catch (err) {
 					console.warn(
-						`⛔️ Failed to fetch from "${process.env.UNIFIED_DOCS_API}/api/supported-products":`,
-						(err as Error).message,
+						`⛔️ Failed to fetch from "${UNIFIED_DOCS_API}/api/supported-products":`,
+						err.message,
 					)
 					console.warn(
 						'⛔️ Defaulting to "config/production.json" list of UDR products',
@@ -107,7 +110,8 @@ async function getHashiConfig(configPath: string) {
 			unknown
 		>
 
-		if (process.env.DEBUG_CONFIG) {
+		const DEBUG_CONFIG = env.get('DEBUG_CONFIG').asBool()
+		if (DEBUG_CONFIG) {
 			console.log('[DEBUG_CONFIG]', finalConfig)
 		}
 

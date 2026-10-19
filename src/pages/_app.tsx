@@ -4,6 +4,7 @@
  */
 
 // Third-party imports
+import { from } from 'env-var'
 import React, { useEffect, useState } from 'react'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -50,7 +51,14 @@ import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 // Local imports
 import './style.css'
 
-if (typeof window !== 'undefined' && process.env.AXE_ENABLED === 'true') {
+const clientEnv = from({
+	AXE_ENABLED: process.env.AXE_ENABLED,
+	NODE_ENV: process.env.NODE_ENV,
+})
+const AXE_ENABLED = clientEnv.get('AXE_ENABLED').asBool()
+const NODE_ENV = clientEnv.get('NODE_ENV').asString()
+
+if (typeof window !== 'undefined' && AXE_ENABLED) {
 	import('react-dom').then((ReactDOM) => {
 		import('@axe-core/react').then((axe) => {
 			axe.default(React, ReactDOM, 1000)
@@ -97,7 +105,7 @@ export default function App({
 						staleTime: Infinity,
 					},
 				},
-			})
+			}),
 	)
 	// const [experimentFlags] = useState<FeatureFlags>(() => {
 	// 	// Server-provided flags take priority (SSR / getServerSideProps pages).
@@ -123,43 +131,43 @@ export default function App({
 
 	return (
 		// <ExperimentsProvider flags={experimentFlags}>
-			<ConditionalPostHogProvider>
-				<MDSProvider
-					imageComponent={NextImageAdapter}
-					linkComponent={NextLinkAdapter}
-				>
-					<QueryClientProvider client={queryClient}>
-						<SSRProvider>
-							<QueryParamProvider adapter={Adapter}>
-								<ErrorBoundary FallbackComponent={DevDotClient}>
-									<SessionProvider session={session}>
-										<DeviceSizeProvider>
-											<CurrentProductProvider currentProduct={currentProduct}>
-												<InstruqtProvider source="sandbox" renderEmbed={true}>
-													<HeadMetadata {...pageProps.metadata} />
-													<LazyMotion
-														features={() =>
-															import('lib/framer-motion-features').then(
-																(mod) => mod.default
-															)
-														}
-														strict={process.env.NODE_ENV === 'development'}
-													>
-														<Component {...pageProps} />
-														<Toaster />
-														<ReactQueryDevtools />
-														<SpeedInsights sampleRate={0.05} />
-													</LazyMotion>
-												</InstruqtProvider>
-											</CurrentProductProvider>
-										</DeviceSizeProvider>
-									</SessionProvider>
-								</ErrorBoundary>
-							</QueryParamProvider>
-						</SSRProvider>
-					</QueryClientProvider>
-				</MDSProvider>
-			</ConditionalPostHogProvider>
-		// </ExperimentsProvider> 
+		<ConditionalPostHogProvider>
+			<MDSProvider
+				imageComponent={NextImageAdapter}
+				linkComponent={NextLinkAdapter}
+			>
+				<QueryClientProvider client={queryClient}>
+					<SSRProvider>
+						<QueryParamProvider adapter={Adapter}>
+							<ErrorBoundary FallbackComponent={DevDotClient}>
+								<SessionProvider session={session}>
+									<DeviceSizeProvider>
+										<CurrentProductProvider currentProduct={currentProduct}>
+											<InstruqtProvider source="sandbox" renderEmbed={true}>
+												<HeadMetadata {...pageProps.metadata} />
+												<LazyMotion
+													features={() =>
+														import('lib/framer-motion-features').then(
+															(mod) => mod.default,
+														)
+													}
+													strict={NODE_ENV === 'development'}
+												>
+													<Component {...pageProps} />
+													<Toaster />
+													<ReactQueryDevtools />
+													<SpeedInsights sampleRate={0.05} />
+												</LazyMotion>
+											</InstruqtProvider>
+										</CurrentProductProvider>
+									</DeviceSizeProvider>
+								</SessionProvider>
+							</ErrorBoundary>
+						</QueryParamProvider>
+					</SSRProvider>
+				</QueryClientProvider>
+			</MDSProvider>
+		</ConditionalPostHogProvider>
+		// </ExperimentsProvider>
 	)
 }

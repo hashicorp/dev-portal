@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { from } from 'env-var'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import path from 'path'
 import fs from 'fs'
@@ -27,6 +28,11 @@ if (typeof window !== 'undefined') {
 	})
 }
 
+const envConfig = from({
+	NODE_ENV: process.env.NODE_ENV,
+})
+const NODE_ENV = envConfig.get('NODE_ENV').asString()
+
 /**
  * Tracks sandbox page errors with PostHog and development logging
  */
@@ -45,7 +51,7 @@ const trackSandboxPageError = (
 		})
 	}
 
-	if (process.env.NODE_ENV === 'development') {
+	if (NODE_ENV === 'development') {
 		console.error(`[SandboxPage] ${errorMessage}`, context)
 	}
 }
@@ -77,7 +83,7 @@ async function getMdxContent(
 		try {
 			await fs.promises.access(fullPath, fs.constants.F_OK)
 		} catch {
-			if (process.env.NODE_ENV === 'development') {
+			if (NODE_ENV === 'development') {
 				console.warn(`[SandboxPage] MDX file not found: ${filePath}`)
 			}
 			return null
@@ -95,7 +101,7 @@ async function getMdxContent(
 		})
 	} catch (error) {
 		// Track MDX processing errors for debugging
-		if (process.env.NODE_ENV === 'development') {
+		if (NODE_ENV === 'development') {
 			console.error(`[SandboxPage] Error reading MDX file ${filePath}:`, error)
 		}
 		return null
@@ -186,7 +192,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 									},
 								)
 
-								if (process.env.NODE_ENV === 'development') {
+								if (NODE_ENV === 'development') {
 									console.warn(
 										`Failed to load documentation for ${labId}:`,
 										mdxError,
@@ -212,7 +218,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 							},
 						)
 
-						if (process.env.NODE_ENV === 'development') {
+						if (NODE_ENV === 'development') {
 							console.error(`Error processing lab ${lab?.labId}:`, labError)
 						}
 
@@ -269,7 +275,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 						},
 					)
 
-					if (process.env.NODE_ENV === 'development') {
+					if (NODE_ENV === 'development') {
 						console.error(`Error processing other lab ${lab?.labId}:`, labError)
 					}
 
@@ -346,7 +352,7 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 			},
 		)
 
-		if (process.env.NODE_ENV === 'development') {
+		if (NODE_ENV === 'development') {
 			console.error('Error in getStaticProps for sandbox page:', error)
 		}
 
