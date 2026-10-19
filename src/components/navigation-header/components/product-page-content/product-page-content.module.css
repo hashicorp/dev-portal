@@ -40,6 +40,11 @@
 	gap: 24px;
 	width: 100%;
 	min-width: 0;
+
+	@media (--dev-dot-show-mobile-menu) {
+		justify-content: space-between;
+		align-items: center;
+	}
 }
 
 .left {
@@ -52,4 +57,71 @@
 	align-items: center;
 	margin-left: auto;
 	gap: 16px;
+}
+
+.mobileSubMenuButton {
+	display: none;
+
+	@media (--dev-dot-show-mobile-menu) {
+		display: flex;
+		gap: 6px;
+		padding: 4px 0;
+		font-size: 13px;
+		color: var(--mds-color-foreground-strong);
+		margin: 0;
+		border: 0;
+		background: none;
+	}
+}
+
+.certsMobileMenu {
+	display: none;
+
+	@media (--dev-dot-show-mobile-menu) {
+		display: flex;
+		position: absolute;
+		left: calc(100% - 327px - 24px);
+		width: 327px;
+		height: fit-content !important;
+		max-height: min(
+			440px,
+			calc(95vh - calc(var(--navigation-header-height) * 2))
+				/* There should always be a subnav + top nav when the submenu is rendered */
+		) !important ;
+		z-index: -1 !important;
+		border-radius: 8px;
+		font-size: 14px;
+		padding: 16px 0;
+		box-shadow:
+			0 16px 16px -10px var(--token-color-palette-alpha-200),
+			0 2px 3px 0 #656a7626,
+			0 0 0 1px #656a7640;
+
+		/* Overview Button */
+		> li > a {
+			padding: 8px 24px;
+			color: var(--mds-color-foreground-strong);
+		}
+
+		/* Terraform/Vault Submenu */
+		> ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+
+			/* Submenu link items */
+			> li > a {
+				padding: 8px 32px;
+
+				> li > a:hover {
+					background-color: transparent;
+				}
+			}
+		}
+
+		/* Terraform/Vault Submenu Button */
+		> button {
+			padding: 8px 24px;
+		}
+	}
 }

@@ -4,7 +4,9 @@
  */
 
 // Global imports
-import { useCurrentProduct } from 'contexts'
+import { useCurrentProduct, useMobileSubMenu } from 'contexts'
+import { useRef } from 'react'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
@@ -14,6 +16,13 @@ import { ProductIconTextLink } from './components'
 import { getRightSideNavItems, NavItem, getLeftSideNavItems } from './utils'
 import { PrimaryNavLinkProps } from '../primary-nav-link'
 import SandboxDropdown from '../sandbox-dropdown'
+import { MobileSubMenuContainer } from '@components/mobile-menu-container'
+import {
+	SidebarNavMenuItem,
+	SidebarNavSubmenuItem,
+} from '@components/sidebar/components'
+import { SidebarNavMenuItemProps } from '@components/sidebar/components/sidebar-nav-menu-item/types'
+import { MenuItem } from '@components/sidebar'
 import s from './product-page-content.module.css'
 import { usePathname } from 'next/navigation'
 
@@ -25,6 +34,94 @@ const EXAM_BUTTON_EXCLUSION_ROUTES = [
 function shouldIncludeExamButton(pathname: string) {
 	return EXAM_BUTTON_EXCLUSION_ROUTES.every(
 		(route) => !pathname.includes(route),
+	)
+}
+
+// Icons
+import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
+import { IconChevronUp16 } from '@hashicorp/flight-icons/svg-react/chevron-up-16'
+
+/**
+ * The header content displayed to the far right of the window. This content is
+ * the same for every page in the app.
+ */
+function MobileSubMenuButton({ className }) {
+	const { mobileSubMenuIsOpen, setMobileSubMenuIsOpen } = useMobileSubMenu()
+	const ariaLabel = `${mobileSubMenuIsOpen ? 'Close' : 'Open'} sub navigation menu`
+	const iconSize = '12px'
+
+	function handleMenu() {
+		setMobileSubMenuIsOpen((prevState) => !prevState)
+	}
+
+	return (
+		<>
+			<button aria-label={ariaLabel} className={className} onClick={handleMenu}>
+				Menu{' '}
+				{mobileSubMenuIsOpen ? (
+					<IconChevronUp16 fontSize={iconSize} />
+				) : (
+					<IconChevronDown16 fontSize={iconSize} />
+				)}
+			</button>
+		</>
+	)
+}
+
+function CertificationsMobileMenu({ className, navItems, isCertifications }) {
+	// Needed to handle closing the menu when clicking outside (e.g. top level nav menu)
+	const { isMobileSubMenuRendered, setMobileSubMenuIsOpen } = useMobileSubMenu()
+	const certsMobileMenuRef = useRef<HTMLDivElement>()
+	useOnFocusOutside(
+		[certsMobileMenuRef],
+		() => setMobileSubMenuIsOpen(false),
+		isMobileSubMenuRendered,
+	)
+
+	// convert NavItem type into SidebarNavMenuItemProps
+	const formattedNavItems: SidebarNavMenuItemProps[] = navItems.map(
+		(navItem: NavItem): SidebarNavMenuItemProps => {
+			// Format for submenu item
+			if ('items' in navItem) {
+				return {
+					item: {
+						title: navItem.label,
+						isOpen: true,
+						routes: navItem.items.map(
+							(subItem): MenuItem => ({
+								title: subItem.label,
+								fullPath: subItem.path,
+							}),
+						),
+					},
+				}
+			}
+
+			// Format for single menu item
+			return {
+				item: {
+					title: navItem.label,
+					fullPath: navItem.url,
+				},
+			}
+		},
+	)
+
+	// Render submenu if there are additional routes; otherwise, render a single menu item
+	return (
+		<MobileSubMenuContainer
+			className={className}
+			isCertifications={isCertifications}
+			ref={certsMobileMenuRef}
+		>
+			{formattedNavItems.map(({ item }) =>
+				item.routes ? (
+					<SidebarNavSubmenuItem key={item.title} item={item} />
+				) : (
+					<SidebarNavMenuItem key={item.title} item={item} />
+				),
+			)}
+		</MobileSubMenuContainer>
 	)
 }
 
@@ -106,6 +203,14 @@ const ProductPageHeaderContent = () => {
 						)}
 					</div>
 				</NavBarListContainer>
+				<MobileSubMenuButton className={s.mobileSubMenuButton} />
+				{isCertificationsRoute && (
+					<CertificationsMobileMenu
+						className={s.certsMobileMenu}
+						navItems={leftSideNavItems}
+						isCertifications={isCertificationsRoute}
+					/>
+				)}
 			</div>
 		</>
 	)
