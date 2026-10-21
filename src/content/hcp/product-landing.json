@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "The fastest way to get up and running with HashiCorp tools",
-		"image": "https://www.datocms-assets.com/2885/1662767810-dev-dot-hcp-landing-hero-2x.png"
+		"image": "/img/hcp/landing-hero-graphic.png"
 	},
 	"overview": {
 		"heading": "What is HCP?",
@@ -11,8 +11,8 @@
 			"url": "/hcp/docs/hcp"
 		},
 		"image": {
-			"light": "https://www.datocms-assets.com/2885/1662053773-dev-dot-product-landing-what-is-hcp-diagram.png",
-			"dark": "https://www.datocms-assets.com/2885/1679096025-hcp_dm.svg"
+			"light": "/img/hcp/overview-light.png",
+			"dark": "/img/hcp/overview-dark.svg"
 		}
 	},
 	"get_started": {
