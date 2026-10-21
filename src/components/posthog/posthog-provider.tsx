@@ -21,33 +21,34 @@ export function ConditionalPostHogProvider({
 	const categoryPerformanceConsent = useDatagrailPerformanceConsent()
 
 	useEffect(() => {
-		if (categoryPerformanceConsent) {
-			const bootstrap = getBootstrapDataClient()
-			// This initialization code came from the PostHog documentation
-			// https://posthog.com/docs/libraries/next-js#router-specific-instructions
-			posthog.init(process.env.POSTHOG_PROJECT_API_KEY, {
-				api_host:
-					process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
-				// Enable debug mode in development
-				loaded: (posthog) => {
-					if (process.env.NODE_ENV === 'development') posthog.debug()
-				},
-				bootstrap,
-			})
+		const bootstrap = getBootstrapDataClient()
+		// This initialization code came from the PostHog documentation
+		// https://posthog.com/docs/libraries/next-js#router-specific-instructions
+		posthog.init(process.env.POSTHOG_PROJECT_API_KEY, {
+			api_host:
+				process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
+			// Enable debug mode in development
+			loaded: (posthog) => {
+				if (process.env.NODE_ENV === 'development') posthog.debug()
+			},
+			bootstrap,
+			cookieless_mode: 'on_reject',
+		})
 
-			const handleRouteChange = () => posthog?.capture('$pageview')
+		const handleRouteChange = () => posthog?.capture('$pageview')
+		Router.events.on('routeChangeComplete', handleRouteChange)
+		return () => {
+			Router.events.off('routeChangeComplete', handleRouteChange)
+		}
+	}, [])
 
-			Router.events.on('routeChangeComplete', handleRouteChange)
-
-			return () => {
-				Router.events.off('routeChangeComplete', handleRouteChange)
-			}
+	useEffect(() => {
+		if (categoryPerformanceConsent === true) {
+			posthog.opt_in_capturing()
+		} else if (categoryPerformanceConsent === false) {
+			posthog.opt_out_capturing()
 		}
 	}, [categoryPerformanceConsent])
 
-	if (categoryPerformanceConsent) {
-		return <PostHogProvider client={posthog}>{children}</PostHogProvider>
-	} else {
-		return children
-	}
+	return <PostHogProvider client={posthog}>{children}</PostHogProvider>
 }

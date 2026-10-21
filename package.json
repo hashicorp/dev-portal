@@ -184,7 +184,7 @@
 		"p-map": "^4.0.0",
 		"pkg-dir": "^5.0.0",
 		"playwright": "^1.60.0",
-		"posthog-js": "^1.249.1",
+		"posthog-js": "^1.297.2",
 		"posthog-node": "4.3.0",
 		"probe-image-size": "^7.2.3",
 		"promise-polyfill": "^8.2.1",
