@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Orchestrate, deploy, and manage containers, binaries, and batch jobs in the cloud or on-prem",
-		"image": "https://www.datocms-assets.com/2885/1662767792-dev-dot-nomad-landing-hero-2x.png"
+		"image": "/img/nomad/landing-hero-graphic.png"
 	},
 	"overview": {
 		"heading": "What is Nomad?",
@@ -11,8 +11,8 @@
 			"url": "/nomad/docs/what-is-nomad"
 		},
 		"image": {
-			"light": "https://www.datocms-assets.com/2885/1679095153-devdot-nomad_lm.png",
-			"dark": "https://www.datocms-assets.com/2885/1679087719-devdot-nomad_dm.png"
+			"light": "/img/nomad/overview-light.png",
+			"dark": "/img/nomad/overview-dark.png"
 		}
 	},
 	"get_started": {

@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corp. 2021, 2025
+ * Copyright IBM Corp. 2022, 2026
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -54,7 +54,7 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: {
 		'waypoint' | 'well-architected-framework' | 'validated-patterns' | 'validated-designs' | 'vault-radar'
 	>]: string
 } = {
-	boundary: 'https://github.com/hashicorp/boundary',
+	boundary: 'https://github.com/hashicorp/boundary-sdk',
 	consul: 'https://github.com/hashicorp/consul',
 	hcp: DEFAULT_GITHUB_LINK,
 	nomad: 'https://github.com/hashicorp/nomad',

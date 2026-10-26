@@ -1,5 +1,5 @@
 /**
- * Copyright IBM Corp. 2021, 2025
+ * Copyright IBM Corp. 2022, 2026
  * SPDX-License-Identifier: MPL-2.0
  */
 
@@ -30,9 +30,9 @@ const BASE_URL = '/boundary/api-docs'
 
 /**
  * The path to read from when running local preview in the context
- * of the `hashicorp/boundary` repository.
+ * of the `hashicorp/boundary-sdk` repository.
  */
-const TARGET_LOCAL_FILE = '../../internal/gen/controller.swagger.json'
+const TARGET_LOCAL_FILE = '../../controller.swagger.json'
 
 /**
  * Version data is hard-coded for now. In the future, we could fetch
@@ -43,8 +43,8 @@ function getVersionData(): ApiDocsVersionData[] {
 		? TARGET_LOCAL_FILE
 		: {
 				owner: 'hashicorp',
-				repo: 'boundary',
-				path: 'internal/gen/controller.swagger.json',
+				repo: 'boundary-sdk',
+				path: 'controller.swagger.json',
 				ref: 'main',
 		  }
 	return [

@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Manage Secrets & Protect Sensitive Data",
-		"image": "https://www.datocms-assets.com/2885/1662767802-dev-dot-vault-landing-hero-2x.png"
+		"image": "/img/vault/landing-hero-graphic.png"
 	},
 	"overview": {
 		"heading": "What is Vault?",
@@ -11,8 +11,8 @@
 			"url": "/vault/docs/what-is-vault"
 		},
 		"image": {
-			"light": "https://www.datocms-assets.com/2885/1679095239-devdot-vault_lm.png",
-			"dark": "https://www.datocms-assets.com/2885/1679087583-devdot-vault_dm.png"
+			"light": "/img/vault/overview-light.png",
+			"dark": "/img/vault/overview-dark.png"
 		}
 	},
 	"get_started": {
