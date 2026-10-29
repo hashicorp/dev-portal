@@ -57,7 +57,8 @@
 			"collectionSlugs": [
 				"vault/secrets-management",
 				"vault/db-credentials",
-				"vault/encryption-as-a-service"
+				"vault/encryption-as-a-service",
+				"vault/disaster-recovery"
 			]
 		},
 		{
