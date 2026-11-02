@@ -15,10 +15,10 @@
 		}
 	},
 	"announcement": {
-		"header": "Practice with sample questions",
-		"text": "Get ready for your exam by reviewing sample questions before your appointment.",
-		"cta": "Read more",
-		"ctaLink": "/terraform/tutorials/certification-004/associate-questions-004"
+		"header": "New! Terraform Infrastructure Engineer Professional certification exam",
+		"text": "Terraform Infrastructure Engineer Professional exam is now available for registration.",
+		"cta": "Learn more",
+		"ctaLink": "/certifications/terraform-infrastructure-engineer-professional"
 	},
 	"certificationDetails": {
 		"product": "terraform",

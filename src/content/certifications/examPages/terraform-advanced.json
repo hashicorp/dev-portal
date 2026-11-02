@@ -15,10 +15,10 @@
 		}
 	},
 	"announcement": {
-		"header": "Video walkthrough",
-		"text": "Be sure to review the orientation video for guidance on the exam format and expectations.",
-		"cta": "Read more",
-		"ctaLink": "/terraform/tutorials/pro-cert/terraform-advanced-overview"
+		"header": "New! Terraform Infrastructure Engineer Professional certification exam",
+		"text": "Terraform Infrastructure Engineer Professional exam is now available for registration.",
+		"cta": "Learn more",
+		"ctaLink": "/certifications/terraform-infrastructure-engineer-professional"
 	},
 	"certificationDetails": {
 		"product": "terraform",
