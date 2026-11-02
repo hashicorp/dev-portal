@@ -22,11 +22,12 @@ import {
  * const categoryPerformanceConsent = useDatagrailPerformanceConsent();
  * console.log(categoryPerformanceConsent); // true or false based on user consent
  */
-const useDatagrailPerformanceConsent = (): boolean => {
+const useDatagrailPerformanceConsent = (): boolean | null => {
 	// This consent category that is used for performance cookies which determines if we can use posthog
 	const consentCategory = 'dg-category-performance'
-	const [categoryPerformanceConsent, setCategoryPerformanceConsent] =
-		useState<boolean>(false)
+	const [categoryPerformanceConsent, setCategoryPerformanceConsent] = useState<
+		boolean | null
+	>(null)
 
 	function formatPayload(preferences) {
 		const payload = preferences.reduce((obj, item) => {
@@ -39,7 +40,7 @@ const useDatagrailPerformanceConsent = (): boolean => {
 	useEffect(() => {
 		addDatagrailEventListener('initial_preference_callback', (preferences) => {
 			const payload = formatPayload(
-				preferences?.consentPreferences?.cookieOptions
+				preferences?.consentPreferences?.cookieOptions,
 			)
 			if (payload && payload[consentCategory]) {
 				setCategoryPerformanceConsent(true)
@@ -50,7 +51,7 @@ const useDatagrailPerformanceConsent = (): boolean => {
 
 		addDatagrailEventListener('preference_callback', (preferences) => {
 			const payload = formatPayload(
-				preferences?.consentPreferences?.cookieOptions
+				preferences?.consentPreferences?.cookieOptions,
 			)
 			if (payload && payload[consentCategory]) {
 				setCategoryPerformanceConsent(true)
