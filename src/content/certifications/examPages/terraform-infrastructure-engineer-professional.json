@@ -42,12 +42,12 @@
 						"value": "90 minutes"
 					},
 					{
-						"name": "Price",
-						"value": "$200 USD, plus locally applicable taxes and fees. Free retake not included."
-					},
-					{
 						"name": "Version tested",
 						"value": "Terraform 1.15"
+					},
+					{
+						"name": "Price",
+						"value": "$200 USD, plus locally applicable taxes and fees. Free retake not included."
 					}
 				]
 			},
