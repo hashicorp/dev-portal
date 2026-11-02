@@ -14,6 +14,12 @@
 			"link": "/terraform/tutorials/pro-cert"
 		}
 	},
+	"announcement": {
+		"header": "Video walkthrough",
+		"text": "Be sure to review the orientation video for guidance on the exam format and expectations.",
+		"cta": "Read more",
+		"ctaLink": "/terraform/tutorials/pro-cert/terraform-advanced-overview"
+	},
 	"certificationDetails": {
 		"product": "terraform",
 		"data": {

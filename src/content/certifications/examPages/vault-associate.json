@@ -14,6 +14,12 @@
 			"link": "/vault/tutorials/associate-cert-003"
 		}
 	},
+	"announcement": {
+		"header": "Practice with sample questions",
+		"text": "Get ready for your exam by reviewing sample questions before your appointment.",
+		"cta": "Read more",
+		"ctaLink": "/vault/tutorials/associate-cert-003/associate-questions-003"
+	},
 	"certificationDetails": {
 		"product": "vault",
 		"data": {

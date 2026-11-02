@@ -18,7 +18,7 @@
 		"header": "Video walkthrough",
 		"text": "Be sure to review the orientation video for guidance on the exam format and expectations.",
 		"cta": "Read more",
-		"ctaLink": "https://developer.hashicorp.com/vault/tutorials/ops-pro-cert/ops-advanced-overview"
+		"ctaLink": "/vault/tutorials/ops-pro-cert/ops-advanced-overview"
 	},
 	"certificationDetails": {
 		"product": "vault",

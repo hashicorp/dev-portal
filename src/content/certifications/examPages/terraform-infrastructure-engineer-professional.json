@@ -14,6 +14,12 @@
 			"link": "/terraform/tutorials/certification-infra-professional"
 		}
 	},
+	"announcement": {
+		"header": "Practice with sample questions",
+		"text": "Get ready for your exam by reviewing sample questions before your appointment.",
+		"cta": "Read more",
+		"ctaLink": "/terraform/tutorials/certification-infra-professional/cert-pro-questions"
+	},
 	"certificationDetails": {
 		"product": "terraform",
 		"data": {

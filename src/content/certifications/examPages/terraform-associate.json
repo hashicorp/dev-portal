@@ -14,6 +14,12 @@
 			"link": "/terraform/tutorials/certification-004"
 		}
 	},
+	"announcement": {
+		"header": "Practice with sample questions",
+		"text": "Get ready for your exam by reviewing sample questions before your appointment.",
+		"cta": "Read more",
+		"ctaLink": "/terraform/tutorials/certification-004/associate-questions-004"
+	},
 	"certificationDetails": {
 		"product": "terraform",
 		"data": {
