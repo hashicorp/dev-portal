@@ -15,10 +15,10 @@
 		}
 	},
 	"announcement": {
-		"header": "TechXchange is Coming",
-		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
-		"cta": "Read more",
-		"ctaLink": "https://reg.tools.ibm.com/flow/ibm/techxchange26/sessioncatalog/page/sessioncatalog?search=terraform%20advanced&tab.sessioncatalogtabs=option_1601178495160&search.activitytype=1715790731874001qQHK"
+		"header": "New! Terraform Professional certification exam",
+		"text": "The Terraform Infrastructure Engineer Professional exam is now available for registration.",
+		"cta": "Learn more",
+		"ctaLink": "/certifications/terraform-infrastructure-engineer-professional"
 	},
 	"certificationDetails": {
 		"product": "terraform",

@@ -4,10 +4,10 @@
 		"product": "terraform-professional",
 		"eyebrow": "HashiCorp Certified:",
 		"title": "Terraform Infrastructure Engineer Professional (002)",
-		"description": "This exam will launch at IBM TechXchange 2026 in Atlanta. Demonstrate your experience building and automating scalable infrastructure in production environments with Terraform in this multiple-choice exam.",
+		"description": "Demonstrate your experience building and automating scalable infrastructure in production environments with Terraform in this multiple-choice exam.",
 		"leftCta": {
-			"text": "Coming soon",
-			"link": ""
+			"text": "Register for the exam",
+			"link": "/certifications/signin"
 		},
 		"rightCta": {
 			"text": "Prepare for the exam",
@@ -15,10 +15,10 @@
 		}
 	},
 	"announcement": {
-		"header": "Exam launch!",
-		"text": "Be one of the first to take the exam at IBM TechXchange 2026.",
-		"cta": "Get ready",
-		"ctaLink": "https://reg.tools.ibm.com/flow/ibm/techxchange26/sessioncatalog/page/sessioncatalog/session/1787935238141001Txrr"
+		"header": "New! IBM Certified Bob Developer exam",
+		"text": "The IBM Bob Developer - Associate exam is now available for registration.",
+		"cta": "Learn more",
+		"ctaLink": "https://www.ibm.com/training/certification/ibm-certified-bob-v2-developer-associate-C9010800"
 	},
 	"certificationDetails": {
 		"product": "terraform",
@@ -42,16 +42,12 @@
 						"value": "90 minutes"
 					},
 					{
-						"name": "Price",
-						"value": "Coming soon"
-					},
-					{
-						"name": "Launch Date",
-						"value": "October 2026. Online registration opens soon."
-					},
-					{
 						"name": "Version tested",
 						"value": "Terraform 1.15"
+					},
+					{
+						"name": "Price",
+						"value": "$200 USD, plus locally applicable taxes and fees. Free retake not included."
 					}
 				]
 			},
