@@ -14,12 +14,6 @@
 			"link": "/vault/tutorials/associate-cert-003"
 		}
 	},
-	"announcement": {
-		"header": "TechXchange is Coming",
-		"text": "You can take two free exams with the purchase of a HashiConf at TechXchange ticket.",
-		"cta": "Read more",
-		"ctaLink": "https://www.hashicorp.com/en/conferences/hashiconf"
-	},
 	"certificationDetails": {
 		"product": "vault",
 		"data": {

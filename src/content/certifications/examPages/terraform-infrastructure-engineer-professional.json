@@ -6,19 +6,13 @@
 		"title": "Terraform Infrastructure Engineer Professional (002)",
 		"description": "This exam will launch at IBM TechXchange 2026 in Atlanta. Demonstrate your experience building and automating scalable infrastructure in production environments with Terraform in this multiple-choice exam.",
 		"leftCta": {
-			"text": "Coming soon",
-			"link": ""
+			"text": "Register for the exam",
+			"link": "/certifications/signin"
 		},
 		"rightCta": {
 			"text": "Prepare for the exam",
 			"link": "/terraform/tutorials/certification-infra-professional"
 		}
-	},
-	"announcement": {
-		"header": "Exam launch!",
-		"text": "Be one of the first to take the exam at IBM TechXchange 2026.",
-		"cta": "Get ready",
-		"ctaLink": "https://reg.tools.ibm.com/flow/ibm/techxchange26/sessioncatalog/page/sessioncatalog/session/1787935238141001Txrr"
 	},
 	"certificationDetails": {
 		"product": "terraform",
