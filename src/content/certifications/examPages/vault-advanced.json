@@ -3,7 +3,7 @@
 	"hero": {
 		"product": "vault-advanced",
 		"eyebrow": "HashiCorp Certified:",
-		"title": "Vault Authoring and Operations Advanced",
+		"title": "Vault Operations Advanced",
 		"description": "Demonstrate your production-level Vault expertise in this intensive, lab-based exam.",
 		"leftCta": {
 			"text": "Register for the exam",
