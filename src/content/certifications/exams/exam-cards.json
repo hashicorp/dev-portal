@@ -28,7 +28,7 @@
 	{
 		"id": "terraform-advanced",
 		"product": "terraform",
-		"title": "Terraform Authoring and Operations Advanced",
+		"title": "Terraform Authoring & Operations Advanced",
 		"desc": "Demonstrate your advanced, production-level Terraform expertise in an intensive, lab-based exam.",
 		"starCount": 3,
 		"ctaLink": "/certifications/terraform-advanced",

@@ -3,7 +3,7 @@
 	"hero": {
 		"product": "terraform-advanced",
 		"eyebrow": "HashiCorp Certified:",
-		"title": "Terraform Authoring and Operations Advanced",
+		"title": "Terraform Authoring & Operations Advanced",
 		"description": "Demonstrate your production-level Terraform expertise in this intensive, lab-based exam. Choose either the AWS or Azure version of the exam to earn the same credential.",
 		"leftCta": {
 			"text": "Register for the exam",
