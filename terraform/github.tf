@@ -1,3 +1,6 @@
+# Copyright IBM Corp. 2022, 2026
+# SPDX-License-Identifier: MPL-2.0
+
 locals {
   secrets = {
     INSTANA_AGENT_KEY     = var.instana_agent_key

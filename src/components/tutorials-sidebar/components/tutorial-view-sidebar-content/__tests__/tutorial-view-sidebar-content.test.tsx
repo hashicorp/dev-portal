@@ -1,3 +1,8 @@
+/**
+ * Copyright IBM Corp. 2022, 2026
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { vi } from 'vitest'
 
 // Mock hooks to avoid provider/context requirements and network
