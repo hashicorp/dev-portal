@@ -148,7 +148,7 @@
 			"name": "HCP Vault Dedicated",
 			"path": "cloud",
 			"productSlugForLoader": "vault-hcp",
-			"basePathForLoader": "hcp-docs"
+			"basePathForLoader": "cloud"
 		}
 	],
 	"integrationsConfig": {
