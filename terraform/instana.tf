@@ -176,7 +176,11 @@ resource "instana_custom_dashboard" "devdot_dashboard" {
   widgets = jsonencode([])
   lifecycle {
     ignore_changes = [
-      widgets
+      widgets,
+      # Instana returns related_id = "" for the GLOBAL rule and computes
+      # rbac_tags server-side, which causes perpetual drift.
+      access_rule,
+      rbac_tags,
     ]
   }
 }
