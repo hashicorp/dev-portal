@@ -106,6 +106,12 @@ variable "github_repository" {
   type        = string
 }
 
+variable "CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY" {
+  description = "Private key used to dynamically register preview URLs with cloudIDP."
+  type        = string
+  sensitive   = true
+}
+
 # -------------------------
 # Vercel
 # -------------------------
