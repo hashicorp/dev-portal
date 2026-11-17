@@ -188,7 +188,7 @@
 		"posthog-node": "4.3.0",
 		"probe-image-size": "^7.2.3",
 		"promise-polyfill": "^8.2.1",
-		"query-string": "^7.1.1",
+		"query-string": "^9.5.1",
 		"react": "^19.2.7",
 		"react-device-detect": "^2.1.2",
 		"react-dom": "^19.2.7",
