@@ -3,8 +3,9 @@
 
 locals {
   secrets = {
-    INSTANA_AGENT_KEY     = var.instana_agent_key
-    INSTANA_OTLP_ENDPOINT = var.instana_otlp_endpoint
+    INSTANA_AGENT_KEY                        = var.instana_agent_key
+    INSTANA_OTLP_ENDPOINT                    = var.instana_otlp_endpoint
+    CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY = var.CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY
   }
   variables = {}
 }
