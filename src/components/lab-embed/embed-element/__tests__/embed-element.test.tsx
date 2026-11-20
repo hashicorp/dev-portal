@@ -227,7 +227,7 @@ describe('EmbedElement', () => {
 			const container = screen
 				.getByTitle('Instruqt Lab Environment: test-lab-id')
 				.closest('div')
-			expect(container).toHaveClass('_hide_4118c4')
+			expect(container).toHaveClass('_hide_995c4b')
 		})
 
 		it('shows Try Again button when error occurs', () => {

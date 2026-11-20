@@ -90,7 +90,7 @@
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^8.25.0",
 		"vite-tsconfig-paths": "^4.3.2",
-		"vitest": "^1.6.1",
+		"vitest": "^3.2.6",
 		"yargs": "^17.6.2"
 	},
 	"dependencies": {
@@ -131,8 +131,8 @@
 		"@mdx-js/react": "^1.6.22",
 		"@next/env": "^16.2.7",
 		"@next/third-parties": "^16.2.7",
-		"@octokit/core": "^3.5.1",
-		"@octokit/openapi-types": "^11.2.0",
+		"@octokit/core": "^5.2.2",
+		"@octokit/openapi-types": "^24.2.0",
 		"@opentelemetry/api": "^1.7.0",
 		"@reach/dialog": "^0.16.2",
 		"@reach/popover": "^0.16.2",
@@ -256,7 +256,14 @@
 		"trim-newlines": "^3.0.1",
 		"uuid": "^11.1.1",
 		"prismjs": "^1.30.0",
-		"axios": "^1.15.0"
+		"axios": "^1.15.0",
+		"imagemin-svgo": "^9.0.0",
+		"@actions/core": {
+			"uuid": "^11.1.1"
+		},
+		"node-notifier": {
+			"uuid": "^11.1.1"
+		}
 	},
 	"nextBundleAnalysis": {
 		"budget": null,

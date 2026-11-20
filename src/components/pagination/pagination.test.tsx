@@ -62,82 +62,82 @@ describe('Pagination', () => {
 		)
 
 		expect(container).toMatchInlineSnapshot(`
-		<div>
-		  <div
-		    class="_pagination_0c87fd"
-		  >
-		    <div
-		      class="_info_0c87fd"
-		    >
-		      1
-		       - 
-		      10
-		       of 103
-		    </div>
-		    <nav
-		      aria-label="Pagination navigation"
-		      class="_nav_0c87fd"
-		    >
-		      <button
-		        aria-label="Previous"
-		        class="_arrow_0c87fd _control_0c87fd _prev_0c87fd"
-		        disabled=""
-		      >
-		        <svg>
-		          IconChevronLeft16
-		        </svg>
-		        <span
-		          class="_label_0c87fd"
-		        >
-		          Previous
-		        </span>
-		      </button>
-		      <button
-		        aria-label="Next"
-		        class="_arrow_0c87fd _control_0c87fd _next_0c87fd"
-		      >
-		        <svg>
-		          IconChevronRight16
-		        </svg>
-		        <span
-		          class="_label_0c87fd"
-		        >
-		          Next
-		        </span>
-		      </button>
-		    </nav>
-		    <div
-		      class="_size-selector_0c87fd"
-		    >
-		      <label
-		        class="_label_0c87fd"
-		      >
-		        Items per page
-		        <select
-		          class="_select_0c87fd"
-		        >
-		          <option
-		            selected=""
-		            value="10"
-		          >
-		            10
-		          </option>
-		          <option
-		            value="30"
-		          >
-		            30
-		          </option>
-		          <option
-		            value="50"
-		          >
-		            50
-		          </option>
-		        </select>
-		      </label>
-		    </div>
-		  </div>
-		</div>
-	`)
+			<div>
+			  <div
+			    class="_pagination_685252"
+			  >
+			    <div
+			      class="_info_685252"
+			    >
+			      1
+			       - 
+			      10
+			       of 103
+			    </div>
+			    <nav
+			      aria-label="Pagination navigation"
+			      class="_nav_685252"
+			    >
+			      <button
+			        aria-label="Previous"
+			        class="_arrow_685252 _control_685252 _prev_685252"
+			        disabled=""
+			      >
+			        <svg>
+			          IconChevronLeft16
+			        </svg>
+			        <span
+			          class="_label_685252"
+			        >
+			          Previous
+			        </span>
+			      </button>
+			      <button
+			        aria-label="Next"
+			        class="_arrow_685252 _control_685252 _next_685252"
+			      >
+			        <svg>
+			          IconChevronRight16
+			        </svg>
+			        <span
+			          class="_label_685252"
+			        >
+			          Next
+			        </span>
+			      </button>
+			    </nav>
+			    <div
+			      class="_size-selector_685252"
+			    >
+			      <label
+			        class="_label_685252"
+			      >
+			        Items per page
+			        <select
+			          class="_select_685252"
+			        >
+			          <option
+			            selected=""
+			            value="10"
+			          >
+			            10
+			          </option>
+			          <option
+			            value="30"
+			          >
+			            30
+			          </option>
+			          <option
+			            value="50"
+			          >
+			            50
+			          </option>
+			        </select>
+			      </label>
+			    </div>
+			  </div>
+			</div>
+		`)
 	})
 
 	it('should render an active button', () => {

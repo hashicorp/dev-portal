@@ -70,7 +70,7 @@ describe('Resizable', () => {
 		// Check that the main resizable container has the 'hide' class
 		const resizableContainer = screen
 			.getByTestId('test-child')
-			.closest('div._resizable_17d1f1')
+			.closest('div._resizable_23fd4a')
 		expect(resizableContainer).toHaveClass(s.hide)
 
 		expect(screen.queryByTestId('test-child')).toBeInTheDocument()
