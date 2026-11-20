@@ -7,6 +7,8 @@
 import { ReactElement } from 'react'
 
 // HashiCorp imports
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
@@ -116,27 +118,51 @@ const ConsulNoteCard = (): ReactElement => {
 }
 
 const ChangelogNote = ({ selectedRelease }) => {
+	const currentProduct = useCurrentProduct()
 	const { name, version } = selectedRelease
 	const capitalizedName = capitalize(name)
+	const subheading = `${capitalizedName} Version: ${version}`
 
-	return (
-		<>
+	/**
+	 * Boundary's community repository is no longer developed and its enterprise
+	 * repository is private, so there is no public GitHub changelog to link to.
+	 * Link to the release notes in the docs instead.
+	 */
+	if (currentProduct.slug === 'boundary') {
+		return (
 			<CardWithLink
-				heading="Changelog"
-				subheading={`${capitalizedName} Version: ${version}`}
+				heading="Release notes"
+				subheading={subheading}
 				link={
 					<MobileStandaloneLink
-						ariaLabel={`${name} version ${version} changelog`}
-						href={`https://github.com/hashicorp/${name}/releases/tag/v${version}`}
-						size16Icon={<IconExternalLink16 />}
-						size24Icon={<IconExternalLink24 />}
+						ariaLabel={`${name} version ${version} release notes`}
+						href="/boundary/docs/updates/release-notes"
+						size16Icon={<IconArrowRight16 />}
+						size24Icon={<IconArrowRight24 />}
 						iconPosition="trailing"
-						opensInNewTab
-						text="GitHub"
+						text="View release notes"
 					/>
 				}
 			/>
-		</>
+		)
+	}
+
+	return (
+		<CardWithLink
+			heading="Changelog"
+			subheading={subheading}
+			link={
+				<MobileStandaloneLink
+					ariaLabel={`${name} version ${version} changelog`}
+					href={`https://github.com/hashicorp/${name}/releases/tag/v${version}`}
+					size16Icon={<IconExternalLink16 />}
+					size24Icon={<IconExternalLink24 />}
+					iconPosition="trailing"
+					opensInNewTab
+					text="GitHub"
+				/>
+			}
+		/>
 	)
 }
 
